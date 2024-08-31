@@ -1,22 +1,25 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
+import jwt from "jsonwebtoken";
 import User from "../models/userModel";
 import catchAsync from "../utils/catchAsync";
+import AppError from "../utils/AppError";
 
-export const getUsers = async (req: Request, res: Response) => {
+export const getUsers = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   const users = await User.find();
 
   if (users.length === 0) {
-    return res.status(404).json({
-      status: "fail",
-      message: "No users found.",
-    });
+    next(new AppError("No users found.", 404));
   }
 
   res.status(200).json({
     status: "success",
     length: users.length,
     data: {
-      users: [],
+      users,
     },
   });
 };
@@ -43,7 +46,11 @@ export const createUser = catchAsync(
       confirmPassword,
     });
 
-    res.status(201).json({ status: "sucess", data: newUser });
+    const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET, {
+      expiresIn: process.env.JWT_EXPIRES_IN,
+    });
+
+    res.status(201).json({ status: "sucess", data: newUser, token });
   }
 );
 
@@ -51,9 +58,17 @@ export const updateUser = (req: Request, res: Response) => {
   res.status(200).json({ message: "PATCH /user" });
 };
 
-export const deleteUser = (req: Request, res: Response) => {
-  res.status(204).json({ message: "DELETE /user" });
-};
+export const deleteUser = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const { userId } = req.params;
+
+    const user = await User.findOneAndDelete({ _id: userId });
+
+    if (!user) return next(new AppError("No user found with that ID", 404));
+
+    res.status(204).json({ message: "DELETE /user" });
+  }
+);
 
 export const updateMe = (req: Request, res: Response) => {
   res.status(200).json({ message: "PATCH /user/updateMe" });
