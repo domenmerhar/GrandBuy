@@ -1,9 +1,16 @@
 import dotenv from "dotenv";
-import path from "path";
+import { join } from "path";
+import mongoose from "mongoose";
 
-const path2 = path.join(__dirname, "..", "config.env");
+const path = join(__dirname, "..", "config.env");
+dotenv.config({ path });
 
-dotenv.config({ path: path2 });
+const DB = process.env.DATABASE!.replace(
+  "<PASSWORD>",
+  process.env.DATABASE_PASSWORD!
+);
+
+mongoose.connect(DB).then(() => console.log("DB connection successful!"));
 
 import app from "./app";
 
