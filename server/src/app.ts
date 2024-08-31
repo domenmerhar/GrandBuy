@@ -1,11 +1,15 @@
-import express, { Request, Response } from "express";
+import express from "express";
+import helmet from "helmet";
+import morgan from "morgan";
+import userRouter from "./router/userRouter";
 
 const app = express();
 
+app.use(helmet());
+app.use(morgan("dev"));
+
 app.use(express.json());
 
-app.get("", (req: Request, res: Response) => {
-  res.json({ message: "Success" });
-});
+app.use("/user", userRouter);
 
 export default app;
