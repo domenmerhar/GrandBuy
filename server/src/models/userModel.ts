@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import { isEmail, isAlpha, isMobilePhone } from "validator";
+import bcrypt from "bcrypt";
 
 const userSchema = new mongoose.Schema({
   username: {
@@ -21,7 +22,7 @@ const userSchema = new mongoose.Schema({
   //CANNOT BE SET BY USER
   role: {
     type: String,
-    enum: ["user", "admin"],
+    enum: ["user", "seller", "admin"],
     default: "user",
   },
   password: {
@@ -89,6 +90,33 @@ const userSchema = new mongoose.Schema({
       message: "Please provide a valid phone number.",
     },
   },
+});
+
+userSchema.pre("save", function (next) {
+  const user = this;
+
+  // only hash the password if it has been modified (or is new)
+  if (!user.isModified("password")) return next();
+
+  // hash the password using our new salt
+  bcrypt.genSalt(12, function (err, salt) {
+    if (err) return next(err);
+
+    bcrypt.hash(user.password, salt, function (err, hash) {
+      if (err) return next(err);
+
+      // override the cleartext password with the hashed one
+      user.password = hash;
+      next();
+    });
+  });
+
+  this.confirmPassword = undefined;
+});
+
+userSchema.pre(/^find/, function (next) {
+  this.select("-__v -password");
+  next();
 });
 
 export default mongoose.model("User", userSchema);
