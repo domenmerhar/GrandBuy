@@ -1,6 +1,7 @@
 import { Router } from "express";
 import {
   changePassword,
+  createUser,
   deleteUser,
   forgotPassword,
   getUsers,
@@ -10,10 +11,13 @@ import {
   updateMe,
   updateUser,
 } from "../controllers/userController";
-
 const userRouter = Router();
 
-userRouter.route("/").get(getUsers).patch(updateUser).delete(deleteUser);
+if (process.env.NODE_ENV === "development") {
+  userRouter.route("/").get(getUsers).post(createUser).delete(deleteUser);
+}
+
+userRouter.route("/").patch(updateUser);
 
 userRouter.route("/updateMe").patch(updateMe);
 
