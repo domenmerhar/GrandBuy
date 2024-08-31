@@ -11,13 +11,14 @@ import {
   updateMe,
   updateUser,
 } from "../controllers/userController";
+import { protect } from "../controllers/authController";
 const userRouter = Router();
 
 if (process.env.NODE_ENV === "development") {
-  userRouter.route("/").get(getUsers).post(createUser).delete(deleteUser);
+  userRouter.route("/").get(protect, getUsers).post(createUser);
 }
 
-userRouter.route("/").patch(updateUser);
+userRouter.route("/:userId").patch(updateUser).delete(deleteUser);
 
 userRouter.route("/updateMe").patch(updateMe);
 
