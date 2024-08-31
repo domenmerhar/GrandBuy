@@ -62,6 +62,9 @@ const sendErrorProd = (err: IError, res: Response) => {
   });
 };
 
+const handleCastError = () =>
+  new AppError("Invalid ID. Please provide a valid ID.", 400);
+
 export default (
   err: IError,
   req: Request,
@@ -81,6 +84,8 @@ export default (
     if (err.name === "ValidationError") error = handleValidationErrorDB(err);
     if (err.name === "JsonWebTokenError") error = handleJWTError();
     if (err.name === "TokenExpiredError") error = handleJWTExpired();
+    if (err.name === "CastError") error = handleCastError();
+
     sendErrorProd(error, res);
   }
 };
