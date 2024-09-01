@@ -63,7 +63,7 @@ export const updateRole = catchAsync(
   ) => {
     const { userId } = req.params;
 
-    const user = await User.findByIdAndUpdate(userId);
+    const user = await User.findByIdAndUpdate(userId, { runValidators: true });
 
     if (!user) return next(new AppError("No user found with that ID.", 404));
 
@@ -97,11 +97,10 @@ export const updateMe = catchAsync(
     res: Response
   ) => {
     const id = res.locals.user.id;
-    console.log(req.body);
-    console.log(id);
 
     const user = await User.findOneAndUpdate({ _id: id }, req.body, {
       new: true,
+      runValidators: true,
     }).select("-_id");
 
     res.status(200).json({ status: "success", data: user });
