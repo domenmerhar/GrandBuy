@@ -112,9 +112,11 @@ export const login = (req: Request, res: Response) => {
   res.status(200).json({ message: "POST /user/login" });
 };
 
-export const logout = (req: Request, res: Response) => {
-  res.status(200).json({ message: "POST /user/logout" });
-};
+export const logout = catchAsync(async (req: Request, res: Response) => {
+  await res.locals.user.logout();
+
+  res.status(200).json({ status: "success", message: "Logged out." });
+});
 
 export const changePassword = (req: Request, res: Response) => {
   res.status(200).json({ message: "PATCH /user/change-password" });
