@@ -1,4 +1,4 @@
-import express from "express";
+import express, { Request, Response } from "express";
 import helmet from "helmet";
 import morgan from "morgan";
 import userRouter from "./router/userRouter";
@@ -12,6 +12,13 @@ if (process.env.NODE_ENV === "development") app.use(morgan("dev"));
 app.use(express.json());
 
 app.use("/user", userRouter);
+
+app.all("*", (req: Request, res: Response) => {
+  res.status(404).json({
+    status: "fail",
+    message: `Can't find ${req.originalUrl} on this server!`,
+  });
+});
 
 app.use(globalErrorHandler);
 
