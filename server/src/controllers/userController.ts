@@ -116,6 +116,13 @@ export const updateMe = catchAsync(
   }
 );
 
+export const getMe = catchAsync(async (req: Request, res: Response) => {
+  const user = res.locals.user;
+  user.jwtChangedAt = undefined;
+
+  res.status(200).json({ status: "success", data: res.locals.user });
+});
+
 export const login = catchAsync(
   async (
     req: Request<{ email: string; password: string }>,
@@ -124,7 +131,7 @@ export const login = catchAsync(
   ) => {
     const { email, password } = req.body;
 
-    const user = await User.findOne({ email }).select("password");
+    const user = await User.findOne({ email }).select("password username role");
 
     if (!user)
       return next(new AppError("Email or password is incorrect.", 401));
@@ -137,7 +144,17 @@ export const login = catchAsync(
     const token = createToken(user._id);
     await user.save();
 
-    res.status(200).json({ status: "success", message: "Logged in.", token });
+    res.status(200).json({
+      status: "success",
+      message: "Logged in.",
+      data: {
+        user: {
+          username: user.username,
+          role: user.role,
+        },
+      },
+      token,
+    });
   }
 );
 
