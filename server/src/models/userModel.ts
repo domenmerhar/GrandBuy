@@ -76,14 +76,14 @@ const UserSchema = new mongoose.Schema({
   country: {
     type: String,
     minLength: [2, "Please provide a country with at least 2 characters."],
-    maxLength: [28, "Please provide a country shorter than 28 characters."],
+    maxLength: [50, "Please provide a country shorter than 50 characters."],
   },
   phoneNumber: {
     type: String,
     minLength: [5, "Please provide a phone number with at least 5 characters."],
     maxLength: [
       25,
-      "Please provide a phone number shorter than 15 characters.",
+      "Please provide a phone number shorter than 25 characters.",
     ],
     validate: {
       validator: isMobilePhone,
@@ -123,17 +123,19 @@ UserSchema.pre(/^find/, function (next) {
     "find",
     Record<string, never>
   >;
-  doc.select("-__v -password -jwtChangedAt");
+  doc.select("-password -__v");
   next();
 });
 
-UserSchema.methods.jwtChangedAfter = function (jwtIat: number) {
-  return this.jwtChangedAt < jwtIat;
+UserSchema.statics.jwtExpired = function (
+  jwtChangedAt: number,
+  jwtIat: number
+) {
+  return jwtChangedAt > jwtIat;
 };
 
-UserSchema.methods.logout = function () {
-  this.jwtChangedAt = new Date(Date.now());
-  this.save({ validateBeforeSave: false });
+UserSchema.methods.logout = async function () {
+  await this.save({ validateBeforeSave: false });
 };
 
 export default mongoose.model("User", UserSchema);
