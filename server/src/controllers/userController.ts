@@ -24,7 +24,7 @@ export const getUsers = async (
   });
 };
 
-export const createUser = catchAsync(
+export const signup = catchAsync(
   async (
     req: Request<
       {},
@@ -46,7 +46,7 @@ export const createUser = catchAsync(
       confirmPassword,
     });
 
-    const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET, {
+    const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET!, {
       expiresIn: process.env.JWT_EXPIRES_IN,
     });
 
@@ -72,10 +72,6 @@ export const deleteUser = catchAsync(
 
 export const updateMe = (req: Request, res: Response) => {
   res.status(200).json({ message: "PATCH /user/updateMe" });
-};
-
-export const signUp = (req: Request, res: Response) => {
-  res.status(201).json({ message: "POST /user/signup" });
 };
 
 export const login = (req: Request, res: Response) => {
