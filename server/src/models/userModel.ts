@@ -131,4 +131,9 @@ UserSchema.methods.jwtChangedAfter = function (jwtIat: number) {
   return this.jwtChangedAt < jwtIat;
 };
 
+UserSchema.methods.logout = function () {
+  this.jwtChangedAt = new Date(Date.now());
+  this.save({ validateBeforeSave: false });
+};
+
 export default mongoose.model("User", UserSchema);
