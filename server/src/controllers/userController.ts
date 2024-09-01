@@ -3,6 +3,7 @@ import jwt from "jsonwebtoken";
 import User from "../models/userModel";
 import catchAsync from "../utils/catchAsync";
 import AppError from "../utils/AppError";
+import { role } from "../utils/types";
 
 export const getUsers = async (
   req: Request,
@@ -54,9 +55,21 @@ export const signup = catchAsync(
   }
 );
 
-export const updateUser = (req: Request, res: Response) => {
-  res.status(200).json({ message: "PATCH /user" });
-};
+export const updateRole = catchAsync(
+  async (
+    req: Request<{ userId: string; role: role }, {}>,
+    res: Response,
+    next: NextFunction
+  ) => {
+    const { userId } = req.params;
+
+    const user = await User.findByIdAndUpdate(userId);
+
+    if (!user) return next(new AppError("No user found with that ID.", 404));
+
+    res.status(200).json({ status: "success", data: user });
+  }
+);
 
 export const deleteUser = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
