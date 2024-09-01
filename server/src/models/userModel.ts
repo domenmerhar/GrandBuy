@@ -82,7 +82,7 @@ const UserSchema = new mongoose.Schema({
     type: String,
     minLength: [5, "Please provide a phone number with at least 5 characters."],
     maxLength: [
-      15,
+      25,
       "Please provide a phone number shorter than 15 characters.",
     ],
     validate: {
