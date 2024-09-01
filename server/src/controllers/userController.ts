@@ -83,9 +83,30 @@ export const deleteUser = catchAsync(
   }
 );
 
-export const updateMe = (req: Request, res: Response) => {
-  res.status(200).json({ message: "PATCH /user/updateMe" });
-};
+export const updateMe = catchAsync(
+  async (
+    req: Request<{
+      firstName?: string;
+      lastName?: string;
+      street?: string;
+      city?: string;
+      zipCode?: string;
+      country?: string;
+      phoneNumber?: string;
+    }>,
+    res: Response
+  ) => {
+    const id = res.locals.user.id;
+    console.log(req.body);
+    console.log(id);
+
+    const user = await User.findOneAndUpdate({ _id: id }, req.body, {
+      new: true,
+    }).select("-_id");
+
+    res.status(200).json({ status: "success", data: user });
+  }
+);
 
 export const login = (req: Request, res: Response) => {
   res.status(200).json({ message: "POST /user/login" });
