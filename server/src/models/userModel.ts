@@ -22,7 +22,10 @@ const UserSchema = new mongoose.Schema({
   //CANNOT BE SET BY USER
   role: {
     type: String,
-    enum: ["user", "seller", "admin"],
+    enum: {
+      values: ["user", "seller", "admin"],
+      message: "Please provide a valid role.",
+    },
     default: "user",
   },
   password: {
