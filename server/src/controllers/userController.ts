@@ -142,9 +142,22 @@ export const logout = catchAsync(async (req: Request, res: Response) => {
   res.status(200).json({ status: "success", message: "Logged out." });
 });
 
-export const changePassword = (req: Request, res: Response) => {
-  res.status(200).json({ message: "PATCH /user/change-password" });
-};
+export const changePassword = catchAsync(
+  async (
+    req: Request<{ password: string; confirmPassword: string }>,
+    res: Response,
+    next: NextFunction
+  ) => {
+    const { password, confirmPassword } = req.body;
+
+    res.locals.user.password = password;
+    res.locals.user.confirmPassword = confirmPassword;
+
+    await res.locals.user.save();
+
+    res.status(200).json({ status: "success", message: "Password changed." });
+  }
+);
 
 export const forgotPassword = (req: Request, res: Response) => {
   res.status(200).json({ message: "PATCH /user/forgot-password" });
