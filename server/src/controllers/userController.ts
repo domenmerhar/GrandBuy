@@ -4,6 +4,12 @@ import User from "../models/userModel";
 import catchAsync from "../utils/catchAsync";
 import AppError from "../utils/AppError";
 import { role } from "../utils/types";
+import bcrypt from "bcrypt";
+
+const createToken = (user: { _id: string }) =>
+  jwt.sign({ id: user._id, iat: Date.now() }, process.env.JWT_SECRET!, {
+    expiresIn: process.env.JWT_EXPIRES_IN,
+  });
 
 export const getUsers = async (
   req: Request,
@@ -47,9 +53,7 @@ export const signup = catchAsync(
       confirmPassword,
     });
 
-    const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET!, {
-      expiresIn: process.env.JWT_EXPIRES_IN,
-    });
+    const token = createToken(newUser);
 
     res.status(201).json({ status: "sucess", data: newUser, token });
   }
@@ -107,9 +111,30 @@ export const updateMe = catchAsync(
   }
 );
 
-export const login = (req: Request, res: Response) => {
-  res.status(200).json({ message: "POST /user/login" });
-};
+export const login = catchAsync(
+  async (
+    req: Request<{ email: string; password: string }>,
+    res: Response,
+    next: NextFunction
+  ) => {
+    const { email, password } = req.body;
+
+    const user = await User.findOne({ email }).select("password jw");
+
+    if (!user)
+      return next(new AppError("Email or password is incorrect.", 401));
+
+    const isMatch = await bcrypt.compare(password, user.password);
+
+    if (!isMatch)
+      return next(new AppError("Email or password is incorrect.", 401));
+
+    const token = createToken(user);
+    await user.save();
+
+    res.status(200).json({ status: "success", message: "Logged in.", token });
+  }
+);
 
 export const logout = catchAsync(async (req: Request, res: Response) => {
   await res.locals.user.logout();
