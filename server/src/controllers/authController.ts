@@ -3,6 +3,7 @@ import catchAsync from "../utils/catchAsync";
 import User from "../models/userModel";
 import AppError from "../utils/AppError";
 import jwt, { JwtPayload, Secret } from "jsonwebtoken";
+import { role } from "../utils/types";
 
 export const protect = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
@@ -35,8 +36,6 @@ export const protect = catchAsync(
     next();
   }
 );
-
-type role = "user" | "seller" | "admin";
 
 export const restrictTo =
   (...roles: role[]) =>
