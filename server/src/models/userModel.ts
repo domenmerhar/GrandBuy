@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import { isEmail, isAlpha, isMobilePhone } from "validator";
 import bcrypt from "bcrypt";
 
-const userSchema = new mongoose.Schema({
+const UserSchema = new mongoose.Schema({
   username: {
     type: String,
     required: [true, "Please provide a username."],
@@ -90,33 +90,45 @@ const userSchema = new mongoose.Schema({
       message: "Please provide a valid phone number.",
     },
   },
+  jwtChangedAt: Date,
 });
 
-userSchema.pre("save", function (next) {
+UserSchema.pre("save", function (next) {
   const user = this;
 
   // only hash the password if it has been modified (or is new)
   if (!user.isModified("password")) return next();
 
-  // hash the password using our new salt
-  bcrypt.genSalt(12, function (err, salt) {
+  bcrypt.hash(user.password, 12, function (err, hash) {
     if (err) return next(err);
 
-    bcrypt.hash(user.password, salt, function (err, hash) {
-      if (err) return next(err);
-
-      // override the cleartext password with the hashed one
-      user.password = hash;
-      next();
-    });
+    // override the cleartext password with the hashed one
+    user.password = hash;
+    user.confirmPassword = undefined!;
+    next();
   });
-
-  this.confirmPassword = undefined;
 });
 
-userSchema.pre(/^find/, function (next) {
-  this.select("-__v -password");
+UserSchema.pre("save", function (next) {
+  this.jwtChangedAt = new Date(Date.now() - 1000);
   next();
 });
 
-export default mongoose.model("User", userSchema);
+UserSchema.pre(/^find/, function (next) {
+  const doc = this as mongoose.Query<
+    Document[],
+    Document,
+    unknown,
+    unknown,
+    "find",
+    Record<string, never>
+  >;
+  doc.select("-__v -password -jwtChangedAt");
+  next();
+});
+
+UserSchema.methods.jwtChangedAfter = function (jwtIat: number) {
+  return this.jwtChangedAt < jwtIat;
+};
+
+export default mongoose.model("User", UserSchema);
