@@ -21,12 +21,15 @@ export const protect = catchAsync(
     res.locals.token = decoded;
 
     const user = await User.findById(decoded.id);
+
     if (!user)
       return next(
         new AppError("You are not logged in. Please log in to get access.", 401)
       );
 
-    if (user.jwtChangedAfter(user, decoded.iat))
+    const jwtExpired = User.jwtExpired(user.jwtChangedAt, decoded.iat);
+
+    if (jwtExpired)
       return next(
         new AppError("You are not logged in. Please log in to get access.", 401)
       );
@@ -42,10 +45,10 @@ export const restrictTo =
   (req: Request, res: Response, next: NextFunction) => {
     if (!res.locals.user && process.env.NODE_ENV !== "development")
       console.error(
-        "RestrictTo middleware is being used before protect middleware."
+        "restrictTo middleware is being used before protect middleware."
       );
 
-    if (!roles.includes(res.locals.role))
+    if (!roles.includes(res.locals.user.role))
       return next(
         new AppError("You do not have permission to perform this action.", 403)
       );
