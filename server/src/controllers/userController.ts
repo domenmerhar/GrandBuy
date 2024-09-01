@@ -5,9 +5,10 @@ import catchAsync from "../utils/catchAsync";
 import AppError from "../utils/AppError";
 import { role } from "../utils/types";
 import bcrypt from "bcrypt";
+import { Types } from "mongoose";
 
-const createToken = (user: { _id: string }) =>
-  jwt.sign({ id: user._id, iat: Date.now() }, process.env.JWT_SECRET!, {
+const createToken = (id: Types.ObjectId) =>
+  jwt.sign({ id, iat: Date.now() }, process.env.JWT_SECRET!, {
     expiresIn: process.env.JWT_EXPIRES_IN,
   });
 
@@ -53,7 +54,7 @@ export const signup = catchAsync(
       confirmPassword,
     });
 
-    const token = createToken(newUser);
+    const token = createToken(newUser._id);
 
     res.status(201).json({ status: "sucess", data: newUser, token });
   }
@@ -65,9 +66,13 @@ export const updateRole = catchAsync(
     res: Response,
     next: NextFunction
   ) => {
-    const { userId } = req.params;
+    const { userId, role } = req.params;
 
-    const user = await User.findByIdAndUpdate(userId, { runValidators: true });
+    const user = await User.findByIdAndUpdate(
+      userId,
+      { role },
+      { runValidators: true }
+    );
 
     if (!user) return next(new AppError("No user found with that ID.", 404));
 
@@ -119,7 +124,7 @@ export const login = catchAsync(
   ) => {
     const { email, password } = req.body;
 
-    const user = await User.findOne({ email }).select("password jw");
+    const user = await User.findOne({ email }).select("password");
 
     if (!user)
       return next(new AppError("Email or password is incorrect.", 401));
@@ -129,7 +134,7 @@ export const login = catchAsync(
     if (!isMatch)
       return next(new AppError("Email or password is incorrect.", 401));
 
-    const token = createToken(user);
+    const token = createToken(user._id);
     await user.save();
 
     res.status(200).json({ status: "success", message: "Logged in.", token });
@@ -145,8 +150,7 @@ export const logout = catchAsync(async (req: Request, res: Response) => {
 export const changePassword = catchAsync(
   async (
     req: Request<{ password: string; confirmPassword: string }>,
-    res: Response,
-    next: NextFunction
+    res: Response
   ) => {
     const { password, confirmPassword } = req.body;
 
