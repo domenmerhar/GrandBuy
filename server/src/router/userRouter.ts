@@ -3,6 +3,7 @@ import {
   changePassword,
   deleteUser,
   forgotPassword,
+  getMe,
   getUsers,
   login,
   logout,
@@ -20,7 +21,7 @@ userRouter.route("/signup").post(signup);
 userRouter.route("/forgot-password").patch(forgotPassword);
 
 userRouter.use(protect);
-userRouter.route("/update-me").patch(updateMe);
+userRouter.route("/me").get(getMe).patch(updateMe);
 userRouter.route("/logout").post(logout);
 userRouter.route("/change-password").patch(changePassword);
 
