@@ -1,6 +1,7 @@
 import express from "express";
 import {
   createProduct,
+  deleteProduct,
   getHighestDiscount,
   getProducts,
   getSellerProducts,
@@ -22,6 +23,6 @@ productRouter.route("/seller/:sellerId").get(getSellerProducts);
 productRouter
   .route("/:productId")
   .patch(protect, restrictTo("seller"), updateProduct)
-  .delete(protect, restrictTo("seller"), updateProduct);
+  .delete(protect, restrictTo("seller"), deleteProduct);
 
 export default productRouter;
