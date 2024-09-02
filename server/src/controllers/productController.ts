@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import catchAsync from "../utils/catchAsync";
 import Product from "../models/productModel";
+import AppError from "../utils/AppError";
 
 export const getProducts = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
@@ -33,7 +34,22 @@ export const createProduct = catchAsync(
 
 export const updateProduct = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    res.status(200).json({ message: "updateProduct" });
+    const { productId } = req.params;
+    const { name, images, price, shipping, descriptionLink } = req.body;
+
+    const product = await Product.findById(productId);
+
+    if (!product) return new AppError("Product not found", 404);
+
+    product.name = name;
+    product.images = images.split(",");
+    product.price = price;
+    product.shipping = shipping;
+    product.descriptionLink = descriptionLink;
+
+    product.save();
+
+    res.status(200).json({ status: "success", data: { product } });
   }
 );
 
