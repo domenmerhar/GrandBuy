@@ -88,7 +88,7 @@ export const deleteUser = catchAsync(
 
     if (!user) return next(new AppError("No user found with that ID", 404));
 
-    res.status(204).json({ message: "DELETE /user" });
+    res.status(204).json({ status: "success", data: null });
   }
 );
 
@@ -161,7 +161,9 @@ export const login = catchAsync(
 export const logout = catchAsync(async (req: Request, res: Response) => {
   await res.locals.user.logout();
 
-  res.status(200).json({ status: "success", message: "Logged out." });
+  res
+    .status(200)
+    .json({ status: "success", message: "Logged out.", data: null });
 });
 
 export const changePassword = catchAsync(
@@ -180,6 +182,7 @@ export const changePassword = catchAsync(
   }
 );
 
+//TODO: email
 export const forgotPassword = (req: Request, res: Response) => {
   res.status(200).json({ message: "PATCH /user/forgot-password" });
 };
