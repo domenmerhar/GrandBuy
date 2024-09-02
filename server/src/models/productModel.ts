@@ -41,6 +41,26 @@ const ProductSchema = new mongoose.Schema({
   },
 });
 
+ProductSchema.pre("save", function (next) {
+  this.lastChanged = new Date();
+  next();
+});
+
+ProductSchema.pre(/^find/, function (next) {
+  const doc = this as mongoose.Query<
+    Document[],
+    Document,
+    unknown,
+    unknown,
+    "find",
+    Record<string, never>
+  >;
+
+  doc.select("-__v");
+
+  next();
+});
+
 ProductSchema.virtual("averageRating");
 
 //TODO: ADD INDEX
