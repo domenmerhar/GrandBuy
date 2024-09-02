@@ -1,5 +1,7 @@
 import mongoose from "mongoose";
 
+//COVER IMAGE
+
 const ProductSchema = new mongoose.Schema({
   userId: {
     type: mongoose.Schema.Types.ObjectId,
@@ -11,6 +13,10 @@ const ProductSchema = new mongoose.Schema({
     minLength: [1, "Please provide a name with at least 1 character."],
     maxLength: [50, "Please provide a name shorter than 50 characters."],
     required: [true, "Please provide a name."],
+  },
+  coverImage: {
+    type: String,
+    required: [true, "Please provide a cover image."],
   },
   images: [
     {
