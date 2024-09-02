@@ -74,6 +74,15 @@ export const getHighestDiscount = catchAsync(
 
 export const getSellerProducts = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    res.status(200).json({ message: "getSellerProducts" });
+    const { sellerId } = req.params;
+
+    const product = await Product.find({ userId: sellerId }).select(
+      "-userId -descriptionLink"
+    );
+    if (!product.length) return next(new AppError("No products found.", 404));
+
+    res
+      .status(200)
+      .json({ status: "success", length: product.length, data: { product } });
   }
 );
