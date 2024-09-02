@@ -1,5 +1,5 @@
 import express, { NextFunction, Request, Response } from "express";
-import { protect } from "../controllers/authController";
+import { protect, restrictTo } from "../controllers/authController";
 import {
   createReview,
   deleteReview,
@@ -18,7 +18,7 @@ reviewRouter.route("/").get(getReviews);
 reviewRouter
   .route("/product/:productId")
   .get(getProductReviews)
-  .post(protect, createReview);
+  .post(protect, restrictTo("user"), createReview);
 
 reviewRouter.route("/user/:userId").get(getUserReviews);
 
