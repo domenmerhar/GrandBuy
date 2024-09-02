@@ -5,7 +5,11 @@ import Product from "../models/productModel";
 export const getProducts = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     //TODO: SEARCH, FILTER, SORT, PAGINATION
-    res.status(200).json({ message: "getProducts" });
+    const products = await Product.find();
+
+    res
+      .status(200)
+      .json({ status: "success", length: products.length, data: { products } });
   }
 );
 
