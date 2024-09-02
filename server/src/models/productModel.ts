@@ -15,6 +15,7 @@ const ProductSchema = new mongoose.Schema({
   images: [
     {
       type: String,
+      required: true,
     },
   ],
   price: {
@@ -31,7 +32,8 @@ const ProductSchema = new mongoose.Schema({
     required: [true, "Please provide a price."],
   },
   descriptionLink: {
-    type: Number,
+    type: String,
+    required: true,
   },
   lastChanged: {
     type: Date,
