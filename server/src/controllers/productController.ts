@@ -2,25 +2,38 @@ import { NextFunction, Request, Response } from "express";
 import catchAsync from "../utils/catchAsync";
 import Product from "../models/productModel";
 import AppError from "../utils/AppError";
+import APIFeatures from "../utils/ApiFeatures";
 
 export const getProducts = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    //TODO: SEARCH, FILTER, SORT, PAGINATION
-    const products = await Product.find();
+    //TODO: POPULATE
 
-    res
-      .status(200)
-      .json({ status: "success", length: products.length, data: { products } });
+    const features = new APIFeatures(Product.find(), req.query);
+
+    const products = await features.filter().sort().limitFields().paginate()
+      .query;
+
+    if (products.length === 0) {
+      next(new AppError("No products found.", 404));
+    }
+
+    res.status(200).json({
+      status: "success",
+      length: products.length,
+      data: { products },
+    });
   }
 );
 
 export const createProduct = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const userId = res.locals.user._id;
-    const { name, images, price, shipping, descriptionLink } = req.body;
+    const { name, coverImage, images, price, shipping, descriptionLink } =
+      req.body;
 
     const product = await Product.create({
       name,
+      coverImage,
       images: images.split(","),
       price,
       shipping,
@@ -56,6 +69,8 @@ export const updateProduct = catchAsync(
 export const deleteProduct = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const { productId } = req.params;
+
+    req.query;
 
     const product = await Product.findOneAndDelete({ _id: productId });
 
