@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import catchAsync from "../utils/catchAsync";
+import Product from "../models/productModel";
 
 export const getProducts = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
@@ -10,7 +11,19 @@ export const getProducts = catchAsync(
 
 export const createProduct = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    res.status(200).json({ message: "addProduct" });
+    const userId = res.locals.user._id;
+    const { name, images, price, shipping, descriptionLink } = req.body;
+
+    const product = await Product.create({
+      name,
+      images: images.split(","),
+      price,
+      shipping,
+      descriptionLink,
+      userId,
+    });
+
+    res.status(200).json({ status: "success", data: { product } });
   }
 );
 
