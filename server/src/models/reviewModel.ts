@@ -1,7 +1,16 @@
 import mongoose from "mongoose";
 
 const ReviewSchema = new mongoose.Schema({
-  userId: {},
+  userId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+    required: [true, "Please provide a user ID."],
+  },
+  productId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Product",
+    required: [true, "Please provide a product ID."],
+  },
   rating: {
     type: Number,
     min: [1, "Please provide a rating higher than 1."],
