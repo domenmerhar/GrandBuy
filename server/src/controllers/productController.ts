@@ -6,12 +6,13 @@ import APIFeatures from "../utils/ApiFeatures";
 
 export const getProducts = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    //TODO: POPULATE
-
     const features = new APIFeatures(Product.find(), req.query);
 
-    const products = await features.filter().sort().limitFields().paginate()
-      .query;
+    const products = await features
+      .filter()
+      .sort()
+      .paginate()
+      .query.select("_id name price coverImage");
 
     if (products.length === 0) {
       next(new AppError("No products found.", 404));
