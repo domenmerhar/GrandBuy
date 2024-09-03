@@ -27,13 +27,6 @@ const ReviewSchema = new mongoose.Schema({
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
-      validate: {
-        validator: function (value: mongoose.Types.ObjectId[]) {
-          const uniqueValues = new Set(value.map((v) => v.toString()));
-          return uniqueValues.size === value.length;
-        },
-        message: "A user can only like a review once.",
-      },
     },
   ],
   lastChange: {
