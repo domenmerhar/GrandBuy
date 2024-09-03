@@ -34,13 +34,13 @@ export const getUserReviews = catchAsync(
 
 export const getMyReviews = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    res.status(200).json({ message: "getMyReviews" });
-  }
-);
+    const reviews = await Review.find({ userId: res.locals.user._id }).populate(
+      { path: "productId", select: "name -_id" }
+    );
 
-export const getReview = catchAsync(
-  async (req: Request, res: Response, next: NextFunction) => {
-    res.status(200).json({ message: "getReview" });
+    if (!reviews) return next(new Error("No reviews found"));
+
+    res.status(200).json({ status: "success", data: { reviews } });
   }
 );
 
