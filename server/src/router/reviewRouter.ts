@@ -3,9 +3,11 @@ import { protect, restrictTo } from "../controllers/authController";
 import {
   createReview,
   deleteReview,
+  dislikeReview,
   getMyReviews,
   getProductReviews,
   getUserReviews,
+  likeReview,
   updateReview,
 } from "../controllers/reviewController";
 import { getAll, getOne } from "../controllers/handlerFactory";
@@ -34,5 +36,9 @@ reviewRouter
   )
   .patch(protect, updateReview)
   .delete(protect, deleteReview);
+
+reviewRouter.use(protect, restrictTo("user"));
+reviewRouter.route("/:id/like").patch(likeReview);
+reviewRouter.route("/:id/dislike").patch(dislikeReview);
 
 export default reviewRouter;
