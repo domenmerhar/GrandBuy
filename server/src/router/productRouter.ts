@@ -16,7 +16,7 @@ productRouter
   .get(getProducts)
   .post(protect, restrictTo("seller"), createProduct);
 
-productRouter.route("/highest-discount").get(getHighestDiscount, getProducts);
+productRouter.route("/highest-discount").get(getHighestDiscount);
 
 productRouter.route("/seller/:sellerId").get(getSellerProducts);
 
