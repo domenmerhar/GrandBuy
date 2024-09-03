@@ -83,7 +83,12 @@ export const deleteProduct = catchAsync(
 
 export const getHighestDiscount = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    res.status(200).json({ message: "getReviews" });
+    const products = await Product.find()
+      .sort({ discount: -1 })
+      .limit(10)
+      .select("-userId -images -descriptionLink -lastChanged");
+
+    res.status(200).json({ status: "success", data: { products } });
   }
 );
 
