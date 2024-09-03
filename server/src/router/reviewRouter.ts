@@ -6,6 +6,7 @@ import {
   dislikeReview,
   getMyReviews,
   getProductReviews,
+  getProductReviewStats,
   getUserReviews,
   likeReview,
   updateReview,
@@ -21,6 +22,8 @@ reviewRouter
   .route("/product/:productId")
   .get(getProductReviews)
   .post(protect, restrictTo("user"), createReview);
+
+reviewRouter.route("/product/:productId/stats").get(getProductReviewStats);
 
 reviewRouter.route("/user/:userId").get(getUserReviews);
 
