@@ -56,14 +56,37 @@ export const deleteReview = catchAsync(
   }
 );
 
-// export const likeComment = catchAsync(
-//   async (req: Request, res: Response, next: NextFunction) => {
-//     res.status(204).json({ message: "likeComment" });
-//   }
-// );
+export const likeReview = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const review = await Review.findById(req.params.id);
 
-// export const dislikeComment = catchAsync(
-//   async (req: Request, res: Response, next: NextFunction) => {
-//     res.status(204).json({ message: "dislikeComment" });
-//   }
-// );
+    if (!review) return next(new Error("Review not found"));
+
+    if (review.likes.includes(res.locals.user._id))
+      return next(new Error("You already liked this review"));
+
+    review.likes.push(res.locals.user._id);
+
+    await review.save();
+
+    res.status(200).json({ status: "success", data: { review } });
+  }
+);
+
+export const dislikeReview = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const review = await Review.findById(req.params.id);
+
+    if (!review) return next(new Error("Review not found"));
+
+    const filtered = review.likes.filter(
+      (id) => id.toString() !== res.locals.user._id.toString()
+    );
+
+    review.likes = filtered;
+
+    await review.save();
+
+    res.status(200).json({ status: "success", data: { review } });
+  }
+);
