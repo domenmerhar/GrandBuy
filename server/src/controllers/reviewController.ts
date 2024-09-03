@@ -154,16 +154,17 @@ export const deleteReview = catchAsync(
 
 export const likeReview = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    const review = await Review.findById(req.params.id);
+    const review = await Review.findOneAndUpdate(
+      { _id: req.params.id, likes: { $ne: res.locals.user._id } },
+      { $push: { likes: res.locals.user._id } },
+      { new: true }
+    );
 
-    if (!review) return next(new AppError("Review not found", 404));
-
-    if (review.likes.includes(res.locals.user._id))
-      return next(new AppError("You already liked this review", 400));
-
-    review.likes.push(res.locals.user._id);
-
-    await review.save();
+    if (!review) {
+      return next(
+        new AppError("Review not found or you already liked this review", 404)
+      );
+    }
 
     res.status(200).json({ status: "success", data: { review } });
   }
@@ -171,17 +172,17 @@ export const likeReview = catchAsync(
 
 export const dislikeReview = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    const review = await Review.findById(req.params.id);
-
-    if (!review) return next(new Error("Review not found"));
-
-    const filtered = review.likes.filter(
-      (id) => id.toString() !== res.locals.user._id.toString()
+    const review = await Review.findOneAndUpdate(
+      { _id: req.params.id, likes: res.locals.user._id },
+      { $pull: { likes: res.locals.user._id } },
+      { new: true }
     );
 
-    review.likes = filtered;
-
-    await review.save();
+    if (!review) {
+      return next(
+        new AppError("Review not found or you haven't liked this review", 404)
+      );
+    }
 
     res.status(200).json({ status: "success", data: { review } });
   }
