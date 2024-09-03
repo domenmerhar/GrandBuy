@@ -6,31 +6,12 @@ import AppError from "../utils/AppError";
 import { role } from "../utils/types";
 import bcrypt from "bcrypt";
 import { Types } from "mongoose";
+import { getAll } from "./handlerFactory";
 
 const createToken = (id: Types.ObjectId) =>
   jwt.sign({ id, iat: Date.now() }, process.env.JWT_SECRET!, {
     expiresIn: process.env.JWT_EXPIRES_IN,
   });
-
-export const getUsers = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  const users = await User.find();
-
-  if (users.length === 0) {
-    next(new AppError("No users found.", 404));
-  }
-
-  res.status(200).json({
-    status: "success",
-    length: users.length,
-    data: {
-      users,
-    },
-  });
-};
 
 export const signup = catchAsync(
   async (
