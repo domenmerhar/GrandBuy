@@ -5,8 +5,6 @@ const ReviewSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
     required: [true, "Please provide a user ID."],
-    //TODO: FIX UNIQUE
-    //unique: [true, "You have already reviewed this product."],
   },
   productId: {
     type: mongoose.Schema.Types.ObjectId,
@@ -25,14 +23,26 @@ const ReviewSchema = new mongoose.Schema({
     maxLength: [500, "Please provide a review shorter than 500 characters."],
     required: [true, "Please provide a review."],
   },
-  likes: {
-    type: Number,
-    default: 0,
-  },
+  likes: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      validate: {
+        validator: function (value: mongoose.Types.ObjectId[]) {
+          const uniqueValues = new Set(value.map((v) => v.toString()));
+          return uniqueValues.size === value.length;
+        },
+        message: "A user can only like a review once.",
+      },
+    },
+  ],
   lastChange: {
     type: Date,
     default: Date.now(),
   },
 });
+
+//TODO: Test index
+ReviewSchema.index({ userId: 1, productId: 1 }, { unique: true });
 
 export default mongoose.model("Review", ReviewSchema);
