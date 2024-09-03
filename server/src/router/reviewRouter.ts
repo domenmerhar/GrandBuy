@@ -5,15 +5,15 @@ import {
   deleteReview,
   getMyReviews,
   getProductReviews,
-  getReview,
-  getReviews,
   getUserReviews,
   updateReview,
 } from "../controllers/reviewController";
+import { getAll, getOne } from "../controllers/handlerFactory";
+import Review from "../models/reviewModel";
 
 const reviewRouter = express.Router();
 
-reviewRouter.route("/").get(getReviews);
+reviewRouter.route("/").get(getAll(Review));
 
 reviewRouter
   .route("/product/:productId")
@@ -25,8 +25,13 @@ reviewRouter.route("/user/:userId").get(getUserReviews);
 reviewRouter.route("/me").get(protect, getMyReviews);
 
 reviewRouter
-  .route("/:reviewId")
-  .get(getReview)
+  .route("/:id")
+  .get(
+    getOne(Review, [
+      { path: "userId", select: "username -_id" },
+      { path: "productId", select: "name -_id" },
+    ])
+  )
   .patch(protect, updateReview)
   .delete(protect, deleteReview);
 
