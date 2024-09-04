@@ -12,9 +12,8 @@ wishlistRouter.use(protect, restrictTo("user"));
 
 wishlistRouter.route("/").get(getWishlist);
 
-wishlistRouter
-  .route("/:productId")
-  .post(addToWishlist)
-  .delete(removeFromWishlist);
+wishlistRouter.route("/:id").delete(removeFromWishlist);
+
+wishlistRouter.route("/add/:productId").post(addToWishlist);
 
 export default wishlistRouter;
