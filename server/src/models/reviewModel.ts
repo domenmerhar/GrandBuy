@@ -27,6 +27,7 @@ const ReviewSchema = new mongoose.Schema({
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
+      validate: [limitArray(1000), "Maximum number of likes reached (1000)."],
     },
   ],
   lastChange: {
@@ -36,7 +37,6 @@ const ReviewSchema = new mongoose.Schema({
 });
 
 ReviewSchema.virtual("likesCount").get(function () {
-  console.log({ likes: this.likes });
   return this.likes.length;
 });
 
@@ -44,5 +44,12 @@ ReviewSchema.index({ userId: 1, productId: 1 }, { unique: true });
 
 ReviewSchema.set("toJSON", { virtuals: true });
 ReviewSchema.set("toObject", { virtuals: true });
+
+function limitArray(limit: number) {
+  return function (value: any[]) {
+    console.log(value);
+    return value.length <= limit;
+  };
+}
 
 export default mongoose.model("Review", ReviewSchema);
