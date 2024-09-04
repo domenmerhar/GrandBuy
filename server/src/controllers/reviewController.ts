@@ -3,15 +3,23 @@ import catchAsync from "../utils/catchAsync";
 import Review from "../models/reviewModel";
 import AppError from "../utils/AppError";
 import mongoose from "mongoose";
+import APIFeatures from "../utils/ApiFeatures";
 
 export const getProductReviews = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    //TODO: FILTER
     const { productId } = req.params;
 
-    const reviews = await Review.find({ productId })
-      .select("-__v -lastChanged -productId")
-      .populate({ path: "userId", select: "username _id" });
+    const features = new APIFeatures(
+      Review.find({ productId })
+        .select("-__v -lastChanged -productId")
+        .populate({ path: "userId", select: "username _id" }),
+      req.query
+    )
+      .filter()
+      .paginate()
+      .sort();
+
+    const reviews = await features.query;
 
     if (!reviews) return next(new AppError("No reviews found", 404));
 
