@@ -35,7 +35,14 @@ const ReviewSchema = new mongoose.Schema({
   },
 });
 
-//TODO: Test index
+ReviewSchema.virtual("likesCount").get(function () {
+  console.log({ likes: this.likes });
+  return this.likes.length;
+});
+
 ReviewSchema.index({ userId: 1, productId: 1 }, { unique: true });
+
+ReviewSchema.set("toJSON", { virtuals: true });
+ReviewSchema.set("toObject", { virtuals: true });
 
 export default mongoose.model("Review", ReviewSchema);
