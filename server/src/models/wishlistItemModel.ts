@@ -21,7 +21,22 @@ const wishListItemSchema = new mongoose.Schema({
 
 wishListItemSchema.index({ userId: 1, productId: 1 }, { unique: true });
 
-wishListItemSchema.set("toJSON", { virtuals: true });
-wishListItemSchema.set("toObject", { virtuals: true });
+wishListItemSchema.set("toJSON", {
+  virtuals: true,
+  versionKey: false,
+  transform: function (doc, ret) {
+    delete ret.id;
+    return ret;
+  },
+});
+
+wishListItemSchema.set("toObject", {
+  virtuals: true,
+  versionKey: false,
+  transform: function (doc, ret) {
+    delete ret.id;
+    return ret;
+  },
+});
 
 export default mongoose.model("WishListItem", wishListItemSchema);
