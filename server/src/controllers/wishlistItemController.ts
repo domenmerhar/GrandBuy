@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import catchAsync from "../utils/catchAsync";
 import WishlistItem from "../models/wishlistItemModel";
 import APIFeatures from "../utils/ApiFeatures";
+import AppError from "../utils/AppError";
 
 export const getWishlist = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
@@ -44,5 +45,18 @@ export const addToWishlist = catchAsync(
 );
 
 export const removeFromWishlist = catchAsync(
-  async (req: Request, res: Response, next: NextFunction) => {}
+  async (req: Request, res: Response, next: NextFunction) => {
+    const { productId } = req.params;
+    const userId = res.locals.user._id;
+
+    const removedItem = await WishlistItem.findOneAndDelete({
+      userId,
+      productId,
+    });
+
+    if (!removedItem)
+      return next(new AppError("No item found with that ID", 404));
+
+    res.status(204).json({ status: "success", data: null });
+  }
 );
