@@ -1,15 +1,35 @@
 import { Request, Response, NextFunction } from "express";
 import catchAsync from "../utils/catchAsync";
 import HistoryItem from "../models/historyItemModel";
+import APIFeatures from "../utils/ApiFeatures";
 
 export const getHistory = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
+    const id = res.locals.user._id;
+
+    const features = new APIFeatures(
+      HistoryItem.find({ userId: id }).populate("productId"),
+      req.query
+    );
+
+    const historyItems = await features.filter().paginate().sort().query;
+
     res.json({
       status: "success",
-      message: "Get all history items",
+      length: historyItems.length,
+      data: { historyItems },
     });
   }
 );
+
+export const filterYourHistory = (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  console.log(req.query);
+  next();
+};
 
 export const addToHistory = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
@@ -22,7 +42,6 @@ export const addToHistory = catchAsync(
 
     if (!historyItem) {
       const newItem = await HistoryItem.create({ userId, productId });
-      console.log({ newItem });
       return next();
     }
 
