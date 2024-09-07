@@ -6,6 +6,7 @@ import globalErrorHandler from "./controllers/errorController";
 import reviewRouter from "./router/reviewRouter";
 import productRouter from "./router/productRouter";
 import wishlistRouter from "./router/wishlistItemRouter";
+import historyRouter from "./router/historyRouter";
 
 const app = express();
 
@@ -18,6 +19,7 @@ app.use("/user", userRouter);
 app.use("/review", reviewRouter);
 app.use("/product", productRouter);
 app.use("/wishlist", wishlistRouter);
+app.use("/history", historyRouter);
 
 app.all("*", (req: Request, res: Response) => {
   res.status(404).json({
