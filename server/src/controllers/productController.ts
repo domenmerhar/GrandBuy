@@ -4,6 +4,20 @@ import Product from "../models/productModel";
 import AppError from "../utils/AppError";
 import APIFeatures from "../utils/ApiFeatures";
 
+export const getProduct = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const { productId } = req.params;
+
+    console.log({ productId });
+
+    const product = await Product.findById(productId);
+
+    if (!product) return next(new AppError("Product not found", 404));
+
+    res.status(200).json({ status: "success", data: { product } });
+  }
+);
+
 export const getProducts = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const features = new APIFeatures(Product.find(), req.query);
