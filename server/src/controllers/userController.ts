@@ -6,7 +6,6 @@ import AppError from "../utils/AppError";
 import { role } from "../utils/types";
 import bcrypt from "bcrypt";
 import { Types } from "mongoose";
-import { getAll } from "./handlerFactory";
 
 const createToken = (id: Types.ObjectId) =>
   jwt.sign({ id, iat: Date.now() }, process.env.JWT_SECRET!, {

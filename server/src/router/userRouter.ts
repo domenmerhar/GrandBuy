@@ -17,6 +17,8 @@ import User from "../models/userModel";
 //TODO: CHECK EVERY ROUTER FOR AUTH MIDDLEWARE
 //TODO: NORMALIZE RESPONE FORMAT
 
+//TODO: GET ONE USER
+
 const userRouter = Router();
 
 userRouter.route("/login").post(login);
