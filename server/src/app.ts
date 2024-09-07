@@ -8,6 +8,7 @@ import productRouter from "./router/productRouter";
 import wishlistRouter from "./router/wishlistItemRouter";
 import historyRouter from "./router/historyRouter";
 import cartRouter from "./router/cartRouter";
+import couponRouter from "./router/couponRouter";
 
 const app = express();
 
@@ -22,6 +23,7 @@ app.use("/product", productRouter);
 app.use("/wishlist", wishlistRouter);
 app.use("/history", historyRouter);
 app.use("/cart", cartRouter);
+app.use("/coupon", couponRouter);
 
 app.all("*", (req: Request, res: Response) => {
   res.status(404).json({
