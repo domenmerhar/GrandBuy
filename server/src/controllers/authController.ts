@@ -40,6 +40,32 @@ export const protect = catchAsync(
   }
 );
 
+export const saveUserToResponse = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const token = req.headers.authorization?.split(" ")[1];
+
+    if (!token) return next();
+
+    const decoded: JwtPayload = jwt.verify(
+      token,
+      process.env.JWT_SECRET as Secret
+    ) as JwtPayload;
+    res.locals.token = decoded;
+
+    const user = await User.findById(decoded.id);
+
+    if (!user) return next();
+
+    const jwtExpired = User.jwtExpired(user.jwtChangedAt, decoded.iat);
+
+    if (jwtExpired) return next();
+
+    res.locals.user = user;
+
+    next();
+  }
+);
+
 export const restrictTo =
   (...roles: role[]) =>
   (req: Request, res: Response, next: NextFunction) => {
