@@ -34,6 +34,8 @@ export const signup = catchAsync(
       confirmPassword,
     });
 
+    newUser.password = newUser.__v = newUser.jwtChangedAt = undefined!;
+
     const token = createToken(newUser._id);
 
     res.status(201).json({ status: "sucess", data: newUser, token });
@@ -90,7 +92,7 @@ export const updateMe = catchAsync(
     const user = await User.findOneAndUpdate({ _id: id }, req.body, {
       new: true,
       runValidators: true,
-    }).select("-_id");
+    }).select("-_id -jwtChangedAt");
 
     res.status(200).json({ status: "success", data: user });
   }
@@ -141,9 +143,7 @@ export const login = catchAsync(
 export const logout = catchAsync(async (req: Request, res: Response) => {
   await res.locals.user.logout();
 
-  res
-    .status(200)
-    .json({ status: "success", message: "Logged out.", data: null });
+  res.status(200).json({ status: "success", message: "Logged out." });
 });
 
 export const changePassword = catchAsync(
