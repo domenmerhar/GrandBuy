@@ -16,6 +16,6 @@ cartRouter.route("/").get(getCartItems).post(createCartItem);
 
 cartRouter.route("/:cartId").patch(updateItemQuantity).delete(deleteCartItem);
 
-cartRouter.route("/apply-coupon/:couponCode").post(protect, applyCoupon);
+cartRouter.route("/apply-coupon/:couponCode").patch(protect, applyCoupon);
 
 export default cartRouter;
