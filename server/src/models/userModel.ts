@@ -19,7 +19,6 @@ const UserSchema = new mongoose.Schema({
       message: "Please provide a valid email.",
     },
   },
-  //CANNOT BE SET BY USER
   role: {
     type: String,
     enum: {
@@ -113,6 +112,8 @@ UserSchema.pre("save", function (next) {
 });
 
 UserSchema.pre("save", function (next) {
+  if (!this.isModified("password") || this.isNew) return next();
+
   this.jwtChangedAt = new Date(Date.now() - 1000);
   next();
 });
@@ -138,7 +139,16 @@ UserSchema.statics.jwtExpired = function (
 };
 
 UserSchema.methods.logout = async function () {
+  this.jwtChangedAt = new Date();
   await this.save({ validateBeforeSave: false });
 };
+
+UserSchema.set("toJSON", {
+  versionKey: false,
+});
+
+UserSchema.set("toObject", {
+  versionKey: false,
+});
 
 export default mongoose.model("User", UserSchema);
