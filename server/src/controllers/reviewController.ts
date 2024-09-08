@@ -10,9 +10,9 @@ export const getProductReviews = catchAsync(
     const { productId } = req.params;
 
     const features = new APIFeatures(
-      Review.find({ productId })
-        .select("-__v -lastChanged -productId")
-        .populate({ path: "userId", select: "username _id" }),
+      Review.find({ product: productId })
+        .select("-__v -lastChanged -product")
+        .populate({ path: "user", select: "username _id" }),
       req.query
     )
       .filter()
@@ -38,14 +38,14 @@ export const getProductReviewStats = catchAsync(
 
     const stats = await Review.aggregate([
       {
-        $match: { productId: new mongoose.Types.ObjectId(productId) },
+        $match: { product: new mongoose.Types.ObjectId(productId) },
       },
       {
         $facet: {
           overallStats: [
             {
               $group: {
-                _id: "$productId",
+                _id: "$product",
                 avgRating: { $avg: "$rating" },
                 numRatings: { $sum: 1 },
               },
@@ -120,8 +120,8 @@ export const createReview = catchAsync(
     const { productId } = req.params;
 
     const newReview = await Review.create({
-      userId: res.locals.user._id,
-      productId,
+      user: res.locals.user._id,
+      product: productId,
       review,
       rating,
     });
@@ -138,9 +138,11 @@ export const getUserReviews = catchAsync(
 
 export const getMyReviews = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    const reviews = await Review.find({ userId: res.locals.user._id }).populate(
-      { path: "productId", select: "name -_id" }
-    );
+    const reviews = await Review.find({ user: res.locals.user._id }).populate({
+      path: "product",
+      select:
+        "-id -user -images -price -shipping -descriptionLink -lastChanged -totalPrice",
+    });
 
     if (!reviews) return next(new AppError("No reviews found", 404));
 
