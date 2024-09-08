@@ -51,6 +51,7 @@ export const deleteCoupon = catchAsync(
   }
 );
 
+//TODO: Compare with item discount
 export const applyCoupon = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const { couponCode } = req.params;
@@ -66,7 +67,14 @@ export const applyCoupon = catchAsync(
     const result = await Promise.all(
       coupon.products.map((productId) =>
         CartItem.findOneAndUpdate(
-          { user: id, product: productId },
+          {
+            user: id,
+            product: productId,
+            $or: [
+              { discount: { $exists: false } },
+              { discount: { $lt: coupon.discount } },
+            ],
+          },
           { discount: coupon.discount },
           { new: true }
         )
