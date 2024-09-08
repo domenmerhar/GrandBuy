@@ -1,12 +1,12 @@
 import mongoose from "mongoose";
 
 const ReviewSchema = new mongoose.Schema({
-  userId: {
+  user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
     required: [true, "Please provide a user ID."],
   },
-  productId: {
+  product: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Product",
     required: [true, "Please provide a product ID."],
@@ -45,12 +45,27 @@ ReviewSchema.virtual("likesCount").get(function () {
   return this.likes.length;
 });
 
-ReviewSchema.index({ userId: 1, productId: 1 }, { unique: true });
+ReviewSchema.index({ user: 1, product: 1 }, { unique: true });
 ReviewSchema.index({ lastChange: 1 });
 ReviewSchema.index({ likes: 1, rating: 1 });
 
-ReviewSchema.set("toJSON", { versionKey: false, virtuals: true });
-ReviewSchema.set("toObject", { versionKey: false, virtuals: true });
+ReviewSchema.set("toJSON", {
+  versionKey: false,
+  virtuals: true,
+  transform: function (doc, ret) {
+    delete ret.id;
+    return ret;
+  },
+});
+
+ReviewSchema.set("toObject", {
+  versionKey: false,
+  virtuals: true,
+  transform: function (doc, ret) {
+    delete ret.id;
+    return ret;
+  },
+});
 
 function limitArray(limit: number) {
   return function (value: any[]) {
