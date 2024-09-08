@@ -55,7 +55,8 @@ export const updateItemQuantity = catchAsync(
 
 export const createCartItem = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    const { productId, quantity } = req.body;
+    const { quantity } = req.body;
+    const { productId } = req.params;
     const userId = res.locals.user._id;
 
     const newItem = await CartItem.create({
