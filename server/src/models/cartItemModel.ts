@@ -1,13 +1,13 @@
 import mongoose from "mongoose";
 
 const CartItemSchema = new mongoose.Schema({
-  userId: {
+  user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
     required: true,
   },
 
-  productId: {
+  product: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Product",
     required: true,
@@ -31,8 +31,8 @@ const CartItemSchema = new mongoose.Schema({
   },
 });
 
-CartItemSchema.index({ userId: 1, productId: 1 }, { unique: true });
-CartItemSchema.index({ userId: 1, createdAt: 1 });
+CartItemSchema.index({ user: 1, product: 1 }, { unique: true });
+CartItemSchema.index({ user: 1, createdAt: 1 });
 
 CartItemSchema.set("toJSON", {
   versionKey: false,
