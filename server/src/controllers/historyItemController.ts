@@ -8,7 +8,7 @@ export const getHistory = catchAsync(
     const id = res.locals.user._id;
 
     const features = new APIFeatures(
-      HistoryItem.find({ userId: id }).populate("productId"),
+      HistoryItem.find({ user: id }).populate("product"),
       req.query
     );
 
@@ -38,10 +38,16 @@ export const addToHistory = catchAsync(
 
     if (!userId) return next();
 
-    const historyItem = await HistoryItem.findOne({ userId, productId });
+    const historyItem = await HistoryItem.findOne({
+      user: userId,
+      product: productId,
+    });
 
     if (!historyItem) {
-      const newItem = await HistoryItem.create({ userId, productId });
+      const newItem = await HistoryItem.create({
+        user: userId,
+        product: productId,
+      });
       return next();
     }
 
