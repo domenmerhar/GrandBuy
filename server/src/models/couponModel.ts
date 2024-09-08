@@ -41,6 +41,8 @@ CouponSchema.virtual("isExpired").get(function () {
   return this.expireAt < new Date();
 });
 
+CouponSchema.index({ expireAt: 1, code: 1 });
+
 CouponSchema.set("toJSON", { virtuals: true });
 CouponSchema.set("toObject", { virtuals: true });
 
