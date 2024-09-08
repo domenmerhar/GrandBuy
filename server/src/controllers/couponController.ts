@@ -68,7 +68,7 @@ export const applyCoupon = catchAsync(
     const result = await Promise.all(
       coupon.products.map((productId) =>
         CartItem.findOneAndUpdate(
-          { userId: id, productId },
+          { user: id, product: productId },
           { discount: coupon.discount },
           { new: true }
         )
