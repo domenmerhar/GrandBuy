@@ -12,9 +12,18 @@ import historyRouter from "./router/historyRouter";
 import cartRouter from "./router/cartRouter";
 import couponRouter from "./router/couponRouter";
 
-const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000,
+//TODO: xss
+
+const hourLimiter = rateLimit({
+  windowMs: 60 * 60 * 1000,
   limit: 100,
+  standardHeaders: "draft-7",
+  legacyHeaders: false,
+});
+
+const dayLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  limit: 400,
   standardHeaders: "draft-7",
   legacyHeaders: false,
 });
@@ -26,7 +35,7 @@ app.use(helmet());
 
 app.use(mongoSanitize());
 
-app.use(limiter);
+app.use(dayLimiter);
 
 app.use(express.json());
 
