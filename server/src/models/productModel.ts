@@ -67,8 +67,23 @@ ProductSchema.pre(/^find/, function (next) {
   next();
 });
 
-ProductSchema.virtual("averageRating");
+ProductSchema.index({ userId: 1, name: 1 }, { unique: true });
+ProductSchema.index({ name: 1 });
 
 //TODO: ADD INDEX
+
+ProductSchema.virtual("totalPrice").get(function () {
+  return this.price + (this.shipping || 0);
+});
+
+ProductSchema.set("toJSON", {
+  versionKey: false,
+  virtuals: true,
+});
+
+ProductSchema.set("toObject", {
+  versionKey: false,
+  virtuals: true,
+});
 
 export default mongoose.model("Product", ProductSchema);
