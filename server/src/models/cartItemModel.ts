@@ -23,6 +23,11 @@ const CartItemSchema = new mongoose.Schema({
     type: Date,
     default: Date.now(),
   },
+
+  discount: {
+    type: Number,
+    min: [0, "Discount must be at least 0"],
+  },
 });
 
 CartItemSchema.index({ userId: 1, productId: 1 }, { unique: true });
