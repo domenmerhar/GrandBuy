@@ -29,12 +29,13 @@ reviewRouter.route("/user/:userId").get(getUserReviews);
 
 reviewRouter.route("/me").get(protect, getMyReviews);
 
+//TODO: fix virtual totalPrice
 reviewRouter
   .route("/:id")
   .get(
     getOne(Review, [
-      { path: "userId", select: "username -_id" },
-      { path: "productId", select: "name -_id" },
+      { path: "user", select: "username -_id" },
+      { path: "product", select: "name -_id" },
     ])
   )
   .patch(protect, updateReview)
