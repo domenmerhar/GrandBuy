@@ -191,7 +191,18 @@ export const getMyReviews = catchAsync(
 
 export const updateReview = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    res.status(200).json({ message: "updateReview" });
+    const { id } = req.params;
+    const { rating, review: reviewText } = req.body;
+
+    const review = await Review.findOneAndUpdate(
+      { _id: id, user: res.locals.user._id },
+      { rating, review: reviewText },
+      { new: true }
+    );
+
+    if (!review) return next(new AppError("Review not found.", 404));
+
+    res.status(200).json({ status: "success", data: { review } });
   }
 );
 
