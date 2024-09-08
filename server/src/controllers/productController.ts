@@ -26,7 +26,7 @@ export const getProducts = catchAsync(
       .filter()
       .sort()
       .paginate()
-      .query.select("_id name price shipping coverImage");
+      .query.select("_id name coverImage totalPrice discount");
 
     if (products.length === 0) {
       next(new AppError("No products found.", 404));
@@ -43,8 +43,15 @@ export const getProducts = catchAsync(
 export const createProduct = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const userId = res.locals.user._id;
-    const { name, coverImage, images, price, shipping, descriptionLink } =
-      req.body;
+    const {
+      name,
+      coverImage,
+      images,
+      price,
+      shipping,
+      descriptionLink,
+      discount,
+    } = req.body;
 
     const product = await Product.create({
       name,
@@ -54,6 +61,7 @@ export const createProduct = catchAsync(
       shipping,
       descriptionLink,
       user: userId,
+      discount,
     });
 
     res.status(200).json({ status: "success", data: { product } });
@@ -95,7 +103,7 @@ export const deleteProduct = catchAsync(
 
 export const getHighestDiscount = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    const products = await Product.find()
+    const products = await Product.find({ discount: { $gt: 0 } })
       .sort({ discount: -1 })
       .limit(10)
       .select("-user -images -descriptionLink -lastChanged");
