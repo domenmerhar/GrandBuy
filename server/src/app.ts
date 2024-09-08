@@ -1,4 +1,5 @@
 import express, { Request, Response } from "express";
+import mongoSanitize from "express-mongo-sanitize";
 import { rateLimit } from "express-rate-limit";
 import helmet from "helmet";
 import morgan from "morgan";
@@ -20,8 +21,10 @@ const limiter = rateLimit({
 
 const app = express();
 
-app.use(helmet());
 if (process.env.NODE_ENV === "development") app.use(morgan("dev"));
+app.use(helmet());
+
+app.use(mongoSanitize());
 
 app.use(limiter);
 
