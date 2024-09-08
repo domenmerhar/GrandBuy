@@ -27,13 +27,18 @@ const ReviewSchema = new mongoose.Schema({
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
-      validate: [limitArray(1000), "Maximum number of likes reached (1000)."],
+      validate: [limitArray(1000), "Maximum number of likes (1000) exceeded."],
     },
   ],
   lastChange: {
     type: Date,
-    default: Date.now(),
+    default: Date.now,
   },
+});
+
+ReviewSchema.pre("save", function (next) {
+  this.lastChange = new Date();
+  next();
 });
 
 ReviewSchema.virtual("likesCount").get(function () {
@@ -41,13 +46,14 @@ ReviewSchema.virtual("likesCount").get(function () {
 });
 
 ReviewSchema.index({ userId: 1, productId: 1 }, { unique: true });
+ReviewSchema.index({ lastChange: 1 });
+ReviewSchema.index({ likes: 1, rating: 1 });
 
-ReviewSchema.set("toJSON", { virtuals: true });
-ReviewSchema.set("toObject", { virtuals: true });
+ReviewSchema.set("toJSON", { versionKey: false, virtuals: true });
+ReviewSchema.set("toObject", { versionKey: false, virtuals: true });
 
 function limitArray(limit: number) {
   return function (value: any[]) {
-    console.log(value);
     return value.length <= limit;
   };
 }
