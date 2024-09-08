@@ -29,7 +29,6 @@ reviewRouter.route("/user/:userId").get(getUserReviews);
 
 reviewRouter.route("/me").get(protect, getMyReviews);
 
-//TODO: fix virtual totalPrice
 reviewRouter
   .route("/:id")
   .get(

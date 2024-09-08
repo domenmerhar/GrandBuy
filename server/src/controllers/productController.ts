@@ -4,8 +4,6 @@ import Product from "../models/productModel";
 import AppError from "../utils/AppError";
 import APIFeatures from "../utils/ApiFeatures";
 
-//TOOD: HIGHEST DISCOUNT
-
 export const getProduct = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const { productId } = req.params;
