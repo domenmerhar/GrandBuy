@@ -42,7 +42,13 @@ export const updateCoupon = catchAsync(
 
 export const deleteCoupon = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    res.status(200).json({ status: "success" });
+    const { id } = req.params;
+
+    const coupon = await Coupon.findByIdAndDelete(id);
+
+    if (!coupon) return next(new AppError("Coupon not found", 404));
+
+    res.status(204).json({ status: "success", data: null });
   }
 );
 
