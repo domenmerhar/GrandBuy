@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 //COVER IMAGE
 
 const ProductSchema = new mongoose.Schema({
-  userId: {
+  user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
     required: [true, "Please provide a user ID."],
@@ -67,7 +67,7 @@ ProductSchema.pre(/^find/, function (next) {
   next();
 });
 
-ProductSchema.index({ userId: 1, name: 1 }, { unique: true });
+ProductSchema.index({ user: 1, name: 1 }, { unique: true });
 ProductSchema.index({ name: 1 });
 
 //TODO: ADD INDEX
@@ -79,11 +79,19 @@ ProductSchema.virtual("totalPrice").get(function () {
 ProductSchema.set("toJSON", {
   versionKey: false,
   virtuals: true,
+  transform: function (doc, ret) {
+    delete ret.id;
+    return ret;
+  },
 });
 
 ProductSchema.set("toObject", {
   versionKey: false,
   virtuals: true,
+  transform: function (doc, ret) {
+    delete ret.id;
+    return ret;
+  },
 });
 
 export default mongoose.model("Product", ProductSchema);
