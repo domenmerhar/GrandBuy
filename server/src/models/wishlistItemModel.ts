@@ -1,13 +1,13 @@
 import mongoose from "mongoose";
 
 const wishListItemSchema = new mongoose.Schema({
-  userId: {
+  user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
     required: [true, "Please provide a user ID."],
   },
 
-  productId: {
+  product: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Product",
     required: [true, "Please provide a product ID."],
@@ -19,7 +19,7 @@ const wishListItemSchema = new mongoose.Schema({
   },
 });
 
-wishListItemSchema.index({ userId: 1, productId: 1 }, { unique: true });
+wishListItemSchema.index({ user: 1, product: 1 }, { unique: true });
 wishListItemSchema.index({ createdAt: 1 });
 
 wishListItemSchema.set("toJSON", {
