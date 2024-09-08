@@ -4,11 +4,11 @@ import Product from "../models/productModel";
 import AppError from "../utils/AppError";
 import APIFeatures from "../utils/ApiFeatures";
 
+//TOOD: HIGHEST DISCOUNT
+
 export const getProduct = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const { productId } = req.params;
-
-    console.log({ productId });
 
     const product = await Product.findById(productId);
 
@@ -26,7 +26,7 @@ export const getProducts = catchAsync(
       .filter()
       .sort()
       .paginate()
-      .query.select("_id name price coverImage");
+      .query.select("_id name price shipping coverImage");
 
     if (products.length === 0) {
       next(new AppError("No products found.", 404));
@@ -53,7 +53,7 @@ export const createProduct = catchAsync(
       price,
       shipping,
       descriptionLink,
-      userId,
+      user: userId,
     });
 
     res.status(200).json({ status: "success", data: { product } });
@@ -85,8 +85,6 @@ export const deleteProduct = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const { productId } = req.params;
 
-    req.query;
-
     const product = await Product.findOneAndDelete({ _id: productId });
 
     console.log({ product });
@@ -101,7 +99,7 @@ export const getHighestDiscount = catchAsync(
     const products = await Product.find()
       .sort({ discount: -1 })
       .limit(10)
-      .select("-userId -images -descriptionLink -lastChanged");
+      .select("-user -images -descriptionLink -lastChanged");
 
     res.status(200).json({ status: "success", data: { products } });
   }
@@ -111,9 +109,10 @@ export const getSellerProducts = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const { sellerId } = req.params;
 
-    const product = await Product.find({ userId: sellerId }).select(
-      "-userId -descriptionLink"
+    const product = await Product.find({ user: sellerId }).select(
+      "-user -descriptionLink -id"
     );
+
     if (!product.length) return next(new AppError("No products found.", 404));
 
     res
