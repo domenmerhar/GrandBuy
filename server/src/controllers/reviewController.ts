@@ -197,7 +197,14 @@ export const updateReview = catchAsync(
 
 export const deleteReview = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    res.status(204).json({ message: "deleteReview" });
+    const { id } = req.params;
+    const userId = res.locals.user._id;
+
+    const review = await Review.findOneAndDelete({ _id: id, user: userId });
+
+    if (!review) return next(new AppError("Review not found.", 404));
+
+    res.status(204).json({ status: "success" });
   }
 );
 
