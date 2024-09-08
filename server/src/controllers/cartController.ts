@@ -8,7 +8,10 @@ export const getCartItems = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const userId = res.locals.user._id;
 
-    const features = new APIFeatures(CartItem.find({ userId }), req.query);
+    const features = new APIFeatures(
+      CartItem.find({ user: userId }),
+      req.query
+    );
 
     const cartItems = await features.paginate().sort().query;
 
@@ -55,7 +58,11 @@ export const createCartItem = catchAsync(
     const { productId, quantity } = req.body;
     const userId = res.locals.user._id;
 
-    const newItem = await CartItem.create({ productId, quantity, userId });
+    const newItem = await CartItem.create({
+      product: productId,
+      quantity,
+      user: userId,
+    });
 
     res.status(201).json({
       status: "success",
