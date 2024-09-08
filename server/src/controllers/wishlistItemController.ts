@@ -9,9 +9,9 @@ export const getWishlist = catchAsync(
     const userId = res.locals.user._id;
 
     const features = new APIFeatures(
-      WishlistItem.find({ userId }).populate({
-        path: "productId",
-        select: "name price imageCover",
+      WishlistItem.find({ user: userId }).populate({
+        path: "product",
+        select: "name price shipping imageCover",
       }),
       req.query
     );
@@ -33,7 +33,10 @@ export const addToWishlist = catchAsync(
     const { productId } = req.params;
     const userId = res.locals.user._id;
 
-    const wishlistItem = await WishlistItem.create({ userId, productId });
+    const wishlistItem = await WishlistItem.create({
+      user: userId,
+      product: productId,
+    });
 
     res.status(201).json({
       status: "success",
@@ -46,12 +49,12 @@ export const addToWishlist = catchAsync(
 
 export const removeFromWishlist = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    const { productId } = req.params;
+    const { id } = req.params;
     const userId = res.locals.user._id;
 
     const removedItem = await WishlistItem.findOneAndDelete({
-      userId,
-      productId,
+      user: userId,
+      _id: id,
     });
 
     if (!removedItem)
