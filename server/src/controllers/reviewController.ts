@@ -132,7 +132,46 @@ export const createReview = catchAsync(
 
 export const getUserReviews = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    res.status(200).json({ message: "getUserReviews" });
+    const { userId } = req.params;
+
+    const reviews = await Review.aggregate([
+      {
+        $match: { user: new mongoose.Types.ObjectId(userId) },
+      },
+      {
+        $lookup: {
+          from: "users",
+          localField: "user",
+          foreignField: "_id",
+          as: "user",
+        },
+      },
+      {
+        $unwind: "$user",
+      },
+      {
+        $match: { "user.role": "user" },
+      },
+      {
+        $project: {
+          _id: 1,
+          product: 1,
+          rating: 1,
+          review: 1,
+          likes: 1,
+          likesCount: 1,
+          lastChange: 1,
+          user: { _id: 1, role: 1 },
+        },
+      },
+    ]);
+
+    res.status(200).json({
+      status: "success",
+      data: {
+        reviews,
+      },
+    });
   }
 );
 
