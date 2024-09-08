@@ -27,7 +27,6 @@ export const filterYourHistory = (
   res: Response,
   next: NextFunction
 ) => {
-  console.log(req.query);
   next();
 };
 

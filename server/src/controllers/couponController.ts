@@ -14,8 +14,6 @@ export const addCoupon = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const { code, products, discount, expireAt } = req.body;
 
-    console.log(req.body);
-
     const coupon = await Coupon.create({ code, products, discount, expireAt });
 
     res.status(201).json({ status: "success", data: { coupon } });

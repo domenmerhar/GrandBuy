@@ -87,7 +87,6 @@ export const deleteProduct = catchAsync(
 
     const product = await Product.findOneAndDelete({ _id: productId });
 
-    console.log({ product });
     if (!product) return next(new AppError("Product not found", 404));
 
     res.status(204).json({ status: "success", data: null });
