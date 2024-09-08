@@ -15,11 +15,12 @@ const wishListItemSchema = new mongoose.Schema({
 
   createdAt: {
     type: Date,
-    default: Date.now(),
+    default: Date.now,
   },
 });
 
 wishListItemSchema.index({ userId: 1, productId: 1 }, { unique: true });
+wishListItemSchema.index({ createdAt: 1 });
 
 wishListItemSchema.set("toJSON", {
   virtuals: true,
