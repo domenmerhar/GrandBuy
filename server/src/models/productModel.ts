@@ -32,10 +32,18 @@ const ProductSchema = new mongoose.Schema({
   },
   shipping: {
     type: Number,
-    validate: {
-      validator: (val: string) => +val >= 0 && +val <= 10000,
-    },
+    min: [0, "Please provide a shipping higher than 0."],
+    max: [10000, "Please provide a shipping lower than 10000."],
     required: [true, "Please provide a price."],
+  },
+  discount: {
+    type: Number,
+    min: [0, "Please provide a discount higher than 0."],
+    max: [100, "Please provide a discount lower than 100."],
+    default: 0,
+  },
+  totalPrice: {
+    type: Number,
   },
   descriptionLink: {
     type: String,
@@ -48,33 +56,17 @@ const ProductSchema = new mongoose.Schema({
 });
 
 ProductSchema.pre("save", function (next) {
+  const discountMultiplier = (100 - (this?.discount ?? 0)) / 100;
+  const shipping = this.shipping || 0;
+
+  this.totalPrice = this.price * discountMultiplier + shipping;
   this.lastChanged = new Date();
-  next();
-});
-
-ProductSchema.pre(/^find/, function (next) {
-  const doc = this as mongoose.Query<
-    Document[],
-    Document,
-    unknown,
-    unknown,
-    "find",
-    Record<string, never>
-  >;
-
-  doc.select("-__v");
-
   next();
 });
 
 ProductSchema.index({ user: 1, name: 1 }, { unique: true });
 ProductSchema.index({ name: 1 });
-
-//TODO: ADD INDEX
-
-ProductSchema.virtual("totalPrice").get(function () {
-  return this.price + (this.shipping || 0);
-});
+ProductSchema.index({ totalPrice: 1 });
 
 ProductSchema.set("toJSON", {
   versionKey: false,
