@@ -1,13 +1,13 @@
 import mongoose from "mongoose";
 
 const historyItemSchema = new mongoose.Schema({
-  userId: {
+  user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
     required: true,
   },
 
-  productId: {
+  product: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Product",
     required: true,
@@ -19,8 +19,8 @@ const historyItemSchema = new mongoose.Schema({
   },
 });
 
-historyItemSchema.index({ userId: 1, productId: 1 }, { unique: true });
-historyItemSchema.index({ createdAt: 1, userId: 1 });
+historyItemSchema.index({ user: 1, product: 1 }, { unique: true });
+historyItemSchema.index({ createdAt: 1, user: 1 });
 
 historyItemSchema.set("toJSON", {
   versionKey: false,
