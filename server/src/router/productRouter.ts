@@ -8,6 +8,7 @@ import {
   getProducts,
   getSellerProducts,
   updateProduct,
+  uploadProductFiles,
 } from "../controllers/productController";
 import {
   protect,
@@ -54,39 +55,10 @@ productRouter
   .post(
     fileUpload({ createParentPath: true }),
     filesPayloadExists,
-    fileExtLimiterArr("images", [".png", ".jpg", ".jpeg", ".md"]),
+    fileExtLimiterArr("images", [".png", ".jpg", ".jpeg"]),
     fileExtLimiterOne("description", [".md"]),
+    uploadProductFiles,
     (req, res, next) => {
-      const files = req.files;
-
-      files.images.forEach((file) => {
-        const filepath = path.join(
-          __dirname,
-          "..",
-          "..",
-          "public",
-          "files",
-          file.name
-        );
-
-        file.mv(filepath, (err) => {
-          if (err) return next(new AppError("Error uploading file", 500));
-        });
-      });
-
-      const filePathDescription = path.join(
-        __dirname,
-        "..",
-        "..",
-        "public",
-        "files",
-        files.description.name
-      );
-
-      files.description.mv(filePathDescription, (err) => {
-        if (err) return next(new AppError("Error uploading file", 500));
-      });
-
       res.status(200).json({ status: "success" });
     }
   );
