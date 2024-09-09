@@ -20,123 +20,14 @@ import {
 } from "../controllers/historyItemController";
 import AppError from "../utils/AppError";
 import path from "path";
+import {
+  fileExtLimiterArr,
+  fileExtLimiterOne,
+  filesPayloadExists,
+} from "../controllers/fileController";
 
 //TODO: Images
 //TOOD: .md files
-
-const MB = 5;
-const FILE_SIZE_LIMIT = MB * 1024 * 1024;
-
-const fileSizeLimiter = (req: Request, res: Response, next: NextFunction) => {
-  const files = req.filterYourHistory;
-
-  const filesOverLimit = [];
-
-  Object.keys(files).forEach((key) => {
-    if (files[key].size > FILE_SIZE_LIMIT) {
-      filesOverLimit.push(key);
-    }
-  });
-
-  if (filesOverLimit.length) {
-    return next(
-      new AppError(
-        `The following files are over the ${MB}MB limit: ${filesOverLimit.join(
-          ", "
-        )}`,
-        400
-      )
-    );
-  }
-
-  next();
-};
-
-const filesPayloadExists = (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  if (!req.files) return next(new AppError("No files were uploaded", 400));
-
-  next();
-};
-
-const fileExtLimiter = (allowdExtArray) => {
-  return (req, res, next) => {
-    const files = req.files;
-
-    const fileExtensions = [];
-    // Object.keys(files).forEach((key) => {
-    //   fileExtensions.push(path.extname(files[key].name));
-    // });
-
-    files.images.forEach((file) => {
-      fileExtensions.push(path.extname(file.name));
-    });
-
-    const allowed = fileExtensions.every((ext) => allowdExtArray.includes(ext));
-
-    if (!allowed)
-      return next(
-        new AppError(
-          "Only please provide a valid format files are allowed",
-          400
-        )
-      );
-
-    next();
-  };
-};
-
-const fileExtLimiterOne =
-  (location: string, allowdExtArray: string[]) =>
-  (req: Request, res: Response, next: NextFunction) => {
-    if (!req.files[location])
-      return next(new AppError(`Please upload ${location}`, 400));
-
-    const file = req.files[location];
-    const fileExtensions: string = path.extname(file.name);
-
-    const allowed = allowdExtArray.includes(fileExtensions);
-
-    if (!allowed)
-      return next(
-        new AppError(
-          `Please provide ${location} in one of the following formats: ${allowdExtArray.join(", ")}`,
-          400
-        )
-      );
-
-    next();
-  };
-
-const fileExtLimiterArr =
-  (location: string, allowdExtArray: string[]) =>
-  (req: Request, res: Response, next: NextFunction) => {
-    if (!req.files[location])
-      return next(new AppError(`Please upload ${location}`, 400));
-
-    const fileArr = req.files[location];
-
-    const fileExtensions: string[] = [];
-
-    fileArr.forEach((file) => {
-      fileExtensions.push(path.extname(file.name));
-    });
-
-    const allowed = fileExtensions.every((ext) => allowdExtArray.includes(ext));
-
-    if (!allowed)
-      return next(
-        new AppError(
-          `Please provide ${location} in one of the following formats: ${allowdExtArray.join(", ")}`,
-          400
-        )
-      );
-
-    next();
-  };
 
 const productRouter = express.Router();
 
