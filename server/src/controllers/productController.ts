@@ -3,6 +3,7 @@ import catchAsync from "../utils/catchAsync";
 import Product from "../models/productModel";
 import AppError from "../utils/AppError";
 import APIFeatures from "../utils/ApiFeatures";
+import path from "path";
 
 export const getProduct = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
@@ -65,6 +66,44 @@ export const createProduct = catchAsync(
     res.status(200).json({ status: "success", data: { product } });
   }
 );
+
+export const uploadProductFiles = (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const files = req.files;
+
+  files.images.forEach((file) => {
+    const filepath = path.join(
+      __dirname,
+      "..",
+      "..",
+      "public",
+      "files",
+      file.name
+    );
+
+    file.mv(filepath, (err) => {
+      if (err) return next(new AppError("Error uploading file", 500));
+    });
+  });
+
+  const filePathDescription = path.join(
+    __dirname,
+    "..",
+    "..",
+    "public",
+    "files",
+    files.description.name
+  );
+
+  files.description.mv(filePathDescription, (err) => {
+    if (err) return next(new AppError("Error uploading file", 500));
+  });
+
+  next();
+};
 
 export const updateProduct = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
