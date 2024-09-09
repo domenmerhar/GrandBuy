@@ -77,18 +77,44 @@ const fileExtLimiter = (allowdExtArray) => {
 
     const allowed = fileExtensions.every((ext) => allowdExtArray.includes(ext));
 
-    if (!allowed) {
-      next(
+    if (!allowed)
+      return next(
         new AppError(
           "Only please provide a valid format files are allowed",
           400
         )
       );
-    }
 
     next();
   };
 };
+
+const fileExtLimiterArr =
+  (location: string, allowdExtArray: string[]) =>
+  (req: Request, res: Response, next: NextFunction) => {
+    if (!req.files[location])
+      return next(new AppError(`Please upload ${location}`, 400));
+
+    const fileArr = req.files[location];
+
+    const fileExtensions: string[] = [];
+
+    fileArr.forEach((file) => {
+      fileExtensions.push(path.extname(file.name));
+    });
+
+    const allowed = fileExtensions.every((ext) => allowdExtArray.includes(ext));
+
+    if (!allowed)
+      return next(
+        new AppError(
+          `Please provide ${location} in one of the following formats: ${allowdExtArray.join(", ")}`,
+          400
+        )
+      );
+
+    next();
+  };
 
 const productRouter = express.Router();
 
@@ -115,7 +141,7 @@ productRouter
   .post(
     fileUpload({ createParentPath: true }),
     filesPayloadExists,
-    fileExtLimiter([".png", ".jpg", ".jpeg"]),
+    fileExtLimiterArr("images", [".png", ".jpg", ".jpeg", ".md"]),
     (req, res, next) => {
       const files = req.files;
 
