@@ -89,6 +89,28 @@ const fileExtLimiter = (allowdExtArray) => {
   };
 };
 
+const fileExtLimiterOne =
+  (location: string, allowdExtArray: string[]) =>
+  (req: Request, res: Response, next: NextFunction) => {
+    if (!req.files[location])
+      return next(new AppError(`Please upload ${location}`, 400));
+
+    const file = req.files[location];
+    const fileExtensions: string = path.extname(file.name);
+
+    const allowed = allowdExtArray.includes(fileExtensions);
+
+    if (!allowed)
+      return next(
+        new AppError(
+          `Please provide ${location} in one of the following formats: ${allowdExtArray.join(", ")}`,
+          400
+        )
+      );
+
+    next();
+  };
+
 const fileExtLimiterArr =
   (location: string, allowdExtArray: string[]) =>
   (req: Request, res: Response, next: NextFunction) => {
@@ -142,6 +164,7 @@ productRouter
     fileUpload({ createParentPath: true }),
     filesPayloadExists,
     fileExtLimiterArr("images", [".png", ".jpg", ".jpeg", ".md"]),
+    fileExtLimiterOne("description", [".md"]),
     (req, res, next) => {
       const files = req.files;
 
@@ -158,6 +181,19 @@ productRouter
         file.mv(filepath, (err) => {
           if (err) return next(new AppError("Error uploading file", 500));
         });
+      });
+
+      const filePathDescription = path.join(
+        __dirname,
+        "..",
+        "..",
+        "public",
+        "files",
+        files.description.name
+      );
+
+      files.description.mv(filePathDescription, (err) => {
+        if (err) return next(new AppError("Error uploading file", 500));
       });
 
       res.status(200).json({ status: "success" });
