@@ -1,4 +1,5 @@
-import express from "express";
+import express, { NextFunction } from "express";
+import fileUpload from "express-fileupload";
 import {
   createProduct,
   deleteProduct,
@@ -13,7 +14,81 @@ import {
   restrictTo,
   saveUserToResponse,
 } from "../controllers/authController";
-import { addToHistory } from "../controllers/historyItemController";
+import {
+  addToHistory,
+  filterYourHistory,
+} from "../controllers/historyItemController";
+import AppError from "../utils/AppError";
+import path from "path";
+
+//TODO: Images
+//TOOD: .md files
+
+const MB = 5;
+const FILE_SIZE_LIMIT = MB * 1024 * 1024;
+
+const fileSizeLimiter = (req: Request, res: Response, next: NextFunction) => {
+  const files = req.filterYourHistory;
+
+  const filesOverLimit = [];
+
+  Object.keys(files).forEach((key) => {
+    if (files[key].size > FILE_SIZE_LIMIT) {
+      filesOverLimit.push(key);
+    }
+  });
+
+  if (filesOverLimit.length) {
+    return next(
+      new AppError(
+        `The following files are over the ${MB}MB limit: ${filesOverLimit.join(
+          ", "
+        )}`,
+        400
+      )
+    );
+  }
+
+  next();
+};
+
+const filesPayloadExists = (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  if (!req.files) return next(new AppError("No files were uploaded", 400));
+
+  next();
+};
+
+const fileExtLimiter = (allowdExtArray) => {
+  return (req, res, next) => {
+    const files = req.files;
+
+    const fileExtensions = [];
+    // Object.keys(files).forEach((key) => {
+    //   fileExtensions.push(path.extname(files[key].name));
+    // });
+
+    files.images.forEach((file) => {
+      fileExtensions.push(path.extname(file.name));
+    });
+
+    const allowed = fileExtensions.every((ext) => allowdExtArray.includes(ext));
+
+    if (!allowed) {
+      next(
+        new AppError(
+          "Only please provide a valid format files are allowed",
+          400
+        )
+      );
+    }
+
+    next();
+  };
+};
 
 const productRouter = express.Router();
 
@@ -34,5 +109,33 @@ productRouter
   .route("/:productId")
   .patch(protect, restrictTo("seller"), updateProduct)
   .delete(protect, restrictTo("seller"), deleteProduct);
+
+productRouter
+  .route("/upload")
+  .post(
+    fileUpload({ createParentPath: true }),
+    filesPayloadExists,
+    fileExtLimiter([".png", ".jpg", ".jpeg"]),
+    (req, res, next) => {
+      const files = req.files;
+
+      files.images.forEach((file) => {
+        const filepath = path.join(
+          __dirname,
+          "..",
+          "..",
+          "public",
+          "files",
+          file.name
+        );
+
+        file.mv(filepath, (err) => {
+          if (err) return next(new AppError("Error uploading file", 500));
+        });
+      });
+
+      res.status(200).json({ status: "success" });
+    }
+  );
 
 export default productRouter;
