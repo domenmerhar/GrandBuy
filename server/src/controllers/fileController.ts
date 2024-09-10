@@ -1,9 +1,31 @@
 import { NextFunction, Request, Response } from "express";
 import AppError from "../utils/AppError";
 import path from "path";
+import { v4 } from "uuid";
 
 const MB = 5;
 const FILE_SIZE_LIMIT = MB * 1024 * 1024;
+
+export const saveFileToServer = (file) => {
+  const fileName = `${v4()}${path.extname(file.name)}`;
+
+  console.log(fileName);
+
+  const filePathCover = path.join(
+    __dirname,
+    "..",
+    "..",
+    "public",
+    "files",
+    fileName
+  );
+
+  file.mv(filePathCover, (err) => {
+    if (err) throw new AppError("Error uploading file", 500);
+  });
+
+  return fileName;
+};
 
 export const fileSizeLimiter = (
   req: Request,
