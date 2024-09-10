@@ -11,6 +11,7 @@ import wishlistRouter from "./router/wishlistItemRouter";
 import historyRouter from "./router/historyRouter";
 import cartRouter from "./router/cartRouter";
 import couponRouter from "./router/couponRouter";
+import path from "path";
 
 //TODO: xss
 
@@ -38,6 +39,7 @@ app.use(mongoSanitize());
 app.use(dayLimiter);
 
 app.use(express.json());
+app.use(express.static(path.join(__dirname, "..", "public", "files")));
 
 app.use("/user", userRouter);
 app.use("/review", reviewRouter);
