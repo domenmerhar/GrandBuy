@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 import { isEmail, isAlpha, isMobilePhone } from "validator";
 import bcrypt from "bcrypt";
 
+//TOOD: email sanitization
 const UserSchema = new mongoose.Schema({
   username: {
     type: String,
