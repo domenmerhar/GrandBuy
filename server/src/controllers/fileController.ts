@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import AppError from "../utils/AppError";
 import path from "path";
 import { v4 } from "uuid";
+import fs from "fs/promises";
 
 const MB = 5;
 const FILE_SIZE_LIMIT = MB * 1024 * 1024;
@@ -141,3 +142,16 @@ export const fileExtLimiterArr =
 
     next();
   };
+
+export const deleteFile = async (fileName: string) => {
+  const filePath = path.join(
+    __dirname,
+    "..",
+    "..",
+    "public",
+    "files",
+    fileName
+  );
+
+  await fs.unlink(filePath);
+};
