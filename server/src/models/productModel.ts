@@ -45,7 +45,7 @@ const ProductSchema = new mongoose.Schema({
   totalPrice: {
     type: Number,
   },
-  descriptionLink: {
+  description: {
     type: String,
     required: true,
   },
