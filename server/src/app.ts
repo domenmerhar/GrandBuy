@@ -39,7 +39,7 @@ app.use(mongoSanitize());
 app.use(dayLimiter);
 
 app.use(express.json());
-app.use(express.static(path.join(__dirname, "..", "public", "files")));
+app.use(express.static(path.join(__dirname, "..", "public")));
 
 app.use("/user", userRouter);
 app.use("/review", reviewRouter);
