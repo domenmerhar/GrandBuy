@@ -33,7 +33,17 @@ const productRouter = express.Router();
 productRouter
   .route("/")
   .get(getProducts)
-  .post(protect, restrictTo("seller"), createProduct);
+  .post(
+    protect,
+    restrictTo("seller"),
+    fileUpload({ createParentPath: true }),
+    filesPayloadExists,
+    fileExtLimiterArr("images", [".png", ".jpg", ".jpeg"]),
+    fileExtLimiterOne("description", [".md"]),
+    fileExtLimiterOne("coverImage", [".png", ".jpg", ".jpeg"]),
+    uploadProductFiles,
+    createProduct
+  );
 
 productRouter.route("/highest-discount").get(getHighestDiscount);
 
