@@ -4,6 +4,7 @@ import Product from "../models/productModel";
 import AppError from "../utils/AppError";
 import APIFeatures from "../utils/ApiFeatures";
 import { saveFileToServer } from "./fileController";
+import User from "../models/userModel";
 
 export const getProduct = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
@@ -42,24 +43,18 @@ export const getProducts = catchAsync(
 export const createProduct = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const userId = res.locals.user._id;
-    const {
-      name,
-      coverImage,
-      images,
-      price,
-      shipping,
-      descriptionLink,
-      discount,
-    } = req.body;
+    const { name, price, shipping, discount } = req.body;
+
+    const user = await User.findById(userId).select("username _id");
 
     const product = await Product.create({
       name,
-      coverImage,
-      images: images.split(","),
+      coverImage: res.locals.coverImage,
+      images: res.locals.productImages,
       price,
       shipping,
-      descriptionLink,
-      user: userId,
+      description: res.locals.descripiton,
+      user: user,
       discount,
     });
 
