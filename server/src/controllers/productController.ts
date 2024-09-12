@@ -3,7 +3,7 @@ import catchAsync from "../utils/catchAsync";
 import Product from "../models/productModel";
 import AppError from "../utils/AppError";
 import APIFeatures from "../utils/ApiFeatures";
-import path from "path";
+import { saveFileToServer } from "./fileController";
 
 export const getProduct = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
@@ -73,34 +73,18 @@ export const uploadProductFiles = (
   next: NextFunction
 ) => {
   const files = req.files;
+  res.locals.productImages = [];
 
-  files.images.forEach((file) => {
-    const filepath = path.join(
-      __dirname,
-      "..",
-      "..",
-      "public",
-      "files",
-      file.name
-    );
-
-    file.mv(filepath, (err) => {
-      if (err) return next(new AppError("Error uploading file", 500));
+  try {
+    files.images.forEach((file) => {
+      res.locals.productImages.push(saveFileToServer(file));
     });
-  });
 
-  const filePathDescription = path.join(
-    __dirname,
-    "..",
-    "..",
-    "public",
-    "files",
-    files.description.name
-  );
-
-  files.description.mv(filePathDescription, (err) => {
-    if (err) return next(new AppError("Error uploading file", 500));
-  });
+    res.locals.descripiton = saveFileToServer(files.description);
+    res.locals.coverImage = saveFileToServer(files.coverImage);
+  } catch (err) {
+    return next(new AppError("Error uploading file", 500));
+  }
 
   next();
 };
@@ -125,6 +109,8 @@ export const updateProduct = catchAsync(
     res.status(200).json({ status: "success", data: { product } });
   }
 );
+
+//DELETE, UPDATE ADMIN
 
 export const deleteProduct = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
