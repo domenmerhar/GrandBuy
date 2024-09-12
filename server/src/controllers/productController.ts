@@ -3,7 +3,7 @@ import catchAsync from "../utils/catchAsync";
 import Product from "../models/productModel";
 import AppError from "../utils/AppError";
 import APIFeatures from "../utils/ApiFeatures";
-import { saveFileToServer } from "./fileController";
+import { deleteFile, saveFileToServer } from "./fileController";
 import User from "../models/userModel";
 
 export const getProduct = catchAsync(
@@ -114,6 +114,11 @@ export const deleteProduct = catchAsync(
     const product = await Product.findOneAndDelete({ _id: productId });
 
     if (!product) return next(new AppError("Product not found", 404));
+
+    await Promise.all(product.images.map((image) => deleteFile(image)));
+
+    await deleteFile(product.coverImage);
+    await deleteFile(product.description);
 
     res.status(204).json({ status: "success", data: null });
   }
