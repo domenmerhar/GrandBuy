@@ -19,8 +19,6 @@ import {
   addToHistory,
   filterYourHistory,
 } from "../controllers/historyItemController";
-import AppError from "../utils/AppError";
-import path from "path";
 import {
   fileExtLimiterArr,
   fileExtLimiterOne,
@@ -57,6 +55,7 @@ productRouter
     filesPayloadExists,
     fileExtLimiterArr("images", [".png", ".jpg", ".jpeg"]),
     fileExtLimiterOne("description", [".md"]),
+    fileExtLimiterOne("coverImage", [".png", ".jpg", ".jpeg"]),
     uploadProductFiles,
     (req, res, next) => {
       res.status(200).json({ status: "success" });
