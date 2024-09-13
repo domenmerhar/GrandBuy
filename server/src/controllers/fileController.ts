@@ -10,8 +10,6 @@ const FILE_SIZE_LIMIT = MB * 1024 * 1024;
 export const saveFileToServer = (file) => {
   const fileName = `${v4()}${path.extname(file.name)}`;
 
-  console.log(fileName);
-
   const filePathCover = path.join(
     __dirname,
     "..",
@@ -95,8 +93,10 @@ export const fileExtLimiter = (allowdExtArray: string[]) => {
 };
 
 export const fileExtLimiterOne =
-  (location: string, allowdExtArray: string[]) =>
+  (location: string, allowdExtArray: string[], optional: boolean = false) =>
   (req: Request, res: Response, next: NextFunction) => {
+    if ((!req.files || !req.files[location]) && optional) return next();
+
     if (!req.files[location])
       return next(new AppError(`Please upload ${location}`, 400));
 
@@ -117,8 +117,10 @@ export const fileExtLimiterOne =
   };
 
 export const fileExtLimiterArr =
-  (location: string, allowdExtArray: string[]) =>
+  (location: string, allowdExtArray: string[], optional: boolean = false) =>
   (req: Request, res: Response, next: NextFunction) => {
+    if ((!req.files || !req.files[location]) && optional) return next();
+
     if (!req.files[location])
       return next(new AppError(`Please upload ${location}`, 400));
 
