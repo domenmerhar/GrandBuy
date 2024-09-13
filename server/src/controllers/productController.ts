@@ -170,3 +170,26 @@ export const deleteImage = catchAsync(
     res.status(203).json({ status: "success", data: { product } });
   }
 );
+
+export const addImages = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const { productId } = req.params;
+    const userId = res.locals.user._id;
+
+    const files = req.files;
+
+    const product = await Product.findOne({
+      _id: productId,
+      user: { _id: userId },
+    });
+    if (!product) return next(new AppError("Product not found", 404));
+
+    files.images.forEach((file) => {
+      product.images.push(saveFileToServer(file));
+    });
+
+    await product.save();
+
+    res.status(203).json({ status: "success", data: { product } });
+  }
+);
