@@ -1,0 +1,5 @@
+{
+	"dependencies": {
+		"@types/express-fileupload": "^1.5.1"
+	}
+}
