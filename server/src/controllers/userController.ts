@@ -6,6 +6,7 @@ import AppError from "../utils/AppError";
 import { role } from "../utils/types";
 import bcrypt from "bcrypt";
 import { Types } from "mongoose";
+import { deleteFile, saveFileToServer } from "./fileController";
 
 const createToken = (id: Types.ObjectId) =>
   jwt.sign({ id, iat: Date.now() }, process.env.JWT_SECRET!, {
@@ -88,11 +89,34 @@ export const updateMe = catchAsync(
     res: Response
   ) => {
     const id = res.locals.user.id;
+    let user;
 
-    const user = await User.findOneAndUpdate({ _id: id }, req.body, {
-      new: true,
-      runValidators: true,
-    }).select("-_id -jwtChangedAt");
+    const { city, country, firstName, lastName, phoneNumber, street, zipCode } =
+      req.body;
+
+    if (req?.files?.image)
+      res.locals.image = await saveFileToServer(req.files.image);
+
+    const updateObj = {
+      ...(city && { city }),
+      ...(country && { country }),
+      ...(firstName && { firstName }),
+      ...(lastName && { lastName }),
+      ...(phoneNumber && { phoneNumber }),
+      ...(street && { street }),
+      ...(zipCode && { zipCode }),
+      ...(req?.files?.image && { image: res.locals.image }),
+    };
+
+    try {
+      user = await User.findOneAndUpdate({ _id: id }, updateObj, {
+        new: true,
+        runValidators: true,
+      }).select("-_id -jwtChangedAt");
+    } catch (err) {
+      await deleteFile(res.locals.image);
+      throw err;
+    }
 
     res.status(200).json({ status: "success", data: user });
   }
