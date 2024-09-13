@@ -3,6 +3,7 @@ import fileUpload from "express-fileupload";
 import {
   addImages,
   createProduct,
+  deleteDescription,
   deleteImage,
   deleteProduct,
   getHighestDiscount,
@@ -83,4 +84,5 @@ productRouter
   );
 productRouter.route("/:productId/image/:imageName").delete(deleteImage);
 
+productRouter.route("/:productId/description").delete(deleteDescription);
 export default productRouter;
