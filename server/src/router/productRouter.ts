@@ -1,6 +1,7 @@
 import express, { NextFunction } from "express";
 import fileUpload from "express-fileupload";
 import {
+  addImages,
   createProduct,
   deleteImage,
   deleteProduct,
@@ -72,6 +73,14 @@ productRouter.use(protect, restrictTo("seller"));
 
 productRouter.route("/:productId").patch(updateProduct).delete(deleteProduct);
 
+productRouter
+  .route("/:productId/images")
+  .patch(
+    fileUpload({ createParentPath: true }),
+    filesPayloadExists,
+    fileExtLimiterArr("images", [".png", ".jpg", ".jpeg"]),
+    addImages
+  );
 productRouter.route("/:productId/image/:imageName").delete(deleteImage);
 
 export default productRouter;
