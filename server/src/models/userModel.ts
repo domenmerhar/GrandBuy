@@ -43,6 +43,7 @@ const UserSchema = new mongoose.Schema({
       message: "Passwords do not match.",
     },
   },
+  image: String,
   firstName: {
     type: String,
     minLength: [2, "Please provide a first name with at least 2 characters."],
