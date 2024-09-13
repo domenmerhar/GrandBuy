@@ -155,5 +155,9 @@ export const deleteFile = async (fileName: string) => {
     fileName
   );
 
-  await fs.unlink(filePath);
+  try {
+    await fs.unlink(filePath);
+  } catch (err) {
+    console.error(err);
+  }
 };
