@@ -6,6 +6,16 @@ import APIFeatures from "../utils/ApiFeatures";
 import { deleteFile, saveFileToServer } from "./fileController";
 import User from "../models/userModel";
 
+const findMyProduct = async (productId: string, userId: string) => {
+  const product = await Product.findOne({
+    _id: productId,
+    user: { _id: userId },
+  });
+  if (!product) throw new AppError("Product not found", 404);
+
+  return product;
+};
+
 export const getProduct = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const { productId } = req.params;
@@ -90,7 +100,6 @@ export const updateProduct = catchAsync(
     const { name, images, price, shipping, descriptionLink } = req.body;
 
     const product = await Product.findById(productId);
-
     if (!product) return new AppError("Product not found", 404);
 
     product.name = name;
@@ -156,11 +165,7 @@ export const deleteImage = catchAsync(
     const { productId, imageName } = req.params;
     const userId = res.locals.user._id;
 
-    const product = await Product.findOne({
-      _id: productId,
-      user: { _id: userId },
-    });
-    if (!product) return next(new AppError("Product not found", 404));
+    const product = await findMyProduct(productId, userId);
 
     product.images = product.images.filter((image) => image !== imageName);
     await product.save();
@@ -177,18 +182,29 @@ export const addImages = catchAsync(
     const userId = res.locals.user._id;
 
     const files = req.files;
-
-    const product = await Product.findOne({
-      _id: productId,
-      user: { _id: userId },
-    });
-    if (!product) return next(new AppError("Product not found", 404));
+    const product = await findMyProduct(productId, userId);
 
     files.images.forEach((file) => {
       product.images.push(saveFileToServer(file));
     });
 
     await product.save();
+
+    res.status(203).json({ status: "success", data: { product } });
+  }
+);
+
+export const deleteDescription = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const { productId } = req.params;
+    const userId = res.locals.user._id;
+
+    const product = await findMyProduct(productId, userId);
+
+    await deleteFile(product.description);
+
+    product.description = "";
+    product.save();
 
     res.status(203).json({ status: "success", data: { product } });
   }
