@@ -150,3 +150,23 @@ export const getSellerProducts = catchAsync(
       .json({ status: "success", length: product.length, data: { product } });
   }
 );
+
+export const deleteImage = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const { productId, imageName } = req.params;
+    const userId = res.locals.user._id;
+
+    const product = await Product.findOne({
+      _id: productId,
+      user: { _id: userId },
+    });
+    if (!product) return next(new AppError("Product not found", 404));
+
+    product.images = product.images.filter((image) => image !== imageName);
+    await product.save();
+
+    await deleteFile(imageName);
+
+    res.status(203).json({ status: "success", data: { product } });
+  }
+);
