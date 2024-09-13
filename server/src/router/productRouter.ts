@@ -2,6 +2,7 @@ import express, { NextFunction } from "express";
 import fileUpload from "express-fileupload";
 import {
   createProduct,
+  deleteImage,
   deleteProduct,
   getHighestDiscount,
   getProduct,
@@ -54,11 +55,6 @@ productRouter
   .get(saveUserToResponse, addToHistory, getProduct);
 
 productRouter
-  .route("/:productId")
-  .patch(protect, restrictTo("seller"), updateProduct)
-  .delete(protect, restrictTo("seller"), deleteProduct);
-
-productRouter
   .route("/upload")
   .post(
     fileUpload({ createParentPath: true }),
@@ -71,5 +67,11 @@ productRouter
       res.status(200).json({ status: "success" });
     }
   );
+
+productRouter.use(protect, restrictTo("seller"));
+
+productRouter.route("/:productId").patch(updateProduct).delete(deleteProduct);
+
+productRouter.route("/:productId/image/:imageName").delete(deleteImage);
 
 export default productRouter;
