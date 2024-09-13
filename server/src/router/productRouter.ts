@@ -72,7 +72,16 @@ productRouter
 
 productRouter.use(protect, restrictTo("seller"));
 
-productRouter.route("/:productId").patch(updateProduct).delete(deleteProduct);
+productRouter
+  .route("/:productId")
+  .patch(
+    fileUpload({ createParentPath: true }),
+    fileExtLimiterArr("images", [".png", ".jpg", ".jpeg"], true),
+    fileExtLimiterOne("description", [".md"], true),
+    fileExtLimiterOne("coverImage", [".png", ".jpg", ".jpeg"], true),
+    updateProduct
+  )
+  .delete(deleteProduct);
 
 productRouter
   .route("/:productId/images")
@@ -85,4 +94,11 @@ productRouter
 productRouter.route("/:productId/image/:imageName").delete(deleteImage);
 
 productRouter.route("/:productId/description").delete(deleteDescription);
+//.post(updateDescription);
+
+// productRouter
+//   .route("/:productId/cover-image")
+//   .post(addCoverImage)
+//   .delete(deleteCoverImage);
+
 export default productRouter;
