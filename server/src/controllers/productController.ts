@@ -97,16 +97,49 @@ export const uploadProductFiles = (
 export const updateProduct = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const { productId } = req.params;
-    const { name, images, price, shipping, descriptionLink } = req.body;
+    const { name, price, shipping, imagesOld } = req.body;
 
     const product = await Product.findById(productId);
     if (!product) return new AppError("Product not found", 404);
 
+    if (imagesOld) {
+      if (!Array.isArray(imagesOld)) {
+        product.images = product.images.filter((img) => img !== imagesOld);
+        await deleteFile(imagesOld);
+      } else {
+        await Promise.all(
+          imagesOld.map((image) => {
+            product.images = product.images.filter((img) => img !== image);
+            return deleteFile(image);
+          })
+        );
+      }
+    }
+
+    if (req.files) {
+      const files = req.files;
+
+      if (files.images) {
+        res.locals.productImages = [];
+        files.images.forEach((file) => {
+          res.locals.productImages.push(saveFileToServer(file));
+        });
+      }
+
+      if (files.description) {
+        await deleteFile(product.description);
+        product.description = saveFileToServer(files.description);
+      }
+
+      if (files.coverImage) {
+        await deleteFile(product.coverImage);
+        product.coverImage = saveFileToServer(files.coverImage);
+      }
+    }
+
     product.name = name;
-    product.images = images.split(",");
     product.price = price;
     product.shipping = shipping;
-    product.descriptionLink = descriptionLink;
 
     product.save();
 
