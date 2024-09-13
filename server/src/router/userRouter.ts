@@ -13,6 +13,11 @@ import {
 import { protect, restrictTo } from "../controllers/authController";
 import { getAll } from "../controllers/handlerFactory";
 import User from "../models/userModel";
+import fileUpload from "express-fileupload";
+import {
+  fileExtLimiterOne,
+  filesPayloadExists,
+} from "../controllers/fileController";
 //TODO: NOT EMPTY CHECK
 //TODO: CHECK EVERY ROUTER FOR AUTH MIDDLEWARE
 //TODO: NORMALIZE RESPONE FORMAT
@@ -28,7 +33,15 @@ userRouter.route("/signup").post(signup);
 userRouter.route("/forgot-password").patch(forgotPassword);
 
 userRouter.use(protect);
-userRouter.route("/me").get(getMe).patch(updateMe);
+userRouter
+  .route("/me")
+  .get(getMe)
+  .patch(
+    fileUpload({ createParentPath: true }),
+    fileExtLimiterOne("image", [".png", ".jpg", ".jpeg"], true),
+    updateMe
+  );
+
 userRouter.route("/logout").post(logout);
 userRouter.route("/change-password").patch(changePassword);
 
