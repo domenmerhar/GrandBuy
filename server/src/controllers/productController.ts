@@ -140,7 +140,6 @@ export const updateProduct = catchAsync(
     product.name = name;
     product.price = price;
     product.shipping = shipping;
-
     product.save();
 
     res.status(200).json({ status: "success", data: { product } });
