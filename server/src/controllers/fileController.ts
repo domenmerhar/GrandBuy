@@ -4,15 +4,10 @@ import path from "path";
 import { v4 } from "uuid";
 import fs from "fs/promises";
 import sharp from "sharp";
+import { File } from "../utils/types";
 
 const MB = 5;
 const FILE_SIZE_LIMIT = MB * 1024 * 1024;
-
-interface File {
-  data: Buffer;
-  name: string;
-  mv: (path: string, callback: (err: unknown) => void) => void;
-}
 
 interface SaveObjInterface {
   file: File;
