@@ -94,8 +94,16 @@ export const updateMe = catchAsync(
     const { city, country, firstName, lastName, phoneNumber, street, zipCode } =
       req.body;
 
-    if (req?.files?.image)
-      res.locals.image = await saveFileToServer(req.files.image);
+    if (req?.files?.image) {
+      res.locals.image = await saveFileToServer({
+        file: req.files.image,
+        width: 500,
+        height: 500,
+      });
+
+      const oldUser = await User.findById(id);
+      if (oldUser?.image) await deleteFile(oldUser.image);
+    }
 
     const updateObj = {
       ...(city && { city }),
