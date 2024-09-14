@@ -3,14 +3,25 @@ import AppError from "../utils/AppError";
 import path from "path";
 import { v4 } from "uuid";
 import fs from "fs/promises";
+import sharp from "sharp";
 
 const MB = 5;
 const FILE_SIZE_LIMIT = MB * 1024 * 1024;
 
-export const saveFileToServer = (file) => {
-  const fileName = `${v4()}${path.extname(file.name)}`;
+interface SaveObjInterface {
+  file: unknown;
+  width?: number;
+  height?: number;
+}
 
-  const filePathCover = path.join(
+export const saveFileToServer = async ({
+  file,
+  width,
+  height,
+}: SaveObjInterface) => {
+  const fileName = `${v4()}.webp`;
+
+  const filePath = path.join(
     __dirname,
     "..",
     "..",
@@ -19,9 +30,11 @@ export const saveFileToServer = (file) => {
     fileName
   );
 
-  file.mv(filePathCover, (err) => {
-    if (err) throw new AppError("Error uploading file", 500);
-  });
+  await sharp(file.data)
+    .resize({ width: width || 1000, height: height || 666 })
+    .trim()
+    .webp({ quality: 80 })
+    .toFile(filePath);
 
   return fileName;
 };
@@ -124,7 +137,12 @@ export const fileExtLimiterArr =
     if (!req.files[location])
       return next(new AppError(`Please upload ${location}`, 400));
 
+    if (!Array.isArray(req.files[location]))
+      req.files[location] = [req.files[location]];
+
     const fileArr = req.files[location];
+
+    console.log(fileArr);
 
     const fileExtensions: string[] = [];
 
