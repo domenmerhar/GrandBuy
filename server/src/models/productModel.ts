@@ -1,7 +1,5 @@
 import mongoose from "mongoose";
 
-//COVER IMAGE
-
 const ProductSchema = new mongoose.Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
