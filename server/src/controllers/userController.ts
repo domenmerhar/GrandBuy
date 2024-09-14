@@ -6,7 +6,7 @@ import AppError from "../utils/AppError";
 import { role } from "../utils/types";
 import bcrypt from "bcrypt";
 import { Types } from "mongoose";
-import { deleteFile, saveFileToServer } from "./fileController";
+import { deleteFile, saveImageToServer } from "./fileController";
 
 const createToken = (id: Types.ObjectId) =>
   jwt.sign({ id, iat: Date.now() }, process.env.JWT_SECRET!, {
@@ -95,7 +95,7 @@ export const updateMe = catchAsync(
       req.body;
 
     if (req?.files?.image) {
-      res.locals.image = await saveFileToServer({
+      res.locals.image = await saveImageToServer({
         file: req.files.image,
         width: 500,
         height: 500,
