@@ -3,7 +3,11 @@ import catchAsync from "../utils/catchAsync";
 import Product from "../models/productModel";
 import AppError from "../utils/AppError";
 import APIFeatures from "../utils/ApiFeatures";
-import { deleteFile, saveFileToServer } from "./fileController";
+import {
+  deleteFile,
+  saveFileToServer,
+  saveImageToServer,
+} from "./fileController";
 import User from "../models/userModel";
 
 const checkForUniqueName = async (name: string, userId: string) => {
@@ -46,7 +50,7 @@ export const getProducts = catchAsync(
       .query.select("_id name coverImage totalPrice discount");
 
     if (products.length === 0) {
-      next(new AppError("No products found.", 404));
+      return next(new AppError("No products found.", 404));
     }
 
     res.status(200).json({
@@ -81,27 +85,31 @@ export const createProduct = catchAsync(
   }
 );
 
-export const uploadProductFiles = (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  const files = req.files;
-  res.locals.productImages = [];
+export const uploadProductFiles = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const files = req.files;
+    //res.locals.productImages = [];
 
-  try {
-    files.images.forEach((file) => {
-      res.locals.productImages.push(saveFileToServer({ file }));
-    });
+    try {
+      const filesImagesArr = !Array.isArray(files!.images)
+        ? [files!.images]
+        : files!.images;
 
-    res.locals.descripiton = saveFileToServer({ file: files.description });
-    res.locals.coverImage = saveFileToServer({ file: files.coverImage });
-  } catch (err) {
-    return next(new AppError("Error uploading file", 500));
+      res.locals.productImages = await Promise.all(
+        filesImagesArr.map((file) => saveImageToServer({ file }))
+      );
+
+      res.locals.descripiton = await saveFileToServer(files.description);
+      res.locals.coverImage = await saveImageToServer({
+        file: files.coverImage,
+      });
+    } catch (err) {
+      return next(new AppError("Error uploading file", 500));
+    }
+
+    next();
   }
-
-  next();
-};
+);
 
 export const updateProduct = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
@@ -112,7 +120,7 @@ export const updateProduct = catchAsync(
     await checkForUniqueName(name, userId);
 
     const product = await Product.findById(productId);
-    if (!product) return new AppError("Product not found", 404);
+    if (!product) return next(new AppError("Product not found", 404));
 
     if (imagesOld) {
       const imagesOldArr = !Array.isArray(imagesOld) ? [imagesOld] : imagesOld;
@@ -128,20 +136,32 @@ export const updateProduct = catchAsync(
       const files = req.files;
 
       if (files.images) {
-        res.locals.productImages = [];
-        files.images.forEach((file) => {
-          res.locals.productImages.push(saveFileToServer({ file }));
-        });
+        const filesImagesArr = !Array.isArray(files!.images)
+          ? [files!.images]
+          : files!.images;
+
+        res.locals.productImages = await Promise.all(
+          filesImagesArr.map((file) => saveImageToServer({ file }))
+        );
+
+        // res.locals.productImages = [];
+        // files.images.forEach((file) => {
+        //   res.locals.productImages.push(saveImageToServer({ file }));
+        // });
       }
 
       if (files.description) {
-        await deleteFile(product.description);
-        product.description = saveFileToServer({ file: files.description });
+        await deleteFile(product.description!);
+        product.description = await saveFileToServer(files.description);
       }
 
       if (files.coverImage) {
         await deleteFile(product.coverImage);
-        product.coverImage = saveFileToServer({ file: files.coverImage });
+        product.coverImage = saveImageToServer({
+          file: files.coverImage,
+          width: 500,
+          height: 300,
+        });
       }
     }
 
@@ -225,7 +245,7 @@ export const addImages = catchAsync(
     const product = await findMyProduct(productId, userId);
 
     files.images.forEach((file) => {
-      product.images.push(saveFileToServer({ file }));
+      product.images.push(saveImageToServer({ file }));
     });
 
     await product.save();
