@@ -64,8 +64,9 @@ ProductSchema.pre("save", function (next) {
   next();
 });
 
-ProductSchema.index({ user: 1, name: 1 }, { unique: true });
+//ProductSchema.index({ user: 1, name: 1 }, { unique: true });
 ProductSchema.index({ name: 1 });
+ProductSchema.index({ user: 1 });
 ProductSchema.index({ totalPrice: 1 });
 
 ProductSchema.set("toJSON", {
