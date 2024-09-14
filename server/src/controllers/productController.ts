@@ -55,6 +55,10 @@ export const createProduct = catchAsync(
     const userId = res.locals.user._id;
     const { name, price, shipping, discount } = req.body;
 
+    const productCheck = await Product.findOne({ user: userId, name });
+    if (productCheck)
+      return next(new AppError("Product with this name already exists", 400));
+
     const user = await User.findById(userId).select("username _id");
 
     const product = await Product.create({
@@ -82,11 +86,11 @@ export const uploadProductFiles = (
 
   try {
     files.images.forEach((file) => {
-      res.locals.productImages.push(saveFileToServer(file));
+      res.locals.productImages.push(saveFileToServer({ file }));
     });
 
-    res.locals.descripiton = saveFileToServer(files.description);
-    res.locals.coverImage = saveFileToServer(files.coverImage);
+    res.locals.descripiton = saveFileToServer({ file: files.description });
+    res.locals.coverImage = saveFileToServer({ file: files.coverImage });
   } catch (err) {
     return next(new AppError("Error uploading file", 500));
   }
@@ -98,22 +102,23 @@ export const updateProduct = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const { productId } = req.params;
     const { name, price, shipping, imagesOld } = req.body;
+    const userId = res.locals.user._id;
+
+    const productCheck = await Product.findOne({ user: userId, name });
+    if (productCheck)
+      return next(new AppError("Product with this name already exists", 400));
 
     const product = await Product.findById(productId);
     if (!product) return new AppError("Product not found", 404);
 
     if (imagesOld) {
-      if (!Array.isArray(imagesOld)) {
-        product.images = product.images.filter((img) => img !== imagesOld);
-        await deleteFile(imagesOld);
-      } else {
-        await Promise.all(
-          imagesOld.map((image) => {
-            product.images = product.images.filter((img) => img !== image);
-            return deleteFile(image);
-          })
-        );
-      }
+      const imagesOldArr = !Array.isArray(imagesOld) ? [imagesOld] : imagesOld;
+      await Promise.all(
+        imagesOldArr.map((image) => {
+          product.images = product.images.filter((img) => img !== image);
+          return deleteFile(image);
+        })
+      );
     }
 
     if (req.files) {
@@ -122,18 +127,18 @@ export const updateProduct = catchAsync(
       if (files.images) {
         res.locals.productImages = [];
         files.images.forEach((file) => {
-          res.locals.productImages.push(saveFileToServer(file));
+          res.locals.productImages.push(saveFileToServer({ file }));
         });
       }
 
       if (files.description) {
         await deleteFile(product.description);
-        product.description = saveFileToServer(files.description);
+        product.description = saveFileToServer({ file: files.description });
       }
 
       if (files.coverImage) {
         await deleteFile(product.coverImage);
-        product.coverImage = saveFileToServer(files.coverImage);
+        product.coverImage = saveFileToServer({ file: files.coverImage });
       }
     }
 
@@ -217,7 +222,7 @@ export const addImages = catchAsync(
     const product = await findMyProduct(productId, userId);
 
     files.images.forEach((file) => {
-      product.images.push(saveFileToServer(file));
+      product.images.push(saveFileToServer({ file }));
     });
 
     await product.save();
