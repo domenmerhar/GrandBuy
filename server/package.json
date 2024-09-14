@@ -11,6 +11,7 @@
     "dev": "ts-node-dev --respawn --transpile-only src/server.ts"
   },
   "dependencies": {
+    "@types/express-fileupload": "^1.5.1",
     "@types/jsonwebtoken": "^9.0.6",
     "@types/validator": "^13.12.1",
     "bcrypt": "^5.1.1",
