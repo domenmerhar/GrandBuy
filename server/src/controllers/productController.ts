@@ -6,6 +6,13 @@ import APIFeatures from "../utils/ApiFeatures";
 import { deleteFile, saveFileToServer } from "./fileController";
 import User from "../models/userModel";
 
+const checkForUniqueName = async (name: string, userId: string) => {
+  const productCheck = await Product.findOne({ user: userId, name });
+
+  if (productCheck)
+    throw new AppError("Product with this name already exists", 400);
+};
+
 const findMyProduct = async (productId: string, userId: string) => {
   const product = await Product.findOne({
     _id: productId,
@@ -55,9 +62,7 @@ export const createProduct = catchAsync(
     const userId = res.locals.user._id;
     const { name, price, shipping, discount } = req.body;
 
-    const productCheck = await Product.findOne({ user: userId, name });
-    if (productCheck)
-      return next(new AppError("Product with this name already exists", 400));
+    await checkForUniqueName(name, userId);
 
     const user = await User.findById(userId).select("username _id");
 
@@ -104,9 +109,7 @@ export const updateProduct = catchAsync(
     const { name, price, shipping, imagesOld } = req.body;
     const userId = res.locals.user._id;
 
-    const productCheck = await Product.findOne({ user: userId, name });
-    if (productCheck)
-      return next(new AppError("Product with this name already exists", 400));
+    await checkForUniqueName(name, userId);
 
     const product = await Product.findById(productId);
     if (!product) return new AppError("Product not found", 404);
