@@ -14,7 +14,27 @@ interface SaveObjInterface {
   height?: number;
 }
 
-export const saveFileToServer = async ({
+export const saveFileToServer = (file) => {
+  const fileName = `${v4()}${path.extname(file.name)}`;
+
+  const filePath = path.join(
+    __dirname,
+    "..",
+    "..",
+    "public",
+    "files",
+    fileName
+  );
+
+  file.mv(filePath, (err: unknown) => {
+    console.error(err);
+    if (err) throw new AppError("Error uploading file", 500);
+  });
+
+  return fileName;
+};
+
+export const saveImageToServer = async ({
   file,
   width,
   height,
@@ -141,8 +161,6 @@ export const fileExtLimiterArr =
       req.files[location] = [req.files[location]];
 
     const fileArr = req.files[location];
-
-    console.log(fileArr);
 
     const fileExtensions: string[] = [];
 
