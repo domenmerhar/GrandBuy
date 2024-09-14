@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken";
 import User from "../models/userModel";
 import catchAsync from "../utils/catchAsync";
 import AppError from "../utils/AppError";
-import { role } from "../utils/types";
+import { File, role } from "../utils/types";
 import bcrypt from "bcrypt";
 import { Types } from "mongoose";
 import { deleteFile, saveImageToServer } from "./fileController";
@@ -96,7 +96,7 @@ export const updateMe = catchAsync(
 
     if (req?.files?.image) {
       res.locals.image = await saveImageToServer({
-        file: req.files.image,
+        file: req.files.image as File,
         width: 500,
         height: 500,
       });
