@@ -8,13 +8,19 @@ import sharp from "sharp";
 const MB = 5;
 const FILE_SIZE_LIMIT = MB * 1024 * 1024;
 
+interface File {
+  data: Buffer;
+  name: string;
+  mv: (path: string, callback: (err: unknown) => void) => void;
+}
+
 interface SaveObjInterface {
-  file: unknown;
+  file: File;
   width?: number;
   height?: number;
 }
 
-export const saveFileToServer = (file) => {
+export const saveFileToServer = (file: File) => {
   const fileName = `${v4()}${path.extname(file.name)}`;
 
   const filePath = path.join(
@@ -27,8 +33,10 @@ export const saveFileToServer = (file) => {
   );
 
   file.mv(filePath, (err: unknown) => {
-    console.error(err);
-    if (err) throw new AppError("Error uploading file", 500);
+    if (err) {
+      console.error(err);
+      throw new AppError("Error uploading file", 500);
+    }
   });
 
   return fileName;
@@ -64,11 +72,11 @@ export const fileSizeLimiter = (
   res: Response,
   next: NextFunction
 ) => {
-  const files = req.filterYourHistory;
+  const files = req.files as { [key: string]: { size: number; name: string } };
 
   const filesOverLimit: string[] = [];
 
-  Object.keys(files).forEach((key) => {
+  Object.keys(files).forEach((key: string) => {
     if (files[key].size > FILE_SIZE_LIMIT) {
       filesOverLimit.push(key);
     }
@@ -100,14 +108,17 @@ export const filesPayloadExists = (
 
 export const fileExtLimiter = (allowdExtArray: string[]) => {
   return (req: Request, res: Response, next: NextFunction) => {
-    const files = req.files;
+    const files = req.files as {
+      [key: string]: { name: string; size: number };
+    };
 
     const fileExtensions: string[] = [];
     Object.keys(files).forEach((key) => {
       fileExtensions.push(path.extname(files[key].name));
     });
 
-    files.images.forEach((file) => {
+    const images = Array.isArray(files.images) ? files.images : [files.images];
+    images.forEach((file) => {
       fileExtensions.push(path.extname(file.name));
     });
 
@@ -130,11 +141,13 @@ export const fileExtLimiterOne =
   (req: Request, res: Response, next: NextFunction) => {
     if ((!req.files || !req.files[location]) && optional) return next();
 
-    if (!req.files[location])
+    if (!req.files || !req.files[location])
       return next(new AppError(`Please upload ${location}`, 400));
 
     const file = req.files[location];
-    const fileExtensions: string = path.extname(file.name);
+    const fileExtensions: string = path.extname(
+      (file as { name: string }).name
+    );
 
     const allowed = allowdExtArray.includes(fileExtensions);
 
@@ -154,7 +167,7 @@ export const fileExtLimiterArr =
   (req: Request, res: Response, next: NextFunction) => {
     if ((!req.files || !req.files[location]) && optional) return next();
 
-    if (!req.files[location])
+    if (!req.files || !req.files[location])
       return next(new AppError(`Please upload ${location}`, 400));
 
     if (!Array.isArray(req.files[location]))
