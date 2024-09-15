@@ -12,7 +12,13 @@ export const getUserOrders = catchAsync(
     const id = res.locals.user._id;
 
     const ordersQuery = new APIFeatures(
-      Order.find({ user: id }).populate({ path: "products" }),
+      Order.find({ user: id }).populate({
+        path: "products",
+        populate: {
+          path: "product",
+          select: "_id name",
+        },
+      }),
       req.query
     );
 
