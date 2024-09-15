@@ -59,7 +59,12 @@ export const addOrder = catchAsync(
       }, 0),
     });
 
-    res.status(201).json({ status: "success", data: { cartItems } });
+    await CartItem.updateMany(
+      { _id: { $in: cartItemsArray } },
+      { ordered: true }
+    );
+
+    res.status(201).json({ status: "success", data: { order } });
   }
 );
 
