@@ -6,7 +6,11 @@ const dateInFuture = (val: Date) => {
 
 const orderSchema = new Schema({
   status: {
-    enum: [["Shipped", "Delivered"], "Please provide a valid status."],
+    type: String,
+    enum: {
+      values: ["Shipped", "Delivered"],
+      message: "Please provide a valid status.",
+    },
     default: "Shipped",
   },
 
