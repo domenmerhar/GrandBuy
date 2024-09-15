@@ -3,13 +3,16 @@ import catchAsync from "../utils/catchAsync";
 import AppError from "../utils/AppError";
 import APIFeatures from "../utils/ApiFeatures";
 import Order from "../models/orderModel";
+import CartItem from "../models/cartItemModel";
+
+//TODO: Test
 
 export const getUserOrders = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const id = res.locals.user._id;
 
     const ordersQuery = new APIFeatures(
-      Order.find({ user: id }).populate({ path: "products.product" }),
+      Order.find({ user: id }).populate({ path: "products" }),
       req.query
     );
 
@@ -25,7 +28,34 @@ export const getUserOrders = catchAsync(
 );
 
 export const addOrder = catchAsync(
-  async (req: Request, res: Response, next: NextFunction) => {}
+  async (req: Request, res: Response, next: NextFunction) => {
+    const { cartItems } = req.body;
+    const userId = res.locals.user._id;
+
+    const cartItemsArray = !Array.isArray(cartItems) ? [cartItems] : cartItems;
+
+    const items = await CartItem.find({
+      _id: { $in: cartItemsArray },
+      user: userId,
+    }).populate("product");
+
+    if (items.length !== cartItemsArray.length)
+      return next(new AppError("Please provide valid cart items.", 400));
+
+    const order = await Order.create({
+      user: userId,
+      products: cartItemsArray,
+      totalPrice: items.reduce((acc, item) => {
+        const priceBeforeDiscount = item.product.price * item.quantity;
+        const discount = 1 - item.discount;
+        const totalPrice = priceBeforeDiscount * discount;
+
+        return acc + totalPrice;
+      }, 0),
+    });
+
+    res.status(201).json({ status: "success", data: { cartItems } });
+  }
 );
 
 export const confirmDelivery = catchAsync(
