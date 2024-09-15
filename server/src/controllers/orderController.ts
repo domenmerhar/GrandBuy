@@ -4,6 +4,7 @@ import AppError from "../utils/AppError";
 import APIFeatures from "../utils/ApiFeatures";
 import Order from "../models/orderModel";
 import CartItem from "../models/cartItemModel";
+import { match } from "assert";
 
 //TODO: Test
 
@@ -94,18 +95,24 @@ export const confirmDelivery = catchAsync(
 
 export const getSellerOrders = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    const id = res.locals.user._id;
+    const sellerId = res.locals.user._id;
 
-    const orders = await Order.find({
-      products: {
-        $elemMatch: {
-          seller: id,
+    const sellerOrders = await Order.find()
+      .populate({
+        path: "products",
+        select: "quantity createdAt",
+        populate: {
+          path: "product",
+          select: "_id user name coverImage totalPrice",
+          match: { user: sellerId },
         },
-      },
-    });
+      })
+      .select("products -_id");
 
-    res
-      .status(200)
-      .json({ staus: "success", length: orders.length, data: { orders } });
+    res.status(200).json({
+      status: "success",
+      length: sellerOrders.length,
+      data: { sellerOrders: [...sellerOrders] },
+    });
   }
 );
