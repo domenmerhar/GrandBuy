@@ -28,6 +28,7 @@ const CartItemSchema = new mongoose.Schema({
     type: Number,
     min: [0, "Discount must be at least 0"],
     max: [100, "Discount cannot exceed 100"],
+    default: 0,
   },
 });
 
