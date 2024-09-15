@@ -59,16 +59,25 @@ export const createCartItem = catchAsync(
     const { productId } = req.params;
     const userId = res.locals.user._id;
 
-    const newItem = await CartItem.create({
+    const item = await CartItem.findOne({
       product: productId,
-      quantity,
       user: userId,
+      ordered: { $ne: true },
     });
+    if (item) {
+      item.quantity += +quantity;
+      res.locals.newItem = await item.save();
+    } else
+      res.locals.newItem = await CartItem.create({
+        product: productId,
+        quantity,
+        user: userId,
+      });
 
     res.status(201).json({
       status: "success",
       data: {
-        newItem,
+        item: res.locals.newItem,
       },
     });
   }
