@@ -11,10 +11,9 @@ const orderRouter = express.Router();
 
 orderRouter.use(protect);
 
-orderRouter
-  .route("/user")
-  .get(restrictTo("user"), getUserOrders)
-  .post(restrictTo("user"), addOrder);
+orderRouter.route("/").post(restrictTo("user"), addOrder);
+
+orderRouter.route("/user").get(restrictTo("user"), getUserOrders);
 
 orderRouter
   .route("/user/:id/confirmDelivery")
