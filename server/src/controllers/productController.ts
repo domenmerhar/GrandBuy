@@ -88,7 +88,6 @@ export const createProduct = catchAsync(
 export const uploadProductFiles = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const files = req.files;
-    //res.locals.productImages = [];
 
     try {
       const filesImagesArr = !Array.isArray(files!.images)
@@ -144,10 +143,9 @@ export const updateProduct = catchAsync(
           filesImagesArr.map((file) => saveImageToServer({ file }))
         );
 
-        // res.locals.productImages = [];
-        // files.images.forEach((file) => {
-        //   res.locals.productImages.push(saveImageToServer({ file }));
-        // });
+        res.locals.productImages.forEach((image) => {
+          product.images.push(image);
+        });
       }
 
       if (files.description) {
