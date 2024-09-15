@@ -27,11 +27,6 @@ const orderSchema = new Schema({
         ref: "CartItem",
         required: [true, "Please provide a cart item ID."],
       },
-      quantity: {
-        type: Number,
-        min: [1, "Please provide a quantity higher than 0."],
-        required: [true, "Please provide a quantity."],
-      },
     },
   ],
 
