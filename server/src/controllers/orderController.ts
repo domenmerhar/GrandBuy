@@ -4,7 +4,6 @@ import AppError from "../utils/AppError";
 import APIFeatures from "../utils/ApiFeatures";
 import Order from "../models/orderModel";
 import CartItem from "../models/cartItemModel";
-import { match } from "assert";
 
 //TODO: Test
 
@@ -97,7 +96,7 @@ export const getSellerOrders = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const sellerId = res.locals.user._id;
 
-    const sellerOrders = await Order.find()
+    const sellerOrdersArr = await Order.find()
       .populate({
         path: "products",
         select: "quantity createdAt",
@@ -108,6 +107,20 @@ export const getSellerOrders = catchAsync(
         },
       })
       .select("products -_id");
+
+    if (!sellerOrdersArr.length)
+      return next(new AppError("No orders found.", 404));
+
+    const sellerOrders = [];
+    for (let i = 0; i < sellerOrdersArr.length; i++) {
+      const order = sellerOrdersArr[i];
+      await new Promise<void>((resolve) => {
+        setImmediate(() => {
+          sellerOrders.push(order.products);
+          resolve();
+        });
+      });
+    }
 
     res.status(200).json({
       status: "success",
