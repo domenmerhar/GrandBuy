@@ -76,7 +76,9 @@ export const addOrder = catchAsync(
 
 export const confirmDelivery = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    const { id } = req.body;
+    const { id } = req.params;
+
+    console.log(id, res.locals.user._id);
 
     const order = await Order.findOneAndUpdate(
       { _id: id, user: res.locals.user._id },
