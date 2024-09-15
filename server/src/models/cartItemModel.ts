@@ -30,9 +30,11 @@ const CartItemSchema = new mongoose.Schema({
     max: [100, "Discount cannot exceed 100"],
     default: 0,
   },
+
+  ordered: Boolean,
 });
 
-CartItemSchema.index({ user: 1, product: 1 }, { unique: true });
+//CartItemSchema.index({ user: 1, product: 1 }, { unique: true });
 CartItemSchema.index({ user: 1, createdAt: 1 });
 
 CartItemSchema.set("toJSON", {
