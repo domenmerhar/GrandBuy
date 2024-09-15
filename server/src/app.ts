@@ -3,6 +3,7 @@ import mongoSanitize from "express-mongo-sanitize";
 import { rateLimit } from "express-rate-limit";
 import helmet from "helmet";
 import morgan from "morgan";
+import cors from "cors";
 import userRouter from "./router/userRouter";
 import globalErrorHandler from "./controllers/errorController";
 import reviewRouter from "./router/reviewRouter";
@@ -33,6 +34,8 @@ const app = express();
 
 if (process.env.NODE_ENV === "development") app.use(morgan("dev"));
 app.use(helmet());
+
+app.use(cors());
 
 app.use(mongoSanitize());
 
