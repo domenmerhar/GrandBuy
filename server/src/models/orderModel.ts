@@ -5,6 +5,25 @@ const dateInFuture = (val: Date) => {
 };
 
 const orderSchema = new Schema({
+  user: {
+    type: Schema.Types.ObjectId,
+    ref: "User",
+    required: [true, "Please provide a user ID."],
+  },
+
+  products: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "CartItem",
+      required: [true, "Please provide a cart item ID."],
+    },
+  ],
+
+  totalPrice: {
+    type: Number,
+    required: [true, "Please provide a total price."],
+  },
+
   status: {
     type: String,
     enum: {
@@ -14,31 +33,11 @@ const orderSchema = new Schema({
     default: "Shipped",
   },
 
-  user: {
-    type: Schema.Types.ObjectId,
-    ref: "User",
-    required: [true, "Please provide a user ID."],
-  },
-
-  products: [
-    {
-      product: {
-        type: Schema.Types.ObjectId,
-        ref: "CartItem",
-        required: [true, "Please provide a cart item ID."],
-      },
-    },
-  ],
-
-  totalPrice: {
-    type: Number,
-    required: [true, "Please provide a total price."],
-  },
-
   estimatedDelivery: {
     type: Date,
-    required: [true, "Please provide an estimated delivery date."],
+    //required: [true, "Please provide an estimated delivery date."],
     validate: [dateInFuture, "Please provide a date in the future."],
+    default: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
   },
 });
 
