@@ -13,6 +13,7 @@ import historyRouter from "./router/historyRouter";
 import cartRouter from "./router/cartRouter";
 import couponRouter from "./router/couponRouter";
 import path from "path";
+import orderRouter from "./router/orderRouter";
 
 //TODO: xss
 
@@ -51,6 +52,7 @@ app.use("/wishlist", wishlistRouter);
 app.use("/history", historyRouter);
 app.use("/cart", cartRouter);
 app.use("/coupon", couponRouter);
+app.use("/order", orderRouter);
 
 app.all("*", (req: Request, res: Response) => {
   res.status(404).json({
