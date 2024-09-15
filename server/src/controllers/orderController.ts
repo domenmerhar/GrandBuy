@@ -47,7 +47,12 @@ export const addOrder = catchAsync(
       products: cartItemsArray,
       totalPrice: items.reduce((acc, item) => {
         const priceBeforeDiscount = item.product.price * item.quantity;
-        const discount = 1 - item.discount;
+        const discount =
+          1 -
+          (item.discount > item.product.discount
+            ? item.discount
+            : item.product.discount) /
+            100;
         const totalPrice = priceBeforeDiscount * discount;
 
         return acc + totalPrice;
@@ -75,5 +80,19 @@ export const confirmDelivery = catchAsync(
 );
 
 export const getSellerOrders = catchAsync(
-  async (req: Request, res: Response, next: NextFunction) => {}
+  async (req: Request, res: Response, next: NextFunction) => {
+    const id = res.locals.user._id;
+
+    const orders = await Order.find({
+      products: {
+        $elemMatch: {
+          seller: id,
+        },
+      },
+    });
+
+    res
+      .status(200)
+      .json({ staus: "success", length: orders.length, data: { orders } });
+  }
 );
