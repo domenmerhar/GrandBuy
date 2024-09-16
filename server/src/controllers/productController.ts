@@ -11,7 +11,10 @@ import {
 import User from "../models/userModel";
 
 const checkForUniqueName = async (name: string, userId: string) => {
-  const productCheck = await Product.findOne({ user: userId, name });
+  const productCheck = await Product.findOne({
+    user: userId,
+    name,
+  });
 
   if (productCheck)
     throw new AppError("Product with this name already exists", 400);
@@ -20,6 +23,7 @@ const checkForUniqueName = async (name: string, userId: string) => {
 const findMyProduct = async (productId: string, userId: string) => {
   const product = await Product.findOne({
     _id: productId,
+    isSelling: { $ne: false },
     user: { _id: userId },
   });
   if (!product) throw new AppError("Product not found", 404);
@@ -31,7 +35,10 @@ export const getProduct = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const { productId } = req.params;
 
-    const product = await Product.findById(productId);
+    const product = await Product.findOne({
+      _id: productId,
+      isSelling: { $ne: false },
+    });
 
     if (!product) return next(new AppError("Product not found", 404));
 
@@ -41,7 +48,10 @@ export const getProduct = catchAsync(
 
 export const getProducts = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    const features = new APIFeatures(Product.find(), req.query);
+    const features = new APIFeatures(
+      Product.find({ isSelling: { $ne: false } }),
+      req.query
+    );
 
     const products = await features
       .filter()
@@ -118,7 +128,11 @@ export const updateProduct = catchAsync(
 
     await checkForUniqueName(name, userId);
 
-    const product = await Product.findById(productId);
+    const product = await Product.findOne({
+      _id: productId,
+      isSelling: { $ne: false },
+      user: userId,
+    });
     if (!product) return next(new AppError("Product not found", 404));
 
     if (imagesOld) {
@@ -178,14 +192,17 @@ export const deleteProduct = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const { productId } = req.params;
 
-    const product = await Product.findOneAndDelete({ _id: productId });
+    const product = await Product.findOneAndUpdate(
+      { _id: productId, isSelling: { $ne: false } },
+      { isSelling: false }
+    );
 
     if (!product) return next(new AppError("Product not found", 404));
 
     await Promise.all(product.images.map((image) => deleteFile(image)));
 
     await deleteFile(product.coverImage);
-    await deleteFile(product.description);
+    //await deleteFile(product.description);
 
     res.status(204).json({ status: "success", data: null });
   }
@@ -193,7 +210,10 @@ export const deleteProduct = catchAsync(
 
 export const getHighestDiscount = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    const products = await Product.find({ discount: { $gt: 0 } })
+    const products = await Product.find({
+      discount: { $gt: 0 },
+      isSelling: { $ne: false },
+    })
       .sort({ discount: -1 })
       .limit(10)
       .select("-user -images -descriptionLink -lastChanged");
@@ -206,9 +226,10 @@ export const getSellerProducts = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const { sellerId } = req.params;
 
-    const product = await Product.find({ user: sellerId }).select(
-      "-user -descriptionLink -id"
-    );
+    const product = await Product.find({
+      user: sellerId,
+      isSelling: { $ne: false },
+    }).select("-user -descriptionLink -id");
 
     if (!product.length) return next(new AppError("No products found.", 404));
 
