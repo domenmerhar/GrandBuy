@@ -5,6 +5,8 @@ import APIFeatures from "../utils/ApiFeatures";
 import Order from "../models/orderModel";
 import CartItem from "../models/cartItemModel";
 
+const ordersPerRequest = 10;
+
 //TODO: Test
 
 export const getUserOrders = catchAsync(
@@ -92,9 +94,13 @@ export const confirmDelivery = catchAsync(
   }
 );
 
+//TODO: API  Features
 export const getSellerOrders = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const sellerId = res.locals.user._id;
+
+    const limit = req.query.limit ? +req.query.limit : ordersPerRequest;
+    const skip = req.query.page ? (+req.query.page - 1) * ordersPerRequest : 0;
 
     const sellerOrdersArr = await Order.find()
       .populate({
@@ -106,7 +112,10 @@ export const getSellerOrders = catchAsync(
           match: { user: sellerId },
         },
       })
-      .select("products -_id");
+      .select("products -_id")
+      .sort({ products: -1 })
+      .limit(limit)
+      .skip(skip);
 
     if (!sellerOrdersArr.length)
       return next(new AppError("No orders found.", 404));
