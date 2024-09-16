@@ -186,27 +186,43 @@ export const updateProduct = catchAsync(
   }
 );
 
-//DELETE, UPDATE ADMIN
-
-export const deleteProduct = catchAsync(
+export const discontinueProduct = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const { productId } = req.params;
+    const userId = res.locals.user._id;
 
     const product = await Product.findOneAndUpdate(
-      { _id: productId, isSelling: { $ne: false } },
-      { isSelling: false }
+      { _id: productId, user: userId, isSelling: { $ne: false } },
+      { isSelling: false },
+      { new: true }
     );
-
     if (!product) return next(new AppError("Product not found", 404));
 
-    await Promise.all(product.images.map((image) => deleteFile(image)));
-
-    await deleteFile(product.coverImage);
-    //await deleteFile(product.description);
-
-    res.status(204).json({ status: "success", data: null });
+    res.status(204).json({ status: "success" });
   }
 );
+
+//DELETE, UPDATE ADMIN
+
+// export const deleteProduct = catchAsync(
+//   async (req: Request, res: Response, next: NextFunction) => {
+//     const { productId } = req.params;
+
+//     const product = await Product.findOneAndUpdate(
+//       { _id: productId, isSelling: { $ne: false } },
+//       { isSelling: false }
+//     );
+
+//     if (!product) return next(new AppError("Product not found", 404));
+
+//     await Promise.all(product.images.map((image) => deleteFile(image)));
+
+//     await deleteFile(product.coverImage);
+//     //await deleteFile(product.description);
+
+//     res.status(204).json({ status: "success", data: null });
+//   }
+// );
 
 export const getHighestDiscount = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
