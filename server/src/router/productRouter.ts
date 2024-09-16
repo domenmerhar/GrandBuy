@@ -1,11 +1,11 @@
-import express, { NextFunction } from "express";
+import express from "express";
 import fileUpload from "express-fileupload";
 import {
   addImages,
   createProduct,
   deleteDescription,
   deleteImage,
-  deleteProduct,
+  discontinueProduct,
   getHighestDiscount,
   getProduct,
   getProducts,
@@ -70,7 +70,21 @@ productRouter
     }
   );
 
-productRouter.use(protect, restrictTo("seller"));
+productRouter.use(protect);
+
+productRouter
+  .route("/:productId")
+  .delete(restrictTo("admin", "seller"), discontinueProduct);
+
+productRouter
+  .route("/:productId/image/:imageName")
+  .delete(restrictTo("admin", "seller"), deleteImage);
+
+productRouter
+  .route("/:productId/description")
+  .delete(restrictTo("admin", "seller"), deleteDescription);
+
+productRouter.use(restrictTo("seller"));
 
 productRouter
   .route("/:productId")
@@ -80,8 +94,7 @@ productRouter
     fileExtLimiterOne("description", [".md"], true),
     fileExtLimiterOne("coverImage", [".png", ".jpg", ".jpeg"], true),
     updateProduct
-  )
-  .delete(deleteProduct);
+  );
 
 productRouter
   .route("/:productId/images")
@@ -91,9 +104,7 @@ productRouter
     fileExtLimiterArr("images", [".png", ".jpg", ".jpeg"]),
     addImages
   );
-productRouter.route("/:productId/image/:imageName").delete(deleteImage);
 
-productRouter.route("/:productId/description").delete(deleteDescription);
 //.post(updateDescription);
 
 // productRouter
