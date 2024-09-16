@@ -9,7 +9,7 @@ export const getCartItems = catchAsync(
     const userId = res.locals.user._id;
 
     const features = new APIFeatures(
-      CartItem.find({ user: userId }),
+      CartItem.find({ user: userId, ordered: { $ne: true } }),
       req.query
     );
 
@@ -36,8 +36,8 @@ export const updateItemQuantity = catchAsync(
       return next(new AppError("Quantity is required", 400));
     }
 
-    const updatedItem = await CartItem.findByIdAndUpdate(
-      cartId,
+    const updatedItem = await CartItem.findOneAndUpdate(
+      { _id: cartId, ordered: { $ne: true } },
       { quantity },
       { new: true }
     );
@@ -87,7 +87,10 @@ export const deleteCartItem = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const { cartId } = req.params;
 
-    const deletedItem = await CartItem.findByIdAndDelete(cartId);
+    const deletedItem = await CartItem.findOneAndDelete({
+      _id: cartId,
+      ordered: { $ne: true },
+    });
 
     if (!deletedItem) return next(new AppError("Item not found", 404));
 
