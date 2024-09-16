@@ -189,10 +189,17 @@ export const updateProduct = catchAsync(
 export const discontinueProduct = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const { productId } = req.params;
-    const userId = res.locals.user._id;
+
+    const { role, _id: userId } = res.locals.user;
+
+    const findObj = {
+      ...(role === "seller" && { user: userId }),
+      _id: productId,
+      isSelling: { $ne: false },
+    };
 
     const product = await Product.findOneAndUpdate(
-      { _id: productId, user: userId, isSelling: { $ne: false } },
+      findObj,
       { isSelling: false },
       { new: true }
     );
