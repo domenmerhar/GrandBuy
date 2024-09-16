@@ -18,10 +18,7 @@ import {
   restrictTo,
   saveUserToResponse,
 } from "../controllers/authController";
-import {
-  addToHistory,
-  filterYourHistory,
-} from "../controllers/historyItemController";
+import { addToHistory } from "../controllers/historyItemController";
 import {
   fileExtLimiterArr,
   fileExtLimiterOne,
@@ -83,6 +80,8 @@ productRouter
 productRouter
   .route("/:productId/description")
   .delete(restrictTo("admin", "seller"), deleteDescription);
+
+//TODO: ADD ADMIN ROUTES
 
 productRouter.use(restrictTo("seller"));
 
