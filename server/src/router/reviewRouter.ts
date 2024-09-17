@@ -3,6 +3,7 @@ import { protect, restrictTo } from "../controllers/authController";
 import {
   createReview,
   deleteReview,
+  deleteReviewUser,
   dislikeReview,
   getMyReviews,
   getProductReviews,
@@ -38,7 +39,11 @@ reviewRouter
     ])
   )
   .patch(protect, updateReview)
-  .delete(protect, deleteReview);
+  .delete(protect, restrictTo("user"), deleteReviewUser);
+
+reviewRouter
+  .route("/admin/:id")
+  .delete(protect, restrictTo("admin"), deleteReview);
 
 reviewRouter.use(protect, restrictTo("user"));
 reviewRouter.route("/:id/like").patch(likeReview);
