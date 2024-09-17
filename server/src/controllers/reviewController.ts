@@ -1,4 +1,4 @@
-import { NextFunction, Request, Response } from "express";
+import e, { NextFunction, Request, Response } from "express";
 import catchAsync from "../utils/catchAsync";
 import Review from "../models/reviewModel";
 import AppError from "../utils/AppError";
@@ -215,7 +215,26 @@ export const deleteReview = catchAsync(
 
     if (!review) return next(new AppError("Review not found.", 404));
 
+    //TODO: Delete replies
+
     res.status(204).json({ status: "success" });
+  }
+);
+
+export const deleteReviewUser = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const { id } = req.params;
+    const userId = res.locals.user._id;
+
+    const review = await Review.findOneAndUpdate(
+      { _id: id, user: userId },
+      { user: null, review: "This review has been deleted." },
+      { new: true }
+    );
+
+    if (!review) return next(new AppError("Review not found.", 404));
+
+    res.status(200).json({ status: "success", data: { review } });
   }
 );
 
