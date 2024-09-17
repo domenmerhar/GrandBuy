@@ -1,9 +1,10 @@
-import e, { NextFunction, Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import catchAsync from "../utils/catchAsync";
 import Review from "../models/reviewModel";
 import AppError from "../utils/AppError";
 import mongoose from "mongoose";
 import APIFeatures from "../utils/ApiFeatures";
+import Product from "../models/productModel";
 
 export const getProductReviews = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
@@ -119,6 +120,9 @@ export const createReview = catchAsync(
     const { rating, review } = req.body;
     const { productId } = req.params;
 
+    const product = await Product.findOne({ _id: productId });
+    if (!product) return next(new AppError("Product not found", 404));
+
     const newReview = await Review.create({
       user: res.locals.user._id,
       product: productId,
@@ -228,7 +232,7 @@ export const deleteReviewUser = catchAsync(
 
     const review = await Review.findOneAndUpdate(
       { _id: id, user: userId },
-      { user: null, review: "This review has been deleted." },
+      { review: "This review has been deleted." },
       { new: true }
     );
 
