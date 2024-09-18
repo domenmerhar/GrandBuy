@@ -5,6 +5,7 @@ import AppError from "../utils/AppError";
 import mongoose from "mongoose";
 import APIFeatures from "../utils/ApiFeatures";
 import Product from "../models/productModel";
+import Order from "../models/orderModel";
 
 export const getProductReviews = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
@@ -119,6 +120,19 @@ export const createReview = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const { rating, review } = req.body;
     const { productId } = req.params;
+    const userId = res.locals.user._id;
+
+    const deliveredProduct = await Order.findOne({
+      user: res.locals.user._id,
+      status: "delivered",
+    }).populate({
+      path: "products",
+      select: "product",
+      match: { product: { _id: productId } },
+    });
+
+    if (!deliveredProduct?.products?.length)
+      return next(new AppError("You haven't bought this product", 400));
 
     const product = await Product.findOne({ _id: productId });
     if (!product) return next(new AppError("Product not found", 404));
