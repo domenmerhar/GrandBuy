@@ -84,7 +84,7 @@ export const confirmDelivery = catchAsync(
 
     const order = await Order.findOneAndUpdate(
       { _id: id, user: res.locals.user._id },
-      { status: "Delivered" },
+      { status: "delivered" },
       { new: true }
     );
 
