@@ -4,6 +4,8 @@ import Review from "../models/reviewModel";
 import AppError from "../utils/AppError";
 import Reply from "../models/replyModel";
 
+const pageSize = 5;
+
 //TODO: Data sanitization
 
 //TODO: Fix population
@@ -28,12 +30,30 @@ export const getReply = catchAsync(
   }
 );
 
-export const getPostReplies = catchAsync(
+export const getReviewReplies = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
+    const { reviewId } = req.params;
+    const { page: pageStr, skip: skipStr, limit: limitStr } = req.query;
+
+    const page = parseInt((pageStr as string) ?? "1");
+    const limit = parseInt((skipStr as string) ?? `${pageSize}`);
+    const skip = (page - 1) * limit;
+
+    const replies = await Reply.find({ review: reviewId })
+      .sort("createdAt")
+      .skip(skip)
+      .limit(limit);
+
+    if (!replies.length) return next(new AppError("No replies found", 404));
+
+    const count = await Reply.countDocuments({ review: reviewId });
+
     res.status(200).json({
       status: "success",
       data: {
-        message: "Get post replies",
+        replies,
+        page,
+        totalReplies: count,
       },
     });
   }
