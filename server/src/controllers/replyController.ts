@@ -6,11 +6,17 @@ import Reply from "../models/replyModel";
 
 //TODO: Data sanitization
 
+//TODO: Fix population
 export const getReply = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const { id } = req.params;
 
-    const reply = await Reply.findById(id);
+    const reply = await Reply.findById(id)
+      .populate({
+        path: "user",
+        select: "username _id",
+      })
+      .populate({ path: "review" });
     if (!reply) return next(new AppError("Reply not found", 404));
 
     res.status(200).json({
