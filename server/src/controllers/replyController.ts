@@ -8,10 +8,15 @@ import Reply from "../models/replyModel";
 
 export const getReply = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
+    const { id } = req.params;
+
+    const reply = await Reply.findById(id);
+    if (!reply) return next(new AppError("Reply not found", 404));
+
     res.status(200).json({
       status: "success",
       data: {
-        message: "Get reply",
+        reply,
       },
     });
   }
