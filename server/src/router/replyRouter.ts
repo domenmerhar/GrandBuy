@@ -12,7 +12,7 @@ const replyRouter = express.Router();
 replyRouter.route("/:id").get(getReply).delete(protect, deleteReply);
 
 replyRouter
-  .route("/post/:postId")
+  .route("/post/:reviewId")
   .get(getPostReplies)
   .post(protect, createReply);
 
