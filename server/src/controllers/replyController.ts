@@ -54,10 +54,27 @@ export const createReply = catchAsync(
 
 export const deleteReply = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
+    const { id } = req.params;
+    const userId = res.locals.user.id;
+
+    const reply = await Reply.findOneAndUpdate(
+      {
+        user: userId,
+        _id: id,
+      },
+      {
+        user: null,
+        reply: "Deleted",
+      },
+      { new: true }
+    );
+
+    if (!reply) return next(new AppError("Reply not found", 404));
+
     res.status(200).json({
       status: "success",
       data: {
-        message: "Delete reply",
+        reply,
       },
     });
   }
