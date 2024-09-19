@@ -1,4 +1,6 @@
-import mongoose, { mongo } from "mongoose";
+import mongoose from "mongoose";
+
+//TODO: Check error messages
 
 const replySchema = new mongoose.Schema({
   user: {
@@ -15,9 +17,9 @@ const replySchema = new mongoose.Schema({
 
   reply: {
     type: String,
-    minLength: [1, "Please provide a review with at least 1 character."],
-    maxLength: [500, "Please provide a review shorter than 500 characters."],
-    required: [true, "Please provide a review."],
+    minLength: [1, "Please provide a reply with at least 1 character."],
+    maxLength: [500, "Please provide a reply shorter than 500 characters."],
+    required: [true, "Please provide a reply."],
   },
 
   createdAt: {
