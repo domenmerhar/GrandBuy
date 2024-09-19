@@ -3,8 +3,8 @@ import { protect } from "../controllers/authController";
 import {
   createReply,
   deleteReply,
-  getPostReplies,
   getReply,
+  getReviewReplies,
 } from "../controllers/replyController";
 
 const replyRouter = express.Router();
@@ -12,8 +12,8 @@ const replyRouter = express.Router();
 replyRouter.route("/:id").get(getReply).delete(protect, deleteReply);
 
 replyRouter
-  .route("/post/:reviewId")
-  .get(getPostReplies)
+  .route("/review/:reviewId")
+  .get(getReviewReplies)
   .post(protect, createReply);
 
 export default replyRouter;
