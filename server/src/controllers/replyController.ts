@@ -3,6 +3,7 @@ import catchAsync from "../utils/catchAsync";
 import Review from "../models/reviewModel";
 import AppError from "../utils/AppError";
 import Reply from "../models/replyModel";
+import APIFeatures from "../utils/ApiFeatures";
 
 const pageSize = 5;
 
@@ -106,6 +107,31 @@ export const deleteReply = catchAsync(
       status: "success",
       data: {
         reply,
+      },
+    });
+  }
+);
+
+export const getUserReplies = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const { userId } = req.params;
+
+    const replies = await new APIFeatures(
+      Reply.find({ user: userId }),
+      req.query
+    ).paginate().query;
+
+    if (!(replies as unknown as unknown[]).length)
+      return next(new AppError("No replies found", 404));
+
+    const count = await Reply.countDocuments({ user: userId });
+
+    res.status(200).json({
+      status: "success",
+      data: {
+        replies,
+        totalReplies: count,
+        page: parseInt((req.query.page as string) ?? "1"),
       },
     });
   }
