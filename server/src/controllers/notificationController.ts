@@ -28,6 +28,14 @@ export const getYourNotifications = catchAsync(
       .sort()
       .filter().query;
 
+    if (!notifications)
+      return next(new AppError("No notifications found", 404));
+
+    await Notification.updateMany(
+      { user: userId, viewed: false },
+      { viewed: true }
+    );
+
     res.status(200).json({
       status: "success",
       data: {
