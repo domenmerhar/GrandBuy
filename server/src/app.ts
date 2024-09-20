@@ -15,6 +15,7 @@ import couponRouter from "./router/couponRouter";
 import path from "path";
 import orderRouter from "./router/orderRouter";
 import replyRouter from "./router/replyRouter";
+import notificationRouter from "./router/notificationRouter";
 
 //TODO: xss
 
@@ -55,6 +56,7 @@ app.use("/cart", cartRouter);
 app.use("/coupon", couponRouter);
 app.use("/order", orderRouter);
 app.use("/reply", replyRouter);
+app.use("/notification", notificationRouter);
 
 app.all("*", (req: Request, res: Response) => {
   res.status(404).json({
