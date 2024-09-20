@@ -2,9 +2,11 @@ import { NextFunction, Request, Response } from "express";
 import catchAsync from "../utils/catchAsync";
 import requestModel from "../models/requestModel";
 import AppError from "../utils/AppError";
+import notificationModel from "../models/notificationModel";
 
 const changeRequestStatus = async (
   requestId: string,
+  adminId: string,
   status: "rejected" | "accepted"
 ) => {
   const request = await requestModel.findOneAndUpdate(
@@ -19,6 +21,13 @@ const changeRequestStatus = async (
   );
 
   if (!request) throw new AppError("Request not found", 404);
+
+  await notificationModel.create({
+    user: request.user,
+    createdBy: adminId,
+    type: "message",
+    message: `Your become a seller request has been ${status}`,
+  });
 
   return request;
 };
@@ -59,7 +68,11 @@ export const createRequest = catchAsync(
 
 export const acceptRequest = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    const request = await changeRequestStatus(req.params.id, "accepted");
+    const request = await changeRequestStatus(
+      req.params.id,
+      res.locals.user._id,
+      "accepted"
+    );
 
     res.status(200).json({
       status: "success",
@@ -72,7 +85,11 @@ export const acceptRequest = catchAsync(
 
 export const rejectRequest = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    const request = await changeRequestStatus(req.params.id, "rejected");
+    const request = await changeRequestStatus(
+      req.params.id,
+      res.locals.user._id,
+      "rejected"
+    );
 
     res.status(200).json({
       status: "succcess",
