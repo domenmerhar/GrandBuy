@@ -3,7 +3,7 @@ import catchAsync from "../utils/catchAsync";
 import requestModel from "../models/requestModel";
 import AppError from "../utils/AppError";
 import notificationModel from "../models/notificationModel";
-import userModel from "../models/userModel";
+import User from "../models/userModel";
 
 const changeRequestStatus = async (
   requestId: string,
@@ -83,7 +83,7 @@ export const acceptRequest = catchAsync(
       "accepted"
     );
 
-    await userModel.findByIdAndUpdate(
+    await User.findByIdAndUpdate(
       request.user,
       { role: "seller" },
       { new: true }
