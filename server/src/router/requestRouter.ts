@@ -21,10 +21,12 @@ requestRouter
 
 requestRouter.route("/cancel/:id").patch(restrictTo("user"), cancelRequest);
 
-requestRouter.route("/accept/:id").patch(restrictTo("admin"), acceptRequest);
+requestRouter.use(restrictTo("admin"));
 
-requestRouter.route("/reject/:id").patch(restrictTo("admin"), rejectRequest);
+requestRouter.route("/accept/:id").patch(acceptRequest);
 
-requestRouter.route("/:id").get(restrictTo("admin"), getRequest);
+requestRouter.route("/reject/:id").patch(rejectRequest);
+
+requestRouter.route("/:id").get(getRequest);
 
 export default requestRouter;
