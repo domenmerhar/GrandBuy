@@ -17,10 +17,11 @@ requestRouter
   .route("/")
   .post(restrictTo("user"), createRequest)
   .get(restrictTo("admin"), getAll(requestModel));
-requestRouter.route("/:id").get(restrictTo("admin"), getRequest);
 
 requestRouter.route("/accept/:id").patch(restrictTo("admin"), acceptRequest);
 
 requestRouter.route("/reject/:id").patch(restrictTo("admin"), rejectRequest);
+
+requestRouter.route("/:id").get(restrictTo("admin"), getRequest);
 
 export default requestRouter;
