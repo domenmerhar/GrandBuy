@@ -3,6 +3,26 @@ import catchAsync from "../utils/catchAsync";
 import requestModel from "../models/requestModel";
 import AppError from "../utils/AppError";
 
+const changeRequestStatus = async (
+  requestId: string,
+  status: "rejected" | "accepted"
+) => {
+  const request = await requestModel.findOneAndUpdate(
+    {
+      _id: requestId,
+      status: "pending",
+    },
+    {
+      status: "accepted",
+    },
+    { new: true }
+  );
+
+  if (!request) throw new AppError("Request not found", 404);
+
+  return request;
+};
+
 export const getRequest = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     res.status(500).json({
@@ -39,18 +59,26 @@ export const createRequest = catchAsync(
 
 export const acceptRequest = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    res.status(500).json({
-      status: "error",
-      message: "This route is not yet defined!",
+    const request = await changeRequestStatus(req.params.id, "accepted");
+
+    res.status(200).json({
+      status: "success",
+      data: {
+        request,
+      },
     });
   }
 );
 
 export const rejectRequest = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    res.status(500).json({
-      status: "error",
-      message: "This route is not yet defined!",
+    const request = await changeRequestStatus(req.params.id, "rejected");
+
+    res.status(200).json({
+      status: "succcess",
+      data: {
+        request: request,
+      },
     });
   }
 );
