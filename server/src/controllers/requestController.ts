@@ -13,7 +13,7 @@ const changeRequestStatus = async (
       status: "pending",
     },
     {
-      status: "accepted",
+      status,
     },
     { new: true }
   );
