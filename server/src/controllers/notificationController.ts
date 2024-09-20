@@ -5,7 +5,13 @@ import AppError from "../utils/AppError";
 import Notification from "../models/notificationModel";
 
 export const getCreatedNotifications = catchAsync(
-  (req: Request, res: Response, next: NextFunction) => {}
+  async (req: Request, res: Response, next: NextFunction) => {
+    const userId = res.locals.user._id;
+
+    req.query.createdBy = userId;
+
+    next();
+  }
 );
 
 export const getYourNotifications = catchAsync(
