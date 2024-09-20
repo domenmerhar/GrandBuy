@@ -233,11 +233,11 @@ export const updateReview = catchAsync(
   }
 );
 
-//ADMIN
 export const deleteReview = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const { id } = req.params;
     const userId = res.locals.user._id;
+    const { warningMessage } = req.body;
 
     const review = await Review.findOneAndDelete({
       _id: id,
@@ -245,15 +245,13 @@ export const deleteReview = catchAsync(
 
     if (!review) return next(new AppError("Review not found.", 404));
 
-    const deletedReplies = await replyModel.deleteMany({ review: id });
+    await replyModel.deleteMany({ review: id });
 
-    console.log({ deletedReplies });
-
-    const warning = await Notification.create({
+    await Notification.create({
       user: review.user,
       createdBy: userId,
       type: "warning",
-      message: `Your review on product ${review.product.name || "unknown"} has been deleted.`,
+      message: `Your review on product ${review.product.name || "unknown"} has been deleted. ${warningMessage || ""}`,
     });
 
     res.status(204).json({ status: "success" });
