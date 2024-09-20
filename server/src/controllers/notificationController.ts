@@ -7,7 +7,6 @@ import Notification from "../models/notificationModel";
 export const getCreatedNotifications = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const userId = res.locals.user._id;
-
     req.query.createdBy = userId;
 
     next();
@@ -19,7 +18,27 @@ export const getYourNotifications = catchAsync(
 );
 
 export const getNotification = catchAsync(
-  async (req: Request, res: Response, next: NextFunction) => {}
+  async (req: Request, res: Response, next: NextFunction) => {
+    const { id } = req.params;
+
+    const notification = await Notification.findOneAndUpdate(
+      {
+        _id: id,
+        user: res.locals.user._id,
+      },
+      { viewed: true },
+      { new: true }
+    );
+
+    if (!notification) return next(new AppError("Notification not found", 404));
+
+    res.status(200).json({
+      status: "success",
+      data: {
+        notification,
+      },
+    });
+  }
 );
 
 export const getUnreadNotificationCount = catchAsync(
