@@ -7,6 +7,8 @@ import {
   getUnreadNotificationCount,
   getYourNotifications,
 } from "../controllers/notificationController";
+import { getAll } from "../controllers/handlerFactory";
+import Notification from "../models/notificationModel";
 
 const notificationRouter = express.Router();
 
@@ -16,12 +18,14 @@ notificationRouter.route("/").get(getYourNotifications);
 
 notificationRouter.route("/count").get(getUnreadNotificationCount);
 
+notificationRouter
+  .route("/admin")
+  .get(restrictTo("admin"), getCreatedNotifications, getAll(Notification));
+
 notificationRouter.route("/:id").get(getNotification);
 
-notificationRouter.use(restrictTo("admin"));
-
-notificationRouter.route("/create/:userId").post(createNotification);
-
-notificationRouter.route("/admin/").get(getCreatedNotifications);
+notificationRouter
+  .route("/create/:userId")
+  .post(restrictTo("admin"), createNotification);
 
 export default notificationRouter;
