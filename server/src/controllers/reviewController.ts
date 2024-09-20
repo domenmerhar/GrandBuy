@@ -6,6 +6,9 @@ import mongoose from "mongoose";
 import APIFeatures from "../utils/ApiFeatures";
 import Product from "../models/productModel";
 import Order from "../models/orderModel";
+import replyModel from "../models/replyModel";
+import Notification from "../models/notificationModel";
+import Cart from "../models/cartItemModel";
 
 export const getProductReviews = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
@@ -122,16 +125,22 @@ export const createReview = catchAsync(
     const { productId } = req.params;
     const userId = res.locals.user._id;
 
-    const deliveredProduct = await Order.findOne({
-      user: res.locals.user._id,
-      status: "delivered",
-    }).populate({
-      path: "products",
-      select: "product",
-      match: { product: { _id: productId } },
+    const cartItem = await Cart.findOne({
+      product: productId,
+      user: userId,
+      ordered: true,
     });
 
-    if (!deliveredProduct?.products?.length)
+    if (!cartItem)
+      return next(new AppError("You haven't bought this product", 400));
+
+    const order = await Order.findOne({
+      user: userId,
+      status: "delivered",
+      products: { $in: cartItem._id },
+    });
+
+    if (!order)
       return next(new AppError("You haven't bought this product", 400));
 
     const product = await Product.findOne({ _id: productId });
@@ -224,16 +233,28 @@ export const updateReview = catchAsync(
   }
 );
 
+//ADMIN
 export const deleteReview = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const { id } = req.params;
     const userId = res.locals.user._id;
 
-    const review = await Review.findOneAndDelete({ _id: id, user: userId });
+    const review = await Review.findOneAndDelete({
+      _id: id,
+    }).populate({ path: "product", select: "name" });
 
     if (!review) return next(new AppError("Review not found.", 404));
 
-    //TODO: Delete replies
+    const deletedReplies = await replyModel.deleteMany({ review: id });
+
+    console.log({ deletedReplies });
+
+    const warning = await Notification.create({
+      user: review.user,
+      createdBy: userId,
+      type: "warning",
+      message: `Your review on product ${review.product.name || "unknown"} has been deleted.`,
+    });
 
     res.status(204).json({ status: "success" });
   }
