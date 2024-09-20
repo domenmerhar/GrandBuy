@@ -2,8 +2,9 @@ import express from "express";
 import { protect, restrictTo } from "../controllers/authController";
 import {
   createNotification,
+  getAdminNotifications,
   getNotification,
-  getNotificationCount,
+  getUnreadNotificationCount,
   getYourNotifications,
 } from "../controllers/notificationController";
 
@@ -13,12 +14,14 @@ notificationRouter.use(protect);
 
 notificationRouter.route("/").get(getYourNotifications);
 
-notificationRouter.route("/count").get(getNotificationCount);
+notificationRouter.route("/count").get(getUnreadNotificationCount);
 
 notificationRouter.route("/:id").get(getNotification);
 
-notificationRouter
-  .route("/create/:userId")
-  .post(restrictTo("admin"), createNotification);
+notificationRouter.use(restrictTo("admin"));
+
+notificationRouter.route("/create/:userId").post(createNotification);
+
+notificationRouter.route("/admin/").get(getAdminNotifications);
 
 export default notificationRouter;
