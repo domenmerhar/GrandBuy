@@ -21,4 +21,22 @@ const requestSchema = new mongoose.Schema({
   },
 });
 
+requestSchema.set("toJSON", {
+  versionKey: false,
+  virtuals: true,
+  transform: function (doc, ret) {
+    delete ret.id;
+    return ret;
+  },
+});
+
+requestSchema.set("toObject", {
+  versionKey: false,
+  virtuals: true,
+  transform: function (doc, ret) {
+    delete ret.id;
+    return ret;
+  },
+});
+
 export default mongoose.model("Request", requestSchema);
