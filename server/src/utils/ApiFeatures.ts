@@ -11,12 +11,19 @@ interface QueryString {
 class APIFeatures<T> {
   constructor(
     public query: Query<T[], T>,
-    private queryString: QueryString
+    private queryString: QueryString,
+    private additionalExcludedFields: string[] = []
   ) {}
 
   filter() {
     const queryObj = { ...this.queryString };
-    const excludedFields = ["page", "sort", "limit", "fields"];
+    const excludedFields = [
+      "page",
+      "sort",
+      "limit",
+      "fields",
+      ...this.additionalExcludedFields,
+    ];
     excludedFields.forEach((el) => delete queryObj[el]);
 
     let queryStr = JSON.stringify(queryObj);
