@@ -3,6 +3,7 @@ import catchAsync from "../utils/catchAsync";
 import User from "../models/userModel";
 import AppError from "../utils/AppError";
 import Notification from "../models/notificationModel";
+import APIFeatures from "../utils/ApiFeatures";
 
 export const getCreatedNotifications = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
@@ -14,7 +15,26 @@ export const getCreatedNotifications = catchAsync(
 );
 
 export const getYourNotifications = catchAsync(
-  async (req: Request, res: Response, next: NextFunction) => {}
+  async (req: Request, res: Response, next: NextFunction) => {
+    const userId = res.locals.user._id;
+
+    const notifications = await new APIFeatures(
+      Notification.find({ user: userId }).select(
+        "_id type message viewed createdAt"
+      ),
+      req.query,
+      ["createdBy"]
+    )
+      .sort()
+      .filter().query;
+
+    res.status(200).json({
+      status: "success",
+      data: {
+        notifications,
+      },
+    });
+  }
 );
 
 export const getNotification = catchAsync(
