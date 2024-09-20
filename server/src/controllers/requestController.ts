@@ -34,9 +34,17 @@ const changeRequestStatus = async (
 
 export const getRequest = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    res.status(500).json({
-      status: "error",
-      message: "This route is not yet defined!",
+    const { id } = req.params;
+
+    const request = await requestModel
+      .findById(id)
+      .populate({ path: "user", select: "_id username " });
+
+    res.status(200).json({
+      status: "success",
+      data: {
+        request,
+      },
     });
   }
 );
