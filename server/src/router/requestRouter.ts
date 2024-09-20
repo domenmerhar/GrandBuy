@@ -4,6 +4,7 @@ import { getAll } from "../controllers/handlerFactory";
 import requestModel from "../models/requestModel";
 import {
   acceptRequest,
+  cancelRequest,
   createRequest,
   getRequest,
   rejectRequest,
@@ -17,6 +18,8 @@ requestRouter
   .route("/")
   .post(restrictTo("user"), createRequest)
   .get(restrictTo("admin"), getAll(requestModel));
+
+requestRouter.route("/cancel/:id").patch(restrictTo("user"), cancelRequest);
 
 requestRouter.route("/accept/:id").patch(restrictTo("admin"), acceptRequest);
 
