@@ -16,6 +16,7 @@ import path from "path";
 import orderRouter from "./router/orderRouter";
 import replyRouter from "./router/replyRouter";
 import notificationRouter from "./router/notificationRouter";
+import requestRouter from "./router/requestRouter";
 
 //TODO: xss
 
@@ -57,6 +58,7 @@ app.use("/coupon", couponRouter);
 app.use("/order", orderRouter);
 app.use("/reply", replyRouter);
 app.use("/notification", notificationRouter);
+app.use("/request", requestRouter);
 
 app.all("*", (req: Request, res: Response) => {
   res.status(404).json({
