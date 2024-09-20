@@ -3,6 +3,7 @@ import catchAsync from "../utils/catchAsync";
 import requestModel from "../models/requestModel";
 import AppError from "../utils/AppError";
 import notificationModel from "../models/notificationModel";
+import userModel from "../models/userModel";
 
 const changeRequestStatus = async (
   requestId: string,
@@ -82,6 +83,12 @@ export const acceptRequest = catchAsync(
       "accepted"
     );
 
+    await userModel.findByIdAndUpdate(
+      request.user,
+      { role: "seller" },
+      { new: true }
+    );
+
     res.status(200).json({
       status: "success",
       data: {
@@ -104,6 +111,26 @@ export const rejectRequest = catchAsync(
       data: {
         request: request,
       },
+    });
+  }
+);
+
+export const cancelRequest = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const userId = res.locals.user._id;
+    const { id } = req.params;
+
+    const request = await requestModel.findOneAndDelete({
+      _id: id,
+      user: userId,
+      status: "pending",
+    });
+
+    if (!request) throw new AppError("Request not found", 404);
+
+    res.status(204).json({
+      status: "success",
+      data: null,
     });
   }
 );
