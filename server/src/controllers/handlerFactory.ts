@@ -37,13 +37,18 @@ export const getOne = (
     });
   });
 
-export const getAll = (Model: any) =>
+export const getAll = (
+  Model: any,
+  popOptions: { path: string; select?: string }[]
+) =>
   catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     const features = new APIFeatures(Model.find(), req.query)
       .filter()
       .sort()
       .limitFields()
       .paginate();
+
+    if (popOptions) features.query = features.query.populate(popOptions);
 
     const doc = await features.query;
 
