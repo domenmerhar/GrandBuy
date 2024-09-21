@@ -17,6 +17,7 @@ import orderRouter from "./router/orderRouter";
 import replyRouter from "./router/replyRouter";
 import notificationRouter from "./router/notificationRouter";
 import requestRouter from "./router/requestRouter";
+import banRouter from "./router/banRouter";
 
 //TODO: xss
 
@@ -59,6 +60,7 @@ app.use("/order", orderRouter);
 app.use("/reply", replyRouter);
 app.use("/notification", notificationRouter);
 app.use("/request", requestRouter);
+app.use("/ban", banRouter);
 
 app.all("*", (req: Request, res: Response) => {
   res.status(404).json({
