@@ -33,6 +33,8 @@ const banSchema = new Schema({
   },
 });
 
+banSchema.index({ user: 1, validUntil: 1 });
+
 banSchema.set("toJSON", {
   versionKey: false,
 
