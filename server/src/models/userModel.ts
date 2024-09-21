@@ -94,7 +94,10 @@ const UserSchema = new mongoose.Schema({
       message: "Please provide a valid phone number.",
     },
   },
+
   jwtChangedAt: Date,
+
+  banned: Boolean,
 });
 
 UserSchema.pre("save", function (next) {
