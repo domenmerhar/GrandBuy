@@ -7,6 +7,7 @@ import { File, role } from "../utils/types";
 import bcrypt from "bcrypt";
 import { Types } from "mongoose";
 import { deleteFile, saveImageToServer } from "./fileController";
+import banModel from "../models/banModel";
 
 const createToken = (id: Types.ObjectId) =>
   jwt.sign({ id, iat: Date.now() }, process.env.JWT_SECRET!, {
@@ -145,10 +146,23 @@ export const login = catchAsync(
   ) => {
     const { email, password } = req.body;
 
-    const user = await User.findOne({ email }).select("password username role");
+    const user = await User.findOne({ email }).select(
+      "password username role banned"
+    );
 
     if (!user)
       return next(new AppError("Email or password is incorrect.", 401));
+
+    if (user.banned) {
+      const ban = await banModel.findOne({
+        user: user._id,
+        validUntil: { $gt: Date.now() },
+      });
+
+      if (ban) return next(new AppError("You are banned.", 403));
+
+      user.banned = false;
+    }
 
     const isMatch = await bcrypt.compare(password, user.password);
 
