@@ -1,9 +1,9 @@
 import { NextFunction, Request, Response } from "express";
 import catchAsync from "../utils/catchAsync";
-import userModel from "../models/userModel";
+import User from "../models/userModel";
 import AppError from "../utils/AppError";
-import banModel from "../models/banModel";
-import notificationModel from "../models/notificationModel";
+import Ban from "../models/banModel";
+import Notification from "../models/notificationModel";
 
 export const getMyBans = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
@@ -17,33 +17,29 @@ export const createBan = catchAsync(
     const { user: userId, days, message } = req.body;
     const validUntil = new Date(Date.now() + days * 24 * 60 * 60 * 1000);
 
-    const user = await userModel.findOne({ _id: userId });
+    const user = await User.findOne({ _id: userId });
     if (!user) return next(new AppError("No user found with that ID", 404));
 
-    const existingBan = await banModel.findOne({
+    const existingBan = await Ban.findOne({
       user: userId,
       validUntil: { $gt: validUntil },
     });
     if (existingBan) return next(new AppError("User is already banned", 400));
 
-    const ban = await banModel.create({
+    const ban = await Ban.create({
       user: userId,
       validUntil,
       message,
     });
 
-    console.log({ ban });
-
-    const notification = await notificationModel.create({
+    await Notification.create({
       user: userId,
       createdBy: res.locals.user._id,
       type: "warning",
       message: `You have been banned until ${validUntil.toDateString()}`,
     });
 
-    console.log({ notification });
-
-    await userModel.findByIdAndUpdate(userId, {
+    await User.findByIdAndUpdate(userId, {
       banned: true,
       jwtChangedAt: new Date(),
     });
@@ -53,6 +49,37 @@ export const createBan = catchAsync(
       data: {
         ban,
       },
+    });
+  }
+);
+
+export const deleteBan = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const { id } = req.params;
+
+    const ban = await Ban.findOneAndDelete({
+      _id: id,
+      validUntil: { $gt: new Date() },
+    });
+    if (!ban)
+      return next(new AppError("No active ban found with that ID", 404));
+
+    const user = await User.findOneAndUpdate(
+      { _id: ban.user, banned: true },
+      { banned: false }
+    );
+    if (!user) return next(new AppError("No user found with that ID", 404));
+
+    await Notification.create({
+      user: ban.user,
+      createdBy: res.locals.user._id,
+      type: "message",
+      message: `Your ban valid until ${ban.validUntil.toDateString()} has been lifted.`,
+    });
+
+    res.status(200).json({
+      status: "success",
+      data: null,
     });
   }
 );
