@@ -4,6 +4,7 @@ import AppError from "../utils/AppError";
 import APIFeatures from "../utils/ApiFeatures";
 import Order from "../models/orderModel";
 import CartItem from "../models/cartItemModel";
+import productModel from "../models/productModel";
 
 const ordersPerRequest = 10;
 
@@ -70,6 +71,14 @@ export const addOrder = catchAsync(
     await CartItem.updateMany(
       { _id: { $in: cartItemsArray } },
       { ordered: true }
+    );
+
+    await Promise.all(
+      items.map((item) =>
+        productModel.findByIdAndUpdate(item.product, {
+          $inc: { orders: item.quantity },
+        })
+      )
     );
 
     res.status(201).json({ status: "success", data: { order } });
