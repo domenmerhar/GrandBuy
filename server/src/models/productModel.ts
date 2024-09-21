@@ -65,6 +65,12 @@ const ProductSchema = new mongoose.Schema({
     type: Boolean,
     default: true,
   },
+
+  orders: {
+    type: Number,
+    min: [0, "Please provide a number higher than 0."],
+    default: 0,
+  },
 });
 
 ProductSchema.pre("save", function (next) {
