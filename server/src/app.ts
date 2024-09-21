@@ -44,7 +44,7 @@ app.use(cors());
 
 app.use(mongoSanitize());
 
-app.use(dayLimiter);
+app.use(dayLimiter, hourLimiter);
 
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "..", "public")));
