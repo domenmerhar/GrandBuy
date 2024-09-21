@@ -2,7 +2,7 @@ import express from "express";
 import { getAll, getOne } from "../controllers/handlerFactory";
 import Ban from "../models/banModel";
 import { protect, restrictTo } from "../controllers/authController";
-import { createBan, getMyBans } from "../controllers/banController";
+import { createBan, getMyBans, deleteBan } from "../controllers/banController";
 
 const banRouter = express.Router();
 
@@ -19,6 +19,7 @@ banRouter
 
 banRouter
   .route("/:id")
-  .get(getOne(Ban, [{ path: "user", select: "_id name" }]));
+  .get(getOne(Ban, [{ path: "user", select: "_id name" }]))
+  .delete(deleteBan);
 
 export default banRouter;
