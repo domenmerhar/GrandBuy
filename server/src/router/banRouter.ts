@@ -14,8 +14,8 @@ banRouter.use(restrictTo("admin"));
 
 banRouter
   .route("/")
-  .post(createBan)
-  .get(getAll(Ban, [{ path: "user", select: "_id name" }]));
+  .get(getAll(Ban, [{ path: "user", select: "_id name" }]))
+  .post(createBan);
 
 banRouter
   .route("/:id")
