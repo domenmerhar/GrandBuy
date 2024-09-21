@@ -18,6 +18,7 @@ const banSchema = new Schema({
       },
       message: "The validUntil date must be in the future.",
     },
+    required: true,
   },
 
   message: {
