@@ -4,9 +4,9 @@ import {
   createCartItem,
   deleteCartItem,
   getCartItems,
+  redeemCouponOnCartItems,
   updateItemQuantity,
 } from "../controllers/cartController";
-import { applyCoupon } from "../controllers/couponController";
 
 const cartRouter = express.Router();
 
@@ -17,6 +17,8 @@ cartRouter.route("/add/:productId").post(createCartItem);
 
 cartRouter.route("/:cartId").patch(updateItemQuantity).delete(deleteCartItem);
 
-cartRouter.route("/apply-coupon/:couponCode").patch(protect, applyCoupon);
+cartRouter
+  .route("/apply-coupon/:couponCode")
+  .patch(protect, redeemCouponOnCartItems);
 
 export default cartRouter;
