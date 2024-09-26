@@ -16,10 +16,6 @@ const orderRouter = express.Router();
 
 orderRouter.use(protect);
 
-orderRouter
-  .route("/redeemCoupon")
-  .patch(restrictTo("user"), redeemCouponOnCartItems);
-
 orderRouter.route("/").post(restrictTo("user"), addOrder);
 
 orderRouter.route("/user").get(restrictTo("user"), getUserOrders);
