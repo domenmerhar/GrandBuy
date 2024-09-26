@@ -190,7 +190,7 @@ export const getSellerOrders = catchAsync(
 
 export const redeemCouponOnCartItems = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    const { code } = req.body;
+    const { couponCode: code } = req.params;
     const userId = res.locals.user._id;
 
     const coupon = await couponModel.findOne({
