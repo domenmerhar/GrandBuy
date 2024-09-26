@@ -6,11 +6,19 @@ import {
   getSellerOrders,
   getUserOrders,
 } from "../controllers/orderController";
-import { cancelOrder, shipOrder } from "../controllers/cartController";
+import {
+  cancelOrder,
+  redeemCouponOnCartItems,
+  shipOrder,
+} from "../controllers/cartController";
 
 const orderRouter = express.Router();
 
 orderRouter.use(protect);
+
+orderRouter
+  .route("/redeemCoupon")
+  .patch(restrictTo("user"), redeemCouponOnCartItems);
 
 orderRouter.route("/").post(restrictTo("user"), addOrder);
 
