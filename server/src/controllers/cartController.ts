@@ -158,3 +158,30 @@ export const cancelOrder = catchAsync(
     });
   }
 );
+
+export const getSellerOrders = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const userId = res.locals.user._id;
+
+    const features = new APIFeatures(
+      CartItem.find({
+        product: {
+          $in: await productModel.find({ user: userId }).select("_id"),
+        },
+      }),
+      req.query
+    );
+
+    const cartItems = await features.paginate().sort().query;
+
+    if (!cartItems) return next(new AppError("No items found", 404));
+
+    res.status(200).json({
+      status: "success",
+      length: cartItems.length,
+      data: {
+        cartItems,
+      },
+    });
+  }
+);
