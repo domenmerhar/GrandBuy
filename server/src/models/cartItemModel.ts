@@ -31,6 +31,15 @@ const CartItemSchema = new mongoose.Schema({
     default: 0,
   },
 
+  status: {
+    type: String,
+    enum: {
+      values: ["pending", "cancelled", "shipped", "delivered"],
+      message: "Please provide a valid status.",
+    },
+    default: "pending",
+  },
+
   ordered: Boolean,
 });
 
