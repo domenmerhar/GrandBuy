@@ -46,6 +46,11 @@ const CartItemSchema = new mongoose.Schema({
 //CartItemSchema.index({ user: 1, product: 1 }, { unique: true });
 CartItemSchema.index({ user: 1, createdAt: 1 });
 
+CartItemSchema.pre(/^find/, function (next) {
+  this.populate({ path: "user", select: "name email image" });
+  next();
+});
+
 CartItemSchema.set("toJSON", {
   versionKey: false,
 });
