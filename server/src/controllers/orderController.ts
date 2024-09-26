@@ -8,8 +8,6 @@ import productModel from "../models/productModel";
 
 const ordersPerRequest = 10;
 
-//TODO: Test
-
 export const getUserOrders = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const id = res.locals.user._id;
