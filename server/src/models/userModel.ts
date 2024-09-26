@@ -98,6 +98,11 @@ const UserSchema = new mongoose.Schema({
   jwtChangedAt: Date,
 
   banned: Boolean,
+
+  createdAt: {
+    type: Date,
+    default: Date.now(),
+  },
 });
 
 UserSchema.pre("save", function (next) {
