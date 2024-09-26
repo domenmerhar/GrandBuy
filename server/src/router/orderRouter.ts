@@ -26,6 +26,6 @@ orderRouter.use(restrictTo("seller"));
 
 orderRouter.route("/seller/:id/ship").patch(shipOrder);
 orderRouter.route("/seller/:id/cancel").patch(cancelOrder);
-//orderRouter.route("/seller/orders").get();
+orderRouter.route("/seller/orders").get(getSellerOrders);
 
 export default orderRouter;
