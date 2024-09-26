@@ -10,11 +10,11 @@ const sellerChangeOrderStatus = async (
   sellerId: string,
   status: "shipped" | "cancelled"
 ) => {
-  const orderedCartItem = await CartItem.findOneAndUpdate(
+  const cartItem = await CartItem.findOneAndUpdate(
     {
       _id: orderId,
       ordered: true,
-      status: { $nin: ["shipped", "delivered"] },
+      status: "pending",
       product: {
         $in: await productModel.find({ user: sellerId }).select("_id"),
       },
@@ -23,9 +23,9 @@ const sellerChangeOrderStatus = async (
     { new: true }
   );
 
-  if (!orderedCartItem) throw new AppError("Item not found", 404);
+  if (!cartItem) throw new AppError("Item not found", 404);
 
-  return orderedCartItem;
+  return cartItem;
 };
 
 export const getCartItems = catchAsync(
@@ -131,6 +131,23 @@ export const shipOrder = catchAsync(
       req.params.id,
       res.locals.user._id,
       "shipped"
+    );
+
+    res.status(200).json({
+      status: "success",
+      data: {
+        orderedCartItem,
+      },
+    });
+  }
+);
+
+export const cancelOrder = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const orderedCartItem = await sellerChangeOrderStatus(
+      req.params.id,
+      res.locals.user._id,
+      "cancelled"
     );
 
     res.status(200).json({
