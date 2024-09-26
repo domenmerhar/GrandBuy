@@ -6,6 +6,7 @@ import {
   getSellerOrders,
   getUserOrders,
 } from "../controllers/orderController";
+import { shipOrder } from "../controllers/cartController";
 
 const orderRouter = express.Router();
 
@@ -20,5 +21,10 @@ orderRouter
   .patch(restrictTo("user"), confirmDelivery);
 
 orderRouter.route("/seller").get(restrictTo("seller"), getSellerOrders);
+
+orderRouter.use(restrictTo("seller"));
+
+orderRouter.route("/seller/:id/ship").patch(shipOrder);
+//orderRouter.route("/seller/orders").get();
 
 export default orderRouter;
