@@ -3,7 +3,9 @@ import catchAsync from "../utils/catchAsync";
 import AppError from "../utils/AppError";
 import CartItem from "../models/cartItemModel";
 import APIFeatures from "../utils/ApiFeatures";
-import productModel from "../models/productModel";
+import Product from "../models/productModel";
+import couponModel from "../models/couponModel";
+import mongoose from "mongoose";
 
 const sellerChangeOrderStatus = async (
   orderId: string,
@@ -16,7 +18,7 @@ const sellerChangeOrderStatus = async (
       ordered: true,
       status: "pending",
       product: {
-        $in: await productModel.find({ user: sellerId }).select("_id"),
+        $in: await Product.find({ user: sellerId }).select("_id"),
       },
     },
     { status },
@@ -166,7 +168,7 @@ export const getSellerOrders = catchAsync(
     const features = new APIFeatures(
       CartItem.find({
         product: {
-          $in: await productModel.find({ user: userId }).select("_id"),
+          $in: await Product.find({ user: userId }).select("_id"),
         },
       }),
       req.query
@@ -182,6 +184,40 @@ export const getSellerOrders = catchAsync(
       data: {
         cartItems,
       },
+    });
+  }
+);
+
+export const redeemCouponOnCartItems = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const { code } = req.body;
+    const userId = res.locals.user._id;
+
+    const coupon = await couponModel.findOne({
+      code,
+      expireAt: { $gt: Date.now() },
+    });
+    if (!coupon) return next(new AppError("Invalid coupon code", 400));
+
+    const cartItems = await CartItem.updateMany(
+      {
+        user: userId,
+        ordered: { $ne: true },
+        product: { $in: coupon.products },
+        discount: { $lt: coupon.discount },
+      },
+      { discount: coupon.discount },
+      { new: true }
+    );
+
+    //if (!cartItems.length) return next(new AppError("No items found", 404));
+
+    res.status(200).json({
+      status: "success",
+      // length: cartItems.length,
+      // data: {
+      //   cartItems,
+      //},
     });
   }
 );
