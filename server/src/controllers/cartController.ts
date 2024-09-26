@@ -3,6 +3,30 @@ import catchAsync from "../utils/catchAsync";
 import AppError from "../utils/AppError";
 import CartItem from "../models/cartItemModel";
 import APIFeatures from "../utils/ApiFeatures";
+import productModel from "../models/productModel";
+
+const sellerChangeOrderStatus = async (
+  orderId: string,
+  sellerId: string,
+  status: "shipped" | "cancelled"
+) => {
+  const orderedCartItem = await CartItem.findOneAndUpdate(
+    {
+      _id: orderId,
+      ordered: true,
+      status: { $nin: ["shipped", "delivered"] },
+      product: {
+        $in: await productModel.find({ user: sellerId }).select("_id"),
+      },
+    },
+    { status },
+    { new: true }
+  );
+
+  if (!orderedCartItem) throw new AppError("Item not found", 404);
+
+  return orderedCartItem;
+};
 
 export const getCartItems = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
@@ -97,6 +121,23 @@ export const deleteCartItem = catchAsync(
     res.status(204).json({
       status: "success",
       data: null,
+    });
+  }
+);
+
+export const shipOrder = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const orderedCartItem = await sellerChangeOrderStatus(
+      req.params.id,
+      res.locals.user._id,
+      "shipped"
+    );
+
+    res.status(200).json({
+      status: "success",
+      data: {
+        orderedCartItem,
+      },
     });
   }
 );
