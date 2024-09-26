@@ -27,10 +27,10 @@ const orderSchema = new Schema({
   status: {
     type: String,
     enum: {
-      values: ["shipped", "delivered"],
+      values: ["pending", "cancelled", "shipped", "delivered"],
       message: "Please provide a valid status.",
     },
-    default: "shipped",
+    default: "pending",
   },
 
   estimatedDelivery: {
