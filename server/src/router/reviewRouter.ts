@@ -8,6 +8,7 @@ import {
   getMyReviews,
   getProductReviews,
   getProductReviewStats,
+  getRecentReviewsForSeller,
   getUserReviews,
   likeReview,
   updateReview,
@@ -41,11 +42,15 @@ reviewRouter
   .patch(protect, updateReview)
   .delete(protect, restrictTo("user"), deleteReviewUser);
 
-reviewRouter
-  .route("/admin/:id")
-  .delete(protect, restrictTo("admin"), deleteReview);
+reviewRouter.use(protect);
 
-reviewRouter.use(protect, restrictTo("user"));
+reviewRouter.route("/admin/:id").delete(restrictTo("admin"), deleteReview);
+
+reviewRouter
+  .route("/seller/:days")
+  .get(restrictTo("seller"), getRecentReviewsForSeller);
+
+reviewRouter.use(restrictTo("user"));
 reviewRouter.route("/:id/like").patch(likeReview);
 reviewRouter.route("/:id/dislike").patch(dislikeReview);
 
