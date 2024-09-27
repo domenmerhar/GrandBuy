@@ -312,15 +312,21 @@ export const getRecentRevenueForSeller = catchAsync(
       },
     ]);
 
+    // Modify the stats array to replace _id with date directly
+    const modifiedStats = stats.map((stat) => ({
+      date: stat._id.date,
+      totalRevenue: stat.totalRevenue,
+    }));
+
     // Return a response, including debugging details if no stats were found
-    if (!stats.length) {
+    if (!modifiedStats.length) {
       return res.status(200).json({
         status: "success",
         message: "No sales data found in the given period.",
         data: {
           startDate: startDate ? startDate.toISOString().split("T")[0] : null,
           endDate: endDate.toISOString().split("T")[0],
-          stats,
+          stats: modifiedStats,
         },
       });
     }
@@ -330,7 +336,7 @@ export const getRecentRevenueForSeller = catchAsync(
       data: {
         startDate: startDate ? startDate.toISOString().split("T")[0] : null,
         endDate: endDate.toISOString().split("T")[0],
-        stats,
+        stats: modifiedStats,
       },
     });
   }
