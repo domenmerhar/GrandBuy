@@ -1,9 +1,10 @@
 import express from "express";
-import { protect } from "../controllers/authController";
+import { protect, restrictTo } from "../controllers/authController";
 import {
   createCartItem,
   deleteCartItem,
   getCartItems,
+  getRecentRevenueForSeller,
   redeemCouponOnCartItems,
   updateItemQuantity,
 } from "../controllers/cartController";
@@ -20,5 +21,9 @@ cartRouter.route("/:cartId").patch(updateItemQuantity).delete(deleteCartItem);
 cartRouter
   .route("/apply-coupon/:couponCode")
   .patch(protect, redeemCouponOnCartItems);
+
+cartRouter
+  .route("/seller/revenue/:days")
+  .get(restrictTo("seller"), getRecentRevenueForSeller);
 
 export default cartRouter;
