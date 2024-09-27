@@ -310,3 +310,55 @@ export const dislikeReview = catchAsync(
     res.status(200).json({ status: "success", data: { review } });
   }
 );
+
+export const getRecentReviewsForSeller = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const { userId } = res.locals.user._id;
+    const { days } = req.params;
+
+    const endDate = new Date();
+    const startDate = days
+      ? new Date(new Date().setDate(endDate.getDate() - +days))
+      : null;
+
+    const reviews = await Review.aggregate([
+      {
+        $match: {
+          "product.seller": userId,
+
+          ...(days && {
+            createdAt: {
+              $gte: startDate,
+              $lte: endDate,
+            },
+          }),
+        },
+      },
+      {
+        $group: {
+          _id: {
+            $dateToString: { format: "%Y-%m-%d", date: "$createdAt" },
+          },
+          reviews: { $sum: 1 },
+        },
+      },
+      {
+        $project: {
+          _id: 0,
+          date: "$_id",
+          reviews: 1,
+        },
+      },
+      {
+        $sort: { date: -1 },
+      },
+    ]);
+
+    res.status(200).json({
+      status: "success",
+      data: reviews,
+      startDate: startDate ? startDate.toISOString().split("T")[0] : null,
+      endDate: endDate.toISOString().split("T")[0],
+    });
+  }
+);
