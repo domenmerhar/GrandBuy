@@ -356,9 +356,11 @@ export const getRecentReviewsForSeller = catchAsync(
 
     res.status(200).json({
       status: "success",
-      data: reviews,
-      startDate: startDate ? startDate.toISOString().split("T")[0] : null,
-      endDate: endDate.toISOString().split("T")[0],
+      data: {
+        startDate: startDate ? startDate.toISOString().split("T")[0] : null,
+        endDate: endDate.toISOString().split("T")[0],
+        reviews,
+      },
     });
   }
 );
