@@ -221,3 +221,117 @@ export const redeemCouponOnCartItems = catchAsync(
     });
   }
 );
+
+export const getRecentRevenueForSeller = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const userId = res.locals.user._id;
+    const { days } = req.params;
+
+    const endDate = new Date();
+    const startDate = days
+      ? new Date(new Date().setDate(endDate.getDate() - +days))
+      : null;
+
+    // Fetch product IDs first to ensure we have the correct product list
+    const productIds = await Product.find({ user: userId }).select("_id");
+    if (!productIds.length) {
+      return res.status(404).json({
+        status: "fail",
+        message: "No products found for this user.",
+      });
+    }
+
+    // Ensure date filtering covers the full day
+    const stats = await CartItem.aggregate([
+      {
+        // Match ordered items and ensure the product is from this seller
+        $match: {
+          product: {
+            $in: productIds.map((p) => p._id),
+          },
+          ordered: true,
+          status: { $nin: ["pending", "cancelled"] },
+
+          ...(days && {
+            createdAt: {
+              $gte: startDate,
+              $lte: endDate, // Cover the full interval between start and end dates
+            },
+          }),
+        },
+      },
+      {
+        // Lookup the product details (price, discount) from the Product collection
+        $lookup: {
+          from: "products",
+          localField: "product",
+          foreignField: "_id",
+          as: "productDetails",
+        },
+      },
+      {
+        // Unwind the productDetails array to simplify processing
+        $unwind: "$productDetails",
+      },
+      {
+        // Group by the createdAt date and calculate revenue for each day
+        $group: {
+          _id: {
+            date: { $dateToString: { format: "%Y-%m-%d", date: "$createdAt" } }, // Group by date only
+          },
+          totalRevenue: {
+            $sum: {
+              $add: [
+                {
+                  // First part: Calculate (price * (1 - discount)) * quantity
+                  $multiply: [
+                    {
+                      $multiply: [
+                        "$productDetails.price",
+                        {
+                          $subtract: [
+                            1,
+                            { $min: ["$productDetails.discount", 1] },
+                          ], // Ensure discount is within 0-1
+                        },
+                      ],
+                    },
+                    { $max: ["$quantity", 0] }, // Ensure quantity is non-negative
+                  ],
+                },
+                // Second part: Add the shipping cost (ensure shipping is non-negative)
+                { $max: ["$productDetails.shipping", 0] },
+              ],
+            },
+          },
+        },
+      },
+      {
+        // Sort results by date
+        $sort: { "_id.date": 1 },
+      },
+    ]);
+
+    // Return a response, including debugging details if no stats were found
+    if (!stats.length) {
+      return res.status(200).json({
+        status: "success",
+        message: "No sales data found in the given period.",
+        data: {
+          startDate: startDate ? startDate.toISOString().split("T")[0] : null,
+          endDate: endDate.toISOString().split("T")[0],
+          stats,
+        },
+      });
+    }
+
+    res.status(200).json({
+      status: "success",
+      data: {
+        startDate: startDate ? startDate.toISOString().split("T")[0] : null,
+        endDate: endDate.toISOString().split("T")[0],
+        stats,
+      },
+    });
+  }
+);
