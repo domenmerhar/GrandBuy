@@ -31,6 +31,8 @@ const CartItemSchema = new mongoose.Schema({
     default: 0,
   },
 
+  //TODO: add unordered status
+
   status: {
     type: String,
     enum: {

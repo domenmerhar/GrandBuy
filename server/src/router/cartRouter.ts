@@ -5,6 +5,7 @@ import {
   deleteCartItem,
   getCartItems,
   getRecentRevenueForSeller,
+  getSellerRecent5,
   redeemCouponOnCartItems,
   updateItemQuantity,
 } from "../controllers/cartController";
@@ -25,5 +26,9 @@ cartRouter
 cartRouter
   .route("/seller/revenue/:days")
   .get(restrictTo("seller"), getRecentRevenueForSeller);
+
+cartRouter
+  .route("/seller/recent-5")
+  .get(restrictTo("seller"), getSellerRecent5);
 
 export default cartRouter;
