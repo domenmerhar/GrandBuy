@@ -1,8 +1,10 @@
 import mongoose from "mongoose";
 
+//Check discount in graph calculation
 const isValidDiscount = (value: number) => value >= 0 && value <= 100;
 
 const CouponSchema = new mongoose.Schema({
+  //Check that producst are not empty
   products: [
     {
       type: mongoose.Schema.Types.ObjectId,
@@ -35,6 +37,12 @@ const CouponSchema = new mongoose.Schema({
       },
       message: "Expiration date must be in the future",
     },
+  },
+
+  createdBy: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+    required: true,
   },
 });
 
