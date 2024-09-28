@@ -158,3 +158,36 @@ export const deleteSellerCoupon = catchAsync(
     res.status(204).json({ status: "success", data: null });
   }
 );
+
+export const updateSellerCoupon = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const { id } = req.params;
+    const sellerId = res.locals.user._id;
+    const { products, expireAt, discount } = req.body;
+
+    let productIds;
+
+    const coupon = await Coupon.findOne({ _id: id, createdBy: sellerId });
+    if (!coupon) return next(new AppError("Coupon not found.", 404));
+
+    if (products.length) {
+      productIds = await mapProductIds(
+        await productModel
+          .find({
+            user: sellerId,
+            name: { $in: products },
+          })
+          .select("_id")
+      );
+
+      coupon.products = productIds;
+    }
+
+    if (coupon.expireAt) coupon.expireAt = expireAt;
+    if (coupon.discount) coupon.discount = discount;
+
+    await coupon.save();
+
+    res.status(200).json({ status: "success", data: { coupon } });
+  }
+);
