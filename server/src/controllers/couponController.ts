@@ -129,3 +129,16 @@ export const getCouponSeller = catchAsync(
     res.status(200).json({ status: "success", data: { coupon } });
   }
 );
+
+export const getSellerCoupons = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const sellerId = res.locals.user._id;
+
+    const coupons = await Coupon.find({ createdBy: sellerId }).populate({
+      path: "products",
+      select: "name",
+    });
+
+    res.status(200).json({ status: "success", data: { coupons } });
+  }
+);
