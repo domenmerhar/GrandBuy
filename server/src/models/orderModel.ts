@@ -39,6 +39,11 @@ const orderSchema = new Schema({
     validate: [dateInFuture, "Please provide a date in the future."],
     default: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
   },
+
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
 });
 
 orderSchema.set("toJSON", {
