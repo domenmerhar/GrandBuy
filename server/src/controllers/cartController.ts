@@ -5,7 +5,33 @@ import CartItem from "../models/cartItemModel";
 import APIFeatures from "../utils/ApiFeatures";
 import Product from "../models/productModel";
 import couponModel from "../models/couponModel";
-import mongoose from "mongoose";
+
+async function mapProductIds(productIds) {
+  const mappedIds = [];
+
+  return new Promise((resolve) => {
+    let index = 0;
+
+    function processChunk() {
+      const CHUNK_SIZE = 100; // Process 100 items at a time to avoid blocking the event loop
+      for (
+        let i = 0;
+        i < CHUNK_SIZE && index < productIds.length;
+        i++, index++
+      ) {
+        mappedIds.push(productIds[index]._id); // Map the current item
+      }
+
+      if (index < productIds.length) {
+        setImmediate(processChunk); // Yield control back to the event loop
+      } else {
+        resolve(mappedIds);
+      }
+    }
+
+    processChunk();
+  });
+}
 
 const sellerChangeOrderStatus = async (
   orderId: string,
@@ -232,7 +258,6 @@ export const getRecentRevenueForSeller = catchAsync(
       ? new Date(new Date().setDate(endDate.getDate() - +days))
       : null;
 
-    // Fetch product IDs first to ensure we have the correct product list
     const productIds = await Product.find({ user: userId }).select("_id");
     if (!productIds.length) {
       return res.status(404).json({
@@ -241,13 +266,13 @@ export const getRecentRevenueForSeller = catchAsync(
       });
     }
 
-    // Ensure date filtering covers the full day
+    const mappedProductIds = await mapProductIds(productIds);
+
     const stats = await CartItem.aggregate([
       {
-        // Match ordered items and ensure the product is from this seller
         $match: {
           product: {
-            $in: productIds.map((p) => p._id),
+            $in: mappedProductIds,
           },
           ordered: true,
           status: { $nin: ["pending", "cancelled"] },
@@ -255,13 +280,12 @@ export const getRecentRevenueForSeller = catchAsync(
           ...(days && {
             createdAt: {
               $gte: startDate,
-              $lte: endDate, // Cover the full interval between start and end dates
+              $lte: endDate,
             },
           }),
         },
       },
       {
-        // Lookup the product details (price, discount) from the Product collection
         $lookup: {
           from: "products",
           localField: "product",
@@ -270,11 +294,9 @@ export const getRecentRevenueForSeller = catchAsync(
         },
       },
       {
-        // Unwind the productDetails array to simplify processing
         $unwind: "$productDetails",
       },
       {
-        // Group by the createdAt date and calculate revenue for each day
         $group: {
           _id: {
             date: { $dateToString: { format: "%Y-%m-%d", date: "$createdAt" } }, // Group by date only
@@ -283,7 +305,6 @@ export const getRecentRevenueForSeller = catchAsync(
             $sum: {
               $add: [
                 {
-                  // First part: Calculate (price * (1 - discount)) * quantity
                   $multiply: [
                     {
                       $multiply: [
@@ -292,14 +313,13 @@ export const getRecentRevenueForSeller = catchAsync(
                           $subtract: [
                             1,
                             { $min: ["$productDetails.discount", 1] },
-                          ], // Ensure discount is within 0-1
+                          ],
                         },
                       ],
                     },
-                    { $max: ["$quantity", 0] }, // Ensure quantity is non-negative
+                    { $max: ["$quantity", 0] },
                   ],
                 },
-                // Second part: Add the shipping cost (ensure shipping is non-negative)
                 { $max: ["$productDetails.shipping", 0] },
               ],
             },
@@ -307,18 +327,15 @@ export const getRecentRevenueForSeller = catchAsync(
         },
       },
       {
-        // Sort results by date
         $sort: { "_id.date": 1 },
       },
     ]);
 
-    // Modify the stats array to replace _id with date directly
     const modifiedStats = stats.map((stat) => ({
       date: stat._id.date,
       totalRevenue: stat.totalRevenue,
     }));
 
-    // Return a response, including debugging details if no stats were found
     if (!modifiedStats.length) {
       return res.status(200).json({
         status: "success",
