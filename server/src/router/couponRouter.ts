@@ -4,7 +4,7 @@ import {
   addCoupon,
   createSellerCoupon,
   deleteCoupon,
-  deleteSellerCoupon,
+  expireSellerCoupon,
   getCoupon,
   getCouponSeller,
   getSellerCoupons,
@@ -25,7 +25,7 @@ couponRouter
 couponRouter
   .route("/seller/:id")
   .get(restrictTo("seller"), getCouponSeller)
-  .delete(restrictTo("seller"), deleteSellerCoupon)
+  .delete(restrictTo("seller"), expireSellerCoupon)
   .patch(restrictTo("seller"), updateSellerCoupon);
 
 couponRouter.use(restrictTo("admin"));

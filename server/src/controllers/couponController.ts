@@ -144,15 +144,18 @@ export const getSellerCoupons = catchAsync(
   }
 );
 
-export const deleteSellerCoupon = catchAsync(
+export const expireSellerCoupon = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const { id } = req.params;
     const sellerId = res.locals.user._id;
 
-    const coupon = await Coupon.findOneAndDelete({
-      _id: id,
-      createdBy: sellerId,
-    });
+    const coupon = await Coupon.findOneAndUpdate(
+      {
+        _id: id,
+        createdBy: sellerId,
+      },
+      { expireAt: Date.now() }
+    );
     if (!coupon) return next(new AppError("Coupon not found.", 404));
 
     res.status(204).json({ status: "success", data: null });
