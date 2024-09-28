@@ -5,33 +5,7 @@ import CartItem from "../models/cartItemModel";
 import APIFeatures from "../utils/ApiFeatures";
 import Product from "../models/productModel";
 import couponModel from "../models/couponModel";
-
-async function mapProductIds(productIds) {
-  const mappedIds = [];
-
-  return new Promise((resolve) => {
-    let index = 0;
-
-    function processChunk() {
-      const CHUNK_SIZE = 100; // Process 100 items at a time to avoid blocking the event loop
-      for (
-        let i = 0;
-        i < CHUNK_SIZE && index < productIds.length;
-        i++, index++
-      ) {
-        mappedIds.push(productIds[index]._id); // Map the current item
-      }
-
-      if (index < productIds.length) {
-        setImmediate(processChunk); // Yield control back to the event loop
-      } else {
-        resolve(mappedIds);
-      }
-    }
-
-    processChunk();
-  });
-}
+import { mapProductIds } from "../utils/mapProductIds";
 
 const sellerChangeOrderStatus = async (
   orderId: string,
