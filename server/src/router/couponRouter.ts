@@ -9,6 +9,7 @@ import {
   getCouponSeller,
   getSellerCoupons,
   updateCoupon,
+  updateSellerCoupon,
 } from "../controllers/couponController";
 import { getAll } from "../controllers/handlerFactory";
 import Coupon from "../models/couponModel";
@@ -24,8 +25,8 @@ couponRouter
 couponRouter
   .route("/seller/:id")
   .get(restrictTo("seller"), getCouponSeller)
-  .delete(deleteSellerCoupon);
-//   .post(updateSellerCoupon);
+  .delete(restrictTo("seller"), deleteSellerCoupon)
+  .patch(restrictTo("seller"), updateSellerCoupon);
 
 couponRouter.use(restrictTo("admin"));
 
