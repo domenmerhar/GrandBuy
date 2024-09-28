@@ -9,6 +9,7 @@ import Order from "../models/orderModel";
 import replyModel from "../models/replyModel";
 import Notification from "../models/notificationModel";
 import Cart from "../models/cartItemModel";
+import { mapProductIds } from "../utils/mapProductIds";
 
 export const getProductReviews = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
@@ -361,6 +362,26 @@ export const getRecentReviewsForSeller = catchAsync(
         endDate: endDate.toISOString().split("T")[0],
         reviews,
       },
+    });
+  }
+);
+
+export const getRecent5 = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const userId = res.locals.user._id;
+
+    const products = await Product.find({ user: userId }).select("_id");
+
+    const productIds = await mapProductIds(products);
+
+    const reviews = await Review.find({
+      product: { $in: productIds },
+    })
+      .limit(5)
+      .sort({ createdAt: -1 });
+
+    res.status(200).json({
+      reviews,
     });
   }
 );
