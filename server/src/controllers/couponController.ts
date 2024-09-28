@@ -3,6 +3,8 @@ import catchAsync from "../utils/catchAsync";
 import Coupon from "../models/couponModel";
 import AppError from "../utils/AppError";
 import CartItem from "../models/cartItemModel";
+import productModel from "../models/productModel";
+import { mapProductIds } from "../utils/mapProductIds";
 
 export const getCoupon = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
@@ -84,5 +86,33 @@ export const applyCoupon = catchAsync(
     const cartItems = result.filter((item) => item !== null);
 
     res.status(200).json({ status: "success", data: { cartItems } });
+  }
+);
+
+export const createSellerCoupon = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const { products, code, discount, expireAt } = req.body;
+    const sellerId = res.locals.user._id;
+
+    const productIds = await mapProductIds(
+      await productModel
+        .find({
+          user: sellerId,
+          name: { $in: products },
+        })
+        .select("_id")
+    );
+
+    if (expireAt < Date.now())
+      return next(new AppError("Expiration date must be in the future", 400));
+
+    const coupon = await Coupon.create({
+      products: productIds,
+      code,
+      discount,
+      expireAt,
+    });
+
+    res.status(201).json({ status: "success", data: { coupon } });
   }
 );
