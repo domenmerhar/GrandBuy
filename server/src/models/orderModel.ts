@@ -44,6 +44,10 @@ const orderSchema = new Schema({
     type: Date,
     default: Date.now,
   },
+
+  deliveredAt: {
+    type: Date,
+  },
 });
 
 orderSchema.set("toJSON", {
