@@ -332,3 +332,28 @@ export const getRecentRevenueForSeller = catchAsync(
     });
   }
 );
+
+export const getSellerRecent5 = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const userId = res.locals.user._id;
+
+    const products = await Product.find({ user: userId }).select("_id");
+    const productIds = await mapProductIds(products);
+
+    const cartItems = await CartItem.find({
+      product: { $in: productIds },
+      ordered: true,
+      status: "pending",
+    })
+      .sort("-createdAt")
+      .limit(5)
+      .populate("product");
+
+    res.status(200).json({
+      status: "success",
+      data: {
+        cartItems,
+      },
+    });
+  }
+);
