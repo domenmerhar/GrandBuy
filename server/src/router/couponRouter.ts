@@ -5,6 +5,7 @@ import {
   createSellerCoupon,
   deleteCoupon,
   getCoupon,
+  getCouponSeller,
   updateCoupon,
 } from "../controllers/couponController";
 import { getAll } from "../controllers/handlerFactory";
@@ -14,10 +15,8 @@ const couponRouter = express.Router();
 
 couponRouter.use(protect);
 
-couponRouter.route("/seller").post(createSellerCoupon);
-// couponRouter
-//   .route("/seller/:id")
-//   .delete(deleteSellerCoupon)
+couponRouter.route("/seller").post(restrictTo("seller"), createSellerCoupon);
+couponRouter.route("/seller/:id").get(restrictTo("seller"), getCouponSeller); //.delete(deletesellercoupon);
 //   .post(updateSellerCoupon);
 
 couponRouter.use(restrictTo("admin"));
