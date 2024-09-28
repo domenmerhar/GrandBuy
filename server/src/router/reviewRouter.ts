@@ -8,6 +8,7 @@ import {
   getMyReviews,
   getProductReviews,
   getProductReviewStats,
+  getRecent5,
   getRecentReviewsForSeller,
   getUserReviews,
   likeReview,
@@ -45,6 +46,8 @@ reviewRouter
 reviewRouter.use(protect);
 
 reviewRouter.route("/admin/:id").delete(restrictTo("admin"), deleteReview);
+
+reviewRouter.route("/seller/recent-5").get(restrictTo("seller"), getRecent5);
 
 reviewRouter
   .route("/seller/:days")
