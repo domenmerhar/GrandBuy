@@ -381,6 +381,7 @@ export const getRecent5 = catchAsync(
       .sort({ createdAt: -1 });
 
     res.status(200).json({
+      status: "success",
       reviews,
     });
   }
