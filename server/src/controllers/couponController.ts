@@ -111,8 +111,21 @@ export const createSellerCoupon = catchAsync(
       code,
       discount,
       expireAt,
+      createdBy: sellerId,
     });
 
     res.status(201).json({ status: "success", data: { coupon } });
+  }
+);
+
+export const getCouponSeller = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const { id } = req.params;
+    const sellerId = res.locals.user._id;
+
+    const coupon = await Coupon.findOne({ _id: id, createdBy: sellerId });
+    if (!coupon) return next(new AppError("Coupon not found.", 404));
+
+    res.status(200).json({ status: "success", data: { coupon } });
   }
 );
