@@ -93,7 +93,7 @@ export const createNotification = catchAsync(
     const { type, message } = req.body;
     const createdBy = res.locals.user._id;
 
-    const user = await User.findById(userId);
+    const user = await User.findOne({ _id: userId, verified: true });
     if (!user) return next(new AppError("User not found", 404));
 
     const notifcation = await Notification.create({
