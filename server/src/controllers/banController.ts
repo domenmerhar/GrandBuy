@@ -4,6 +4,7 @@ import User from "../models/userModel";
 import AppError from "../utils/AppError";
 import Ban from "../models/banModel";
 import Notification from "../models/notificationModel";
+import { Email } from "../utils/email";
 
 export const getMyBans = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
@@ -17,7 +18,9 @@ export const createBan = catchAsync(
     const { user: userId, days, message } = req.body;
     const validUntil = new Date(Date.now() + days * 24 * 60 * 60 * 1000);
 
-    const user = await User.findOne({ _id: userId, verified: true });
+    const user = await User.findOne({ _id: userId, verified: true }).select(
+      "email"
+    );
     if (!user) return next(new AppError("No user found with that ID", 404));
 
     const existingBan = await Ban.findOne({
@@ -31,6 +34,8 @@ export const createBan = catchAsync(
       validUntil,
       message,
     });
+
+    await new Email(user.email).sendBanEmail(validUntil);
 
     await Notification.create({
       user: userId,
@@ -70,6 +75,8 @@ export const deleteBan = catchAsync(
     );
     if (!user) return next(new AppError("No user found with that ID", 404));
 
+    await new Email(user.email).sendUnbanEmail();
+
     await Notification.create({
       user: ban.user,
       createdBy: res.locals.user._id,
@@ -77,7 +84,7 @@ export const deleteBan = catchAsync(
       message: `Your ban valid until ${ban.validUntil.toDateString()} has been lifted.`,
     });
 
-    res.status(200).json({
+    res.status(204).json({
       status: "success",
       data: null,
     });
