@@ -8,6 +8,7 @@ import bcrypt from "bcrypt";
 import { Types } from "mongoose";
 import { deleteFile, saveImageToServer } from "./fileController";
 import banModel from "../models/banModel";
+import { Email } from "../utils/email";
 
 const createToken = (id: Types.ObjectId) =>
   jwt.sign({ id, iat: Date.now() }, process.env.JWT_SECRET!, {
@@ -42,12 +43,11 @@ export const signup = catchAsync(
 
     newUser.password = newUser.__v = newUser.jwtChangedAt = undefined!;
 
-    //const token = createToken(newUser._id);
+    await new Email(email).sendConfirmEmail(verificationCode);
 
     res.status(201).json({
       status: "sucess",
       message: `Your verification code has been sent to ${email}. Please visit user/confirm-email/<YOUR VERIFICATION CODE HERE> to verify your email.`,
-      verificationCode,
     });
   }
 );
