@@ -30,4 +30,22 @@ export class Email {
       text: `Vaša koda za resetiranje je ${resetPasswordToken}`,
     });
   }
+
+  async sendBanEmail(validUntil: Date): Promise<void> {
+    await transporter.sendMail({
+      from: process.env.EMAIL,
+      to: this.to,
+      subject: "Bili ste suspendirani",
+      text: `Vaša suspenzija traja do ${validUntil.toDateString()}`,
+    });
+  }
+
+  async sendUnbanEmail(): Promise<void> {
+    await transporter.sendMail({
+      from: process.env.EMAIL,
+      to: this.to,
+      subject: "Bili ste odsuspendirani",
+      text: `Vaša suspenzija je bila odstranjena`,
+    });
+  }
 }
