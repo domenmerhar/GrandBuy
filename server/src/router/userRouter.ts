@@ -1,6 +1,7 @@
 import { Router } from "express";
 import {
   changePassword,
+  confirmEmail,
   deleteUser,
   forgotPassword,
   getMe,
@@ -31,6 +32,7 @@ userRouter.route("/login").post(login);
 userRouter.route("/signup").post(signup);
 
 userRouter.route("/forgot-password").patch(forgotPassword);
+userRouter.route("/confirm-email/:verificationCode").patch(confirmEmail);
 
 userRouter.use(protect);
 userRouter
