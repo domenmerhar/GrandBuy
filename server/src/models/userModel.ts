@@ -99,6 +99,16 @@ const UserSchema = new mongoose.Schema({
 
   banned: Boolean,
 
+  verified: {
+    type: Boolean,
+    default: false,
+  },
+
+  verificationCode: {
+    type: Number,
+    required: [true, "Please provide a verification code."],
+  },
+
   createdAt: {
     type: Date,
     default: Date.now(),
