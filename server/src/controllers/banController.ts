@@ -17,7 +17,7 @@ export const createBan = catchAsync(
     const { user: userId, days, message } = req.body;
     const validUntil = new Date(Date.now() + days * 24 * 60 * 60 * 1000);
 
-    const user = await User.findOne({ _id: userId });
+    const user = await User.findOne({ _id: userId, verified: true });
     if (!user) return next(new AppError("No user found with that ID", 404));
 
     const existingBan = await Ban.findOne({
