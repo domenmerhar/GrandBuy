@@ -29,18 +29,45 @@ export const signup = catchAsync(
   ) => {
     const { username, email, password, confirmPassword } = req.body;
 
+    const verificationCode = Math.floor(100000000 + Math.random() * 900000000);
+
     const newUser = await User.create({
       username,
       email,
       password,
       confirmPassword,
+      verificationCode,
     });
 
     newUser.password = newUser.__v = newUser.jwtChangedAt = undefined!;
 
-    const token = createToken(newUser._id);
+    //const token = createToken(newUser._id);
 
-    res.status(201).json({ status: "sucess", data: newUser, token });
+    res.status(201).json({
+      status: "sucess",
+      message: `Your verification code has been sent to ${email}. Please visit user/confirm-email/<YOUR VERIFICATION CODE HERE> to verify your email.`,
+      verificationCode,
+    });
+  }
+);
+
+export const confirmEmail = catchAsync(
+  async (
+    req: Request<{ verificationCode: string }>,
+    res: Response,
+    next: NextFunction
+  ) => {
+    const { verificationCode } = req.params;
+
+    const user = await User.findOneAndUpdate(
+      { verificationCode, verified: false },
+      { verified: true, verificationCode: null },
+      { new: true }
+    );
+
+    if (!user) return next(new AppError("Invalid verification code.", 400));
+
+    res.status(200).json({ status: "success", message: "Email verified." });
   }
 );
 
@@ -146,9 +173,10 @@ export const login = catchAsync(
   ) => {
     const { email, password } = req.body;
 
-    const user = await User.findOne({ email }).select(
-      "password username role banned"
-    );
+    const user = await User.findOne({
+      email,
+      verified: true,
+    }).select("password username role banned");
 
     if (!user)
       return next(new AppError("Email or password is incorrect.", 401));
