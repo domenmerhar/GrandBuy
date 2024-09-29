@@ -105,7 +105,7 @@ const UserSchema = new mongoose.Schema({
   },
 
   verificationCode: {
-    type: Number,
+    type: String,
     required: [true, "Please provide a verification code."],
   },
 
