@@ -20,7 +20,7 @@ export const protect = catchAsync(
     ) as JwtPayload;
     res.locals.token = decoded;
 
-    const user = await User.findById(decoded.id);
+    const user = await User.findOne({ _id: decoded.id, verified: true });
 
     if (!user)
       return next(
@@ -52,7 +52,7 @@ export const saveUserToResponse = catchAsync(
     ) as JwtPayload;
     res.locals.token = decoded;
 
-    const user = await User.findById(decoded.id);
+    const user = await User.findOne({ _id: decoded.id, verified: true });
 
     if (!user) return next();
 
