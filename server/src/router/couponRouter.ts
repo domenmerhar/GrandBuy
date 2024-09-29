@@ -13,6 +13,7 @@ import {
 } from "../controllers/couponController";
 import { getAll } from "../controllers/handlerFactory";
 import Coupon from "../models/couponModel";
+import { restrictPrivelleges } from "../controllers/userController";
 
 const couponRouter = express.Router();
 
@@ -28,7 +29,7 @@ couponRouter
   .delete(restrictTo("seller"), expireSellerCoupon)
   .patch(restrictTo("seller"), updateSellerCoupon);
 
-couponRouter.use(restrictTo("admin"));
+couponRouter.use(restrictTo("admin"), restrictPrivelleges("coupon"));
 
 couponRouter.route("/").get(getAll(Coupon)).post(addCoupon);
 
