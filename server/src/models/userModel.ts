@@ -11,6 +11,7 @@ const UserSchema = new mongoose.Schema({
     minLength: [4, "Please prvoide a username with at least 4 characters."],
     maxLength: [30, "Please provide a username shorter than 30 characters."],
   },
+
   email: {
     type: String,
     required: [true, "Please provide an email."],
@@ -20,6 +21,7 @@ const UserSchema = new mongoose.Schema({
       message: "Please provide a valid email.",
     },
   },
+
   role: {
     type: String,
     enum: {
@@ -28,11 +30,13 @@ const UserSchema = new mongoose.Schema({
     },
     default: "user",
   },
+
   password: {
     type: String,
     required: [true, "Please provide a password."],
     minLength: [6, "Please provide a password with at least 6 characters."],
   },
+
   confirmPassword: {
     type: String,
     required: [true, "Please confirm your password."],
@@ -43,7 +47,9 @@ const UserSchema = new mongoose.Schema({
       message: "Passwords do not match.",
     },
   },
+
   image: String,
+
   firstName: {
     type: String,
     minLength: [2, "Please provide a first name with at least 2 characters."],
@@ -53,6 +59,7 @@ const UserSchema = new mongoose.Schema({
       message: "Please provide a valid first name.",
     },
   },
+
   lastName: {
     type: String,
     minLength: [2, "Please provide a last name with at least 2 characters."],
@@ -62,26 +69,31 @@ const UserSchema = new mongoose.Schema({
       message: "Please provide a valid last name.",
     },
   },
+
   street: {
     type: String,
     minLength: [5, "Please provide a street with at least 2 characters."],
     maxLength: [50, "Please provide a street shorter than 50 characters."],
   },
+
   city: {
     type: String,
     minLength: [2, "Please provide a city with at least 2 characters."],
     maxLength: [25, "Please provide a city shorter than 25 characters."],
   },
+
   zipCode: {
     type: String,
     minLength: [4, "Please provide a zip code with at least 4 characters."],
     maxLength: [10, "Please provide a zip code shorter than 10 characters."],
   },
+
   country: {
     type: String,
     minLength: [2, "Please provide a country with at least 2 characters."],
     maxLength: [50, "Please provide a country shorter than 50 characters."],
   },
+
   phoneNumber: {
     type: String,
     minLength: [5, "Please provide a phone number with at least 5 characters."],
@@ -98,6 +110,16 @@ const UserSchema = new mongoose.Schema({
   jwtChangedAt: Date,
 
   banned: Boolean,
+
+  adminPrivelleges: [
+    {
+      type: String,
+      enum: {
+        values: ["ban", "admin", "notification", "request", "coupon"],
+        message: "Please provide a valid admin privellege.",
+      },
+    },
+  ],
 
   verified: {
     type: Boolean,
