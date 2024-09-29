@@ -249,3 +249,19 @@ export const changePassword = catchAsync(
 export const forgotPassword = (req: Request, res: Response) => {
   res.status(200).json({ message: "PATCH /user/forgot-password" });
 };
+
+type privellege = "ban" | "admin" | "notification" | "request" | "coupon";
+export const restrictPrivelleges =
+  (...privelleges: privellege[]) =>
+  (req: Request, res: Response, next: NextFunction) => {
+    const user = res.locals.user;
+
+    privelleges.forEach((p: privellege) => {
+      if (!user?.adminPrivelleges?.includes(p))
+        return next(
+          new AppError("You do not have the required privelleges.", 403)
+        );
+    });
+
+    next();
+  };
