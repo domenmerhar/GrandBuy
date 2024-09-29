@@ -30,13 +30,14 @@ export const signup = catchAsync(
     const { username, email, password, confirmPassword } = req.body;
 
     const verificationCode = Math.floor(100000000 + Math.random() * 900000000);
+    const verificationCodeHashed = await bcrypt.hash(`${verificationCode}`, 12);
 
     const newUser = await User.create({
       username,
       email,
       password,
       confirmPassword,
-      verificationCode,
+      verificationCode: verificationCodeHashed,
     });
 
     newUser.password = newUser.__v = newUser.jwtChangedAt = undefined!;
@@ -53,19 +54,27 @@ export const signup = catchAsync(
 
 export const confirmEmail = catchAsync(
   async (
-    req: Request<{ verificationCode: string }>,
+    req: Request<{ verificationCode: string }, { email: string }>,
     res: Response,
     next: NextFunction
   ) => {
     const { verificationCode } = req.params;
+    const { email } = req.body;
 
-    const user = await User.findOneAndUpdate(
-      { verificationCode, verified: false },
-      { verified: true, verificationCode: null },
-      { new: true }
+    const user = await User.findOne({ email, verified: false });
+
+    if (!user)
+      return next(new AppError("Invalid verification code or email.", 400));
+
+    const isMatch = await bcrypt.compare(
+      verificationCode,
+      `${user.verificationCode}`
     );
+    if (!isMatch) return next(new AppError("Invalid verification code.", 400));
 
-    if (!user) return next(new AppError("Invalid verification code.", 400));
+    user.verified = true;
+    user.verificationCode = null!;
+    await user.save({ validateBeforeSave: false });
 
     res.status(200).json({ status: "success", message: "Email verified." });
   }
