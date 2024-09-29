@@ -7,6 +7,7 @@ import {
   getMe,
   login,
   logout,
+  restrictPrivelleges,
   signup,
   updateMe,
   updateRole,
@@ -15,10 +16,7 @@ import { protect, restrictTo } from "../controllers/authController";
 import { getAll } from "../controllers/handlerFactory";
 import User from "../models/userModel";
 import fileUpload from "express-fileupload";
-import {
-  fileExtLimiterOne,
-  filesPayloadExists,
-} from "../controllers/fileController";
+import { fileExtLimiterOne } from "../controllers/fileController";
 //TODO: NOT EMPTY CHECK
 //TODO: CHECK EVERY ROUTER FOR AUTH MIDDLEWARE
 //TODO: NORMALIZE RESPONE FORMAT
@@ -47,8 +45,8 @@ userRouter
 userRouter.route("/logout").post(logout);
 userRouter.route("/change-password").patch(changePassword);
 
-userRouter.use(restrictTo("admin"));
-userRouter.route("/").get(protect, restrictTo("admin"), getAll(User));
+userRouter.use(restrictTo("admin"), restrictPrivelleges("admin"));
+userRouter.route("/").get(getAll(User));
 
 userRouter.route("/:userId").delete(deleteUser);
 userRouter.route("/:userId/role/:role").patch(updateRole);
