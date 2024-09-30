@@ -2,6 +2,7 @@ import { Router } from "express";
 import {
   changePassword,
   confirmEmail,
+  confirmForgotPassword,
   deleteUser,
   forgotPassword,
   getMe,
@@ -30,6 +31,8 @@ userRouter.route("/login").post(login);
 userRouter.route("/signup").post(signup);
 
 userRouter.route("/forgot-password").patch(forgotPassword);
+userRouter.route("/confirm-forgot-password").patch(confirmForgotPassword);
+
 userRouter.route("/confirm-email/:verificationCode").patch(confirmEmail);
 
 userRouter.use(protect);
@@ -49,6 +52,11 @@ userRouter.use(restrictTo("admin"), restrictPrivelleges("admin"));
 userRouter.route("/").get(getAll(User));
 
 userRouter.route("/:userId").delete(deleteUser);
+//TODO: ADD PATCH ROUTE FOR UPDATING PRIVELLEGES
+// .patch(
+//   restrictPrivelleges("ban", "coupon", "notification", "request"),
+//   updatePrivelleges
+// );
 userRouter.route("/:userId/role/:role").patch(updateRole);
 
 export default userRouter;
