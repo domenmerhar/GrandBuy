@@ -10,6 +10,13 @@ import { deleteFile, saveImageToServer } from "./fileController";
 import banModel from "../models/banModel";
 import { Email } from "../utils/email";
 
+const createVerificationCode = async (): Promise<[number, string]> => {
+  const verificationCode = Math.floor(100000000 + Math.random() * 900000000);
+  const hashed = await bcrypt.hash(`${verificationCode}`, 12);
+
+  return [verificationCode, hashed];
+};
+
 const createToken = (id: Types.ObjectId) =>
   jwt.sign({ id, iat: Date.now() }, process.env.JWT_SECRET!, {
     expiresIn: process.env.JWT_EXPIRES_IN,
@@ -30,15 +37,15 @@ export const signup = catchAsync(
   ) => {
     const { username, email, password, confirmPassword } = req.body;
 
-    const verificationCode = Math.floor(100000000 + Math.random() * 900000000);
-    const verificationCodeHashed = await bcrypt.hash(`${verificationCode}`, 12);
+    const [verificationCode, hashedVerificationCode] =
+      await createVerificationCode();
 
     const newUser = await User.create({
       username,
       email,
       password,
       confirmPassword,
-      verificationCode: verificationCodeHashed,
+      verificationCode: hashedVerificationCode,
     });
 
     newUser.password = newUser.__v = newUser.jwtChangedAt = undefined!;
@@ -246,9 +253,27 @@ export const changePassword = catchAsync(
 );
 
 //TODO: email
-export const forgotPassword = (req: Request, res: Response) => {
-  res.status(200).json({ message: "PATCH /user/forgot-password" });
-};
+export const forgotPassword = catchAsync(
+  async (
+    req: Request<{ email: string }>,
+    res: Response,
+    next: NextFunction
+  ) => {
+    const { email } = req.body;
+
+    const [verificationToken, hashedVerificationToken] =
+      await createVerificationCode();
+
+    User.findOneAndUpdate(
+      { email, verified: true },
+      { verificationToken: hashedVerificationToken }
+    );
+
+    console.log(verificationToken);
+
+    res.status(200).json({ message: "PATCH /user/forgot-password" });
+  }
+);
 
 type privellege = "ban" | "admin" | "notification" | "request" | "coupon";
 export const restrictPrivelleges =
