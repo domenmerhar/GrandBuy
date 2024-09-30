@@ -128,7 +128,6 @@ const UserSchema = new mongoose.Schema({
 
   verificationCode: {
     type: String,
-    required: [true, "Please provide a verification code."],
   },
 
   createdAt: {
