@@ -261,17 +261,46 @@ export const forgotPassword = catchAsync(
   ) => {
     const { email } = req.body;
 
-    const [verificationToken, hashedVerificationToken] =
+    const [verificationCode, hashedVerificationCode] =
       await createVerificationCode();
 
-    User.findOneAndUpdate(
+    const user = await User.findOneAndUpdate(
       { email, verified: true },
-      { verificationToken: hashedVerificationToken }
+      { verificationCode: hashedVerificationCode }
     );
 
-    console.log(verificationToken);
+    if (!user) return next(new AppError("No user found with that email.", 404));
 
-    res.status(200).json({ message: "PATCH /user/forgot-password" });
+    console.log(verificationCode);
+
+    //SEND EMAIL
+
+    res.status(200).json({
+      status: "success",
+      message: "Verification code sent. Please check your email address.",
+    });
+  }
+);
+
+export const confirmForgotPassword = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const { email, verificationCode, password, confirmPassword } = req.body;
+
+    const user = await User.findOne({ email, verificationCode: { $ne: null } });
+    if (!user) return next(new AppError("No user found with that email.", 404));
+
+    const isMatch = await bcrypt.compare(
+      verificationCode,
+      `${user.verificationCode}`
+    );
+    if (!isMatch) return next(new AppError("Invalid verification code.", 400));
+
+    user.password = password;
+    user.confirmPassword = confirmPassword;
+    user.verificationCode = null!;
+    await user.save();
+
+    res.status(201).json({ status: "success", message: "Password changed." });
   }
 );
 
