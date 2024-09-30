@@ -271,9 +271,7 @@ export const forgotPassword = catchAsync(
 
     if (!user) return next(new AppError("No user found with that email.", 404));
 
-    console.log(verificationCode);
-
-    //SEND EMAIL
+    await new Email(email).sendResetPasswordEmail(verificationCode);
 
     res.status(200).json({
       status: "success",
