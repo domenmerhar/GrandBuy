@@ -13,7 +13,7 @@ const transporter = nodemailer.createTransport({
 export class Email {
   constructor(private to: string) {}
 
-  async sendConfirmEmail(verificationCode: number): Promise<void> {
+  async sendConfirmEmail(verificationCode: string | number): Promise<void> {
     await transporter.sendMail({
       from: process.env.EMAIL,
       to: this.to,
@@ -22,7 +22,9 @@ export class Email {
     });
   }
 
-  async sendResetPasswordEmail(resetPasswordToken: number): Promise<void> {
+  async sendResetPasswordEmail(
+    resetPasswordToken: number | number
+  ): Promise<void> {
     await transporter.sendMail({
       from: process.env.EMAIL,
       to: this.to,
