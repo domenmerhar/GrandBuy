@@ -1,6 +1,8 @@
 import mongoose, { Schema } from "mongoose";
 
 const RefundSchema = new Schema({
+  //NEST CART ITEM
+
   cartItemId: {
     type: Schema.ObjectId,
     ref: "CartItem",
@@ -36,6 +38,12 @@ const RefundSchema = new Schema({
     type: String,
     minLength: [1, "Resolved message must be at least 1 character"],
     maxLength: [255, "Resolved message cannot exceed 255 characters"],
+  },
+
+  user: {
+    type: Schema.ObjectId,
+    ref: "User",
+    required: true,
   },
 });
 
