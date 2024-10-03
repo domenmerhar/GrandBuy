@@ -4,6 +4,7 @@ import cartItemModel from "../models/cartItemModel";
 import orderModel from "../models/orderModel";
 import AppError from "../utils/AppError";
 import Refund from "../models/refundModel";
+import APIFeatures from "../utils/ApiFeatures";
 
 const refundPeriodDays = parseInt(process.env.REFUND_PERIOD_DAYS || "60", 10); // Default to 60 days
 const refundPeriod = refundPeriodDays * 24 * 60 * 60 * 1000; // Convert days to milliseconds
@@ -39,8 +40,27 @@ export const requestRefund = catchAsync(
     const refundRequest = await Refund.create({
       cartItemId: id,
       reason,
+      user: userId,
     });
 
     res.status(201).json({ status: "success", refundRequest });
+  }
+);
+
+export const getMyRefunds = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const userId = res.locals.user._id;
+
+    const refunds = await new APIFeatures(
+      Refund.find({
+        user: userId,
+      }),
+      req.query
+    )
+      .sort()
+      .filter()
+      .paginate().query;
+
+    res.status(200).json({ status: "success", refunds });
   }
 );
