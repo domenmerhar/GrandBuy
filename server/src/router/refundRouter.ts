@@ -1,6 +1,6 @@
 import express from "express";
 import { protect, restrictTo } from "../controllers/authController";
-import { requestRefund } from "../controllers/refundController";
+import { getMyRefunds, requestRefund } from "../controllers/refundController";
 
 const refundRouter = express.Router();
 
@@ -10,7 +10,7 @@ refundRouter
   .route("/product/:id")
   .post(restrictTo("user", "admin"), requestRefund);
 
-// refundRouter.route("/my").get(restrictTo("user", "admin"), getMyRefunds);
+refundRouter.route("/my").get(restrictTo("user", "admin"), getMyRefunds);
 // refundRouter
 //   .route("/:id")
 //   .get(restrictTo("user", "admin"), getRefund)
