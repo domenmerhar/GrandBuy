@@ -5,6 +5,7 @@ import APIFeatures from "../utils/ApiFeatures";
 import Order from "../models/orderModel";
 import CartItem from "../models/cartItemModel";
 import productModel from "../models/productModel";
+import cartItemModel from "../models/cartItemModel";
 
 const ordersPerRequest = 10;
 
@@ -91,9 +92,20 @@ export const confirmDelivery = catchAsync(
       { _id: id, user: res.locals.user._id },
       { status: "delivered", deliveredAt: Date.now() },
       { new: true }
-    );
+    ).select("products");
 
     if (!order) return next(new AppError("Order not found.", 404));
+
+    const updated = await Promise.all(
+      order.products.map((product: any) => {
+        const productId = product.toString();
+        return cartItemModel.findOneAndUpdate(
+          { _id: productId },
+          { status: "delivered" },
+          { new: true }
+        );
+      })
+    );
 
     res.status(200).json({ status: "success", data: { order } });
   }
