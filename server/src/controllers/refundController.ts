@@ -21,7 +21,9 @@ export const requestRefund = catchAsync(
         user: userId,
         status: "delivered",
       })
-      .select("_id");
+      .populate({ path: "product", select: "user" })
+      .select("_id product");
+
     if (!cartItem)
       return next(new AppError("No cart item found with that ID", 404));
 
@@ -41,6 +43,7 @@ export const requestRefund = catchAsync(
       cartItemId: id,
       reason,
       user: userId,
+      seller: cartItem.product.user,
     });
 
     res.status(201).json({ status: "success", refundRequest });
@@ -98,3 +101,27 @@ export const cancelRefund = catchAsync(
     res.status(200).json({ status: "success", data: refund });
   }
 );
+
+// const respondToRefund = catchAsync(
+//   async (req: Request, res: Response, next: NextFunction) => {
+//     const { id } = req.params;
+//     const userId = res.locals.user._id;
+//     const { status, resolvedMessage } = req.body;
+
+//     const refund = await Refund.findOneAndUpdate(
+//       {
+//         _id: id,
+//         status: "pending",
+//       },
+//       {
+//         status,
+//         resolvedMessage,
+//         resolvedAt: Date.now(),
+//       },
+//       { new: true }
+//     );
+//     if (!refund) return next(new AppError("No refund found with that ID", 404));
+
+//     res.status(200).json({ status: "success", data: refund });
+//   }
+// );
