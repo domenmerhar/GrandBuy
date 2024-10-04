@@ -4,6 +4,7 @@ import {
   cancelRefund,
   getMyRefunds,
   getRefund,
+  getSellerRefunds,
   requestRefund,
   respondToRefund,
 } from "../controllers/refundController";
@@ -11,6 +12,8 @@ import {
 const refundRouter = express.Router();
 
 refundRouter.use(protect);
+
+refundRouter.route("/seller").get(restrictTo("seller"), getSellerRefunds);
 
 refundRouter
   .route("/product/:id")
@@ -25,8 +28,6 @@ refundRouter
 refundRouter.route("/:id/respond").patch(restrictTo("seller"), respondToRefund);
 // // refundRouter.route("/:id/accept").post(restrictTo("seller"), acceptRefund);
 // // refundRouter.route("/:id/cancel").post(restrictTo("seller"), acceptRefund);
-
-// refundRouter.route("/seller").get(restrictTo("seller"), getSellerRefunds);
 
 // refundRouter.route("/").get(restrictTo("admin"), getAllRefunds);
 // refundRouter.route("/:id").get(restrictTo("admin"), getAllRefunds);
