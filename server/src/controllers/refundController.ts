@@ -135,3 +135,23 @@ export const respondToRefund = catchAsync(
     res.status(200).json({ status: "success", data: refund });
   }
 );
+
+export const getSellerRefunds = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const userId = res.locals.user._id;
+
+    const refunds = await new APIFeatures(
+      Refund.find({
+        seller: userId,
+      }),
+      req.query
+    )
+      .sort()
+      .filter()
+      .paginate().query;
+
+    res
+      .status(200)
+      .json({ status: "success", data: { refunds }, length: refunds.length });
+  }
+);
