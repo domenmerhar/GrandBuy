@@ -1,6 +1,7 @@
 import express from "express";
 import { protect, restrictTo } from "../controllers/authController";
 import {
+  cancelRefund,
   getMyRefunds,
   getRefund,
   requestRefund,
@@ -15,8 +16,10 @@ refundRouter
   .post(restrictTo("user", "admin"), requestRefund);
 
 refundRouter.route("/my").get(restrictTo("user", "admin"), getMyRefunds);
-refundRouter.route("/:id").get(restrictTo("user", "admin"), getRefund);
-//   .delete(restrictTo("user", "admin"), cancelRefund);
+refundRouter
+  .route("/:id")
+  .get(restrictTo("user", "admin"), getRefund)
+  .delete(restrictTo("user", "admin"), cancelRefund);
 
 // refundRouter.route("/:id/respond").post(restrictTo("seller"), respondRefund);
 // // refundRouter.route("/:id/accept").post(restrictTo("seller"), acceptRefund);
