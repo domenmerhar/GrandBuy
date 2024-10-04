@@ -61,6 +61,20 @@ export const getMyRefunds = catchAsync(
       .filter()
       .paginate().query;
 
-    res.status(200).json({ status: "success", refunds });
+    res
+      .status(200)
+      .json({ status: "success", data: { refunds }, length: refunds.length });
+  }
+);
+
+export const getRefund = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const { id } = req.params;
+    const userId = res.locals.user._id;
+
+    const refund = await Refund.find({ user: userId, _id: id });
+    if (!refund) return next(new AppError("No refund found with that ID", 404));
+
+    res.status(200).json({ status: "success", data: refund });
   }
 );
