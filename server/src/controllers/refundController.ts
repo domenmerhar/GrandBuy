@@ -5,6 +5,7 @@ import orderModel from "../models/orderModel";
 import AppError from "../utils/AppError";
 import Refund from "../models/refundModel";
 import APIFeatures from "../utils/ApiFeatures";
+import notificationModel from "../models/notificationModel";
 
 const refundPeriodDays = parseInt(process.env.REFUND_PERIOD_DAYS || "60", 10); // Default to 60 days
 const refundPeriod = refundPeriodDays * 24 * 60 * 60 * 1000; // Convert days to milliseconds
@@ -102,26 +103,35 @@ export const cancelRefund = catchAsync(
   }
 );
 
-// const respondToRefund = catchAsync(
-//   async (req: Request, res: Response, next: NextFunction) => {
-//     const { id } = req.params;
-//     const userId = res.locals.user._id;
-//     const { status, resolvedMessage } = req.body;
+//TODO: send money back
+export const respondToRefund = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const { id } = req.params;
+    const userId = res.locals.user._id;
+    const { status, resolvedMessage } = req.body;
 
-//     const refund = await Refund.findOneAndUpdate(
-//       {
-//         _id: id,
-//         status: "pending",
-//       },
-//       {
-//         status,
-//         resolvedMessage,
-//         resolvedAt: Date.now(),
-//       },
-//       { new: true }
-//     );
-//     if (!refund) return next(new AppError("No refund found with that ID", 404));
+    const refund = await Refund.findOneAndUpdate(
+      {
+        _id: id,
+        seller: userId,
+        status: "pending",
+      },
+      {
+        status,
+        resolvedMessage,
+        resolvedAt: Date.now(),
+      },
+      { new: true }
+    );
+    if (!refund) return next(new AppError("No refund found with that ID", 404));
 
-//     res.status(200).json({ status: "success", data: refund });
-//   }
-// );
+    await notificationModel.create({
+      user: refund.user,
+      createdBy: userId,
+      type: "message",
+      message: `Your refund request has been ${status}`,
+    });
+
+    res.status(200).json({ status: "success", data: refund });
+  }
+);
