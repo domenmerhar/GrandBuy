@@ -78,3 +78,23 @@ export const getRefund = catchAsync(
     res.status(200).json({ status: "success", data: refund });
   }
 );
+
+export const cancelRefund = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const { id } = req.params;
+    const userId = res.locals.user._id;
+
+    const refund = await Refund.findOneAndUpdate(
+      {
+        user: userId,
+        _id: id,
+        status: "pending",
+      },
+      { status: "cancelled" },
+      { new: true }
+    );
+    if (!refund) return next(new AppError("No refund found with that ID", 404));
+
+    res.status(200).json({ status: "success", data: refund });
+  }
+);
