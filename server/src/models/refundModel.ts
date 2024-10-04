@@ -7,6 +7,7 @@ const RefundSchema = new Schema({
     type: Schema.ObjectId,
     ref: "CartItem",
     required: true,
+    unique: true,
   },
 
   reason: {
@@ -41,6 +42,12 @@ const RefundSchema = new Schema({
   },
 
   user: {
+    type: Schema.ObjectId,
+    ref: "User",
+    required: true,
+  },
+
+  seller: {
     type: Schema.ObjectId,
     ref: "User",
     required: true,
