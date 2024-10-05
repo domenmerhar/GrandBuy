@@ -64,6 +64,7 @@ export const getMyRefunds = catchAsync(
       .sort()
       .filter()
       .paginate().query;
+    if (!refunds.length) return next(new AppError("No refunds found", 404));
 
     res
       .status(200)
@@ -77,7 +78,8 @@ export const getRefund = catchAsync(
     const userId = res.locals.user._id;
 
     const refund = await Refund.find({ user: userId, _id: id });
-    if (!refund) return next(new AppError("No refund found with that ID", 404));
+    if (!refund.length)
+      return next(new AppError("No refund found with that ID", 404));
 
     res.status(200).json({ status: "success", data: refund });
   }
@@ -149,6 +151,7 @@ export const getSellerRefunds = catchAsync(
       .sort()
       .filter()
       .paginate().query;
+    if (!refunds.length) return next(new AppError("No refunds found", 404));
 
     res
       .status(200)
