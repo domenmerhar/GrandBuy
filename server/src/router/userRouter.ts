@@ -8,10 +8,10 @@ import {
   getMe,
   login,
   logout,
-  restrictPriveleges,
+  restrictPrivileges,
   signup,
   updateMe,
-  updatePriveleges,
+  updatePrivileges,
   updateRole,
 } from "../controllers/userController";
 import { protect, restrictTo } from "../controllers/authController";
@@ -49,7 +49,7 @@ userRouter
 userRouter.route("/logout").post(logout);
 userRouter.route("/change-password").patch(changePassword);
 
-userRouter.use(restrictTo("admin"), restrictPriveleges("admin"));
+userRouter.use(restrictTo("admin"), restrictPrivileges("admin"));
 userRouter.route("/").get(getAll(User));
 
 //TODO: ADD PATCH ROUTE FOR UPDATING PRIVELLEGES
@@ -57,8 +57,8 @@ userRouter
   .route("/:userId")
   .delete(deleteUser)
   .patch(
-    restrictPriveleges("ban", "coupon", "notification", "request"),
-    updatePriveleges
+    restrictPrivileges("ban", "coupon", "notification", "request"),
+    updatePrivileges
   );
 userRouter.route("/:userId/role/:role").patch(updateRole);
 

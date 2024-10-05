@@ -302,28 +302,28 @@ export const confirmForgotPassword = catchAsync(
   }
 );
 
-type privelege = "ban" | "admin" | "notification" | "request" | "coupon";
-export const restrictPriveleges =
-  (...priveleges: privelege[]) =>
+type privilege = "ban" | "admin" | "notification" | "request" | "coupon";
+export const restrictPrivileges =
+  (...privileges: privilege[]) =>
   (req: Request, res: Response, next: NextFunction) => {
     const user = res.locals.user;
 
-    priveleges.forEach((p: privelege) => {
+    privileges.forEach((p: privilege) => {
       if (!user?.adminPrivileges?.includes(p))
         return next(
-          new AppError("You do not have the required priveleges.", 403)
+          new AppError("You do not have the required privilege.", 403)
         );
     });
 
     next();
   };
 
-export const updatePriveleges = catchAsync(
+export const updatePrivileges = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const { userId } = req.params;
-    const { priveleges } = req.body;
+    const { privileges } = req.body;
 
-    console.log(priveleges);
+    console.log(privileges);
 
     res.status(200).json({ status: "success", data: null });
   }

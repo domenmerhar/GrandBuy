@@ -117,7 +117,7 @@ const UserSchema = new mongoose.Schema({
         type: String,
         enum: {
           values: ["ban", "admin", "notification", "request", "coupon"],
-          message: "Please provide a valid admin privelege.",
+          message: "Please provide a valid admin privilege.",
         },
       },
     ],

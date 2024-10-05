@@ -9,7 +9,7 @@ import {
 } from "../controllers/notificationController";
 import { getAll } from "../controllers/handlerFactory";
 import Notification from "../models/notificationModel";
-import { restrictPriveleges } from "../controllers/userController";
+import { restrictPrivileges } from "../controllers/userController";
 
 const notificationRouter = express.Router();
 
@@ -23,7 +23,7 @@ notificationRouter
   .route("/admin")
   .get(
     restrictTo("admin"),
-    restrictPriveleges("notification"),
+    restrictPrivileges("notification"),
     getCreatedNotifications,
     getAll(Notification)
   );
@@ -34,7 +34,7 @@ notificationRouter
   .route("/create/:userId")
   .post(
     restrictTo("admin"),
-    restrictPriveleges("notification"),
+    restrictPrivileges("notification"),
     createNotification
   );
 
