@@ -111,15 +111,33 @@ const UserSchema = new mongoose.Schema({
 
   banned: Boolean,
 
-  adminPrivelleges: [
-    {
-      type: String,
-      enum: {
-        values: ["ban", "admin", "notification", "request", "coupon"],
-        message: "Please provide a valid admin privellege.",
+  adminPrivileges: {
+    type: [
+      {
+        type: String,
+        enum: {
+          values: ["ban", "admin", "notification", "request", "coupon"],
+          message: "Please provide a valid admin privelege.",
+        },
       },
-    },
-  ],
+    ],
+
+    validate: [
+      {
+        validator: function (value: string[]) {
+          return Array.isArray(value) && new Set(value).size === value.length;
+        },
+        message: "Admin privileges must be unique.",
+      },
+
+      {
+        validator: function (value: string[]) {
+          return value.length <= 5;
+        },
+        message: "You can assign a maximum of 5 admin privileges.",
+      },
+    ],
+  },
 
   verified: {
     type: Boolean,
