@@ -9,7 +9,7 @@ import {
   getRequest,
   rejectRequest,
 } from "../controllers/requestController";
-import { restrictPrivelleges } from "../controllers/userController";
+import { restrictPriveleges } from "../controllers/userController";
 
 const requestRouter = express.Router();
 
@@ -21,13 +21,13 @@ requestRouter
   .get(
     protect,
     restrictTo("admin"),
-    restrictPrivelleges("request"),
+    restrictPriveleges("request"),
     getAll(requestModel)
   );
 
 requestRouter.route("/cancel/:id").patch(restrictTo("user"), cancelRequest);
 
-requestRouter.use(restrictTo("admin"), restrictPrivelleges("request"));
+requestRouter.use(restrictTo("admin"), restrictPriveleges("request"));
 
 requestRouter.route("/accept/:id").patch(acceptRequest);
 
