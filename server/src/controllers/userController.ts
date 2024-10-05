@@ -252,7 +252,6 @@ export const changePassword = catchAsync(
   }
 );
 
-//TODO: email
 export const forgotPassword = catchAsync(
   async (
     req: Request<{ email: string }>,
@@ -323,8 +322,25 @@ export const updatePrivileges = catchAsync(
     const { userId } = req.params;
     const { privileges } = req.body;
 
-    console.log(privileges);
+    if (userId === res.locals.user.id)
+      return next(new AppError("You cannot update your own privileges.", 403));
 
-    res.status(200).json({ status: "success", data: null });
+    const user = await User.findOne({
+      _id: userId,
+      verified: true,
+      role: "admin",
+    }).select("-verified -verificationCode -jwtChangedAt -banned");
+    if (!user)
+      return next(
+        new AppError("No user found with that ID or admin role.", 404)
+      );
+
+    user.adminPrivileges = [...new Set([...privileges])];
+    await user.save({ validateModifiedOnly: true });
+
+    res.status(200).json({
+      status: "success",
+      data: { user },
+    });
   }
 );
