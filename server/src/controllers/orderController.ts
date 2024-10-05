@@ -6,6 +6,9 @@ import Order from "../models/orderModel";
 import CartItem from "../models/cartItemModel";
 import productModel from "../models/productModel";
 import cartItemModel from "../models/cartItemModel";
+import Stripe from "stripe";
+import userModel from "../models/userModel";
+import { getSellerRecent5 } from "./cartController";
 
 const ordersPerRequest = 10;
 
@@ -35,52 +38,89 @@ export const getUserOrders = catchAsync(
   }
 );
 
+//TODO: ADMIN CANT ORDER
+
 export const addOrder = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const { cartItems } = req.body;
     const userId = res.locals.user._id;
 
+    const user = await userModel.findOne({ _id: userId }).select("email");
     const cartItemsArray = !Array.isArray(cartItems) ? [cartItems] : cartItems;
-
-    const items = await CartItem.find({
+    //TODO: FIND UNORDERED, FIND YOUR ITEMS
+    const cartItemsRes = await CartItem.find({
       _id: { $in: cartItemsArray },
-      user: userId,
-    }).populate("product");
+    }).populate({ path: "product", select: "price name" });
 
-    if (items.length !== cartItemsArray.length)
-      return next(new AppError("Please provide valid cart items.", 400));
+    console.log(String(cartItemsRes));
 
-    const order = await Order.create({
-      user: userId,
-      products: cartItemsArray,
-      totalPrice: items.reduce((acc, item) => {
-        const priceBeforeDiscount = item.product.price * item.quantity;
-        const discount =
-          1 -
-          (item.discount > item.product.discount
-            ? item.discount
-            : item.product.discount) /
-            100;
-        const totalPrice = priceBeforeDiscount * discount;
+    const stripe = new Stripe(process.env.STRIPE_PRIVATE_KEY!);
 
-        return acc + totalPrice;
-      }, 0),
+    const session = await stripe.checkout.sessions.create({
+      payment_method_types: ["card"],
+      mode: "payment",
+      //TODO: SUCCESS URL
+      success_url: "https://docs.stripe.com/keys",
+      cancel_url: "https://www.google.com",
+      customer_email: user!.email,
+      //TODO: ADD ORDER ID
+      client_reference_id: String(userId),
+      line_items: cartItemsRes.map((item) => ({
+        price_data: {
+          currency: "usd",
+          unit_amount:
+            item.product.price * ((100 - item.discount) / 100) * item.quantity,
+          product_data: {
+            name: item.product.name,
+          },
+        },
+        quantity: item.quantity,
+      })),
     });
 
-    await CartItem.updateMany(
-      { _id: { $in: cartItemsArray } },
-      { ordered: true }
-    );
+    // const items = await CartItem.find({
+    //   _id: { $in: cartItemsArray },
+    //   user: userId,
+    // }).populate("product");
 
-    await Promise.all(
-      items.map((item) =>
-        productModel.findByIdAndUpdate(item.product, {
-          $inc: { orders: item.quantity },
-        })
-      )
-    );
+    // if (items.length !== cartItemsArray.length)
+    //   return next(new AppError("Please provide valid cart items.", 400));
 
-    res.status(201).json({ status: "success", data: { order } });
+    // const order = await Order.create({
+    //   user: userId,
+    //   products: cartItemsArray,
+    //   totalPrice: items.reduce((acc, item) => {
+    //     const priceBeforeDiscount = item.product.price * item.quantity;
+    //     const discount =
+    //       1 -
+    //       (item.discount > item.product.discount
+    //         ? item.discount
+    //         : item.product.discount) /
+    //         100;
+    //     const totalPrice = priceBeforeDiscount * discount;
+
+    //     return acc + totalPrice;
+    //   }, 0),
+    // });
+
+    // await CartItem.updateMany(
+    //   { _id: { $in: cartItemsArray } },
+    //   { ordered: true }
+    // );
+
+    // await Promise.all(
+    //   items.map((item) =>
+    //     productModel.findByIdAndUpdate(item.product, {
+    //       $inc: { orders: item.quantity },
+    //     })
+    //   )
+    // );
+
+    res.status(201).json({
+      status: "success",
+      //data: { order }
+      session,
+    });
   }
 );
 
