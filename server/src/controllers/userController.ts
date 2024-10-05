@@ -302,18 +302,29 @@ export const confirmForgotPassword = catchAsync(
   }
 );
 
-type privellege = "ban" | "admin" | "notification" | "request" | "coupon";
-export const restrictPrivelleges =
-  (...privelleges: privellege[]) =>
+type privelege = "ban" | "admin" | "notification" | "request" | "coupon";
+export const restrictPriveleges =
+  (...priveleges: privelege[]) =>
   (req: Request, res: Response, next: NextFunction) => {
     const user = res.locals.user;
 
-    privelleges.forEach((p: privellege) => {
-      if (!user?.adminPrivelleges?.includes(p))
+    priveleges.forEach((p: privelege) => {
+      if (!user?.adminPrivileges?.includes(p))
         return next(
-          new AppError("You do not have the required privelleges.", 403)
+          new AppError("You do not have the required priveleges.", 403)
         );
     });
 
     next();
   };
+
+export const updatePriveleges = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const { userId } = req.params;
+    const { priveleges } = req.body;
+
+    console.log(priveleges);
+
+    res.status(200).json({ status: "success", data: null });
+  }
+);
