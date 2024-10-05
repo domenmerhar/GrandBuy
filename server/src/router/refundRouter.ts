@@ -8,7 +8,7 @@ import {
   requestRefund,
   respondToRefund,
 } from "../controllers/refundController";
-import { getAll } from "../controllers/handlerFactory";
+import { getAll, getOne } from "../controllers/handlerFactory";
 import Refund from "../models/refundModel";
 
 const refundRouter = express.Router();
@@ -41,6 +41,15 @@ refundRouter
       { path: "cartItemId" },
     ])
   );
-// refundRouter.route("/:id").get(restrictTo("admin"), getAllRefunds);
+refundRouter
+  .route("/admin/:id")
+  .get(
+    restrictTo("admin"),
+    getOne(Refund, [
+      { path: "user", select: "name email" },
+      { path: "seller", select: "name email" },
+      { path: "cartItemId" },
+    ])
+  );
 
 export default refundRouter;
