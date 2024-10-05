@@ -28,8 +28,6 @@ refundRouter
   .delete(restrictTo("user", "admin"), cancelRefund);
 
 refundRouter.route("/:id/respond").patch(restrictTo("seller"), respondToRefund);
-// // refundRouter.route("/:id/accept").post(restrictTo("seller"), acceptRefund);
-// // refundRouter.route("/:id/cancel").post(restrictTo("seller"), acceptRefund);
 
 refundRouter
   .route("/")
