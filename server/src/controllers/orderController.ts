@@ -48,13 +48,47 @@ export const addOrder = catchAsync(
     const user = await userModel.findOne({ _id: userId }).select("email");
     const cartItemsArray = !Array.isArray(cartItems) ? [cartItems] : cartItems;
     //TODO: FIND UNORDERED, FIND YOUR ITEMS
-    const cartItemsRes = await CartItem.find({
-      _id: { $in: cartItemsArray },
-    }).populate({ path: "product", select: "price name" });
-
-    console.log(String(cartItemsRes));
 
     const stripe = new Stripe(process.env.STRIPE_PRIVATE_KEY!);
+
+    const items = await CartItem.find({
+      _id: { $in: cartItemsArray },
+      //user: userId,
+      //ordered: {$ne: true}
+    }).populate({ path: "product", select: "price name" });
+
+    if (items.length !== cartItemsArray.length)
+      return next(new AppError("Please provide valid cart items.", 400));
+
+    const order = await Order.create({
+      user: userId,
+      products: cartItemsArray,
+      totalPrice: items.reduce((acc, item) => {
+        const priceBeforeDiscount = item.product.price * item.quantity;
+        const discount =
+          1 -
+            (item.discount > item.product.discount
+              ? item.discount
+              : item.product.discount) || 0 / 100;
+        console.log(priceBeforeDiscount, discount);
+        const totalPrice = priceBeforeDiscount * +discount;
+
+        return acc + totalPrice;
+      }, 0),
+    });
+
+    await CartItem.updateMany(
+      { _id: { $in: cartItemsArray } },
+      { ordered: true }
+    );
+
+    await Promise.all(
+      items.map((item) =>
+        productModel.findByIdAndUpdate(item.product, {
+          $inc: { orders: item.quantity },
+        })
+      )
+    );
 
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ["card"],
@@ -63,9 +97,8 @@ export const addOrder = catchAsync(
       success_url: "https://docs.stripe.com/keys",
       cancel_url: "https://www.google.com",
       customer_email: user!.email,
-      //TODO: ADD ORDER ID
-      client_reference_id: String(userId),
-      line_items: cartItemsRes.map((item) => ({
+      client_reference_id: String(order._id),
+      line_items: items.map((item) => ({
         price_data: {
           currency: "usd",
           unit_amount:
@@ -78,47 +111,11 @@ export const addOrder = catchAsync(
       })),
     });
 
-    // const items = await CartItem.find({
-    //   _id: { $in: cartItemsArray },
-    //   user: userId,
-    // }).populate("product");
-
-    // if (items.length !== cartItemsArray.length)
-    //   return next(new AppError("Please provide valid cart items.", 400));
-
-    // const order = await Order.create({
-    //   user: userId,
-    //   products: cartItemsArray,
-    //   totalPrice: items.reduce((acc, item) => {
-    //     const priceBeforeDiscount = item.product.price * item.quantity;
-    //     const discount =
-    //       1 -
-    //       (item.discount > item.product.discount
-    //         ? item.discount
-    //         : item.product.discount) /
-    //         100;
-    //     const totalPrice = priceBeforeDiscount * discount;
-
-    //     return acc + totalPrice;
-    //   }, 0),
-    // });
-
-    // await CartItem.updateMany(
-    //   { _id: { $in: cartItemsArray } },
-    //   { ordered: true }
-    // );
-
-    // await Promise.all(
-    //   items.map((item) =>
-    //     productModel.findByIdAndUpdate(item.product, {
-    //       $inc: { orders: item.quantity },
-    //     })
-    //   )
-    // );
+    //TODO: WEBHOOK CHECK FOR SUCCESS
 
     res.status(201).json({
       status: "success",
-      //data: { order }
+      data: { order },
       session,
     });
   }
