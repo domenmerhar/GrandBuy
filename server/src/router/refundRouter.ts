@@ -10,6 +10,8 @@ import {
 } from "../controllers/refundController";
 import { getAll, getOne } from "../controllers/handlerFactory";
 import Refund from "../models/refundModel";
+import { validate } from "../utils/validate";
+import { body, param } from "express-validator";
 
 const refundRouter = express.Router();
 
@@ -19,15 +21,37 @@ refundRouter.route("/seller").get(restrictTo("seller"), getSellerRefunds);
 
 refundRouter
   .route("/product/:id")
-  .post(restrictTo("user", "admin"), requestRefund);
+  .post(
+    validate([param("id").isMongoId(), body("reason").isString().notEmpty()]),
+    restrictTo("user", "admin"),
+    requestRefund
+  );
 
 refundRouter.route("/my").get(restrictTo("user", "admin"), getMyRefunds);
 refundRouter
   .route("/:id")
-  .get(restrictTo("user", "admin"), getRefund)
-  .delete(restrictTo("user", "admin"), cancelRefund);
+  .get(
+    validate([param("id").isMongoId()]),
+    restrictTo("user", "admin"),
+    getRefund
+  )
+  .delete(
+    validate([param("id").isMongoId()]),
+    restrictTo("user", "admin"),
+    cancelRefund
+  );
 
-refundRouter.route("/:id/respond").patch(restrictTo("seller"), respondToRefund);
+refundRouter
+  .route("/:id/respond")
+  .patch(
+    validate([
+      param("id").isMongoId(),
+      body("status").isIn(["accepted", "rejected"]),
+      body("resolvedMessage").isString().notEmpty(),
+    ]),
+    restrictTo("seller"),
+    respondToRefund
+  );
 
 refundRouter
   .route("/")
@@ -42,6 +66,7 @@ refundRouter
 refundRouter
   .route("/admin/:id")
   .get(
+    validate([param("id").isMongoId()]),
     restrictTo("admin"),
     getOne(Refund, [
       { path: "user", select: "name email" },
