@@ -9,6 +9,7 @@ import cartItemModel from "../models/cartItemModel";
 import Stripe from "stripe";
 import userModel from "../models/userModel";
 import { getSellerRecent5 } from "./cartController";
+import { stripe } from "../utils/stripe";
 
 const ordersPerRequest = 10;
 
@@ -69,8 +70,6 @@ export const addOrder = catchAsync(
         return acc + totalPrice;
       }, 0),
     });
-
-    const stripe = new Stripe(process.env.STRIPE_PRIVATE_KEY!);
 
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ["card"],
