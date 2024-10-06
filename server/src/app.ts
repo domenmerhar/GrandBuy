@@ -25,6 +25,7 @@ import orderModel from "./models/orderModel";
 import cartItemModel from "./models/cartItemModel";
 import AppError from "./utils/AppError";
 import productModel from "./models/productModel";
+import { stripe } from "./utils/stripe";
 
 //TODO: xss
 
@@ -77,14 +78,8 @@ app.post(
       //TODO: CONFIGURE STRIPPE ON RELEASE
       const event = request.body;
 
-      const stripe = new Stripe(process.env.STRIPE_PRIVATE_KEY!);
-
-      console.log(event.type);
-
-      // Handle the event
       switch (event.type) {
         case "checkout.session.completed":
-          console.log("Payment was successful!");
           const checkout = await stripe.checkout.sessions.retrieve(
             event.data.object.id
           );
@@ -113,8 +108,6 @@ app.post(
               })
             )
           );
-
-          console.log({ order });
 
           break;
 
