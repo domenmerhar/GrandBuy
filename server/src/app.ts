@@ -19,13 +19,7 @@ import notificationRouter from "./router/notificationRouter";
 import requestRouter from "./router/requestRouter";
 import banRouter from "./router/banRouter";
 import refundRouter from "./router/refundRouter";
-import Stripe from "stripe";
-import catchAsync from "./utils/catchAsync";
-import orderModel from "./models/orderModel";
-import cartItemModel from "./models/cartItemModel";
-import AppError from "./utils/AppError";
-import productModel from "./models/productModel";
-import { stripe } from "./utils/stripe";
+import stripeWebhookRouter from "./router/stripeWebhookRouter";
 
 //TODO: xss
 
@@ -70,56 +64,7 @@ app.use("/notification", notificationRouter);
 app.use("/request", requestRouter);
 app.use("/ban", banRouter);
 app.use("/refund", refundRouter);
-
-app.post(
-  "/stripe_webhooks",
-  catchAsync(
-    async (request: Request, response: Response, next: NextFunction) => {
-      //TODO: CONFIGURE STRIPPE ON RELEASE
-      const event = request.body;
-
-      switch (event.type) {
-        case "checkout.session.completed":
-          const checkout = await stripe.checkout.sessions.retrieve(
-            event.data.object.id
-          );
-
-          const orderId = checkout.client_reference_id;
-          const order = await orderModel
-            .findByIdAndUpdate(orderId, {
-              paid: true,
-            })
-            .populate("products");
-
-          if (!order?.products.length) {
-            console.error("No products found in order.");
-            return response.json({ received: false });
-          }
-
-          await cartItemModel.updateMany(
-            { _id: { $in: order?.products } },
-            { ordered: true }
-          );
-
-          await Promise.all(
-            order?.products.map((item) =>
-              productModel.findByIdAndUpdate(item.product, {
-                $inc: { orders: item.quantity },
-              })
-            )
-          );
-
-          break;
-
-        default:
-          console.log(`Unhandled event type ${event.type}`);
-      }
-
-      // Return a response to acknowledge receipt of the event
-      response.json({ received: true });
-    }
-  )
-);
+app.use("/stripe_webhooks", stripeWebhookRouter);
 
 app.all("*", (req: Request, res: Response) => {
   res.status(404).json({
