@@ -10,6 +10,8 @@ import {
 import { getAll } from "../controllers/handlerFactory";
 import Notification from "../models/notificationModel";
 import { restrictPrivileges } from "../controllers/userController";
+import { validate } from "../utils/validate";
+import { body, param } from "express-validator";
 
 const notificationRouter = express.Router();
 
@@ -28,11 +30,18 @@ notificationRouter
     getAll(Notification)
   );
 
-notificationRouter.route("/:id").get(getNotification);
+notificationRouter
+  .route("/:id")
+  .get(validate([param("id").isMongoId()]), getNotification);
 
 notificationRouter
   .route("/create/:userId")
   .post(
+    validate([
+      param("userId").isMongoId(),
+      body("type").isIn(["message", "warning"]),
+      body("message").isString().notEmpty(),
+    ]),
     restrictTo("admin"),
     restrictPrivileges("notification"),
     createNotification
