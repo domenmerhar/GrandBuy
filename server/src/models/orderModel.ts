@@ -48,6 +48,11 @@ const orderSchema = new Schema({
   deliveredAt: {
     type: Date,
   },
+
+  paid: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 orderSchema.set("toJSON", {
