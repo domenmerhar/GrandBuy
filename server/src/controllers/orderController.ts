@@ -4,11 +4,8 @@ import AppError from "../utils/AppError";
 import APIFeatures from "../utils/ApiFeatures";
 import Order from "../models/orderModel";
 import CartItem from "../models/cartItemModel";
-import productModel from "../models/productModel";
 import cartItemModel from "../models/cartItemModel";
-import Stripe from "stripe";
 import userModel from "../models/userModel";
-import { getSellerRecent5 } from "./cartController";
 import { stripe } from "../utils/stripe";
 
 const ordersPerRequest = 10;
