@@ -46,10 +46,10 @@ export const addOrder = catchAsync(
     const userId = res.locals.user._id;
 
     const user = await userModel.findOne({ _id: userId }).select("email");
+    if (!user) return next(new AppError("User not found.", 404));
+
     const cartItemsArray = !Array.isArray(cartItems) ? [cartItems] : cartItems;
     //TODO: FIND UNORDERED, FIND YOUR ITEMS
-
-    const stripe = new Stripe(process.env.STRIPE_PRIVATE_KEY!);
 
     const items = await CartItem.find({
       _id: { $in: cartItemsArray },
@@ -80,49 +80,40 @@ export const addOrder = catchAsync(
       }, 0),
     });
 
-    await CartItem.updateMany(
-      { _id: { $in: cartItemsArray } },
-      { ordered: true }
-    );
+    console.log(order.products);
 
-    await Promise.all(
-      items.map((item) =>
-        productModel.findByIdAndUpdate(item.product, {
-          $inc: { orders: item.quantity },
-        })
-      )
-    );
+    const stripe = new Stripe(process.env.STRIPE_PRIVATE_KEY!);
 
-    // const session = await stripe.checkout.sessions.create({
-    //   payment_method_types: ["card"],
-    //   client_reference_id: String(order._id),
-    //   mode: "payment",
-    //   //TODO: CHECK LOCALE
-    //   locale: "auto",
-    //   //TODO: SUCCESS URL
-    //   success_url: "https://docs.stripe.com/keys",
-    //   cancel_url: "https://www.google.com",
-    //   customer_email: user!.email,
-    //   client_reference_id: String(order._id),
-    //   line_items: items.map((item) => ({
-    //     price_data: {
-    //       currency: "usd",
-    //       unit_amount:
-    //         item.product.price * ((100 - item.discount) / 100) * item.quantity,
-    //       product_data: {
-    //         name: item.product.name,
-    //       },
-    //     },
-    //     quantity: item.quantity,
-    //   })),
-    // });
+    const session = await stripe.checkout.sessions.create({
+      payment_method_types: ["card"],
+      client_reference_id: String(order._id),
+      mode: "payment",
+      locale: "auto",
+      //TODO: SUCCESS URL
+      //TODO: CANCEL URL
+      success_url: "https://docs.stripe.com/keys",
+      cancel_url: "https://www.google.com",
+      customer_email: user!.email,
+      client_reference_id: String(order._id),
+      line_items: items.map((item) => ({
+        price_data: {
+          currency: "usd",
+          unit_amount:
+            item.product.price * ((100 - item.discount) / 100) * item.quantity,
+          product_data: {
+            name: item.product.name,
+          },
+        },
+        quantity: item.quantity,
+      })),
+    });
 
     //TODO: WEBHOOK CHECK FOR SUCCESS
 
     res.status(201).json({
       status: "success",
       data: { order },
-      //session,
+      session: session.url,
     });
   }
 );
