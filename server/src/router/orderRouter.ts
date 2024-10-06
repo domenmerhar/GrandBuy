@@ -6,11 +6,9 @@ import {
   getSellerOrders,
   getUserOrders,
 } from "../controllers/orderController";
-import {
-  cancelOrder,
-  redeemCouponOnCartItems,
-  shipOrder,
-} from "../controllers/cartController";
+import { cancelOrder, shipOrder } from "../controllers/cartController";
+import { validate } from "../utils/validate";
+import { param } from "express-validator";
 
 const orderRouter = express.Router();
 
@@ -22,14 +20,22 @@ orderRouter.route("/user").get(restrictTo("user"), getUserOrders);
 
 orderRouter
   .route("/user/:id/confirmDelivery")
-  .patch(restrictTo("user"), confirmDelivery);
+  .patch(
+    validate([param("id").isMongoId()]),
+    restrictTo("user"),
+    confirmDelivery
+  );
 
 orderRouter.route("/seller").get(restrictTo("seller"), getSellerOrders);
 
 orderRouter.use(restrictTo("seller"));
 
-orderRouter.route("/seller/:id/ship").patch(shipOrder);
-orderRouter.route("/seller/:id/cancel").patch(cancelOrder);
+orderRouter
+  .route("/seller/:id/ship")
+  .patch(validate([param("id").isMongoId()]), shipOrder);
+orderRouter
+  .route("/seller/:id/cancel")
+  .patch(validate([param("id").isMongoId()]), cancelOrder);
 orderRouter.route("/seller/orders").get(getSellerOrders);
 
 export default orderRouter;
