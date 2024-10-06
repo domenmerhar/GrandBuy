@@ -10,6 +10,8 @@ import {
   rejectRequest,
 } from "../controllers/requestController";
 import { restrictPrivileges } from "../controllers/userController";
+import { validate } from "../utils/validate";
+import { param } from "express-validator";
 
 const requestRouter = express.Router();
 
@@ -25,14 +27,30 @@ requestRouter
     getAll(requestModel)
   );
 
-requestRouter.route("/cancel/:id").patch(restrictTo("user"), cancelRequest);
+requestRouter
+  .route("/cancel/:id")
+  .patch(
+    validate([param("id").isMongoId().notEmpty()]),
+    restrictTo("user"),
+    cancelRequest
+  );
 
-requestRouter.use(restrictTo("admin"), restrictPrivileges("request"));
+requestRouter.use(
+  validate([param("id").isMongoId().notEmpty()]),
+  restrictTo("admin"),
+  restrictPrivileges("request")
+);
 
-requestRouter.route("/accept/:id").patch(acceptRequest);
+requestRouter
+  .route("/accept/:id")
+  .patch(validate([param("id").isMongoId().notEmpty()]), acceptRequest);
 
-requestRouter.route("/reject/:id").patch(rejectRequest);
+requestRouter
+  .route("/reject/:id")
+  .patch(validate([param("id").isMongoId().notEmpty()]), rejectRequest);
 
-requestRouter.route("/:id").get(getRequest);
+requestRouter
+  .route("/:id")
+  .get(validate([param("id").isMongoId().notEmpty()]), getRequest);
 
 export default requestRouter;
