@@ -67,11 +67,14 @@ export const addOrder = catchAsync(
         const priceBeforeDiscount = item.product.price * item.quantity;
         const discount =
           1 -
-            (item.discount > item.product.discount
-              ? item.discount
-              : item.product.discount) || 0 / 100;
-        console.log(priceBeforeDiscount, discount);
-        const totalPrice = priceBeforeDiscount * +discount;
+          (item.discount > item.product.discount
+            ? item.discount
+            : item.product.discount) /
+            100;
+
+        const totalPrice = priceBeforeDiscount * (+discount || 1);
+
+        console.log({ totalPrice, priceBeforeDiscount, discount });
 
         return acc + totalPrice;
       }, 0),
@@ -90,33 +93,36 @@ export const addOrder = catchAsync(
       )
     );
 
-    const session = await stripe.checkout.sessions.create({
-      payment_method_types: ["card"],
-      mode: "payment",
-      //TODO: SUCCESS URL
-      success_url: "https://docs.stripe.com/keys",
-      cancel_url: "https://www.google.com",
-      customer_email: user!.email,
-      client_reference_id: String(order._id),
-      line_items: items.map((item) => ({
-        price_data: {
-          currency: "usd",
-          unit_amount:
-            item.product.price * ((100 - item.discount) / 100) * item.quantity,
-          product_data: {
-            name: item.product.name,
-          },
-        },
-        quantity: item.quantity,
-      })),
-    });
+    // const session = await stripe.checkout.sessions.create({
+    //   payment_method_types: ["card"],
+    //   client_reference_id: String(order._id),
+    //   mode: "payment",
+    //   //TODO: CHECK LOCALE
+    //   locale: "auto",
+    //   //TODO: SUCCESS URL
+    //   success_url: "https://docs.stripe.com/keys",
+    //   cancel_url: "https://www.google.com",
+    //   customer_email: user!.email,
+    //   client_reference_id: String(order._id),
+    //   line_items: items.map((item) => ({
+    //     price_data: {
+    //       currency: "usd",
+    //       unit_amount:
+    //         item.product.price * ((100 - item.discount) / 100) * item.quantity,
+    //       product_data: {
+    //         name: item.product.name,
+    //       },
+    //     },
+    //     quantity: item.quantity,
+    //   })),
+    // });
 
     //TODO: WEBHOOK CHECK FOR SUCCESS
 
     res.status(201).json({
       status: "success",
       data: { order },
-      session,
+      //session,
     });
   }
 );
