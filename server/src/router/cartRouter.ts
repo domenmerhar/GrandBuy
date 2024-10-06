@@ -9,23 +9,50 @@ import {
   redeemCouponOnCartItems,
   updateItemQuantity,
 } from "../controllers/cartController";
+import { validate } from "../utils/validate";
+import { body, param } from "express-validator";
 
 const cartRouter = express.Router();
 
 cartRouter.use(protect);
 
 cartRouter.route("/").get(getCartItems);
-cartRouter.route("/add/:productId").post(createCartItem);
+cartRouter
+  .route("/add/:productId")
+  .post(
+    validate([
+      body("quantity").isNumeric().notEmpty(),
+      param("productId").isMongoId().notEmpty(),
+    ]),
+    createCartItem
+  );
 
-cartRouter.route("/:cartId").patch(updateItemQuantity).delete(deleteCartItem);
+cartRouter
+  .route("/:cartId")
+  .patch(
+    validate([
+      param("cartId").isMongoId().notEmpty(),
+      body("quantity").isNumeric().notEmpty().isInt({ min: 1 }),
+    ]),
+    updateItemQuantity
+  )
+  .delete(validate([param("cartId").isMongoId().notEmpty()]), deleteCartItem);
 
 cartRouter
   .route("/apply-coupon/:couponCode")
-  .patch(protect, redeemCouponOnCartItems);
+  .patch(
+    validate([param("couponCode").isMongoId().notEmpty()]),
+    protect,
+    redeemCouponOnCartItems
+  );
 
 cartRouter
   .route("/seller/revenue/:days")
-  .get(restrictTo("seller"), getRecentRevenueForSeller);
+  .get(
+    validate([body("days").isInt({ min: 1 })]),
+    restrictTo("seller"),
+    getRecentRevenueForSeller
+  );
 
 cartRouter
   .route("/seller/recent-5")
