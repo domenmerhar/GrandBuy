@@ -14,6 +14,8 @@ import {
 import { getAll } from "../controllers/handlerFactory";
 import Coupon from "../models/couponModel";
 import { restrictPrivileges } from "../controllers/userController";
+import { validate } from "../utils/validate";
+import { body, param } from "express-validator";
 
 const couponRouter = express.Router();
 
@@ -21,13 +23,35 @@ couponRouter.use(protect);
 
 couponRouter
   .route("/seller")
-  .post(restrictTo("seller"), createSellerCoupon)
+  .post(
+    validate([
+      body("code").notEmpty(),
+      body("products").isArray(),
+      body("discount").isInt({ min: 1, max: 100 }),
+      body("expireAt").isDate(),
+    ]),
+    restrictTo("seller"),
+    createSellerCoupon
+  )
   .get(restrictTo("seller"), getSellerCoupons);
+
 couponRouter
   .route("/seller/:id")
-  .get(restrictTo("seller"), getCouponSeller)
-  .delete(restrictTo("seller"), expireSellerCoupon)
-  .patch(restrictTo("seller"), updateSellerCoupon);
+  .get(
+    validate([param("id").isMongoId()]),
+    restrictTo("seller"),
+    getCouponSeller
+  )
+  .delete(
+    validate([param("id").isMongoId()]),
+    restrictTo("seller"),
+    expireSellerCoupon
+  )
+  .patch(
+    validate([param("id").isMongoId()]),
+    restrictTo("seller"),
+    updateSellerCoupon
+  );
 
 couponRouter.use(restrictTo("admin"), restrictPrivileges("coupon"));
 
@@ -35,8 +59,16 @@ couponRouter.route("/").get(getAll(Coupon)).post(addCoupon);
 
 couponRouter
   .route("/:id")
-  .get(getCoupon)
-  .patch(updateCoupon)
-  .delete(deleteCoupon);
+  .get(validate([param("id").isMongoId()]), getCoupon)
+  .patch(
+    validate([
+      param("id").isMongoId(),
+      body("products").isArray().optional(),
+      body("expireAt").isDate().optional(),
+      body("discount").isInt({ min: 1, max: 100 }).optional(),
+    ]),
+    updateCoupon
+  )
+  .delete(validate([param("id").isMongoId()]), deleteCoupon);
 
 export default couponRouter;
