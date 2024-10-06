@@ -49,14 +49,12 @@ export const addOrder = catchAsync(
     if (!user) return next(new AppError("User not found.", 404));
 
     const cartItemsArray = !Array.isArray(cartItems) ? [cartItems] : cartItems;
-    //TODO: FIND UNORDERED, FIND YOUR ITEMS
 
     const items = await CartItem.find({
       _id: { $in: cartItemsArray },
-      //user: userId,
-      //ordered: {$ne: true}
+      user: userId,
+      ordered: { $ne: true },
     }).populate({ path: "product", select: "price name" });
-
     if (items.length !== cartItemsArray.length)
       return next(new AppError("Please provide valid cart items.", 400));
 
@@ -65,22 +63,12 @@ export const addOrder = catchAsync(
       products: cartItemsArray,
       totalPrice: items.reduce((acc, item) => {
         const priceBeforeDiscount = item.product.price * item.quantity;
-        const discount =
-          1 -
-          (item.discount > item.product.discount
-            ? item.discount
-            : item.product.discount) /
-            100;
-
-        const totalPrice = priceBeforeDiscount * (+discount || 1);
-
-        console.log({ totalPrice, priceBeforeDiscount, discount });
+        const discountMultiplier = (100 - item.discount || 0) / 100;
+        const totalPrice = priceBeforeDiscount * discountMultiplier;
 
         return acc + totalPrice;
       }, 0),
     });
-
-    console.log(order.products);
 
     const stripe = new Stripe(process.env.STRIPE_PRIVATE_KEY!);
 
@@ -95,20 +83,23 @@ export const addOrder = catchAsync(
       cancel_url: "https://www.google.com",
       customer_email: user!.email,
       client_reference_id: String(order._id),
-      line_items: items.map((item) => ({
-        price_data: {
-          currency: "usd",
-          unit_amount:
-            item.product.price * ((100 - item.discount) / 100) * item.quantity,
-          product_data: {
-            name: item.product.name,
-          },
-        },
-        quantity: item.quantity,
-      })),
-    });
+      line_items: items.map((item) => {
+        const priceBeforeDiscount = item.product.price;
+        const discountMultiplier = (100 - item.discount || 0) / 100;
+        const totalPrice = priceBeforeDiscount * discountMultiplier;
 
-    //TODO: WEBHOOK CHECK FOR SUCCESS
+        return {
+          price_data: {
+            currency: "usd",
+            unit_amount: totalPrice * 100,
+            product_data: {
+              name: item.product.name,
+            },
+          },
+          quantity: item.quantity,
+        };
+      }),
+    });
 
     res.status(201).json({
       status: "success",
