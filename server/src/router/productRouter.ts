@@ -24,6 +24,8 @@ import {
   fileExtLimiterOne,
   filesPayloadExists,
 } from "../controllers/fileController";
+import { validate } from "../utils/validate";
+import { body, param } from "express-validator";
 
 //TODO: Images
 //TOOD: .md files
@@ -34,6 +36,12 @@ productRouter
   .route("/")
   .get(getProducts)
   .post(
+    validate([
+      body("name").isString().notEmpty(),
+      body("price").isNumeric().notEmpty(),
+      body("shipping").isNumeric().notEmpty(),
+      body("discount").isInt({ min: 0, max: 100 }),
+    ]),
     protect,
     restrictTo("seller"),
     fileUpload({ createParentPath: true }),
@@ -47,57 +55,82 @@ productRouter
 
 productRouter.route("/highest-discount").get(getHighestDiscount);
 
-productRouter.route("/seller/:sellerId").get(getSellerProducts);
+productRouter
+  .route("/seller/:sellerId")
+  .get(validate([param("sellerId").isMongoId()]), getSellerProducts);
 
 productRouter
   .route("/:productId")
-  .get(saveUserToResponse, addToHistory, getProduct);
-
-productRouter
-  .route("/upload")
-  .post(
-    fileUpload({ createParentPath: true }),
-    filesPayloadExists,
-    fileExtLimiterArr("images", [".png", ".jpg", ".jpeg"]),
-    fileExtLimiterOne("description", [".md"]),
-    fileExtLimiterOne("coverImage", [".png", ".jpg", ".jpeg"]),
-    uploadProductFiles,
-    (req, res, next) => {
-      res.status(200).json({ status: "success" });
-    }
+  .get(
+    validate([param("productId").isMongoId()]),
+    saveUserToResponse,
+    addToHistory,
+    getProduct
   );
+
+// productRouter
+//   .route("/upload")
+//   .post(
+//     fileUpload({ createParentPath: true }),
+//     filesPayloadExists,
+//     fileExtLimiterArr("images", [".png", ".jpg", ".jpeg"]),
+//     fileExtLimiterOne("description", [".md"]),
+//     fileExtLimiterOne("coverImage", [".png", ".jpg", ".jpeg"]),
+//     uploadProductFiles,
+//     (req, res, next) => {
+//       res.status(200).json({ status: "success" });
+//     }
+//   );
 
 productRouter.use(protect);
 
 productRouter
   .route("/:productId")
-  .delete(restrictTo("admin", "seller"), discontinueProduct);
+  .delete(
+    validate([param("productId").isMongoId()]),
+    restrictTo("admin", "seller"),
+    discontinueProduct
+  );
 
 productRouter
   .route("/:productId/image/:imageName")
-  .delete(restrictTo("admin", "seller"), deleteImage);
+  .delete(
+    validate([param("productId").isMongoId(), param("imageName").isUUID()]),
+    restrictTo("admin", "seller"),
+    deleteImage
+  );
 
 productRouter
   .route("/:productId/description")
-  .delete(restrictTo("admin", "seller"), deleteDescription);
+  .delete(
+    validate([param("productId").isMongoId()]),
+    restrictTo("admin", "seller"),
+    deleteDescription
+  );
 
 //TODO: ADD ADMIN ROUTES
 
 productRouter.use(restrictTo("seller"));
 
-productRouter
-  .route("/:productId")
-  .patch(
-    fileUpload({ createParentPath: true }),
-    fileExtLimiterArr("images", [".png", ".jpg", ".jpeg"], true),
-    fileExtLimiterOne("description", [".md"], true),
-    fileExtLimiterOne("coverImage", [".png", ".jpg", ".jpeg"], true),
-    updateProduct
-  );
+productRouter.route("/:productId").patch(
+  validate([
+    body("name").isString().optional(),
+    body("price").isNumeric().optional(),
+    body("shipping").isNumeric().optional(),
+    body("imagesOld").isArray().optional(),
+    //body("discount").isInt({ min: 0, max: 100 }),
+  ]),
+  fileUpload({ createParentPath: true }),
+  fileExtLimiterArr("images", [".png", ".jpg", ".jpeg"], true),
+  fileExtLimiterOne("description", [".md"], true),
+  fileExtLimiterOne("coverImage", [".png", ".jpg", ".jpeg"], true),
+  updateProduct
+);
 
 productRouter
   .route("/:productId/images")
   .patch(
+    validate([param("productId").isMongoId()]),
     fileUpload({ createParentPath: true }),
     filesPayloadExists,
     fileExtLimiterArr("images", [".png", ".jpg", ".jpeg"]),
