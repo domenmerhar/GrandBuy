@@ -25,7 +25,11 @@ couponRouter
   .route("/seller")
   .post(
     validate([
-      body("code").trim().notEmpty().withMessage("Please provide a code."),
+      body("code")
+        .trim()
+        .escape()
+        .notEmpty()
+        .withMessage("Please provide a code."),
 
       body("products")
         .isArray()
