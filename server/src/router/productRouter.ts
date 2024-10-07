@@ -39,6 +39,7 @@ productRouter
     validate([
       body("name")
         .trim()
+        .escape()
         .isString()
         .notEmpty()
         .withMessage("Please provide a name."),
