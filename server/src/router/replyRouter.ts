@@ -18,9 +18,11 @@ replyRouter
     validate([
       param("id")
         .isMongoId()
+        .withMessage("Please provide a valid ID.")
         .notEmpty()
-        .withMessage("Please provide a valid ID."),
+        .withMessage("Please provide an ID."),
     ]),
+
     getReply
   )
   .delete(protect, deleteReply);
@@ -35,6 +37,7 @@ replyRouter
         .notEmpty()
         .withMessage("Please provide a review ID."),
     ]),
+
     getReviewReplies
   )
   .post(
@@ -44,23 +47,28 @@ replyRouter
         .withMessage("Please provide a valid review ID.")
         .notEmpty()
         .withMessage("Please provide a review ID."),
-      body("reply").isString().notEmpty(),
+
+      body("reply")
+        .trim()
+        .isString()
+        .notEmpty()
+        .withMessage("Please provide a reply."),
     ]),
+
     protect,
     createReply
   );
 
-replyRouter
-  .route("/user/:userId")
-  .get(
-    validate([
-      param("userId")
-        .isMongoId()
-        .withMessage("Please provide a valid user ID.")
-        .notEmpty()
-        .withMessage("Please provide a user ID."),
-    ]),
-    getUserReplies
-  );
+replyRouter.route("/user/:userId").get(
+  validate([
+    param("userId")
+      .isMongoId()
+      .withMessage("Please provide a valid user ID.")
+      .notEmpty()
+      .withMessage("Please provide a user ID."),
+  ]),
+
+  getUserReplies
+);
 
 export default replyRouter;
