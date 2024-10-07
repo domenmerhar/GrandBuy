@@ -87,7 +87,11 @@ productRouter.use(protect);
 productRouter
   .route("/:productId")
   .delete(
-    validate([param("productId").isMongoId()]),
+    validate([
+      param("productId")
+        .isMongoId()
+        .withMessage("Please provide a valid product ID."),
+    ]),
     restrictTo("admin", "seller"),
     discontinueProduct
   );
@@ -95,7 +99,16 @@ productRouter
 productRouter
   .route("/:productId/image/:imageName")
   .delete(
-    validate([param("productId").isMongoId(), param("imageName").isUUID()]),
+    validate([
+      param("productId")
+        .isMongoId()
+        .withMessage("Please provide a valid product ID."),
+      param("imageName")
+        .isUUID()
+        .withMessage("Please provide a valid imageName.")
+        .notEmpty()
+        .withMessage("Please provide an imageName."),
+    ]),
     restrictTo("admin", "seller"),
     deleteImage
   );
@@ -103,7 +116,11 @@ productRouter
 productRouter
   .route("/:productId/description")
   .delete(
-    validate([param("productId").isMongoId()]),
+    validate([
+      param("productId")
+        .isMongoId()
+        .withMessage("Please provide a valid product ID."),
+    ]),
     restrictTo("admin", "seller"),
     deleteDescription
   );
@@ -114,10 +131,25 @@ productRouter.use(restrictTo("seller"));
 
 productRouter.route("/:productId").patch(
   validate([
-    body("name").isString().optional(),
-    body("price").isNumeric().optional(),
-    body("shipping").isNumeric().optional(),
-    body("imagesOld").isArray().optional(),
+    param("productId")
+      .isMongoId()
+      .withMessage("Please provide a valid product ID."),
+    body("name")
+      .isString()
+      .withMessage("Please provide a valid name.")
+      .optional(),
+    body("price")
+      .isFloat({ min: 0 })
+      .withMessage("Please provide a valid price.")
+      .optional(),
+    body("shipping")
+      .isFloat({ min: 0 })
+      .withMessage("Please provide a valid shipping.")
+      .optional(),
+    body("imagesOld")
+      .isArray()
+      .withMessage("imagesOld must be an array.")
+      .optional(),
     //body("discount").isInt({ min: 0, max: 100 }),
   ]),
   fileUpload({ createParentPath: true }),
