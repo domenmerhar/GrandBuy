@@ -50,6 +50,7 @@ replyRouter
 
       body("reply")
         .trim()
+        .escape()
         .isString()
         .notEmpty()
         .withMessage("Please provide a reply."),
