@@ -18,36 +18,45 @@ orderRouter.route("/").post(restrictTo("user"), addOrder);
 
 orderRouter.route("/user").get(restrictTo("user"), getUserOrders);
 
-orderRouter
-  .route("/user/:id/confirmDelivery")
-  .patch(
-    validate([
-      param("id").isMongoId().withMessage("Please provide a valid ID."),
-    ]),
-    restrictTo("user"),
-    confirmDelivery
-  );
+orderRouter.route("/user/:id/confirmDelivery").patch(
+  validate([
+    param("id")
+      .isMongoId()
+      .withMessage("Please provide a valid ID.")
+      .notEmpty()
+      .withMessage("Please provide an ID."),
+  ]),
+
+  restrictTo("user"),
+  confirmDelivery
+);
 
 orderRouter.route("/seller").get(restrictTo("seller"), getSellerOrders);
 
 orderRouter.use(restrictTo("seller"));
 
-orderRouter
-  .route("/seller/:id/ship")
-  .patch(
-    validate([
-      param("id").isMongoId().withMessage("Please provide a valid ID."),
-    ]),
-    shipOrder
-  );
-orderRouter
-  .route("/seller/:id/cancel")
-  .patch(
-    validate([
-      param("id").isMongoId().withMessage("Please provide a valid ID."),
-    ]),
-    cancelOrder
-  );
+orderRouter.route("/seller/:id/ship").patch(
+  validate([
+    param("id")
+      .isMongoId()
+      .withMessage("Please provide a valid ID.")
+      .notEmpty()
+      .withMessage("Please provide an ID."),
+  ]),
+
+  shipOrder
+);
+orderRouter.route("/seller/:id/cancel").patch(
+  validate([
+    param("id")
+      .isMongoId()
+      .withMessage("Please provide a valid ID.")
+      .notEmpty()
+      .withMessage("Please provide an ID."),
+  ]),
+
+  cancelOrder
+);
 orderRouter.route("/seller/orders").get(getSellerOrders);
 
 export default orderRouter;
