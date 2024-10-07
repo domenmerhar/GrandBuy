@@ -37,11 +37,30 @@ productRouter
   .get(getProducts)
   .post(
     validate([
-      body("name").isString().notEmpty(),
-      body("price").isNumeric().notEmpty(),
-      body("shipping").isNumeric().notEmpty(),
-      body("discount").isInt({ min: 0, max: 100 }),
+      body("name")
+        .trim()
+        .isString()
+        .notEmpty()
+        .withMessage("Please provide a name."),
+
+      body("price")
+        .isFloat({ min: 0 })
+        .withMessage("Please provide a non negative price.")
+        .notEmpty()
+        .withMessage("Please provide a price."),
+
+      body("shipping")
+        .isFloat({ min: 0 })
+        .withMessage("Please provide a non negative shipping.")
+        .notEmpty()
+        .withMessage("Please provide a shipping."),
+
+      body("discount")
+        .isInt({ min: 0, max: 100 })
+        .withMessage("Please provide a discount between 0 and 100")
+        .optional(),
     ]),
+
     protect,
     restrictTo("seller"),
     fileUpload({ createParentPath: true }),
@@ -55,18 +74,31 @@ productRouter
 
 productRouter.route("/highest-discount").get(getHighestDiscount);
 
-productRouter
-  .route("/seller/:sellerId")
-  .get(validate([param("sellerId").isMongoId()]), getSellerProducts);
+productRouter.route("/seller/:sellerId").get(
+  validate([
+    param("sellerId")
+      .isMongoId()
+      .withMessage("Please proivde a valid seller ID")
+      .notEmpty()
+      .withMessage("Please provide a seller ID."),
+  ]),
 
-productRouter
-  .route("/:productId")
-  .get(
-    validate([param("productId").isMongoId()]),
-    saveUserToResponse,
-    addToHistory,
-    getProduct
-  );
+  getSellerProducts
+);
+
+productRouter.route("/:productId").get(
+  validate([
+    param("productId")
+      .isMongoId()
+      .withMessage("Please provide a valid product ID.")
+      .notEmpty()
+      .withMessage("Please provide a product ID."),
+  ]),
+
+  saveUserToResponse,
+  addToHistory,
+  getProduct
+);
 
 // productRouter
 //   .route("/upload")
@@ -84,46 +116,50 @@ productRouter
 
 productRouter.use(protect);
 
-productRouter
-  .route("/:productId")
-  .delete(
-    validate([
-      param("productId")
-        .isMongoId()
-        .withMessage("Please provide a valid product ID."),
-    ]),
-    restrictTo("admin", "seller"),
-    discontinueProduct
-  );
+productRouter.route("/:productId").delete(
+  validate([
+    param("productId")
+      .isMongoId()
+      .withMessage("Please provide a valid product ID.")
+      .notEmpty()
+      .withMessage("Please provide a product ID."),
+  ]),
 
-productRouter
-  .route("/:productId/image/:imageName")
-  .delete(
-    validate([
-      param("productId")
-        .isMongoId()
-        .withMessage("Please provide a valid product ID."),
-      param("imageName")
-        .isUUID()
-        .withMessage("Please provide a valid imageName.")
-        .notEmpty()
-        .withMessage("Please provide an imageName."),
-    ]),
-    restrictTo("admin", "seller"),
-    deleteImage
-  );
+  restrictTo("admin", "seller"),
+  discontinueProduct
+);
 
-productRouter
-  .route("/:productId/description")
-  .delete(
-    validate([
-      param("productId")
-        .isMongoId()
-        .withMessage("Please provide a valid product ID."),
-    ]),
-    restrictTo("admin", "seller"),
-    deleteDescription
-  );
+productRouter.route("/:productId/image/:imageName").delete(
+  validate([
+    param("productId")
+      .isMongoId()
+      .withMessage("Please provide a valid product ID.")
+      .notEmpty()
+      .withMessage("Please provide a product ID."),
+
+    param("imageName")
+      .isUUID()
+      .withMessage("Please provide a valid imageName.")
+      .notEmpty()
+      .withMessage("Please provide an imageName."),
+  ]),
+
+  restrictTo("admin", "seller"),
+  deleteImage
+);
+
+productRouter.route("/:productId/description").delete(
+  validate([
+    param("productId")
+      .isMongoId()
+      .withMessage("Please provide a valid product ID.")
+      .notEmpty()
+      .withMessage("Please provide a product ID."),
+  ]),
+
+  restrictTo("admin", "seller"),
+  deleteDescription
+);
 
 //TODO: ADD ADMIN ROUTES
 
