@@ -30,27 +30,66 @@ requestRouter
 requestRouter
   .route("/cancel/:id")
   .patch(
-    validate([param("id").isMongoId().notEmpty()]),
+    validate([
+      param("id")
+        .isMongoId()
+        .withMessage("Please provide a valid ID.")
+        .notEmpty()
+        .withMessage("Please provide an ID."),
+    ]),
     restrictTo("user"),
     cancelRequest
   );
 
 requestRouter.use(
-  validate([param("id").isMongoId().notEmpty()]),
+  validate([
+    param("id")
+      .isMongoId()
+      .withMessage("Please provide a valid ID.")
+      .notEmpty()
+      .withMessage("Please provide an ID."),
+  ]),
   restrictTo("admin"),
   restrictPrivileges("request")
 );
 
 requestRouter
   .route("/accept/:id")
-  .patch(validate([param("id").isMongoId().notEmpty()]), acceptRequest);
+  .patch(
+    validate([
+      param("id")
+        .isMongoId()
+        .withMessage("Please provide a valid ID.")
+        .notEmpty()
+        .withMessage("Please provide an ID."),
+    ]),
+    acceptRequest
+  );
 
 requestRouter
   .route("/reject/:id")
-  .patch(validate([param("id").isMongoId().notEmpty()]), rejectRequest);
+  .patch(
+    validate([
+      param("id")
+        .isMongoId()
+        .withMessage("Please provide a valid ID.")
+        .notEmpty()
+        .withMessage("Please provide an ID."),
+    ]),
+    rejectRequest
+  );
 
 requestRouter
   .route("/:id")
-  .get(validate([param("id").isMongoId().notEmpty()]), getRequest);
+  .get(
+    validate([
+      param("id")
+        .isMongoId()
+        .withMessage("Please provide a valid ID.")
+        .notEmpty()
+        .withMessage("Please provide an ID."),
+    ]),
+    getRequest
+  );
 
 export default requestRouter;
