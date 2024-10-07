@@ -40,6 +40,7 @@ userRouter.route("/login").post(
 
     body("password")
       .trim()
+      .escape()
       .isString()
       .withMessage("Please provide a valid password.")
       .isLength({ min: 6 })
@@ -57,6 +58,7 @@ userRouter.route("/signup").post(
   validate([
     body("username")
       .trim()
+      .escape()
       .isString()
       .withMessage("Please provide a valid username.")
       .notEmpty()
@@ -71,6 +73,7 @@ userRouter.route("/signup").post(
 
     body("password")
       .trim()
+      .escape()
       .isString()
       .withMessage("Please provide a valid password")
       .isLength({ min: 6 })
@@ -82,6 +85,8 @@ userRouter.route("/signup").post(
 
     body("confirmPassword")
       .trim()
+      .escape()
+      .escape()
       .isString()
       .withMessage("Please provide a valid confirmPassword")
       .isLength({ min: 6 })
@@ -118,6 +123,7 @@ userRouter.route("/confirm-forgot-password").patch(
 
     body("verificationCode")
       .trim()
+      .escape()
       .isString()
       .withMessage("Please provide a valid verificationCode.")
       .notEmpty()
@@ -125,6 +131,7 @@ userRouter.route("/confirm-forgot-password").patch(
 
     body("password")
       .trim()
+      .escape()
       .isString()
       .withMessage("Please provide a valid password.")
       .isLength({ min: 6 })
@@ -136,6 +143,7 @@ userRouter.route("/confirm-forgot-password").patch(
 
     body("confirmPassword")
       .trim()
+      .escape()
       .isString()
       .withMessage("Please provide a valid confirmPassword.")
       .isLength({ min: 6 })
@@ -175,12 +183,12 @@ userRouter
   .get(getMe)
   .patch(
     validate([
-      body("firstName").trim().isString().optional(),
-      body("lastName").trim().isString().optional(),
-      body("street").trim().isString().optional(),
-      body("city").trim().isString().optional(),
-      body("zipCode").trim().isString().optional(),
-      body("country").trim().isString().optional(),
+      body("firstName").trim().escape().isString().optional(),
+      body("lastName").trim().escape().isString().optional(),
+      body("street").trim().escape().isString().optional(),
+      body("city").trim().escape().isString().optional(),
+      body("zipCode").trim().escape().isString().optional(),
+      body("country").trim().escape().isString().optional(),
       body("phoneNumber")
         .isMobilePhone("any")
         .withMessage("Please provide a valid phoneNumber")
@@ -197,6 +205,7 @@ userRouter.route("/change-password").patch(
   validate([
     body("password")
       .trim()
+      .escape()
       .isString()
       .withMessage("Please provide a valid password.")
       .isLength({ min: 6 })
@@ -208,6 +217,7 @@ userRouter.route("/change-password").patch(
 
     body("confirmPassword")
       .trim()
+      .escape()
       .isString()
       .withMessage("Please provide a valid confirmPassword.")
       .isLength({ min: 6 })
