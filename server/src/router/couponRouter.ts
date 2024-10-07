@@ -25,10 +25,22 @@ couponRouter
   .route("/seller")
   .post(
     validate([
-      body("code").notEmpty(),
-      body("products").isArray(),
-      body("discount").isInt({ min: 1, max: 100 }),
-      body("expireAt").isDate(),
+      body("code").notEmpty().withMessage("Please provide a code."),
+      body("products")
+        .isArray()
+        .withMessage("Products must be an array.")
+        .notEmpty()
+        .withMessage("Please provide products."),
+      body("discount")
+        .isInt({ min: 1, max: 100 })
+        .withMessage("Please provide a valid discount.")
+        .notEmpty()
+        .withMessage("Please provide a discount."),
+      body("expireAt")
+        .isDate()
+        .withMessage("Please provide a valid expireAt.")
+        .notEmpty()
+        .withMessage("Please provide a expireAt."),
     ]),
     restrictTo("seller"),
     createSellerCoupon
@@ -38,17 +50,23 @@ couponRouter
 couponRouter
   .route("/seller/:id")
   .get(
-    validate([param("id").isMongoId()]),
+    validate([
+      param("id").isMongoId().withMessage("Please provide a valid ID."),
+    ]),
     restrictTo("seller"),
     getCouponSeller
   )
   .delete(
-    validate([param("id").isMongoId()]),
+    validate([
+      param("id").isMongoId().withMessage("Please provide a valid ID."),
+    ]),
     restrictTo("seller"),
     expireSellerCoupon
   )
   .patch(
-    validate([param("id").isMongoId()]),
+    validate([
+      param("id").isMongoId().withMessage("Please provide a valid ID."),
+    ]),
     restrictTo("seller"),
     updateSellerCoupon
   );
@@ -62,13 +80,27 @@ couponRouter
   .get(validate([param("id").isMongoId()]), getCoupon)
   .patch(
     validate([
-      param("id").isMongoId(),
-      body("products").isArray().optional(),
-      body("expireAt").isDate().optional(),
-      body("discount").isInt({ min: 1, max: 100 }).optional(),
+      param("id").isMongoId().withMessage("Please provide a valid ID."),
+      body("products")
+        .isArray()
+        .withMessage("Products must be an array.")
+        .optional(),
+      body("expireAt")
+        .isDate()
+        .withMessage("Please provide a valid expireAt.")
+        .optional(),
+      body("discount")
+        .isInt({ min: 1, max: 100 })
+        .withMessage("Please provide a discount.")
+        .optional(),
     ]),
     updateCoupon
   )
-  .delete(validate([param("id").isMongoId()]), deleteCoupon);
+  .delete(
+    validate([
+      param("id").isMongoId().withMessage("Please provide a valid ID."),
+    ]),
+    deleteCoupon
+  );
 
 export default couponRouter;
