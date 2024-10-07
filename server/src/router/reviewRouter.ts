@@ -42,6 +42,7 @@ reviewRouter
 
       body("review")
         .trim()
+        .escape()
         .isString()
         .withMessage("Please provide a valid reivew.")
         .notEmpty()
