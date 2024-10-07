@@ -14,12 +14,28 @@ wishlistRouter.use(protect, restrictTo("user"));
 
 wishlistRouter.route("/").get(getWishlist);
 
-wishlistRouter
-  .route("/:id")
-  .delete(validate([param("id").isMongoId()]), removeFromWishlist);
+wishlistRouter.route("/:id").delete(
+  validate([
+    param("id")
+      .isMongoId()
+      .withMessage("Please provide a valid ID.")
+      .notEmpty()
+      .withMessage("Please provide an ID."),
+  ]),
 
-wishlistRouter
-  .route("/add/:productId")
-  .post(validate([param("productId").isMongoId()]), addToWishlist);
+  removeFromWishlist
+);
+
+wishlistRouter.route("/add/:productId").post(
+  validate([
+    param("productId")
+      .isMongoId()
+      .withMessage("Please provide a valid product ID.")
+      .notEmpty()
+      .withMessage("Please provide a product ID."),
+  ]),
+
+  addToWishlist
+);
 
 export default wishlistRouter;
