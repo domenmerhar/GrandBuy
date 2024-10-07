@@ -73,6 +73,7 @@ cartRouter.route("/apply-coupon/:couponCode").patch(
   validate([
     param("couponCode")
       .trim()
+      .escape()
       .notEmpty()
       .withMessage("Please provide a couponCode."),
   ]),
