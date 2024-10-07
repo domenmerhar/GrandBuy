@@ -24,6 +24,7 @@ refundRouter.route("/product/:id").post(
     param("id").isMongoId().withMessage("Please provide a valid ID."),
     body("reason")
       .trim()
+      .escape()
       .isString()
       .withMessage("Please provide a valid reason.")
       .notEmpty()
@@ -78,6 +79,7 @@ refundRouter.route("/:id/respond").patch(
 
     body("resolvedMessage")
       .trim()
+      .escape()
       .isString()
       .withMessage("Please provide a resolvedMessage.")
       .notEmpty()
