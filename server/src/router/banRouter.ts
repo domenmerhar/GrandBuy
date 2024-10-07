@@ -25,6 +25,7 @@ banRouter
         .withMessage("Please provide a valid ID.")
         .notEmpty()
         .withMessage("Please provide a user ID."),
+
       body("days")
         .isNumeric()
         .withMessage("Please provide valid days.")
@@ -32,12 +33,15 @@ banRouter
         .withMessage("Please provide days.")
         .isInt({ min: 1 })
         .withMessage("Days must be greater than 1."),
+
       body("message")
+        .trim()
         .isString()
         .withMessage("Please provide a valid message.")
         .notEmpty()
         .withMessage("Please provide a message."),
     ]),
+
     createBan
   );
 
@@ -51,6 +55,7 @@ banRouter
         .notEmpty()
         .withMessage("Please provide an ID."),
     ]),
+
     getOne(Ban, [{ path: "user", select: "_id name" }])
   )
   .delete(
@@ -61,6 +66,7 @@ banRouter
         .notEmpty()
         .withMessage("Please provide a valid ID."),
     ]),
+
     deleteBan
   );
 
