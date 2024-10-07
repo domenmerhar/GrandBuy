@@ -33,12 +33,15 @@ reviewRouter
         .withMessage("Please provide a product ID.")
         .notEmpty()
         .withMessage("Please provide a product ID."),
+
       body("rating")
         .isFloat({ min: 1, max: 5 })
         .withMessage("Rating must be greater than 1 and lower than 5.")
         .notEmpty()
         .withMessage("Please provide a rating."),
+
       body("review")
+        .trim()
         .isString()
         .withMessage("Please provide a valid reivew.")
         .notEmpty()
@@ -46,23 +49,23 @@ reviewRouter
         .isLength({ min: 1, max: 500 })
         .withMessage("Review must be between 1 and 500 characters long."),
     ]),
+
     protect,
     restrictTo("user"),
     createReview
   );
 
-reviewRouter
-  .route("/product/:productId/stats")
-  .get(
-    validate([
-      param("productId")
-        .isMongoId()
-        .withMessage("Please provide a valid product ID.")
-        .notEmpty()
-        .withMessage("Please provide a product ID."),
-    ]),
-    getProductReviewStats
-  );
+reviewRouter.route("/product/:productId/stats").get(
+  validate([
+    param("productId")
+      .isMongoId()
+      .withMessage("Please provide a valid product ID.")
+      .notEmpty()
+      .withMessage("Please provide a product ID."),
+  ]),
+
+  getProductReviewStats
+);
 
 reviewRouter
   .route("/user/:userId")
@@ -128,59 +131,55 @@ reviewRouter
 
 reviewRouter.use(protect);
 
-reviewRouter
-  .route("/admin/:id")
-  .delete(
-    validate([
-      param("id")
-        .isMongoId()
-        .withMessage("Please provide a valid ID.")
-        .notEmpty()
-        .withMessage("Please provide an ID."),
-    ]),
-    restrictTo("admin"),
-    deleteReview
-  );
+reviewRouter.route("/admin/:id").delete(
+  validate([
+    param("id")
+      .isMongoId()
+      .withMessage("Please provide a valid ID.")
+      .notEmpty()
+      .withMessage("Please provide an ID."),
+  ]),
+
+  restrictTo("admin"),
+  deleteReview
+);
 
 reviewRouter.route("/seller/recent-5").get(restrictTo("seller"), getRecent5);
 
-reviewRouter
-  .route("/seller/:days")
-  .get(
-    validate([
-      param("days")
-        .isFloat({ min: 1 })
-        .withMessage("Days must be at least 1.")
-        .optional(),
-    ]),
-    restrictTo("seller"),
-    getRecentReviewsForSeller
-  );
+reviewRouter.route("/seller/:days").get(
+  validate([
+    param("days")
+      .isFloat({ min: 1 })
+      .withMessage("Days must be at least 1.")
+      .optional(),
+  ]),
+
+  restrictTo("seller"),
+  getRecentReviewsForSeller
+);
 
 reviewRouter.use(restrictTo("user"));
-reviewRouter
-  .route("/:id/like")
-  .patch(
-    validate([
-      param("id")
-        .isMongoId()
-        .withMessage("Please provide a valid ID.")
-        .notEmpty()
-        .withMessage("Please provide an ID."),
-    ]),
-    likeReview
-  );
-reviewRouter
-  .route("/:id/dislike")
-  .patch(
-    validate([
-      param("id")
-        .isMongoId()
-        .withMessage("Please provide a valid ID.")
-        .notEmpty()
-        .withMessage("Please provide an ID."),
-    ]),
-    dislikeReview
-  );
+reviewRouter.route("/:id/like").patch(
+  validate([
+    param("id")
+      .isMongoId()
+      .withMessage("Please provide a valid ID.")
+      .notEmpty()
+      .withMessage("Please provide an ID."),
+  ]),
+
+  likeReview
+);
+reviewRouter.route("/:id/dislike").patch(
+  validate([
+    param("id")
+      .isMongoId()
+      .withMessage("Please provide a valid ID.")
+      .notEmpty()
+      .withMessage("Please provide an ID."),
+  ]),
+
+  dislikeReview
+);
 
 export default reviewRouter;
