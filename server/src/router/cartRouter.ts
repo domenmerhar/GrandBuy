@@ -26,6 +26,7 @@ cartRouter
         .withMessage("Please provide a valid quantity.")
         .notEmpty()
         .withMessage("Please provide a quantity."),
+
       param("productId")
         .isMongoId()
         .withMessage("Please provide a valid product ID.")
@@ -44,14 +45,16 @@ cartRouter
         .withMessage("Please provide a valid cart ID.")
         .notEmpty()
         .withMessage("Please provide a cart ID."),
+
       body("quantity")
-        .isNumeric()
-        .withMessage("Please provide a valid quantity.")
+        .isInt({ min: 1 })
+        .withMessage("Quantity must be greater than 1.")
         .notEmpty()
         .withMessage("Please provide a quantity.")
         .isInt({ min: 1 })
         .withMessage("Please provide quantity that is greater than 1."),
     ]),
+
     updateItemQuantity
   )
   .delete(
@@ -62,35 +65,34 @@ cartRouter
         .notEmpty()
         .withMessage("Please provide a cart ID."),
     ]),
+
     deleteCartItem
   );
 
-cartRouter
-  .route("/apply-coupon/:couponCode")
-  .patch(
-    validate([
-      param("couponCode")
-        .isMongoId()
-        .notEmpty()
-        .withMessage("Please provide a valid couponCode ID."),
-    ]),
-    protect,
-    redeemCouponOnCartItems
-  );
+cartRouter.route("/apply-coupon/:couponCode").patch(
+  validate([
+    param("couponCode")
+      .trim()
+      .notEmpty()
+      .withMessage("Please provide a couponCode."),
+  ]),
 
-cartRouter
-  .route("/seller/revenue/:days")
-  .get(
-    validate([
-      body("days")
-        .isInt({ min: 1 })
-        .withMessage("Please days that are greater than 1.")
-        .notEmpty()
-        .withMessage("Please provide a days."),
-    ]),
-    restrictTo("seller"),
-    getRecentRevenueForSeller
-  );
+  protect,
+  redeemCouponOnCartItems
+);
+
+cartRouter.route("/seller/revenue/:days").get(
+  validate([
+    body("days")
+      .isInt({ min: 1 })
+      .withMessage("Please days that are greater than 1.")
+      .notEmpty()
+      .withMessage("Please provide a days."),
+  ]),
+
+  restrictTo("seller"),
+  getRecentRevenueForSeller
+);
 
 cartRouter
   .route("/seller/recent-5")
