@@ -36,6 +36,7 @@ banRouter
 
       body("message")
         .trim()
+        .escape()
         .isString()
         .withMessage("Please provide a valid message.")
         .notEmpty()
