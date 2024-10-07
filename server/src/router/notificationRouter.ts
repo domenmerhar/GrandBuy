@@ -32,15 +32,27 @@ notificationRouter
 
 notificationRouter
   .route("/:id")
-  .get(validate([param("id").isMongoId()]), getNotification);
+  .get(
+    validate([
+      param("id").isMongoId().withMessage("Please provide a valid ID."),
+    ]),
+    getNotification
+  );
 
 notificationRouter
   .route("/create/:userId")
   .post(
     validate([
-      param("userId").isMongoId(),
-      body("type").isIn(["message", "warning"]),
-      body("message").isString().notEmpty(),
+      param("userId").isMongoId().withMessage("Please provide a valid ID."),
+      body("type")
+        .isIn(["message", "warning"])
+        .withMessage("Type must be message or warning.")
+        .notEmpty()
+        .withMessage("Please provide a type."),
+      body("message")
+        .isString()
+        .notEmpty()
+        .withMessage("Please provide a message."),
     ]),
     restrictTo("admin"),
     restrictPrivileges("notification"),
