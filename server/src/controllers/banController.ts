@@ -7,6 +7,7 @@ import Notification from "../models/notificationModel";
 import { Email } from "../utils/email";
 
 export const getMyBans = catchAsync(
+  //TODO
   async (req: Request, res: Response, next: NextFunction) => {
     res.status(200);
   }

@@ -120,6 +120,7 @@ export const uploadProductFiles = catchAsync(
   }
 );
 
+//TODO: DISCOUNT
 export const updateProduct = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const { productId } = req.params;
