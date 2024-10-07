@@ -32,11 +32,14 @@ const userRouter = Router();
 userRouter.route("/login").post(
   validate([
     body("email")
+      .normalizeEmail()
       .isEmail()
       .withMessage("Please provide a valid email.")
       .notEmpty()
       .withMessage("Please provide an email."),
+
     body("password")
+      .trim()
       .isString()
       .withMessage("Please provide a valid password.")
       .isLength({ min: 6 })
@@ -53,18 +56,21 @@ userRouter.route("/login").post(
 userRouter.route("/signup").post(
   validate([
     body("username")
+      .trim()
       .isString()
       .withMessage("Please provide a valid username.")
       .notEmpty()
       .withMessage("Please provide a username."),
 
     body("email")
+      .normalizeEmail()
       .isEmail()
       .withMessage("Please provide a valid email.")
       .notEmpty()
       .withMessage("Please provide an email."),
 
     body("password")
+      .trim()
       .isString()
       .withMessage("Please provide a valid password")
       .isLength({ min: 6 })
@@ -75,6 +81,7 @@ userRouter.route("/signup").post(
       .withMessage("Please provide a password."),
 
     body("confirmPassword")
+      .trim()
       .isString()
       .withMessage("Please provide a valid confirmPassword")
       .isLength({ min: 6 })
@@ -91,6 +98,7 @@ userRouter.route("/signup").post(
 userRouter.route("/forgot-password").patch(
   validate([
     body("email")
+      .normalizeEmail()
       .isEmail()
       .withMessage("Please provide a valid email.")
       .notEmpty()
@@ -102,17 +110,21 @@ userRouter.route("/forgot-password").patch(
 userRouter.route("/confirm-forgot-password").patch(
   validate([
     body("email")
+      .normalizeEmail()
       .isEmail()
       .withMessage("Please provide a valid email.")
       .notEmpty()
       .withMessage("Please provide an email."),
+
     body("verificationCode")
+      .trim()
       .isString()
       .withMessage("Please provide a valid verificationCode.")
       .notEmpty()
       .withMessage("Please provide a verificationCode."),
 
     body("password")
+      .trim()
       .isString()
       .withMessage("Please provide a valid password.")
       .isLength({ min: 6 })
@@ -123,6 +135,7 @@ userRouter.route("/confirm-forgot-password").patch(
       .withMessage("Please provide a password."),
 
     body("confirmPassword")
+      .trim()
       .isString()
       .withMessage("Please provide a valid confirmPassword.")
       .isLength({ min: 6 })
@@ -145,6 +158,7 @@ userRouter.route("/confirm-email/:verificationCode").patch(
       .withMessage("Please provide a verificationCode."),
 
     body("email")
+      .normalizeEmail()
       .isEmail()
       .withMessage("Please provide a valid email.")
       .notEmpty()
@@ -161,12 +175,12 @@ userRouter
   .get(getMe)
   .patch(
     validate([
-      body("firstName").isString().optional(),
-      body("lastName").isString().optional(),
-      body("street").isString().optional(),
-      body("city").isString().optional(),
-      body("zipCode").isString().optional(),
-      body("country").isString().optional(),
+      body("firstName").trim().isString().optional(),
+      body("lastName").trim().isString().optional(),
+      body("street").trim().isString().optional(),
+      body("city").trim().isString().optional(),
+      body("zipCode").trim().isString().optional(),
+      body("country").trim().isString().optional(),
       body("phoneNumber")
         .isMobilePhone("any")
         .withMessage("Please provide a valid phoneNumber")
@@ -182,6 +196,7 @@ userRouter.route("/logout").post(logout);
 userRouter.route("/change-password").patch(
   validate([
     body("password")
+      .trim()
       .isString()
       .withMessage("Please provide a valid password.")
       .isLength({ min: 6 })
@@ -192,6 +207,7 @@ userRouter.route("/change-password").patch(
       .withMessage("Please provide a password."),
 
     body("confirmPassword")
+      .trim()
       .isString()
       .withMessage("Please provide a valid confirmPassword.")
       .isLength({ min: 6 })
