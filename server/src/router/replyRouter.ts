@@ -14,15 +14,36 @@ const replyRouter = express.Router();
 
 replyRouter
   .route("/:id")
-  .get(validate([param("id").isMongoId().notEmpty()]), getReply)
+  .get(
+    validate([
+      param("id")
+        .isMongoId()
+        .notEmpty()
+        .withMessage("Please provide a valid ID."),
+    ]),
+    getReply
+  )
   .delete(protect, deleteReply);
 
 replyRouter
   .route("/review/:reviewId")
-  .get(validate([param("reviewId").isMongoId().notEmpty()]), getReviewReplies)
+  .get(
+    validate([
+      param("reviewId")
+        .isMongoId()
+        .withMessage("Please provide a valid ID.")
+        .notEmpty()
+        .withMessage("Please provide a review ID."),
+    ]),
+    getReviewReplies
+  )
   .post(
     validate([
-      param("reviewId").isMongoId().notEmpty(),
+      param("reviewId")
+        .isMongoId()
+        .withMessage("Please provide a valid review ID.")
+        .notEmpty()
+        .withMessage("Please provide a review ID."),
       body("reply").isString().notEmpty(),
     ]),
     protect,
@@ -31,6 +52,15 @@ replyRouter
 
 replyRouter
   .route("/user/:userId")
-  .get(validate([param("userId").isMongoId().notEmpty()]), getUserReplies);
+  .get(
+    validate([
+      param("userId")
+        .isMongoId()
+        .withMessage("Please provide a valid user ID.")
+        .notEmpty()
+        .withMessage("Please provide a user ID."),
+    ]),
+    getUserReplies
+  );
 
 export default replyRouter;
