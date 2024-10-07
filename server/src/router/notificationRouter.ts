@@ -60,6 +60,7 @@ notificationRouter
 
       body("message")
         .trim()
+        .escape()
         .isString()
         .notEmpty()
         .withMessage("Please provide a message."),
