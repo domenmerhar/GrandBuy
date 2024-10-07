@@ -20,9 +20,23 @@ banRouter
   .get(getAll(Ban, [{ path: "user", select: "_id name" }]))
   .post(
     validate([
-      body("user").isMongoId().notEmpty(),
-      body("days").isNumeric().notEmpty().isInt({ min: 1 }),
-      body("message").isString().notEmpty(),
+      body("user")
+        .isMongoId()
+        .withMessage("Please provide a valid ID.")
+        .notEmpty()
+        .withMessage("Please provide a user ID."),
+      body("days")
+        .isNumeric()
+        .withMessage("Please provide valid days.")
+        .notEmpty()
+        .withMessage("Please provide days.")
+        .isInt({ min: 1 })
+        .withMessage("Days must be greater than 1."),
+      body("message")
+        .isString()
+        .withMessage("Please provide a valid message.")
+        .notEmpty()
+        .withMessage("Please provide a message."),
     ]),
     createBan
   );
@@ -30,9 +44,24 @@ banRouter
 banRouter
   .route("/:id")
   .get(
-    validate([param("id").isMongoId().notEmpty()]),
+    validate([
+      param("id")
+        .isMongoId()
+        .withMessage("Please provide a valid ID.")
+        .notEmpty()
+        .withMessage("Please provide an ID."),
+    ]),
     getOne(Ban, [{ path: "user", select: "_id name" }])
   )
-  .delete(validate([param("id").isMongoId().notEmpty()]), deleteBan);
+  .delete(
+    validate([
+      param("id")
+        .isMongoId()
+        .withMessage("Please provide an ID.")
+        .notEmpty()
+        .withMessage("Please provide a valid ID."),
+    ]),
+    deleteBan
+  );
 
 export default banRouter;
