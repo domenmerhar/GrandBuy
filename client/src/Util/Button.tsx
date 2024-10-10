@@ -10,10 +10,8 @@ export const Button = styled.button<ButtonProps>`
     $color === "orange" &&
     "background-image: linear-gradient(120deg, var(--orange-6), var(--orange-5));"}
 
-  ${({ $color }) => $color === "gray" && "background-color: var(--gray-3);"};
-
   color: ${({ $color }) =>
-    $color === "orange" ? "color: var(--gray-0)" : "var(--orange-5)"};
+    $color === "orange" ? "var(--gray-0)" : "var(--orange-5)"};
 
   border: none;
   border-radius: ${({ $shape }) =>
@@ -29,6 +27,8 @@ export const Button = styled.button<ButtonProps>`
 
   transition: all 200ms;
 
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+
   &:hover {
     ${({ $color }) =>
       $color === "orange" &&
@@ -40,6 +40,6 @@ export const Button = styled.button<ButtonProps>`
   }
 
   &:active {
-    transform: scale(1);
+    transform: scale(0.95);
   }
 `;
