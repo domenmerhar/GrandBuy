@@ -72,7 +72,7 @@ refundRouter.route("/:id/respond").patch(
       .withMessage("Please provide an ID."),
 
     body("status")
-      .isIn(["accepted", "rejected"])
+      .isIn(["approved", "rejected"])
       .withMessage("Status must be accepted or rejected.")
       .notEmpty()
       .withMessage("Please provide a status."),
