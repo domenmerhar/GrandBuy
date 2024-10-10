@@ -101,6 +101,18 @@ export const cancelRefund = catchAsync(
     );
     if (!refund) return next(new AppError("No refund found with that ID", 404));
 
+    const carItem = await cartItemModel.findOneAndUpdate(
+      {
+        _id: refund.cartItemId,
+      },
+      {
+        status: "refunded",
+      },
+      { new: true }
+    );
+
+    console.log(carItem);
+
     res.status(200).json({ status: "success", data: refund });
   }
 );
@@ -127,6 +139,16 @@ export const respondToRefund = catchAsync(
     );
     if (!refund) return next(new AppError("No refund found with that ID", 404));
 
+    let carItem;
+    if (status === "approved")
+      carItem = await cartItemModel.findOneAndUpdate(
+        {
+          _id: refund.cartItemId,
+        },
+        { status: "refunded" },
+        { new: true }
+      );
+
     await notificationModel.create({
       user: refund.user,
       createdBy: userId,
@@ -134,7 +156,9 @@ export const respondToRefund = catchAsync(
       message: `Your refund request has been ${status}`,
     });
 
-    res.status(200).json({ status: "success", data: refund });
+    res.status(200).json({
+      status: "success",
+    });
   }
 );
 
