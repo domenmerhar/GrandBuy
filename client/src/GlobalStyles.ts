@@ -23,6 +23,10 @@ const GlobalStyles = createGlobalStyle`
   --orange-7: #f76707;
   --orange-8: #e8590c;
   --orange-9: #d9480f;
+
+  --red: #FF0000;
+  --green-6: #40C057;
+  --green-7: #37B24D;
 }
 
 *,
@@ -40,6 +44,8 @@ html {
 body {
     color: var(--gray-8);
     font-family: "Inter", sans-serif;
+
+    font-size: 1.6rem;
 }
 
 input,
