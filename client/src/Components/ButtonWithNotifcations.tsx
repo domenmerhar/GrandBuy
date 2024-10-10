@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { SquareButton } from "./SquareButton";
+import { SquareButton } from "../Util/SquareButton";
 
 interface ButtonWithNotifcationsProps {
   notificationCount?: number;
