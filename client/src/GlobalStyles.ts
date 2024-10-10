@@ -26,6 +26,10 @@ html {
   font-size: 62.5%;
 }
 
+body {
+    color: var(--gray-8);
+}
+
 input,
 button,
 textarea,
@@ -50,7 +54,6 @@ ul {
 img {
   max-width: 100%;
 }
-
 `;
 
 export default GlobalStyles;
