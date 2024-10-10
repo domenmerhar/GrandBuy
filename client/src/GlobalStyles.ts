@@ -12,6 +12,17 @@ const GlobalStyles = createGlobalStyle`
   --gray-7: #495057;
   --gray-8: #343a40;
   --gray-9: #212529;
+
+  --orange-0: #fff4e6;
+  --orange-1: #ffe8cc;
+  --orange-2: #ffd8a8;
+  --orange-3: #ffc078;
+  --orange-4: #ffa94d;
+  --orange-5: #ff922b;
+  --orange-6: #fd7e14;
+  --orange-7: #f76707;
+  --orange-8: #e8590c;
+  --orange-9: #d9480f;
 }
 
 *,
@@ -28,6 +39,7 @@ html {
 
 body {
     color: var(--gray-8);
+    font-family: "Inter", sans-serif;
 }
 
 input,
