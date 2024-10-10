@@ -7,8 +7,6 @@ import APIFeatures from "../utils/ApiFeatures";
 
 const pageSize = 5;
 
-//TODO: Data sanitization
-
 //TODO: Fix population
 export const getReply = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {

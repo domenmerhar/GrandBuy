@@ -13,7 +13,6 @@ export const getMyBans = catchAsync(
   }
 );
 
-//TODO: CHECK BODY
 export const createBan = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const { user: userId, days, message } = req.body;

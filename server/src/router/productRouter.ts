@@ -27,9 +27,6 @@ import {
 import { validate } from "../utils/validate";
 import { body, param } from "express-validator";
 
-//TODO: Images
-//TOOD: .md files
-
 const productRouter = express.Router();
 
 productRouter

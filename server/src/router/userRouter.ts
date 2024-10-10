@@ -21,7 +21,6 @@ import fileUpload from "express-fileupload";
 import { fileExtLimiterOne } from "../controllers/fileController";
 import { validate } from "../utils/validate";
 import { body, param } from "express-validator";
-//TODO: NOT EMPTY CHECK
 //TODO: CHECK EVERY ROUTER FOR AUTH MIDDLEWARE
 //TODO: NORMALIZE RESPONE FORMAT
 
@@ -234,7 +233,6 @@ userRouter.route("/change-password").patch(
 userRouter.use(restrictTo("admin"), restrictPrivileges("admin"));
 userRouter.route("/").get(getAll(User));
 
-//TODO: ADD PATCH ROUTE FOR UPDATING PRIVELLEGES
 userRouter
   .route("/:userId")
   .delete(

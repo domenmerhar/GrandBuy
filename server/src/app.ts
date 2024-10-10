@@ -21,8 +21,6 @@ import banRouter from "./router/banRouter";
 import refundRouter from "./router/refundRouter";
 import stripeWebhookRouter from "./router/stripeWebhookRouter";
 
-//TODO: xss
-
 const hourLimiter = rateLimit({
   windowMs: 60 * 60 * 1000,
   limit: 100,
