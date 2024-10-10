@@ -31,12 +31,10 @@ const CartItemSchema = new mongoose.Schema({
     default: 0,
   },
 
-  //TODO: add unordered status
-
   status: {
     type: String,
     enum: {
-      values: ["pending", "cancelled", "shipped", "delivered"],
+      values: ["pending", "cancelled", "shipped", "delivered", "refunded"],
       message: "Please provide a valid status.",
     },
     default: "pending",
