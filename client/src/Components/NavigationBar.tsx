@@ -11,7 +11,7 @@ import { useState } from "react";
 import { SearchBar } from "../Util/SearchBar";
 
 const NavigationHolder = styled.div`
-  background-image: linear-gradient(120deg, var(--orange-6), var(--orange-5));
+  background-image: linear-gradient(120deg, var(--orange-6), var(--orange-9));
   display: flex;
   justify-content: space-around;
   align-items: center;
