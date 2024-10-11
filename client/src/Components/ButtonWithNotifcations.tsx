@@ -8,15 +8,15 @@ interface ButtonWithNotifcationsProps {
 }
 
 const ButtonHolder = styled.div`
-  display: flex;
-  justify-content: center;
+  position: relative;
+  gap: 6.4rem;
 `;
 
 const Notification = styled.div`
-  position: relative;
+  position: absolute;
+  left: 3.5rem;
+  top: -1rem;
   z-index: 1;
-  top: -10px;
-  left: 80px;
   background-color: var(--red);
   color: var(--gray-0);
   border-radius: 50%;
