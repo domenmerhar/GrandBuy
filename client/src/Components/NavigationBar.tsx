@@ -8,14 +8,25 @@ import {
   HiOutlineX,
 } from "react-icons/hi";
 import { useState } from "react";
+import { SearchBar } from "../Util/SearchBar";
 
 const NavigationHolder = styled.div`
   background-image: linear-gradient(120deg, var(--orange-6), var(--orange-5));
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
 
   padding: 0.5rem 0.75rem;
+
+  & > *:nth-child(2) {
+    flex: 20rem 0.5 1;
+  }
+`;
+
+const ButtonHolder = styled.div`
+  display: flex;
+  gap: 3.2rem;
+  justify-content: space-between;
 `;
 
 export const NavigationBar = () => {
@@ -29,17 +40,21 @@ export const NavigationBar = () => {
     <NavigationHolder>
       <Logo />
 
-      <ButtonWithNotifcations notificationCount={50}>
-        <HiOutlineBell size={48} />
-      </ButtonWithNotifcations>
+      <SearchBar />
 
-      <ButtonWithNotifcations notificationCount={50}>
-        <HiOutlineShoppingCart size={48} />
-      </ButtonWithNotifcations>
+      <ButtonHolder>
+        <ButtonWithNotifcations notificationCount={50}>
+          <HiOutlineBell size={44} />
+        </ButtonWithNotifcations>
 
-      <ButtonWithNotifcations onClick={menuHandler}>
-        {isOpen ? <HiOutlineX size={48} /> : <HiOutlineMenu size={48} />}
-      </ButtonWithNotifcations>
+        <ButtonWithNotifcations notificationCount={50}>
+          <HiOutlineShoppingCart size={44} />
+        </ButtonWithNotifcations>
+
+        <ButtonWithNotifcations onClick={menuHandler}>
+          {isOpen ? <HiOutlineX size={44} /> : <HiOutlineMenu size={44} />}
+        </ButtonWithNotifcations>
+      </ButtonHolder>
     </NavigationHolder>
   );
 };
