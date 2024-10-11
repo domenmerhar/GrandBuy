@@ -72,6 +72,10 @@ ul {
 img {
   max-width: 100%;
 }
+
+svg {
+  color: var(--gray-7);
+}
 `;
 
 export default GlobalStyles;
