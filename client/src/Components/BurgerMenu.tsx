@@ -2,9 +2,10 @@ import { FC } from "react";
 import styled from "styled-components";
 import { Backdrop } from "../Util/Backdrop";
 import { BurgerMenuNavigationList } from "./BurgerMenuNavigationList";
+import { BurgerMenuThemeExit } from "./BurgerMenuThemeExit";
 
 const StyledBurgerMenu = styled.aside`
-  height: 100vh;
+  height: 93vh;
   background-color: var(--gray-9);
   position: fixed;
   right: 0;
@@ -58,6 +59,8 @@ export const BurgerMenu: FC<BurgerMenuProps> = ({ isOpen, handleClose }) => {
           </UserHolder>
 
           <BurgerMenuNavigationList />
+
+          <BurgerMenuThemeExit />
         </StyledBurgerMenu>
       </>
     )
