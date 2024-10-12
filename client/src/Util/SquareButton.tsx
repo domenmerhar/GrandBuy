@@ -22,9 +22,9 @@ export const SquareButton = styled.button<SquareButtonProps>`
   border-radius: 1rem;
 
   width: ${({ $size }) =>
-    $size === "large" ? "5.4rem" : $size === "medium" ? "4.8rem" : "3.2rem"};
+    $size === "large" ? "5.4rem" : $size === "medium" ? "4.8rem" : "3.6rem"};
   height: ${({ $size }) =>
-    $size === "large" ? "5.4rem" : $size === "medium" ? "4.8rem" : "3.2rem"};
+    $size === "large" ? "5.4rem" : $size === "medium" ? "4.8rem" : "3.6rem"};
 
   transition: all 200ms;
 
