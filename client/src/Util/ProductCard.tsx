@@ -1,7 +1,7 @@
 import { FC } from "react";
 import styled from "styled-components";
 import { SquareButton } from "./SquareButton";
-import { HiOutlinePlus } from "react-icons/hi";
+import { HiPlus } from "react-icons/hi";
 
 interface ProductCardProps {
   id: string;
@@ -24,26 +24,36 @@ const StyledProductCard = styled.div`
   align-items: start;
   flex-direction: column;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+  transition: all 200ms ease-in;
+
+  &:hover {
+    transform: translateY(-2px);
+    cursor: pointer;
+  }
 `;
 
 const Discount = styled.p`
   display: flex;
   justify-content: center;
   align-items: center;
+
   position: absolute;
-  background-color: var(--red);
-  color: var(--gray-0);
   right: -25px;
   top: -25px;
+
+  background-color: var(--red);
+  color: var(--gray-0);
+
   rotate: 30deg;
   height: 5rem;
   width: 5rem;
   border-radius: 50px;
-  font-weight: 500;
+
+  font-weight: 600;
 `;
 
 const ImageHolder = styled.div`
-  width: 20rem;
   height: 22rem;
   overflow: hidden;
   display: flex;
@@ -102,7 +112,7 @@ export const ProductCard: FC<ProductCardProps> = ({
       <PriceButtonHolder>
         <Price>${price}</Price>
         <SquareButton $size="small" $color="orange">
-          <HiOutlinePlus color="#f8f9fa" size={20} />
+          <HiPlus color="#f8f9fa" size={24} />
         </SquareButton>
       </PriceButtonHolder>
     </StyledProductCard>
