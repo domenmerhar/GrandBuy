@@ -100,10 +100,7 @@ export const ProductCard: FC<ProductCardProps> = ({
   return (
     <StyledProductCard>
       <ImageHolder>
-        <Image
-          src="https://cdn.shopify.com/s/files/1/0533/2089/files/placeholder-images-image_large.png?v=1530126788"
-          alt="product"
-        />
+        <Image src={image} alt={title} />
       </ImageHolder>
 
       {discount && <Discount>-{discount}%</Discount>}
