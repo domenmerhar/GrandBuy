@@ -9,6 +9,8 @@ import {
 } from "react-icons/hi";
 import { useState } from "react";
 import { SearchBar } from "../Util/SearchBar";
+import { BurgerMenu } from "./BurgerMenu";
+import { createPortal } from "react-dom";
 
 const NavigationHolder = styled.div`
   background-image: linear-gradient(120deg, var(--orange-6), var(--orange-9));
@@ -37,24 +39,31 @@ export const NavigationBar = () => {
   };
 
   return (
-    <NavigationHolder>
-      <Logo />
+    <>
+      <NavigationHolder>
+        <Logo />
 
-      <SearchBar />
+        <SearchBar />
 
-      <ButtonHolder>
-        <ButtonWithNotifcations notificationCount={50}>
-          <HiOutlineBell size={44} />
-        </ButtonWithNotifcations>
+        <ButtonHolder>
+          <ButtonWithNotifcations notificationCount={50}>
+            <HiOutlineBell size={44} />
+          </ButtonWithNotifcations>
 
-        <ButtonWithNotifcations notificationCount={50}>
-          <HiOutlineShoppingCart size={44} />
-        </ButtonWithNotifcations>
+          <ButtonWithNotifcations notificationCount={50}>
+            <HiOutlineShoppingCart size={44} />
+          </ButtonWithNotifcations>
 
-        <ButtonWithNotifcations onClick={menuHandler}>
-          {isOpen ? <HiOutlineX size={44} /> : <HiOutlineMenu size={44} />}
-        </ButtonWithNotifcations>
-      </ButtonHolder>
-    </NavigationHolder>
+          <ButtonWithNotifcations onClick={menuHandler}>
+            {isOpen ? <HiOutlineX size={44} /> : <HiOutlineMenu size={44} />}
+          </ButtonWithNotifcations>
+        </ButtonHolder>
+      </NavigationHolder>
+
+      {createPortal(
+        <BurgerMenu isOpen={isOpen} />,
+        document.getElementById("burger-menu") as HTMLElement
+      )}
+    </>
   );
 };
