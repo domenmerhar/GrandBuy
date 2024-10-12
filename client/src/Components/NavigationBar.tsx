@@ -61,7 +61,7 @@ export const NavigationBar = () => {
       </NavigationHolder>
 
       {createPortal(
-        <BurgerMenu isOpen={isOpen} />,
+        <BurgerMenu isOpen={isOpen} handleClose={menuHandler} />,
         document.getElementById("burger-menu") as HTMLElement
       )}
     </>
