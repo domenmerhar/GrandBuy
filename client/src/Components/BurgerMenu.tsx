@@ -1,5 +1,6 @@
 import { FC } from "react";
 import styled from "styled-components";
+import { Backdrop } from "../Util/Backdrop";
 
 const StyledBurgerMenu = styled.aside`
   height: 100vh;
@@ -20,10 +21,18 @@ const UserHolder = styled.div`
 
 interface BurgerMenuProps {
   isOpen: boolean;
+  handleClose: (e: React.MouseEvent<HTMLDivElement>) => void;
 }
 
-export const BurgerMenu: FC<BurgerMenuProps> = ({ isOpen }) => {
+export const BurgerMenu: FC<BurgerMenuProps> = ({ isOpen, handleClose }) => {
   if (!isOpen) return null;
 
-  return <StyledBurgerMenu>BurgerMenu</StyledBurgerMenu>;
+  return (
+    <>
+      <Backdrop onClick={handleClose}></Backdrop>
+      <StyledBurgerMenu>
+        <UserHolder></UserHolder>
+      </StyledBurgerMenu>
+    </>
+  );
 };
