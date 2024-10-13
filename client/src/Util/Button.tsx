@@ -11,7 +11,7 @@ export const Button = styled.button<ButtonProps>`
     "background-image: linear-gradient(120deg, var(--orange-6), var(--orange-5));"}
 
   color: ${({ $color }) =>
-    $color === "orange" ? "var(--gray-0)" : "var(--orange-5)"};
+    $color === "orange" ? "var(--gray-0)" : "var(--gray-7)"};
 
   border: none;
   border-radius: ${({ $shape }) =>
