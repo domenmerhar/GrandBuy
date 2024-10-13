@@ -8,7 +8,7 @@ interface HeaderProps {
 export const Header = styled.header<HeaderProps>`
   ${({ $color }) =>
     $color === "orange" &&
-    `background: -webkit-linear-gradient(120deg, var(--orange-7), var(--orange-4));
+    `background: -webkit-linear-gradient(120deg, var(--orange-4), var(--orange-6));
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;`}
