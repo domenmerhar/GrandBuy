@@ -1,6 +1,8 @@
 import styled from "styled-components";
+import { Header } from "../Util/Header";
 
 const StyledHero = styled.div`
+  position: relative;
   background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
     url("https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
   height: 95vh;
@@ -28,6 +30,25 @@ const StyledHero = styled.div`
   }
 `;
 
+const ContentHolder = styled.div`
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 6%;
+`;
+
 export const Hero = () => {
-  return <StyledHero>Hero</StyledHero>;
+  return (
+    <StyledHero>
+      <ContentHolder>
+        <Header $color="white" $size="large" as="h1">
+          Save up to 70%
+        </Header>
+
+        <Header $color="orange" $size="medium">
+          Grand Fall Sale
+        </Header>
+      </ContentHolder>
+    </StyledHero>
+  );
 };
