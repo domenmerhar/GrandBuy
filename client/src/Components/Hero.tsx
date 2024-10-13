@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { Header } from "../Util/Header";
+import { Button } from "../Util/Button";
 
 const StyledHero = styled.div`
   position: relative;
@@ -33,8 +34,24 @@ const StyledHero = styled.div`
 const ContentHolder = styled.div`
   position: absolute;
   top: 50%;
-  transform: translateY(-50%);
   left: 6%;
+  transform: translateY(-50%);
+
+  display: flex;
+  flex-direction: column;
+
+  & > *:nth-child(2) {
+    margin-top: -0.8rem;
+  }
+
+  & > *:nth-child(3) {
+    margin-top: 3.2rem;
+  }
+`;
+
+const ButtonHolder = styled.div`
+  display: flex;
+  gap: 1.6rem;
 `;
 
 export const Hero = () => {
@@ -45,9 +62,19 @@ export const Hero = () => {
           Save up to 70%
         </Header>
 
-        <Header $color="orange" $size="medium">
+        <Header $color="orange" $size="small">
           Grand Fall Sale
         </Header>
+
+        <ButtonHolder>
+          <Button $color="orange" $shape="oval">
+            Shop Now
+          </Button>
+
+          <Button $color="gray" $shape="oval">
+            Learn More
+          </Button>
+        </ButtonHolder>
       </ContentHolder>
     </StyledHero>
   );
