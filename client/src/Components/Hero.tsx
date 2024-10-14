@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { Header } from "../Util/Header";
 import { Button } from "../Util/Button";
+import { Countdown } from "./Countdown";
 
 const StyledHero = styled.div`
   position: relative;
@@ -33,7 +34,7 @@ const StyledHero = styled.div`
 
 const ContentHolder = styled.div`
   position: absolute;
-  top: 50%;
+  top: 40%;
   left: 6%;
   transform: translateY(-50%);
 
@@ -65,6 +66,8 @@ export const Hero = () => {
         <Header $color="orange" $size="small">
           Grand Fall Sale
         </Header>
+
+        <Countdown />
 
         <ButtonHolder>
           <Button $color="orange" $shape="oval">
