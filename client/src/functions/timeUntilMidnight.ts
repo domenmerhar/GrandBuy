@@ -1,4 +1,6 @@
-export const timeUntilMidnight = () => {
+import { iTime } from "../Util/types";
+
+export const timeUntilMidnight: () => iTime = () => {
   const midnight = new Date();
   midnight.setHours(24);
   midnight.setMinutes(0);
