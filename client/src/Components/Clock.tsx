@@ -37,10 +37,6 @@ const ClockTextHolder = styled.div`
     margin-top: -1.2rem;
     color: var(--gray-2);
   }
-
-  &:first-child > *:last-child {
-    margin-left: 2px;
-  }
 `;
 
 const ClockText = styled.span<ClockTextProps>`
