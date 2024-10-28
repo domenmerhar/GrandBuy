@@ -42,10 +42,14 @@ const ContentHolder = styled.div`
   flex-direction: column;
 
   & > *:nth-child(2) {
-    margin-top: -0.8rem;
+    //margin-top: -0.8rem;
   }
 
   & > *:nth-child(3) {
+    margin-top: 3.2rem;
+  }
+
+  & > *:last-child {
     margin-top: 3.2rem;
   }
 `;
