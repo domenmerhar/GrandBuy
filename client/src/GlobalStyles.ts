@@ -27,6 +27,9 @@ const GlobalStyles = createGlobalStyle`
   --red: #FF0000;
   --green-6: #40C057;
   --green-7: #37B24D;
+
+  --skew: 5deg;
+  --skew-negative: -5deg;
 }
 
 *,
