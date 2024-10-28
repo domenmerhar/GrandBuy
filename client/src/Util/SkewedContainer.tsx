@@ -17,6 +17,7 @@ const Content = styled.div`
   max-width: 1440px;
   padding: 0 3.2rem;
   margin: 0 auto;
+  padding-top: 4.8rem;
 
   transform: skewY(var(--skew-negative)) translateZ(0);
 `;
