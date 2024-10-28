@@ -41,10 +41,6 @@ const ContentHolder = styled.div`
   display: flex;
   flex-direction: column;
 
-  & > *:nth-child(2) {
-    //margin-top: -0.8rem;
-  }
-
   & > *:nth-child(3) {
     margin-top: 3.2rem;
   }
