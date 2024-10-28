@@ -12,13 +12,18 @@ import { SearchBar } from "../Util/SearchBar";
 import { BurgerMenu } from "./BurgerMenu";
 import { createPortal } from "react-dom";
 
-const NavigationHolder = styled.div`
+const BackgroundDiv = styled.div`
   background-image: linear-gradient(120deg, var(--orange-6), var(--orange-9));
+`;
+
+const NavigationHolder = styled.div`
+  margin: 0 auto;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
 
-  padding: 0.5rem 0.75rem;
+  max-width: 1440px;
+  padding: 0.5rem 3.2rem;
 
   & > *:nth-child(2) {
     flex: 20rem 0.5 1;
@@ -39,7 +44,7 @@ export const NavigationBar = () => {
   };
 
   return (
-    <>
+    <BackgroundDiv>
       <NavigationHolder>
         <Logo />
 
@@ -64,6 +69,6 @@ export const NavigationBar = () => {
         <BurgerMenu isOpen={isOpen} handleClose={menuHandler} />,
         document.getElementById("burger-menu") as HTMLElement
       )}
-    </>
+    </BackgroundDiv>
   );
 };
