@@ -30,13 +30,16 @@ const StyledHero = styled.div`
     background-position: 45% 0%;
     background-size: 315%;
   }
+
+  display: flex;
+  align-items: center;
 `;
 
 const ContentHolder = styled.div`
-  position: absolute;
-  top: 40%;
-  left: 6%;
-  transform: translateY(-50%);
+  margin: 0 auto;
+  margin-bottom: 15rem;
+  width: 1440px;
+  padding: 32px;
 
   display: flex;
   flex-direction: column;
