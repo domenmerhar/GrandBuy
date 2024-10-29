@@ -12,8 +12,16 @@ import { SearchBar } from "../Util/SearchBar";
 import { BurgerMenu } from "./BurgerMenu";
 import { createPortal } from "react-dom";
 
+const Placeholder = styled.div`
+  height: 7.5rem;
+`;
+
 const BackgroundDiv = styled.div`
   background-image: linear-gradient(120deg, var(--orange-6), var(--orange-9));
+  width: 100vw;
+  position: fixed;
+  z-index: 1000;
+  height: 7.5rem;
 `;
 
 const NavigationHolder = styled.div`
@@ -44,31 +52,34 @@ export const NavigationBar = () => {
   };
 
   return (
-    <BackgroundDiv>
-      <NavigationHolder>
-        <Logo />
+    <>
+      <BackgroundDiv>
+        <NavigationHolder>
+          <Logo />
 
-        <SearchBar />
+          <SearchBar />
 
-        <ButtonHolder>
-          <ButtonWithNotifcations notificationCount={50}>
-            <HiOutlineBell size={44} />
-          </ButtonWithNotifcations>
+          <ButtonHolder>
+            <ButtonWithNotifcations notificationCount={50}>
+              <HiOutlineBell size={44} />
+            </ButtonWithNotifcations>
 
-          <ButtonWithNotifcations notificationCount={50}>
-            <HiOutlineShoppingCart size={44} />
-          </ButtonWithNotifcations>
+            <ButtonWithNotifcations notificationCount={50}>
+              <HiOutlineShoppingCart size={44} />
+            </ButtonWithNotifcations>
 
-          <ButtonWithNotifcations onClick={menuHandler}>
-            {isOpen ? <HiOutlineX size={44} /> : <HiOutlineMenu size={44} />}
-          </ButtonWithNotifcations>
-        </ButtonHolder>
-      </NavigationHolder>
+            <ButtonWithNotifcations onClick={menuHandler}>
+              {isOpen ? <HiOutlineX size={44} /> : <HiOutlineMenu size={44} />}
+            </ButtonWithNotifcations>
+          </ButtonHolder>
+        </NavigationHolder>
 
-      {createPortal(
-        <BurgerMenu isOpen={isOpen} handleClose={menuHandler} />,
-        document.getElementById("burger-menu") as HTMLElement
-      )}
-    </BackgroundDiv>
+        {createPortal(
+          <BurgerMenu isOpen={isOpen} handleClose={menuHandler} />,
+          document.getElementById("burger-menu") as HTMLElement
+        )}
+      </BackgroundDiv>
+      <Placeholder />
+    </>
   );
 };
