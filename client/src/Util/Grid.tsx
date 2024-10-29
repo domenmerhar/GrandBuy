@@ -5,6 +5,7 @@ interface GridProps {
   $maxWidth: string;
   $colGap: string;
   $rowGap: string;
+  $margin?: string;
 }
 
 export const Grid = styled.div<GridProps>`
@@ -16,4 +17,6 @@ export const Grid = styled.div<GridProps>`
   column-gap: ${({ $colGap }) => $colGap};
   row-gap: ${({ $rowGap }) => $rowGap};
   justify-content: space-around;
+
+  ${({ $margin }) => $margin && `margin: ${$margin};`}
 `;
