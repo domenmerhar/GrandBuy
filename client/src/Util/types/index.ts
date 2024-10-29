@@ -3,3 +3,8 @@ export interface iTime {
   minutesUntilMidnight: number;
   secondsUntilMidnight: number;
 }
+
+export interface IOption {
+  name: string;
+  value: string;
+}
