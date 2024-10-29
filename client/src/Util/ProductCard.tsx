@@ -13,14 +13,14 @@ interface ProductCardProps {
 
 const StyledProductCard = styled.div`
   background-color: var(--gray-1);
-  width: 27rem;
-  border-end-end-radius: 8px;
+  border-radius: 12px;
   position: relative;
-  padding: 1.6rem;
+
+  width: 30rem;
+  padding: 2.4rem;
 
   display: flex;
   gap: 0.8rem;
-  justify-content: start;
   align-items: start;
   flex-direction: column;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -30,6 +30,11 @@ const StyledProductCard = styled.div`
   &:hover {
     transform: translateY(-2px);
     cursor: pointer;
+  }
+
+  @media (max-width: 82em) {
+    width: 28rem;
+    padding: 2rem;
   }
 `;
 
@@ -54,20 +59,28 @@ const Discount = styled.p`
 `;
 
 const ImageHolder = styled.div`
-  height: 22rem;
+  height: 24rem;
   overflow: hidden;
   display: flex;
   align-self: center;
+
+  @media (max-width: 82em) {
+    height: 22rem;
+  }
 `;
 
 const Image = styled.img`
-  width: 27rem;
+  width: 30rem;
   overflow: hidden;
+
+  @media (max-width: 82em) {
+    width: 27rem;
+  }
 `;
 
 const Title = styled.h3`
-  width: 95%;
-  color: var(--gray-8);
+  width: 100%;
+  font-weight: 500;
   font-size: 1.6rem;
   height: 1.2em;
   text-transform: capitalize;
@@ -87,7 +100,6 @@ const PriceButtonHolder = styled.div`
   justify-content: space-between;
   align-items: center;
   align-self: stretch;
-  margin-right: 1.5rem;
 `;
 
 export const ProductCard: FC<ProductCardProps> = ({
@@ -103,7 +115,7 @@ export const ProductCard: FC<ProductCardProps> = ({
         <Image src={image} alt={title} />
       </ImageHolder>
 
-      {discount && <Discount>-{discount}%</Discount>}
+      {discount && discount > 0 ? <Discount>-{discount}%</Discount> : null}
       <Title>{title}</Title>
 
       <PriceButtonHolder>
