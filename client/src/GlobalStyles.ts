@@ -45,6 +45,7 @@ html {
 }
 
 body {
+    background-color: var(--gray-2);
     color: var(--gray-8);
     font-family: "Inter", sans-serif;
 
