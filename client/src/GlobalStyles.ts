@@ -50,6 +50,7 @@ body {
     font-family: "Inter", sans-serif;
 
     font-size: 1.6rem;
+    overflow-x: hidden;
 }
 
 input,
