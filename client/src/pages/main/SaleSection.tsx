@@ -1,11 +1,10 @@
-import { SkewedContainer } from "./SkewedContainer";
-import { Header } from "./Header";
-import { Grid } from "./Grid";
-import { ProductCard } from "./ProductCard";
+import { Header } from "../../Util/Header";
+import { Grid } from "../../Util/Grid";
+import { ProductCard } from "../../Util/ProductCard";
 
 export const SaleSection = () => {
   return (
-    <SkewedContainer>
+    <>
       <Header $color="orange" $size="medium">
         Summer Sale
       </Header>
@@ -27,6 +26,6 @@ export const SaleSection = () => {
           />
         ))}
       </Grid>
-    </SkewedContainer>
+    </>
   );
 };
