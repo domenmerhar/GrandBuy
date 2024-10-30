@@ -51,7 +51,10 @@ export const Pagination = () => {
   const handlePreviousPage = () => setCurrentPage((prev) => prev - 1);
 
   useEffect(() => {
-    setSearchParams({ page: currentPage.toString() });
+    setSearchParams((searchParams) => {
+      searchParams.set("page", currentPage.toString());
+      return searchParams;
+    });
   }, [currentPage, setSearchParams]);
 
   const handleChangePage = (e: React.ChangeEvent<HTMLInputElement>) => {
