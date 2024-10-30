@@ -1,6 +1,7 @@
-import { FC } from "react";
+import { ChangeEvent, FC } from "react";
 import styled from "styled-components";
 import { Checkbox } from "../../Util/Checkbox";
+import { useSearchParams } from "react-router-dom";
 
 interface CheckboxProps {
   id: string;
@@ -17,13 +18,21 @@ const StyledCheckboxWithText = styled.div`
   }
 `;
 
-const Label = styled.label``;
-
 export const CheckboxWithText: FC<CheckboxProps> = ({ id, label }) => {
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const handleCheckboxChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.checked)
+      return setSearchParams({ ...searchParams, [id]: "true" });
+
+    searchParams.delete(id);
+    setSearchParams(searchParams);
+  };
+
   return (
     <StyledCheckboxWithText>
-      <Checkbox type="checkbox" id={id} />
-      <Label htmlFor={id}>{label}</Label>
+      <Checkbox type="checkbox" id={id} onChange={handleCheckboxChange} />
+      <label htmlFor={id}>{label}</label>
     </StyledCheckboxWithText>
   );
 };
