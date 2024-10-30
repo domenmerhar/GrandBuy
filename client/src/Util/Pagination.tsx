@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { HiArrowLeft, HiArrowRight } from "react-icons/hi";
+import { useSearchParams } from "react-router-dom";
 
 import styled from "styled-components";
 
@@ -44,9 +45,14 @@ const CurrentPage = styled.input`
 
 export const Pagination = () => {
   const [currentPage, setCurrentPage] = useState<number>(1);
+  const [, setSearchParams] = useSearchParams();
 
   const handleNextPage = () => setCurrentPage((prev) => prev + 1);
   const handlePreviousPage = () => setCurrentPage((prev) => prev - 1);
+
+  useEffect(() => {
+    setSearchParams({ page: currentPage.toString() });
+  }, [currentPage, setSearchParams]);
 
   const handleChangePage = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (+e.target.value < 1) return setCurrentPage(1);
