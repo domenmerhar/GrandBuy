@@ -19,14 +19,19 @@ const StyledCheckboxWithText = styled.div`
 `;
 
 export const CheckboxWithText: FC<CheckboxProps> = ({ id, label }) => {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [, setSearchParams] = useSearchParams();
 
   const handleCheckboxChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.checked)
-      return setSearchParams({ ...searchParams, [id]: "true" });
+      return setSearchParams((searchParams) => {
+        searchParams.set(id, "true");
+        return searchParams;
+      });
 
-    searchParams.delete(id);
-    setSearchParams(searchParams);
+    setSearchParams((searchParams) => {
+      searchParams.delete(id);
+      return searchParams;
+    });
   };
 
   return (
