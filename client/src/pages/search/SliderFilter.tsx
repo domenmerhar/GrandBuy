@@ -28,12 +28,10 @@ export const SliderFilter = () => {
     const min = Math.min(...(newValue as number[]));
     const max = Math.max(...(newValue as number[]));
 
-    setMaxValue((prev) => (max * 1.1 > prev ? prev + 5 : prev));
-
-    console.log({ max, maxValue });
-
     minRef.current!.value = `$${min}`;
     maxRef.current!.value = `$${max}`;
+
+    setMaxValue((prev) => (max * 1.1 > prev ? prev + 5 : prev));
   };
 
   const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
@@ -48,8 +46,11 @@ export const SliderFilter = () => {
         updatedValue[1] = newValue;
       }
 
-      minRef.current!.value = `$${updatedValue[0]}`;
-      maxRef.current!.value = `$${updatedValue[1]}`;
+      const min = Math.min(...(updatedValue as number[]));
+      const max = Math.max(...(updatedValue as number[]));
+
+      minRef.current!.value = `$${min}`;
+      maxRef.current!.value = `$${max}`;
 
       return updatedValue;
     });
