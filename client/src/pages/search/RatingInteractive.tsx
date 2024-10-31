@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import { Rating } from "react-simple-star-rating";
 
 const tooltipArray = [
@@ -27,11 +27,15 @@ const fillColorArray = [
   "#f1d045",
 ];
 
-export const RatingCustom = () => {
-  const [rating, setRating] = useState<number>(0);
-  const handleRating = (rate: number) => setRating(rate);
+export const RatingInteractive = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
 
-  console.log(rating);
+  const handleRating = (rating: number) => {
+    setSearchParams((searchParams) => {
+      searchParams.set("rating", rating.toString());
+      return searchParams;
+    });
+  };
 
   return (
     <Rating
@@ -49,6 +53,9 @@ export const RatingCustom = () => {
         fontWeight: "500",
         fontSize: "1.8rem",
       }}
+      initialValue={
+        searchParams.get("rating") ? parseFloat(searchParams.get("rating")!) : 0
+      }
     />
   );
 };
