@@ -73,13 +73,8 @@ ul {
   list-style: none;
 }
 
-
 img {
   max-width: 100%;
-}
-
-svg {
-  color: var(--gray-7);
 }
 `;
 
