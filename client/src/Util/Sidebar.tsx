@@ -15,6 +15,18 @@ const StyledSidebar = styled.aside`
   padding: 2.4rem 3.2rem;
 `;
 
+const Placeholder = styled.div`
+  display: inline-block;
+  min-width: 20rem;
+  width: 32rem;
+  height: 100vh;
+`;
+
 export const Sidebar: FC<SidebarProps> = ({ children }) => {
-  return <StyledSidebar>{children}</StyledSidebar>;
+  return (
+    <>
+      <StyledSidebar>{children}</StyledSidebar>
+      <Placeholder />
+    </>
+  );
 };
