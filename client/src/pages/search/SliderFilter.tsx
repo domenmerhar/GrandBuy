@@ -22,7 +22,7 @@ export const SliderFilter = () => {
   const minRef = useRef<HTMLInputElement>(null);
   const maxRef = useRef<HTMLInputElement>(null);
 
-  const handleChangeSlider = (e: Event, newValue: number | number[]) => {
+  const handleChangeSlider = (_: Event, newValue: number | number[]) => {
     setValue(newValue as number[]);
 
     const min = Math.min(...(newValue as number[]));
@@ -36,31 +36,22 @@ export const SliderFilter = () => {
     maxRef.current!.value = `$${max}`;
   };
 
-  // const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   setValue((prev) => {
-  //     const newValue = prev;
-  //     if (e.target === minRef.current) {
-  //       newValue[0] = parseInt(inputValue);
-  //     } else {
-  //       newValue[1] = parseInt(inputValue);
-  //     }
-
-  //     minRef.current!.value = `$${Math.min(...(newValue as number[]))}`;
-  //     maxRef.current!.value = `$${Math.max(...(newValue as number[]))}`;
-  //     return newValue;
-  //   });
-
-  //   setInputValue("");
-  // };
-
   const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
-    if (!+e.target.value) return;
+    const newValue = parseInt(e.target.value.replace("$", ""));
+    if (isNaN(newValue)) return;
 
     setValue((prev) => {
-      const newValue = prev;
-      newValue[e.target === minRef.current ? 0 : 1] = parseInt(e.target.value);
+      const updatedValue = [...prev];
+      if (e.target === minRef.current) {
+        updatedValue[0] = newValue;
+      } else {
+        updatedValue[1] = newValue;
+      }
 
-      return newValue;
+      minRef.current!.value = `$${updatedValue[0]}`;
+      maxRef.current!.value = `$${updatedValue[1]}`;
+
+      return updatedValue;
     });
   };
 
