@@ -35,4 +35,8 @@ export const SquareButton = styled.button<SquareButtonProps>`
   &:active {
     transform: scale(0.95);
   }
+
+  svg {
+    color: var(--gray-7);
+  }
 `;
