@@ -13,8 +13,11 @@ function valuetext(value: number) {
   return `${value}€`;
 }
 
+const initialMaxValue = 100;
+
 export const SliderFilter = () => {
   const [value, setValue] = useState<number[]>([0, 0]);
+  const [maxValue, setMaxValue] = useState<number>(initialMaxValue);
 
   const minRef = useRef<HTMLInputElement>(null);
   const maxRef = useRef<HTMLInputElement>(null);
@@ -22,8 +25,15 @@ export const SliderFilter = () => {
   const handleChangeSlider = (e: Event, newValue: number | number[]) => {
     setValue(newValue as number[]);
 
-    minRef.current!.value = `$${Math.min(...(newValue as number[]))}`;
-    maxRef.current!.value = `$${Math.max(...(newValue as number[]))}`;
+    const min = Math.min(...(newValue as number[]));
+    const max = Math.max(...(newValue as number[]));
+
+    setMaxValue((prev) => (max * 1.1 > prev ? prev + 5 : prev));
+
+    console.log({ max, maxValue });
+
+    minRef.current!.value = `$${min}`;
+    maxRef.current!.value = `$${max}`;
   };
 
   // const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -44,14 +54,14 @@ export const SliderFilter = () => {
   // };
 
   const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+    if (!+e.target.value) return;
+
     setValue((prev) => {
       const newValue = prev;
       newValue[e.target === minRef.current ? 0 : 1] = parseInt(e.target.value);
+
       return newValue;
     });
-
-    minRef.current!.value = `$${Math.min(...(value as number[]))}`;
-    maxRef.current!.value = `$${Math.max(...(value as number[]))}`;
   };
 
   return (
@@ -61,7 +71,7 @@ export const SliderFilter = () => {
         onChange={handleChangeSlider}
         getAriaValueText={valuetext}
         color="warning"
-        //max={Math.max(...value)}
+        max={maxValue}
       />
       <RangeHolder>
         <NakedInput
