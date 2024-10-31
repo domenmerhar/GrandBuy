@@ -21,8 +21,10 @@ export const Select: FC<SelectProps> = ({ options }) => {
   const [, setSearchParams] = useSearchParams();
 
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    console.log(e.target.value);
-    setSearchParams({ sort: e.target.value });
+    setSearchParams((searchParams) => {
+      searchParams.set("sort", e.target.value);
+      return searchParams;
+    });
   };
 
   return (
