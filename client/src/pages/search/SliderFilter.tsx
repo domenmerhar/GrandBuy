@@ -2,6 +2,7 @@ import { Slider } from "@mui/material";
 import { useRef, useState } from "react";
 import { NakedInput } from "../../Util/NakedInput";
 import styled from "styled-components";
+import { useSearchParams } from "react-router-dom";
 
 const RangeHolder = styled.div`
   display: flex;
@@ -18,6 +19,7 @@ const initialMaxValue = 100;
 export const SliderFilter = () => {
   const [value, setValue] = useState<number[]>([0, 0]);
   const [maxValue, setMaxValue] = useState<number>(initialMaxValue);
+  const [, setSearchParams] = useSearchParams();
 
   const minRef = useRef<HTMLInputElement>(null);
   const maxRef = useRef<HTMLInputElement>(null);
@@ -49,6 +51,16 @@ export const SliderFilter = () => {
 
       const min = Math.min(...(updatedValue as number[]));
       const max = Math.max(...(updatedValue as number[]));
+
+      setSearchParams((searchParams) => {
+        if (!min) searchParams.delete("from");
+        else searchParams.set("from", min.toString());
+
+        if (!max) searchParams.delete("to");
+        else searchParams.set("to", max.toString());
+
+        return searchParams;
+      });
 
       minRef.current!.value = `$${min}`;
       maxRef.current!.value = `$${max}`;
