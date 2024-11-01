@@ -7,6 +7,16 @@ const BackgroundImage = styled.div`
 
   background-position: 0% 50%;
   background-size: 130%;
+
+  @media (max-width: 79em) {
+    background-size: 160%;
+    background-position: 25% 50%;
+  }
+
+  @media (max-width: 65em) {
+    background-size: 200%;
+    background-position: 30% 50%;
+  }
 `;
 
 const LoginContainer = styled.div`
@@ -18,6 +28,14 @@ const LoginContainer = styled.div`
   position: fixed;
 
   transform: skew(-20deg);
+
+  @media (max-width: 79em) {
+    width: 65vw;
+  }
+
+  @media (max-width: 65em) {
+    width: 75vw;
+  }
 `;
 
 const ContentHolder = styled.div`
@@ -38,9 +56,7 @@ export const LoginPage = () => {
   return (
     <>
       <LoginContainer />
-      <ContentHolder>
-        <input type="text" placeholder="Username" />
-      </ContentHolder>
+      <ContentHolder></ContentHolder>
       <BackgroundImage />
     </>
   );
