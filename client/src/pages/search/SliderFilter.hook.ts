@@ -11,14 +11,28 @@ export const useSliderFilter = () => {
   const minRef = useRef<HTMLInputElement>(null);
   const maxRef = useRef<HTMLInputElement>(null);
 
-  const handleChangeSlider = (_: Event, newValue: number | number[]) => {
-    setValue(newValue as number[]);
+  const updateSearchParamsAndInputs = (min: number, max: number) => {
+    setSearchParams((searchParams) => {
+      if (!min) searchParams.delete("from");
+      else searchParams.set("from", min.toString());
 
-    const min = Math.min(...(newValue as number[]));
-    const max = Math.max(...(newValue as number[]));
+      if (!max) searchParams.delete("to");
+      else searchParams.set("to", max.toString());
+
+      return searchParams;
+    });
 
     minRef.current!.value = `$${min}`;
     maxRef.current!.value = `$${max}`;
+  };
+
+  const handleChangeSlider = (_: Event, newValue: number | number[]) => {
+    const [min, max] = [
+      Math.min(...(newValue as number[])),
+      Math.max(...(newValue as number[])),
+    ];
+    setValue([min, max]);
+    updateSearchParamsAndInputs(min, max);
 
     setMaxValue((prev) => (max * 1.1 > prev ? prev + 5 : prev));
   };
@@ -36,21 +50,8 @@ export const useSliderFilter = () => {
         setMaxValue((prev) => (newValue > initialMaxValue ? newValue : prev));
       }
 
-      const min = Math.min(...(updatedValue as number[]));
-      const max = Math.max(...(updatedValue as number[]));
-
-      setSearchParams((searchParams) => {
-        if (!min) searchParams.delete("from");
-        else searchParams.set("from", min.toString());
-
-        if (!max) searchParams.delete("to");
-        else searchParams.set("to", max.toString());
-
-        return searchParams;
-      });
-
-      minRef.current!.value = `$${min}`;
-      maxRef.current!.value = `$${max}`;
+      const [min, max] = [Math.min(...updatedValue), Math.max(...updatedValue)];
+      updateSearchParamsAndInputs(min, max);
 
       return updatedValue;
     });
