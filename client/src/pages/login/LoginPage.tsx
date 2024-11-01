@@ -20,10 +20,27 @@ const LoginContainer = styled.div`
   transform: skew(-20deg);
 `;
 
+const ContentHolder = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 50vw;
+
+  height: 100vh;
+  position: fixed;
+  z-index: 3;
+
+  position: fixed;
+`;
+
 export const LoginPage = () => {
   return (
     <>
-      <LoginContainer></LoginContainer>
+      <LoginContainer />
+      <ContentHolder>
+        <input type="text" placeholder="Username" />
+      </ContentHolder>
       <BackgroundImage />
     </>
   );
