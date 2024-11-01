@@ -44,6 +44,7 @@ export const SliderFilter = () => {
         updatedValue[0] = newValue;
       } else {
         updatedValue[1] = newValue;
+        setMaxValue((prev) => (newValue > initialMaxValue ? newValue : prev));
       }
 
       const min = Math.min(...(updatedValue as number[]));
