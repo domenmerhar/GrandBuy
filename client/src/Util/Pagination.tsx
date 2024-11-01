@@ -3,6 +3,7 @@ import { HiArrowLeft, HiArrowRight } from "react-icons/hi";
 import { useSearchParams } from "react-router-dom";
 
 import styled from "styled-components";
+import { NakedInput } from "./NakedInput";
 
 const StyledPagination = styled.div`
   display: flex;
@@ -24,23 +25,6 @@ const PageButton = styled.button`
   &:disabled {
     background-color: var(--gray-4);
   }
-`;
-
-const CurrentPage = styled.input`
-  -webkit-appearance: none;
-  -moz-appearance: textfield;
-  appearance: textfield;
-
-  border: none;
-  border-radius: 8px;
-
-  width: 40px;
-  height: 40px;
-
-  text-align: center;
-
-  font-size: 2rem;
-  font-weight: 500;
 `;
 
 export const Pagination = () => {
@@ -68,7 +52,7 @@ export const Pagination = () => {
         <HiArrowLeft size={20} fill="#343a40" />
       </PageButton>
 
-      <CurrentPage
+      <NakedInput
         type="number"
         value={currentPage}
         onChange={handleChangePage}
