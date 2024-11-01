@@ -55,7 +55,7 @@ export const NavigationBar = () => {
     <>
       <BackgroundDiv>
         <NavigationHolder>
-          <Logo />
+          <Logo $color="white" />
 
           <SearchBar />
 
