@@ -8,6 +8,4 @@ interface StyledLinkProps {
 export const StyledLink = styled(Link)<StyledLinkProps>`
   color: var(--orange-5);
   font-size: ${({ $fontSize }) => $fontSize};
-
-  align-self: flex-end;
 `;
