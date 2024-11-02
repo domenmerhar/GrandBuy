@@ -37,8 +37,18 @@ export const LoginPage = () => {
       <Form>
         <Logo $color="orange" />
 
-        <InputWithLabel id="username" placeholder="Username" type="text" />
-        <InputWithLabel id="password" placeholder="Password" type="password" />
+        <InputWithLabel
+          id="username"
+          placeholder="Username"
+          type="text"
+          title="Username"
+        />
+        <InputWithLabel
+          id="password"
+          placeholder="Password"
+          type="password"
+          title="Password"
+        />
 
         <StyledLink $fontSize="1.4rem" to="/forgot-password">
           Forgot password?
