@@ -25,7 +25,7 @@ export const Button = styled.button<ButtonProps>`
     return $shape === "rectangle" ? "0.5rem 0.75rem" : "0.5rem 0.75rem";
   }};
 
-  font-size: ${({ $size }) => ($size === "large" ? "1.8rem" : "1.4rem")};
+  font-size: ${({ $size }) => ($size === "large" ? "1.8rem" : "1.6rem")};
   text-transform: uppercase;
   font-weight: 600;
   letter-spacing: 1px;
