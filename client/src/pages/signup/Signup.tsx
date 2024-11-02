@@ -20,6 +20,10 @@ const Form = styled.form`
     margin-top: 0.8rem;
   }
 
+  & > button {
+    margin-top: 1.2rem;
+  }
+
   & > a {
     margin: 0.6rem 0rem;
     align-self: flex-end;
@@ -62,17 +66,13 @@ export const SignupPage = () => {
           title="Confirm Password"
         />
 
-        <StyledLink $fontSize="1.4rem" to="/forgot-password">
-          Forgot password?
-        </StyledLink>
-
         <Button $color="orange" $shape="oval" $size="medium">
           Login
         </Button>
         <P>
-          Not a member?{" "}
+          Already a member?{" "}
           <StyledLink $fontSize="1.4rem" to="/register">
-            Register
+            Login
           </StyledLink>
         </P>
       </Form>
