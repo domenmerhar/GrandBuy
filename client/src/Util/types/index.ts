@@ -8,3 +8,9 @@ export interface IOption {
   name: string;
   value: string;
 }
+
+export interface RowColumnProps {
+  $gap?: string;
+  $justifyContent?: string;
+  $alignItems?: string;
+}
