@@ -2,6 +2,7 @@ import { FC } from "react";
 import styled from "styled-components";
 import { SquareButton } from "./SquareButton";
 import { HiPlus } from "react-icons/hi";
+import { AddButton } from "./AddButton";
 
 interface ProductCardProps {
   id: string;
@@ -120,9 +121,7 @@ export const ProductCard: FC<ProductCardProps> = ({
 
       <PriceButtonHolder>
         <Price>${price}</Price>
-        <SquareButton $size="small" $color="orange">
-          <HiPlus color="#f8f9fa" size={24} />
-        </SquareButton>
+        <AddButton />
       </PriceButtonHolder>
     </StyledProductCard>
   );
