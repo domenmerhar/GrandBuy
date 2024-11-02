@@ -6,6 +6,7 @@ interface InputWithLabelProps {
   id: string;
   placeholder: string;
   type: "text" | "password";
+  title: string;
 }
 
 const Label = styled.label`
@@ -19,10 +20,11 @@ export const InputWithLabel: FC<InputWithLabelProps> = ({
   id,
   placeholder,
   type,
+  title,
 }) => {
   return (
     <>
-      <Label htmlFor={id}>Username</Label>
+      <Label htmlFor={id}>{title}</Label>
       <Input type={type} placeholder={placeholder} id={id} />
     </>
   );
