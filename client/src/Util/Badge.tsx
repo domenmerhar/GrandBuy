@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 interface BadgeProps {
-  $color: "orange" | "red" | "green";
+  $color: "orange" | "red" | "green" | "yellow";
 }
 
 export const Badge = styled.span<BadgeProps>`
@@ -12,6 +12,8 @@ export const Badge = styled.span<BadgeProps>`
   ${({ $color }) => $color === "red" && "background-color: var(--red);"}
 
   ${({ $color }) => $color === "green" && "background-color: var(--green-6);"}
+
+  ${({ $color }) => $color === "yellow" && "background-color: var(--yellow);"}
 
   color: var(--gray-0);
   text-transform: uppercase;
