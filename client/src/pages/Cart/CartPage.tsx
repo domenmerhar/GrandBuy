@@ -6,7 +6,14 @@ import { ProductFilter } from "../../Util/ProductFilter";
 
 const Grid = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr) 35rem);
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(60rem, 1fr) minmax(25rem, 35rem)
+  );
+
+  grid-template-rows: min-content min-content;
+  align-items: start;
+  gap: 2.8rem;
 `;
 
 export const CartPage = () => {
@@ -14,7 +21,7 @@ export const CartPage = () => {
     <Content>
       <Grid>
         <CartCard />
-        <StyledSidebar $position="relative">
+        <StyledSidebar $position="sticky" $width="auto" $height="80vh">
           <ProductFilter />
         </StyledSidebar>
       </Grid>
