@@ -13,4 +13,5 @@ export interface RowColumnProps {
   $gap?: string;
   $justifyContent?: string;
   $alignItems?: string;
+  $flexWrap?: string;
 }
