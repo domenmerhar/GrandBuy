@@ -2,14 +2,15 @@ import styled from "styled-components";
 
 interface StyledSidebarProps {
   $position: string;
+  $width?: string;
+  $height?: string;
 }
 
 export const StyledSidebar = styled.aside<StyledSidebarProps>`
-  position: ${({ $position }: StyledSidebarProps) => $position};
+  position: ${({ $position }) => $position};
   display: inline-block;
-  min-width: 20rem;
-  width: 32rem;
-  height: 100vh;
+  width: ${({ $width }) => $width || "32rem"};
+  height: ${({ $height }) => $height || "100vh"};
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   padding: 2.4rem 3.2rem;
 `;
