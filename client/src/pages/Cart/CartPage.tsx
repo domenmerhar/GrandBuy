@@ -3,6 +3,7 @@ import { Content } from "../../Util/Content";
 import { CartCard } from "./CartCard";
 import { StyledSidebar } from "../../Util/StyledSidebar";
 import { ProductFilter } from "../../Util/ProductFilter";
+import { Pagination } from "../../Util/Pagination";
 
 const Grid = styled.div`
   display: grid;
@@ -11,9 +12,17 @@ const Grid = styled.div`
     minmax(60rem, 1fr) minmax(25rem, 35rem)
   );
 
-  grid-template-rows: min-content min-content;
+  grid-template-rows: min-content 1fr;
   align-items: start;
   gap: 2.8rem;
+
+  & > *:nth-child(2) {
+    grid-row: span 2;
+  }
+
+  & > *:last-child {
+    margin-bottom: auto;
+  }
 `;
 
 export const CartPage = () => {
@@ -24,6 +33,7 @@ export const CartPage = () => {
         <StyledSidebar $position="sticky" $width="auto" $height="80vh">
           <ProductFilter />
         </StyledSidebar>
+        <Pagination />
       </Grid>
     </Content>
   );
