@@ -10,4 +10,6 @@ export const Row = styled.div<RowColumnProps>`
     $justifyContent && `justify-content: ${$justifyContent};`}
 
   ${({ $alignItems }) => $alignItems && `align-items: ${$alignItems};`}
+
+  ${({ $flexWrap }) => $flexWrap && `flex-wrap: ${$flexWrap};`}
 `;
