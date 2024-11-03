@@ -24,7 +24,7 @@ const Product = styled.h2`
 `;
 
 const Description = styled.p`
-  width: 50ch;
+  max-width: 50ch;
   font-size: 1.4rem;
 
   text-overflow: ellipsis;
