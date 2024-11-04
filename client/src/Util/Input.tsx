@@ -6,6 +6,7 @@ interface InputProps {
 
 export const Input = styled.input<InputProps>`
   border: none;
+  min-height: 3.2rem;
 
   border-bottom: ${({ $error }) =>
     $error ? "2px solid var(--red)" : "2px solid transparent"};
@@ -14,7 +15,7 @@ export const Input = styled.input<InputProps>`
   border-radius: 12px;
 
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-  background-color: var(--gray-2);
+  background-color: var(--gray-1);
 
   transition: all 200ms;
 
@@ -31,11 +32,12 @@ export const Input = styled.input<InputProps>`
     background-color: var(--gray-0);
   }
 
-  &[type="password"] {
-    font-variant: small-caption;
+  &:disabled {
+    background-color: var(--gray-4);
+  }
 
-    &::placeholder {
-      font-variant: normal;
-    }
+  &[type="password"]:not(:placeholder-shown) {
+    font-variant: small-caps;
+    font-family: "pass";
   }
 `;
