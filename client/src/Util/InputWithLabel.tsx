@@ -7,6 +7,7 @@ interface InputWithLabelProps {
   placeholder: string;
   type: "text" | "password";
   title: string;
+  disabled?: boolean;
 }
 
 const Label = styled.label`
@@ -21,11 +22,17 @@ export const InputWithLabel: FC<InputWithLabelProps> = ({
   placeholder,
   type,
   title,
+  disabled,
 }) => {
   return (
     <>
       <Label htmlFor={id}>{title}</Label>
-      <Input type={type} placeholder={placeholder} id={id} />
+      <Input
+        type={type}
+        placeholder={placeholder}
+        id={id}
+        disabled={disabled || false}
+      />
     </>
   );
 };
