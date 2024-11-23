@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { createContext, FC, useContext, useState, ReactNode } from "react";
 import styled from "styled-components";
 import { Row } from "./Row";
 import { Button } from "./Button";
@@ -67,14 +67,44 @@ const Content = styled.p`
   }
 `;
 
-export const Modal: FC<ModalProps> = ({
+const ModalContext = createContext<{
+  isOpen: boolean;
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+} | null>(null);
+
+interface ModalComponent extends FC<{ children: ReactNode }> {
+  useModalContext: typeof useModalContext;
+  Window: FC<ModalProps>;
+}
+
+const Modal: ModalComponent = ({ children }) => {
+  const [isOpen, setIsOpen] = useState<boolean>(true);
+
+  return (
+    <ModalContext.Provider value={{ isOpen, setIsOpen }}>
+      {children}
+    </ModalContext.Provider>
+  );
+};
+
+const useModalContext = () => {
+  const context = useContext(ModalContext);
+
+  if (!context) {
+    throw new Error("useModalContext must be used within a Modal component");
+  }
+
+  return context;
+};
+
+const Window: FC<ModalProps> = ({
   title,
   type = "submitApprove",
   children,
   onCancelReject,
   onSubmitApprove,
 }) => {
-  const [isOpen, setIsOpen] = useState<boolean>(true);
+  const { isOpen, setIsOpen } = useModalContext();
 
   const handleCancelReject = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
@@ -87,7 +117,8 @@ export const Modal: FC<ModalProps> = ({
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     if (onSubmitApprove) onSubmitApprove(e);
-    setIsOpen(true);
+
+    setIsOpen(false);
   };
 
   const handleBackdropClick = () => setIsOpen(false);
@@ -118,7 +149,7 @@ export const Modal: FC<ModalProps> = ({
               $color={type === "submitApprove" ? "orange" : "gray"}
               $shape="oval"
               $size="medium"
-              onSubmit={handleSubmitApprove}
+              onClick={handleSubmitApprove}
             >
               Submit
             </Button>
@@ -130,3 +161,8 @@ export const Modal: FC<ModalProps> = ({
     document.getElementById("modal") as HTMLElement
   );
 };
+
+Modal.Window = Window;
+Modal.useModalContext = useModalContext;
+
+export { Modal };
