@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 interface ButtonProps {
   $shape: "rectangle" | "oval";
-  $color: "orange" | "gray";
+  $color: "orange" | "gray" | "red" | "green";
   $size: "large" | "medium";
 }
 
@@ -10,6 +10,9 @@ export const Button = styled.button<ButtonProps>`
   ${({ $color }) =>
     $color === "orange" &&
     "background-image: linear-gradient(120deg, var(--orange-6), var(--orange-5));"}
+
+  ${({ $color }) => $color === "red" && "background-color: var(--red);"}
+  ${({ $color }) => $color === "green" && "background-color: var(--green);"}
 
   color: ${({ $color }) =>
     $color === "orange" ? "var(--gray-0)" : "var(--gray-7)"};
