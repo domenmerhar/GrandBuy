@@ -6,6 +6,7 @@ import { InputWithLabel } from "../../Util/InputWithLabel";
 import { Row } from "../../Util/Row";
 import { Button } from "../../Util/Button";
 import { SwitchButtons } from "../../Util/SwitchButtons";
+import { Modal } from "../../Util/Modal";
 
 const Image = styled.img`
   height: 12.4rem;
@@ -157,6 +158,10 @@ export const AccountPage = () => {
           />
         </Form>
       </Column>
+      <Modal title="Test">
+        After the requests approval you won’t be able to post a review on a
+        product anymore.
+      </Modal>
     </Content>
   );
 };
