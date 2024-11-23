@@ -4,13 +4,19 @@ import { Row } from "./Row";
 import { Button } from "./Button";
 import { Column } from "./Column";
 import { Backdrop } from "./Backdrop";
+import { createPortal } from "react-dom";
 
 interface ModalProps {
   title?: string;
   children?: string;
+  type?: "submitApprove" | "cancelReject";
 
-  onSubmit?: (e?: React.MouseEvent<HTMLButtonElement, MouseEvent>) => unknown;
-  onCancel?: (e?: React.MouseEvent<HTMLButtonElement, MouseEvent>) => unknown;
+  onSubmitApprove?: (
+    e?: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => unknown;
+  onCancelReject?: (
+    e?: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => unknown;
 }
 
 const StyledModal = styled.div`
@@ -63,19 +69,24 @@ const Content = styled.p`
 
 export const Modal: FC<ModalProps> = ({
   title,
+  type = "submitApprove",
   children,
-  onCancel,
-  onSubmit,
+  onCancelReject,
+  onSubmitApprove,
 }) => {
   const [isOpen, setIsOpen] = useState<boolean>(true);
 
-  const handleCancel = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    if (onCancel) onCancel(e);
+  const handleCancelReject = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    if (onCancelReject) onCancelReject(e);
     setIsOpen(false);
   };
 
-  const handleSubmit = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    if (onSubmit) onSubmit(e);
+  const handleSubmitApprove = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    if (onSubmitApprove) onSubmitApprove(e);
     setIsOpen(true);
   };
 
@@ -83,7 +94,7 @@ export const Modal: FC<ModalProps> = ({
 
   if (!isOpen) return null;
 
-  return (
+  return createPortal(
     <>
       <StyledModal>
         <Header>
@@ -95,19 +106,19 @@ export const Modal: FC<ModalProps> = ({
 
           <Row $gap="1.2rem" $alignItems="center">
             <Button
-              $color="gray"
+              $color={type === "submitApprove" ? "gray" : "red"}
               $shape="oval"
               $size="medium"
-              onClick={handleCancel}
+              onClick={handleCancelReject}
             >
               Cancel
             </Button>
 
             <Button
-              $color="orange"
+              $color={type === "submitApprove" ? "orange" : "gray"}
               $shape="oval"
               $size="medium"
-              onSubmit={handleSubmit}
+              onSubmit={handleSubmitApprove}
             >
               Submit
             </Button>
@@ -115,6 +126,7 @@ export const Modal: FC<ModalProps> = ({
         </Column>
       </StyledModal>
       <Backdrop onClick={handleBackdropClick} />
-    </>
+    </>,
+    document.getElementById("modal") as HTMLElement
   );
 };
