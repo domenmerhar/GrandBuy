@@ -78,7 +78,7 @@ interface ModalComponent extends FC<{ children: ReactNode }> {
 }
 
 const Modal: ModalComponent = ({ children }) => {
-  const [isOpen, setIsOpen] = useState<boolean>(true);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
   return (
     <ModalContext.Provider value={{ isOpen, setIsOpen }}>
