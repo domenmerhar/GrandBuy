@@ -2,8 +2,16 @@ import { FC } from "react";
 import { IOption } from "./types";
 import styled from "styled-components";
 
+interface SwitchButtonOption extends IOption {
+  disabled?: boolean;
+}
+
 interface SwitchButtonsProps {
-  options: IOption[];
+  options: SwitchButtonOption[];
+  onClick?: (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    value?: string
+  ) => void;
 }
 
 const StyledSwitchButtons = styled.div`
@@ -38,11 +46,17 @@ const Button = styled.button`
   }
 `;
 
-export const SwitchButtons: FC<SwitchButtonsProps> = ({ options }) => {
+export const SwitchButtons: FC<SwitchButtonsProps> = ({ options, onClick }) => {
   return (
     <StyledSwitchButtons>
-      {options.map(({ name, value }) => (
-        <Button key={value}>{name}</Button>
+      {options.map(({ name, value, disabled }) => (
+        <Button
+          key={value}
+          onClick={onClick ? (e) => onClick(e, value) : () => {}}
+          disabled={disabled}
+        >
+          {name}
+        </Button>
       ))}
     </StyledSwitchButtons>
   );
