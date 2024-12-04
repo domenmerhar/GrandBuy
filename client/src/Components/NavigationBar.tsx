@@ -45,7 +45,7 @@ const ButtonHolder = styled.div`
   justify-content: space-between;
 `;
 
-const LogoNavLink = styled(NavLink)`
+const NavLinkHolder = styled(NavLink)`
   text-decoration: none;
 `;
 
@@ -60,20 +60,24 @@ export const NavigationBar = () => {
     <>
       <BackgroundDiv>
         <NavigationHolder>
-          <LogoNavLink to="/">
+          <NavLinkHolder to="/">
             <Logo $color="white" />
-          </LogoNavLink>
+          </NavLinkHolder>
 
           <SearchBar />
 
           <ButtonHolder>
-            <ButtonWithNotifcations notificationCount={50}>
-              <HiOutlineBell size={44} />
-            </ButtonWithNotifcations>
+            <NavLinkHolder to="/notifications">
+              <ButtonWithNotifcations notificationCount={50}>
+                <HiOutlineBell size={44} />
+              </ButtonWithNotifcations>
+            </NavLinkHolder>
 
-            <ButtonWithNotifcations notificationCount={50}>
-              <HiOutlineShoppingCart size={44} />
-            </ButtonWithNotifcations>
+            <NavLinkHolder to="/cart">
+              <ButtonWithNotifcations notificationCount={50}>
+                <HiOutlineShoppingCart size={44} />
+              </ButtonWithNotifcations>
+            </NavLinkHolder>
 
             <ButtonWithNotifcations onClick={menuHandler}>
               {isOpen ? <HiOutlineX size={44} /> : <HiOutlineMenu size={44} />}
