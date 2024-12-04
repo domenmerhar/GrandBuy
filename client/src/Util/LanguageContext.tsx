@@ -1,6 +1,5 @@
 import React, { createContext, FC, useState } from "react";
-
-type languages = "en" | "sl";
+import { languages } from "./types";
 
 interface LanguageContextType {
   currentLanguage: languages;
