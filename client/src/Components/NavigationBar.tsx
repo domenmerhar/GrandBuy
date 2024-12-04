@@ -11,6 +11,7 @@ import { useState } from "react";
 import { SearchBar } from "../Util/SearchBar";
 import { BurgerMenu } from "./BurgerMenu";
 import { createPortal } from "react-dom";
+import { NavLink, Outlet } from "react-router-dom";
 
 const Placeholder = styled.div`
   height: 7.5rem;
@@ -44,6 +45,10 @@ const ButtonHolder = styled.div`
   justify-content: space-between;
 `;
 
+const LogoNavLink = styled(NavLink)`
+  text-decoration: none;
+`;
+
 export const NavigationBar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -55,7 +60,9 @@ export const NavigationBar = () => {
     <>
       <BackgroundDiv>
         <NavigationHolder>
-          <Logo $color="white" />
+          <LogoNavLink to="/">
+            <Logo $color="white" />
+          </LogoNavLink>
 
           <SearchBar />
 
@@ -80,6 +87,7 @@ export const NavigationBar = () => {
         )}
       </BackgroundDiv>
       <Placeholder />
+      <Outlet />
     </>
   );
 };
