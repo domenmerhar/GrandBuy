@@ -15,3 +15,5 @@ export interface RowColumnProps {
   $alignItems?: string;
   $flexWrap?: string;
 }
+
+export type languages = "en" | "sl";
