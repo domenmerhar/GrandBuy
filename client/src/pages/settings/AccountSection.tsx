@@ -3,11 +3,11 @@ import { Column } from "../../Util/Column";
 import { HeaderUppercaseBold } from "../../Util/HeaderUppercaseBold";
 import { InputWithLabel } from "../../Util/InputWithLabel";
 import { Row } from "../../Util/Row";
-import { AccountForm } from "./AccountForm";
+import { SettingsForm } from "./SettingsForm";
 
 export const AccountSection = () => {
   return (
-    <AccountForm>
+    <SettingsForm>
       <HeaderUppercaseBold as="h2">Account info</HeaderUppercaseBold>
       <Row $gap="8px">
         <Column $gap="4px">
@@ -67,6 +67,6 @@ export const AccountSection = () => {
       <Button $color="orange" $shape="rectangle" $size="medium">
         Save Changes
       </Button>
-    </AccountForm>
+    </SettingsForm>
   );
 };

@@ -1,11 +1,11 @@
 import { Button } from "../../Util/Button";
 import { HeaderUppercaseBold } from "../../Util/HeaderUppercaseBold";
 import { InputWithLabel } from "../../Util/InputWithLabel";
-import { AccountForm } from "./AccountForm";
+import { SettingsForm } from "./SettingsForm";
 
 export const PasswordSection = () => {
   return (
-    <AccountForm>
+    <SettingsForm>
       <HeaderUppercaseBold as="h2">Password</HeaderUppercaseBold>
 
       <InputWithLabel
@@ -25,6 +25,6 @@ export const PasswordSection = () => {
       <Button $color="orange" $shape="rectangle" $size="medium">
         Change Password
       </Button>
-    </AccountForm>
+    </SettingsForm>
   );
 };

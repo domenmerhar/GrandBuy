@@ -3,7 +3,7 @@ import { Button } from "../../Util/Button";
 import { HeaderUppercaseBold } from "../../Util/HeaderUppercaseBold";
 import { InputWithLabel } from "../../Util/InputWithLabel";
 import { Modal } from "../../Util/Modal";
-import { AccountForm } from "./AccountForm";
+import { SettingsForm } from "./SettingsForm";
 
 export const RoleSection = () => {
   const { setIsOpen } = Modal.useModalContext();
@@ -15,7 +15,7 @@ export const RoleSection = () => {
 
   return (
     <>
-      <AccountForm onSubmit={handleSubmit}>
+      <SettingsForm onSubmit={handleSubmit}>
         <HeaderUppercaseBold as="h2">Role</HeaderUppercaseBold>
 
         <InputWithLabel
@@ -29,7 +29,7 @@ export const RoleSection = () => {
         <Button $color="orange" $shape="rectangle" $size="medium">
           Request Seller
         </Button>
-      </AccountForm>
+      </SettingsForm>
 
       <Modal.Window title="Test">
         After the requests approval you won’t be able to post a review on a

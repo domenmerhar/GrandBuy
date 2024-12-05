@@ -2,7 +2,7 @@ import { HeaderUppercaseBold } from "../../Util/HeaderUppercaseBold";
 import { useLanguage } from "../../Util/LanguageContext";
 import { SwitchButtons } from "../../Util/SwitchButtons";
 import { languages } from "../../Util/types";
-import { AccountForm } from "./AccountForm";
+import { SettingsForm } from "./SettingsForm";
 
 export const LanguageSection = () => {
   const { currentLanguage, setCurrentLanguage } = useLanguage();
@@ -16,7 +16,7 @@ export const LanguageSection = () => {
     setCurrentLanguage(value as languages);
   };
   return (
-    <AccountForm as="div">
+    <SettingsForm as="div">
       <HeaderUppercaseBold as="h2">Language</HeaderUppercaseBold>
 
       <SwitchButtons
@@ -26,6 +26,6 @@ export const LanguageSection = () => {
         ]}
         onClick={handleClick}
       />
-    </AccountForm>
+    </SettingsForm>
   );
 };
