@@ -8,7 +8,7 @@ export const LanguageSection = () => {
   const { currentLanguage, setCurrentLanguage } = useLanguage();
 
   const handleClick = (
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    _: React.MouseEvent<HTMLButtonElement, MouseEvent>,
     value?: string
   ) => {
     if (!value) return;
