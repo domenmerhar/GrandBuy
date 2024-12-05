@@ -1,3 +1,4 @@
+import { FormEvent } from "react";
 import { Button } from "../../Util/Button";
 import { HeaderUppercaseBold } from "../../Util/HeaderUppercaseBold";
 import { InputWithLabel } from "../../Util/InputWithLabel";
@@ -5,7 +6,13 @@ import { Modal } from "../../Util/Modal";
 import { AccountForm } from "./AccountForm";
 
 export const RoleSection = () => {
-  const handleSubmit = () => {};
+  const { setIsOpen } = Modal.useModalContext();
+
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsOpen(true);
+  };
+
   return (
     <>
       <AccountForm onSubmit={handleSubmit}>
