@@ -1,15 +1,15 @@
 import GlobalStyles from "./GlobalStyles";
 import { NavigationBar } from "./Components/NavigationBar";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { LanguageProvider } from "./Util/LanguageContext";
 import { MainPage } from "./pages/main/MainPage";
-import { AccountPage } from "./pages/settings/SettingsPage";
 import { CartPage } from "./pages/Cart/CartPage";
 import { HistoryPage } from "./pages/history/HistoryPage";
 import { RefundPage } from "./pages/refund/RefundPage";
 import { SearchPage } from "./pages/search/SearchPage";
 import { SignupPage } from "./pages/signup/Signup";
 import { UserPage } from "./pages/user/UserPage";
+import { SettingsPage } from "./pages/settings/SettingsPage";
 
 function App() {
   return (
@@ -20,11 +20,16 @@ function App() {
           <Route path="/" element={<NavigationBar />}>
             <Route path="/" element={<MainPage />} />
             <Route path="/cart" element={<CartPage />} />
-            <Route path="/settings" element={<AccountPage />} />
+            <Route path="/settings" element={<SettingsPage />} />
             <Route path="/history" element={<HistoryPage />} />
             <Route path="/refund" element={<RefundPage />} />
             <Route path="/search" element={<SearchPage />} />
-            {/* <Route path="/user/:userId" element={<UserPage />} /> */}
+            {/* TODO: NAVIGATE TO USER ID */}
+            <Route
+              path="/account"
+              element={<Navigate to="/account/123" replace />}
+            />
+            <Route path="/account/:userId" element={<UserPage />} />
           </Route>
 
           <Route path="/signup" element={<SignupPage />} />
