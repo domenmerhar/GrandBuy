@@ -5,7 +5,7 @@ interface HeaderProps {
   $size: "large" | "medium" | "small";
 }
 
-export const Header = styled.header<HeaderProps>`
+export const Header = styled.h1<HeaderProps>`
   ${({ $color }) =>
     $color === "orange" &&
     `background: -webkit-linear-gradient(120deg, var(--orange-4), var(--orange-6));
