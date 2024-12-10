@@ -12,7 +12,7 @@ const StyledCardWithHeader = styled.div`
 
 const CardHeader = styled.div`
   background: linear-gradient(45deg, var(--orange-5), var(--orange-6));
-  padding: 2rem 3.2rem;
+  padding: 1.6rem 2.4rem;
   width: 100%;
   font-size: 2.4rem;
   text-transform: uppercase;
