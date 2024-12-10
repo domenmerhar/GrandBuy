@@ -3,21 +3,10 @@ import { ButtonWithNotifcations } from "../../Components/ButtonWithNotifcations"
 import { CardWithHeader } from "../../Util/CardWithHeader";
 import { Row } from "../../Util/Row";
 import { HiDotsVertical } from "react-icons/hi";
-import { NavLink } from "react-router-dom";
 import { ReviewReplyCard } from "./ReviewReplyCard";
-
-const StyledNavLink = styled(NavLink)`
-  text-decoration: none;
-  color: var(--gray-1);
-
-  &.active {
-    font-weight: 600;
-  }
-`;
-
-const ButtonHolder = styled.div`
-  margin-left: auto;
-`;
+import { ReviewReplyWindowSelect } from "./ReviewReplyWindowSelect";
+import { Column } from "../../Util/Column";
+import { ReviewReplyWindowHeader } from "./ReviewReplyWindowHeader";
 
 const Grid = styled.div`
   display: grid;
@@ -29,25 +18,18 @@ export const ReviewReplyWindow = () => {
   return (
     <>
       <CardWithHeader>
-        <CardWithHeader.Header>
-          <Row $gap="1.6rem" $alignItems="center">
-            <StyledNavLink to="account">Reviews</StyledNavLink>
-            <StyledNavLink to="replies">Replies</StyledNavLink>
+        <ReviewReplyWindowHeader />
 
-            <ButtonHolder>
-              <ButtonWithNotifcations>
-                <HiDotsVertical />
-              </ButtonWithNotifcations>
-            </ButtonHolder>
-          </Row>
-        </CardWithHeader.Header>
         <CardWithHeader.Body>
-          <Grid>
-            <ReviewReplyCard />
-            <ReviewReplyCard />
-            <ReviewReplyCard />
-            <ReviewReplyCard />
-          </Grid>
+          <Column $gap="3.2rem">
+            <ReviewReplyWindowSelect />
+            <Grid>
+              <ReviewReplyCard />
+              <ReviewReplyCard />
+              <ReviewReplyCard />
+              <ReviewReplyCard />
+            </Grid>
+          </Column>
         </CardWithHeader.Body>
       </CardWithHeader>
     </>
