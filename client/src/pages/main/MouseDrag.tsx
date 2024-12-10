@@ -13,17 +13,15 @@ export function MouseDrag() {
   const [items] = React.useState(() => getItems());
   const [selected, setSelected] = React.useState<string[]>([]);
 
-  // NOTE: for drag by mouse
   const dragState = React.useRef(new DragDealer());
 
-  const handleDrag =
-    ({ scrollContainer }: typeof VisibilityContext) =>
-    (ev: React.MouseEvent) =>
-      dragState.current.dragMove(ev, (posDiff) => {
-        if (scrollContainer.current) {
-          scrollContainer.current.scrollLeft += posDiff;
-        }
-      });
+  const handleDrag = (apiObj: publicApiType) => (ev: React.MouseEvent) =>
+    dragState.current.dragMove(ev, (posDiff) => {
+      const scrollContainer = apiObj.scrollContainer.current;
+      if (scrollContainer) {
+        scrollContainer.scrollLeft += posDiff;
+      }
+    });
   const onMouseDown = React.useCallback(
     () => dragState.current.dragStart,
     [dragState]
