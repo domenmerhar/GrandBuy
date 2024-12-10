@@ -5,7 +5,7 @@ import {
   HiOutlineUser,
 } from "react-icons/hi";
 import { NavigationTextButton } from "../Util/NavigationTextButton";
-import { HiOutlineCog8Tooth } from "react-icons/hi2";
+import { HiArrowUturnLeft, HiOutlineCog8Tooth } from "react-icons/hi2";
 import { BiPackage } from "react-icons/bi";
 import styled from "styled-components";
 
@@ -46,6 +46,11 @@ export const BurgerMenuNavigationList = () => {
       <NavigationTextButton to="dashboard">
         <HiOutlinePresentationChartBar size={24} />
         Dashboard
+      </NavigationTextButton>
+
+      <NavigationTextButton to="refund" iconColoring="stroke">
+        <HiArrowUturnLeft size={24} />
+        Refund
       </NavigationTextButton>
     </NavigationList>
   );
