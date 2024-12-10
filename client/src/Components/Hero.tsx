@@ -73,11 +73,11 @@ export const Hero = () => {
         <Countdown />
 
         <ButtonHolder>
-          <Button $color="orange" $shape="oval">
+          <Button $color="orange" $shape="oval" $size="medium">
             Shop Now
           </Button>
 
-          <Button $color="gray" $shape="oval">
+          <Button $color="gray" $shape="oval" $size="medium">
             Learn More
           </Button>
         </ButtonHolder>
