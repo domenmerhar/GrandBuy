@@ -6,6 +6,7 @@ import AppError from "../utils/AppError";
 import Refund from "../models/refundModel";
 import APIFeatures from "../utils/ApiFeatures";
 import notificationModel from "../models/notificationModel";
+import { ObjectId } from "mongoose";
 
 const refundPeriodDays = parseInt(process.env.REFUND_PERIOD_DAYS || "60", 10); // Default to 60 days
 const refundPeriod = refundPeriodDays * 24 * 60 * 60 * 1000; // Convert days to milliseconds
@@ -44,7 +45,7 @@ export const requestRefund = catchAsync(
       cartItemId: id,
       reason,
       user: userId,
-      seller: cartItem.product.user,
+      seller: (cartItem.product as unknown as { user: ObjectId }).user,
     });
 
     res.status(201).json({ status: "success", refundRequest });
