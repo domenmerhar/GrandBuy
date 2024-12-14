@@ -5,6 +5,7 @@ import { v4 } from "uuid";
 import fs from "fs/promises";
 import sharp from "sharp";
 import { File } from "../utils/types";
+import { UploadedFile } from "express-fileupload";
 
 const MB = 5;
 const FILE_SIZE_LIMIT = MB * 1024 * 1024;
@@ -166,13 +167,13 @@ export const fileExtLimiterArr =
       return next(new AppError(`Please upload ${location}`, 400));
 
     if (!Array.isArray(req.files[location]))
-      req.files[location] = [req.files[location]];
+      req.files[location] = [req.files[location] as UploadedFile];
 
     const fileArr = req.files[location];
 
     const fileExtensions: string[] = [];
 
-    fileArr.forEach((file) => {
+    (fileArr as UploadedFile[]).forEach((file: any) => {
       fileExtensions.push(path.extname(file.name));
     });
 
