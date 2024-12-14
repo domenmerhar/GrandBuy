@@ -45,9 +45,12 @@ const handleCheckoutSessionCompleted = async (event: any) => {
 
   await Promise.all(
     order?.products.map((item) =>
-      Product.findByIdAndUpdate(item.product, {
-        $inc: { orders: item.quantity },
-      })
+      Product.findByIdAndUpdate(
+        (item as unknown as { product: { quantity: number } }).product,
+        {
+          $inc: { orders: (item as unknown as { quantity: number }).quantity },
+        }
+      )
     )
   );
 
