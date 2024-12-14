@@ -16,7 +16,7 @@ import app from "./app";
 
 const server = app.listen(3000);
 
-process.on("unhandledRejection", (err) => {
+process.on("unhandledRejection", (err: Error) => {
   console.log("UNHANDLED REJECTION! Shutting down...");
   console.log(err.name, err.message);
   server.close(() => {
