@@ -9,6 +9,7 @@ import {
   saveImageToServer,
 } from "./fileController";
 import User from "../models/userModel";
+import { UploadedFile } from "express-fileupload";
 
 const checkForUniqueName = async (name: string, userId: string) => {
   const productCheck = await Product.findOne({
@@ -108,9 +109,11 @@ export const uploadProductFiles = catchAsync(
         filesImagesArr.map((file) => saveImageToServer({ file }))
       );
 
-      res.locals.descripiton = await saveFileToServer(files.description);
+      res.locals.descripiton = await saveFileToServer(
+        files?.description as UploadedFile
+      );
       res.locals.coverImage = await saveImageToServer({
-        file: files.coverImage,
+        file: files?.coverImage as UploadedFile,
       });
     } catch (err) {
       return next(new AppError("Error uploading file", 500));
@@ -158,20 +161,22 @@ export const updateProduct = catchAsync(
           filesImagesArr.map((file) => saveImageToServer({ file }))
         );
 
-        res.locals.productImages.forEach((image) => {
+        res.locals.productImages.forEach((image: string) => {
           product.images.push(image);
         });
       }
 
       if (files.description) {
         await deleteFile(product.description!);
-        product.description = await saveFileToServer(files.description);
+        product.description = await saveFileToServer(
+          files.description as UploadedFile
+        );
       }
 
       if (files.coverImage) {
         await deleteFile(product.coverImage);
-        product.coverImage = saveImageToServer({
-          file: files.coverImage,
+        product.coverImage = await saveImageToServer({
+          file: files.coverImage as UploadedFile,
           width: 500,
           height: 300,
         });
@@ -287,8 +292,11 @@ export const addImages = catchAsync(
     const files = req.files;
     const product = await findMyProduct(productId, userId);
 
-    files.images.forEach((file) => {
-      product.images.push(saveImageToServer({ file }));
+    if (!files || !files.images) {
+      return next(new AppError("No images provided", 400));
+    }
+    (files.images as UploadedFile[]).forEach(async (file) => {
+      await product.images.push(await saveImageToServer({ file }));
     });
 
     await product.save();
@@ -304,7 +312,7 @@ export const deleteDescription = catchAsync(
 
     const product = await findMyProduct(productId, userId);
 
-    await deleteFile(product.description);
+    if (product.description) await deleteFile(product.description);
 
     product.description = "";
     product.save();
