@@ -5,6 +5,8 @@ import AppError from "../utils/AppError";
 import jwt, { JwtPayload, Secret } from "jsonwebtoken";
 import { role } from "../utils/types";
 
+//WARNING: jwtExiration checks
+
 export const protect = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const token = req.headers.authorization?.split(" ")[1];
@@ -27,7 +29,13 @@ export const protect = catchAsync(
         new AppError("You are not logged in. Please log in to get access.", 401)
       );
 
-    const jwtExpired = User.jwtExpired(user.jwtChangedAt, decoded.iat);
+    //const jwtExpired = User.jwtExpired(user.jwtChangedAt, decoded.iat);
+    if (!user.jwtChangedAt || !decoded.iat)
+      return next(
+        new AppError("You are not logged in. Please log in to get access.", 401)
+      );
+
+    const jwtExpired = +user.jwtChangedAt > decoded.iat;
 
     if (jwtExpired)
       return next(
@@ -56,7 +64,14 @@ export const saveUserToResponse = catchAsync(
 
     if (!user) return next();
 
-    const jwtExpired = User.jwtExpired(user.jwtChangedAt, decoded.iat);
+    //const jwtExpired = User.jwtExpired(user.jwtChangedAt, decoded.iat);
+
+    if (!user.jwtChangedAt || !decoded.iat)
+      return next(
+        new AppError("You are not logged in. Please log in to get access.", 401)
+      );
+
+    const jwtExpired = +user.jwtChangedAt > decoded.iat;
 
     if (jwtExpired) return next();
 
