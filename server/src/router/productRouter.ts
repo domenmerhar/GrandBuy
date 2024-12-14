@@ -33,31 +33,31 @@ productRouter
   .route("/")
   .get(getProducts)
   .post(
-    validate([
-      body("name")
-        .trim()
-        .escape()
-        .isString()
-        .notEmpty()
-        .withMessage("Please provide a name."),
+    // validate([
+    //   body("name")
+    //     .trim()
+    //     .escape()
+    //     .isString()
+    //     .notEmpty()
+    //     .withMessage("Please provide a name."),
 
-      body("price")
-        .isFloat({ min: 0 })
-        .withMessage("Please provide a non negative price.")
-        .notEmpty()
-        .withMessage("Please provide a price."),
+    //   body("price")
+    //     .isFloat({ min: 0 })
+    //     .withMessage("Please provide a non negative price.")
+    //     .notEmpty()
+    //     .withMessage("Please provide a price."),
 
-      body("shipping")
-        .isFloat({ min: 0 })
-        .withMessage("Please provide a non negative shipping.")
-        .notEmpty()
-        .withMessage("Please provide a shipping."),
+    //   body("shipping")
+    //     .isFloat({ min: 0 })
+    //     .withMessage("Please provide a non negative shipping.")
+    //     .notEmpty()
+    //     .withMessage("Please provide a shipping."),
 
-      body("discount")
-        .isInt({ min: 0, max: 100 })
-        .withMessage("Please provide a discount between 0 and 100")
-        .optional(),
-    ]),
+    //   body("discount")
+    //     .isInt({ min: 0, max: 100 })
+    //     .withMessage("Please provide a discount between 0 and 100")
+    //     .optional(),
+    // ]),
 
     protect,
     restrictTo("seller"),
