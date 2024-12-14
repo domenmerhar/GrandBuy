@@ -5,6 +5,7 @@ import AppError from "../utils/AppError";
 import CartItem from "../models/cartItemModel";
 import productModel from "../models/productModel";
 import { mapProductIds } from "../utils/mapProductIds";
+import mongoose from "mongoose";
 
 export const getCoupon = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
@@ -95,12 +96,16 @@ export const createSellerCoupon = catchAsync(
     const sellerId = res.locals.user._id;
 
     const productIds = await mapProductIds(
-      await productModel
-        .find({
-          user: sellerId,
-          name: { $in: products },
-        })
-        .select("_id")
+      (
+        await productModel
+          .find({
+            user: sellerId,
+            name: { $in: products },
+          })
+          .select("_id")
+      )
+        .map((product) => ({ _id: product._id.toString() }))
+        .map((product) => ({ _id: product._id.toString() }))
     );
 
     if (expireAt < Date.now())
@@ -175,15 +180,17 @@ export const updateSellerCoupon = catchAsync(
 
     if (products.length) {
       productIds = await mapProductIds(
-        await productModel
-          .find({
-            user: sellerId,
-            name: { $in: products },
-          })
-          .select("_id")
+        (
+          await productModel
+            .find({
+              user: sellerId,
+              name: { $in: products },
+            })
+            .select("_id")
+        ).map((product) => ({ _id: product._id.toString() }))
       );
 
-      coupon.products = productIds;
+      coupon.products = productIds.map((id) => new mongoose.Types.ObjectId(id));
     }
 
     if (coupon.expireAt) coupon.expireAt = expireAt;
