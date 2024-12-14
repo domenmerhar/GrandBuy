@@ -252,7 +252,7 @@ export const deleteReview = catchAsync(
       user: review.user,
       createdBy: userId,
       type: "warning",
-      message: `Your review on product ${review.product.name || "unknown"} has been deleted. ${warningMessage || ""}`,
+      message: `Your review on product ${(review.product as unknown as { name: string }).name || "unknown"} has been deleted. ${warningMessage || ""}`,
     });
 
     res.status(204).json({ status: "success" });
@@ -372,7 +372,7 @@ export const getRecent5 = catchAsync(
 
     const products = await Product.find({ user: userId }).select("_id");
 
-    const productIds = await mapProductIds(products);
+    const productIds = await mapProductIds(products as any);
 
     const reviews = await Review.find({
       product: { $in: productIds },
