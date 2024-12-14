@@ -60,7 +60,8 @@ export const addOrder = catchAsync(
       user: userId,
       products: cartItemsArray,
       totalPrice: items.reduce((acc, item) => {
-        const priceBeforeDiscount = item.product.price * item.quantity;
+        const priceBeforeDiscount =
+          (item.product as unknown as { price: number }).price * item.quantity;
         const discountMultiplier = (100 - item.discount || 0) / 100;
         const totalPrice = priceBeforeDiscount * discountMultiplier;
 
@@ -78,9 +79,10 @@ export const addOrder = catchAsync(
       success_url: "https://docs.stripe.com/keys",
       cancel_url: "https://www.google.com",
       customer_email: user!.email,
-      client_reference_id: String(order._id),
       line_items: items.map((item) => {
-        const priceBeforeDiscount = item.product.price;
+        const priceBeforeDiscount = (
+          item.product as unknown as { price: number }
+        ).price;
         const discountMultiplier = (100 - item.discount || 0) / 100;
         const totalPrice = priceBeforeDiscount * discountMultiplier;
 
@@ -89,7 +91,7 @@ export const addOrder = catchAsync(
             currency: "usd",
             unit_amount: totalPrice * 100,
             product_data: {
-              name: item.product.name,
+              name: (item.product as unknown as { name: string }).name,
             },
           },
           quantity: item.quantity,
@@ -158,7 +160,7 @@ export const getSellerOrders = catchAsync(
     if (!sellerOrdersArr.length)
       return next(new AppError("No orders found.", 404));
 
-    const sellerOrders = [];
+    const sellerOrders: unknown[] = [];
     for (let i = 0; i < sellerOrdersArr.length; i++) {
       const order = sellerOrdersArr[i];
       await new Promise<void>((resolve) => {
