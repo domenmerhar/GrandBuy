@@ -240,7 +240,9 @@ export const getRecentRevenueForSeller = catchAsync(
       });
     }
 
-    const mappedProductIds = await mapProductIds(productIds);
+    const mappedProductIds = await mapProductIds(
+      productIds as unknown as { _id: string }[]
+    );
 
     const stats = await CartItem.aggregate([
       {
@@ -338,7 +340,9 @@ export const getSellerRecent5 = catchAsync(
     const userId = res.locals.user._id;
 
     const products = await Product.find({ user: userId }).select("_id");
-    const productIds = await mapProductIds(products);
+    const productIds = await mapProductIds(
+      products as unknown as { _id: string }[]
+    );
 
     const cartItems = await CartItem.find({
       product: { $in: productIds },
