@@ -9,8 +9,9 @@ import {
 
 import "react-horizontal-scrolling-menu/dist/styles.css";
 import { ProductCard } from "../../Util/ProductCard";
+import { HiChevronLeft, HiChevronRight } from "react-icons/hi";
 
-export function SimpleExample() {
+export function HorizontalProducts() {
   const [items] = React.useState(() => getItems());
   return (
     <NoScrollbar>
@@ -30,7 +31,7 @@ export function SimpleExample() {
   );
 }
 
-export default SimpleExample;
+export default HorizontalProducts;
 
 const NoScrollbar = styled.div`
   & .react-horizontal-scrolling-menu--scroll-container::-webkit-scrollbar {
@@ -44,7 +45,6 @@ const NoScrollbar = styled.div`
 
 function LeftArrow() {
   const visibility = React.useContext<publicApiType>(VisibilityContext);
-
   const disabled = visibility.useLeftArrowVisible();
 
   return (
