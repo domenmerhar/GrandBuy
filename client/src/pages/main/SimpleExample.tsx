@@ -60,7 +60,6 @@ function LeftArrow() {
 
 function RightArrow() {
   const visibility = React.useContext<publicApiType>(VisibilityContext);
-
   const disabled = visibility.useRightArrowVisible();
 
   return (
