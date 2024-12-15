@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { HiArrowLeft, HiArrowRight } from "react-icons/hi";
+import { HiChevronLeft, HiChevronRight } from "react-icons/hi";
 import { useSearchParams } from "react-router-dom";
 
 import styled from "styled-components";
@@ -24,6 +24,7 @@ const PageButton = styled.button`
 
   &:disabled {
     background-color: var(--gray-4);
+    opacity: 0.5;
   }
 `;
 
@@ -49,7 +50,7 @@ export const Pagination = () => {
   return (
     <StyledPagination>
       <PageButton disabled={currentPage === 1} onClick={handlePreviousPage}>
-        <HiArrowLeft size={20} fill="#343a40" />
+        <HiChevronLeft size={20} fill="#343a40" />
       </PageButton>
 
       <NakedInput
@@ -59,7 +60,7 @@ export const Pagination = () => {
       />
 
       <PageButton onClick={handleNextPage}>
-        <HiArrowRight size={20} fill="#343a40" />
+        <HiChevronRight size={20} fill="#343a40" />
       </PageButton>
     </StyledPagination>
   );
