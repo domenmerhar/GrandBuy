@@ -1,7 +1,7 @@
 import { Hero } from "../../Components/Hero";
 import { CardMultipleItems } from "./CardMultipleItems";
 import { SaleSection } from "./SaleSection";
-import SimpleExample from "./SimpleExample.tsx";
+import HorizontalProducts from "./HorizontalProducts.tsx";
 import { SkewedContainer } from "./SkewedContainer";
 
 export const MainPage = () => {
@@ -12,7 +12,7 @@ export const MainPage = () => {
       <SkewedContainer>
         <SaleSection />
         <CardMultipleItems />
-        <SimpleExample />
+        <HorizontalProducts />
       </SkewedContainer>
     </>
   );
