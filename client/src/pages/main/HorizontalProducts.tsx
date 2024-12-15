@@ -99,7 +99,7 @@ const ArrowButton = styled.button`
   user-select: none;
   border: none;
   border-radius: 50%;
-  background-color: var(--gray-3);
+  background-color: var(--gray-1);
 
   &:disabled {
     cursor: not-allowed;
