@@ -73,7 +73,7 @@ function RightArrow() {
       onClick={() => visibility.scrollNext()}
       testId="right-arrow"
     >
-      <HiChevronRight size={44} fill="#343a40" />{" "}
+      <HiChevronRight size={44} fill="#343a40" />
     </Arrow>
   );
 }
@@ -94,12 +94,12 @@ const ArrowButton = styled.button`
   justify-content: center;
   align-items: center;
 
-  box-shadow: 0 0 0.8rem rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 0.8rem rgba(0, 0, 0, 0.2);
 
   user-select: none;
   border: none;
   border-radius: 50%;
-  background-color: var(--gray-4);
+  background-color: var(--gray-3);
 
   &:disabled {
     cursor: not-allowed;
