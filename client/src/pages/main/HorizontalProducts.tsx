@@ -37,9 +37,14 @@ const NoScrollbar = styled.div`
   & .react-horizontal-scrolling-menu--scroll-container::-webkit-scrollbar {
     display: none;
   }
+
   & .react-horizontal-scrolling-menu--scroll-container {
     scrollbar-width: none;
     -ms-overflow-style: none;
+  }
+
+  & .react-horizontal-scrolling-menu--item {
+    margin: 0 0.8rem;
   }
 `;
 
@@ -53,7 +58,7 @@ function LeftArrow() {
       onClick={() => visibility.scrollPrev()}
       testId="left-arrow"
     >
-      Left
+      <HiChevronLeft size={44} fill="#343a40" />
     </Arrow>
   );
 }
@@ -68,7 +73,7 @@ function RightArrow() {
       onClick={() => visibility.scrollNext()}
       testId="right-arrow"
     >
-      Right
+      <HiChevronRight size={44} fill="#343a40" />{" "}
     </Arrow>
   );
 }
@@ -81,16 +86,31 @@ interface ArrowProps {
   testId: string;
 }
 
-const ArrowButton = styled.button<{ disabled: boolean }>`
+const ArrowButton = styled.button`
   cursor: pointer;
+
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin-bottom: 2px;
-  opacity: ${(props) => (props.disabled ? "0" : "1")};
+  align-items: center;
+
+  box-shadow: 0 0 0.8rem rgba(0, 0, 0, 0.1);
+
   user-select: none;
-  border-radius: 6px;
-  border-width: 1px;
+  border: none;
+  border-radius: 50%;
+  background-color: var(--gray-4);
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+
+  height: 4.8rem;
+  width: 4.8rem;
+  margin: auto 0;
+
+  transition: all 200ms;
 `;
 
 function Arrow({ children, disabled, onClick, className, testId }: ArrowProps) {
