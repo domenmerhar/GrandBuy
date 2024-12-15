@@ -28,25 +28,19 @@ export function SimpleExample() {
 
   return (
     <div>
-      <div>
-        <NoScrollbar>
-          <ScrollMenu LeftArrow={LeftArrow} RightArrow={RightArrow}>
-            {items.map(({ id }) => (
-              <Card
-                title={id}
-                itemId={id} // NOTE: itemId is required for track items
-                key={id}
-                onClick={() => handleItemClick(id)}
-                selected={isItemSelected(id)}
-              />
-            ))}
-          </ScrollMenu>
-        </NoScrollbar>
-      </div>
-
-      <div style={{ height: "300vh", backgroundColor: "aqua", opacity: 0.2 }}>
-        filler
-      </div>
+      <NoScrollbar>
+        <ScrollMenu LeftArrow={LeftArrow} RightArrow={RightArrow}>
+          {items.map(({ id }) => (
+            <Card
+              title={id}
+              itemId={id} // NOTE: itemId is required for track items
+              key={id}
+              onClick={() => handleItemClick(id)}
+              selected={isItemSelected(id)}
+            />
+          ))}
+        </ScrollMenu>
+      </NoScrollbar>
     </div>
   );
 }
