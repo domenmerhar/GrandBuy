@@ -10,6 +10,7 @@ import { SearchPage } from "./pages/search/SearchPage";
 import { SignupPage } from "./pages/signup/Signup";
 import { AccountPage } from "./pages/account/AccountPage";
 import { SettingsPage } from "./pages/settings/SettingsPage";
+import { ProductPage } from "./pages/product/ProductPage";
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
               element={<Navigate to="/account/123" replace />}
             />
             <Route path="/account/:userId" element={<AccountPage />} />
+            <Route path="/product/:productId" element={<ProductPage />} />
           </Route>
 
           <Route path="/signup" element={<SignupPage />} />
