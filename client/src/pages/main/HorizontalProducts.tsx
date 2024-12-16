@@ -10,6 +10,7 @@ import {
 import "react-horizontal-scrolling-menu/dist/styles.css";
 import { ProductCard } from "../../Util/ProductCard";
 import { HiChevronLeft, HiChevronRight } from "react-icons/hi";
+import { ArrowButton } from "../../Util/ArrowButton";
 
 export function HorizontalProducts() {
   const [items] = React.useState(() => getItems());
@@ -58,7 +59,7 @@ function LeftArrow() {
       onClick={() => visibility.scrollPrev()}
       testId="left-arrow"
     >
-      <HiChevronLeft size={44} fill="#343a40" />
+      <HiChevronLeft />
     </Arrow>
   );
 }
@@ -73,7 +74,7 @@ function RightArrow() {
       onClick={() => visibility.scrollNext()}
       testId="right-arrow"
     >
-      <HiChevronRight size={44} fill="#343a40" />
+      <HiChevronRight />
     </Arrow>
   );
 }
@@ -86,36 +87,10 @@ interface ArrowProps {
   testId: string;
 }
 
-const ArrowButton = styled.button`
-  cursor: pointer;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-
-  box-shadow: 0 0 0.8rem rgba(0, 0, 0, 0.2);
-
-  user-select: none;
-  border: none;
-  border-radius: 50%;
-  background-color: var(--gray-1);
-
-  &:disabled {
-    cursor: not-allowed;
-    opacity: 0.5;
-  }
-
-  height: 4.8rem;
-  width: 4.8rem;
-  margin: auto 0;
-
-  transition: all 200ms;
-`;
-
 function Arrow({ children, disabled, onClick, className, testId }: ArrowProps) {
   return (
     <ArrowButton
+      $size="medium"
       disabled={disabled}
       onClick={onClick}
       className={"arrow" + `-${className}`}
