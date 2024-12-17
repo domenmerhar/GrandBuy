@@ -3,7 +3,7 @@ import { Content } from "../../Util/Content";
 import { CartCard } from "./CartCard";
 import { StyledSidebar } from "../../Util/StyledSidebar";
 import { ProductFilter } from "../../Util/ProductFilter";
-import { Pagination } from "../../Util/Pagination";
+import { Stepper } from "../../Util/Stepper";
 
 const Grid = styled.div`
   display: grid;
@@ -33,7 +33,7 @@ export const CartPage = () => {
         <StyledSidebar $position="sticky" $width="auto" $height="80vh">
           <ProductFilter />
         </StyledSidebar>
-        <Pagination />
+        <Stepper searchParamName="page" max={10} />
       </Grid>
     </Content>
   );
