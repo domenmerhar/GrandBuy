@@ -11,7 +11,7 @@ export const ProductPage = () => {
     <Content>
       <Row $gap="2.8rem" $alignItems="center">
         <ImageCarousel />
-        <StyledSidebar $position="sticky" $height="80vh">
+        <StyledSidebar $position="sticky" $height="75vh">
           <ProductInfo />
         </StyledSidebar>
       </Row>
