@@ -5,7 +5,7 @@ import { useSearchParams } from "react-router-dom";
 import styled from "styled-components";
 import { NakedInput } from "./NakedInput";
 
-const StyledPagination = styled.div`
+const StyledStepper = styled.div`
   display: flex;
   gap: 1.2rem;
 `;
@@ -58,7 +58,7 @@ export const Stepper: FC<StepperProps> = ({
   };
 
   return (
-    <StyledPagination>
+    <StyledStepper>
       <StepperButton
         disabled={currentStep === min}
         onClick={handlePreviousPage}
@@ -75,6 +75,6 @@ export const Stepper: FC<StepperProps> = ({
       <StepperButton onClick={handleNextPage} disabled={currentStep === max}>
         <HiChevronRight size={20} fill="#343a40" />
       </StepperButton>
-    </StyledPagination>
+    </StyledStepper>
   );
 };
