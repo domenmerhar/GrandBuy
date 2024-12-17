@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { HiChevronLeft, HiChevronRight } from "react-icons/hi";
 import { useSearchParams } from "react-router-dom";
 
@@ -10,7 +10,7 @@ const StyledPagination = styled.div`
   gap: 1.2rem;
 `;
 
-const PageButton = styled.button`
+const StepperButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -28,40 +28,53 @@ const PageButton = styled.button`
   }
 `;
 
-export const Pagination = () => {
-  const [currentPage, setCurrentPage] = useState<number>(1);
+interface StepperProps {
+  searchParamName: string;
+  max?: number;
+  min?: number;
+}
+
+export const Stepper: FC<StepperProps> = ({
+  searchParamName,
+  max,
+  min = 1,
+}) => {
+  const [currentStep, setCurrentStep] = useState<number>(1);
   const [, setSearchParams] = useSearchParams();
 
-  const handleNextPage = () => setCurrentPage((prev) => prev + 1);
-  const handlePreviousPage = () => setCurrentPage((prev) => prev - 1);
+  const handleNextPage = () => setCurrentStep((prev) => prev + 1);
+  const handlePreviousPage = () => setCurrentStep((prev) => prev - 1);
 
   useEffect(() => {
     setSearchParams((searchParams) => {
-      searchParams.set("page", currentPage.toString());
+      searchParams.set(searchParamName, currentStep.toString());
       return searchParams;
     });
-  }, [currentPage, setSearchParams]);
+  }, [currentStep, setSearchParams, searchParamName]);
 
   const handleChangePage = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (+e.target.value < 1) return setCurrentPage(1);
-    setCurrentPage(+e.target.value);
+    if (+e.target.value < 1) return setCurrentStep(1);
+    setCurrentStep(+e.target.value);
   };
 
   return (
     <StyledPagination>
-      <PageButton disabled={currentPage === 1} onClick={handlePreviousPage}>
+      <StepperButton
+        disabled={currentStep === min}
+        onClick={handlePreviousPage}
+      >
         <HiChevronLeft size={20} fill="#343a40" />
-      </PageButton>
+      </StepperButton>
 
       <NakedInput
         type="number"
-        value={currentPage}
+        value={currentStep}
         onChange={handleChangePage}
       />
 
-      <PageButton onClick={handleNextPage}>
+      <StepperButton onClick={handleNextPage} disabled={currentStep === max}>
         <HiChevronRight size={20} fill="#343a40" />
-      </PageButton>
+      </StepperButton>
     </StyledPagination>
   );
 };
