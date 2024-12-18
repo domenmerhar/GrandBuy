@@ -1,5 +1,6 @@
+import { useRef } from "react";
 import { HiOutlineSearch } from "react-icons/hi";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 const StyledSearchBar = styled.form`
@@ -55,29 +56,18 @@ const IconHolder = styled.button`
 
 export const SearchBar = () => {
   const navigate = useNavigate();
-  const [searchParams, setSearchParams] = useSearchParams();
-
-  const searchHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchParams((searchParams) => {
-      searchParams.set("search", e.target.value);
-      return searchParams;
-    });
-  };
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (!searchParams.get("search")) return;
-    navigate(`/product/${searchParams.get("search")}`);
+    if (!inputRef.current || !inputRef.current.value) return;
+    navigate(`/product/${inputRef.current.value}`);
   };
 
   return (
     <StyledSearchBar onSubmit={handleSubmit}>
-      <Input
-        type="text"
-        onChange={searchHandler}
-        placeholder="Magnifying glass"
-      />
+      <Input type="text" placeholder="Magnifying glass" ref={inputRef} />
 
       <IconHolder>
         <HiOutlineSearch size={24} />
