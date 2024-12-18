@@ -15,7 +15,7 @@ const Info = styled(Column)`
   font-size: 2rem;
   & > :first-child {
     font-size: 3.6rem;
-    margin-bottom: 0.8rem;
+    margin-bottom: 1.6rem;
   }
 
   /* & div:nth-of-type(1) {
@@ -27,8 +27,8 @@ export const ProductInfo = () => {
   const { productId } = useParams();
 
   return (
-    <StyledProductInfo $gap="2.4rem">
-      <Info $gap=".6rem">
+    <StyledProductInfo $gap="2.4rem" $justifyContent="space-around">
+      <Info $gap=".8rem">
         <HeaderUppercaseBold>{productId}</HeaderUppercaseBold>
         <ProductInfoParagraph title="Price" value="$299.99" />
         <ProductInfoParagraph title="Shipping" value="$20.99" />
