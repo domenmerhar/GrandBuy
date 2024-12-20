@@ -59,8 +59,8 @@ export const LoginPage = () => {
         </Button>
         <P>
           Not a member?{" "}
-          <StyledLink $fontSize="1.4rem" to="/register">
-            Register
+          <StyledLink $fontSize="1.4rem" to="/signup">
+            Sign up
           </StyledLink>
         </P>
       </Form>
