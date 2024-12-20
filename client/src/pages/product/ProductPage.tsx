@@ -1,25 +1,15 @@
 import { Content } from "../../Util/Content";
 import { MoreFromSellerSection } from "./MoreFromSellerSection";
 import { SaleSection } from "../main/SaleSection";
-import { BlankCard } from "../../Util/BlankCard";
 import { SliderInfoRow } from "./SliderInfoRow";
+import { ProductDescription } from "./ProductDescription";
 
 export const ProductPage = () => {
   return (
     <Content>
       <SliderInfoRow />
-
-      <BlankCard>
-        <p>
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Similique
-          aliquam tempora nemo repellat! Quasi, aliquid, magnam ratione illo,
-          provident hic repudiandae sit vel modi animi asperiores aliquam ab
-          sequi ullam.
-        </p>
-      </BlankCard>
-
+      <ProductDescription />
       <MoreFromSellerSection />
-
       <SaleSection />
     </Content>
   );
