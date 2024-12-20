@@ -67,11 +67,11 @@ export const SignupPage = () => {
         />
 
         <Button $color="orange" $shape="oval" $size="medium">
-          Login
+          Sign Up
         </Button>
         <P>
           Already a member?{" "}
-          <StyledLink $fontSize="1.4rem" to="/register">
+          <StyledLink $fontSize="1.4rem" to="/login">
             Login
           </StyledLink>
         </P>
