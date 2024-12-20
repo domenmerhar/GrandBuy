@@ -6,7 +6,7 @@ export const MyProducts = () => {
   return (
     <Content>
       <Header as={"h1"} $color="orange" $size="medium">
-        Recent History
+        My products
       </Header>
       <SaleSection />
     </Content>
