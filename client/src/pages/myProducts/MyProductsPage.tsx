@@ -2,7 +2,7 @@ import { Content } from "../../Util/Content";
 import { Header } from "../../Util/Header";
 import { SaleSection } from "../main/SaleSection";
 
-export const MyProducts = () => {
+export const MyProductsPage = () => {
   return (
     <Content>
       <Header as={"h1"} $color="orange" $size="medium">
