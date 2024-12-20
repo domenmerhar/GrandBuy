@@ -4,6 +4,7 @@ import { Button } from "../../Util/Button";
 import { StyledLink } from "../../Util/Link";
 import { InputWithLabel } from "../../Util/InputWithLabel";
 import { AuthContainer } from "../../Util/AuthContainer";
+import { useNavigate } from "react-router-dom";
 
 const Form = styled.form`
   display: flex;
@@ -32,9 +33,15 @@ const P = styled.p`
 `;
 
 export const LoginPage = () => {
+  const navigate = useNavigate();
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    navigate("/");
+  };
+
   return (
     <AuthContainer>
-      <Form>
+      <Form onSubmit={handleSubmit}>
         <Logo $color="orange" />
 
         <InputWithLabel
