@@ -11,6 +11,7 @@ import { SignupPage } from "./pages/signup/Signup";
 import { AccountPage } from "./pages/account/AccountPage";
 import { SettingsPage } from "./pages/settings/SettingsPage";
 import { ProductPage } from "./pages/product/ProductPage";
+import { MyProducts } from "./pages/myProducts/myProducts";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
             <Route path="/history" element={<HistoryPage />} />
             <Route path="/refund" element={<RefundPage />} />
             <Route path="/search" element={<SearchPage />} />
+            <Route path="/my-products" element={<MyProducts />} />
             {/* TODO: NAVIGATE TO USER ID */}
             <Route
               path="/account"
