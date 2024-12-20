@@ -1,5 +1,6 @@
 import { BiExit } from "react-icons/bi";
 import { HiOutlineMoon } from "react-icons/hi";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 const ThemeExitHolder = styled.div`
@@ -44,12 +45,20 @@ const IconNav = styled.button<IconNavProps>`
 `;
 
 export const BurgerMenuThemeExit = () => {
+  const navigate = useNavigate();
+  const handleThemeChange = () => {};
+
+  const handleExit = () => {
+    navigate("/login");
+  };
+
   return (
     <ThemeExitHolder>
-      <IconNav>
+      <IconNav onClick={handleThemeChange}>
         <HiOutlineMoon size={48} />
       </IconNav>
-      <IconNav $iconColoring="fill">
+
+      <IconNav $iconColoring="fill" onClick={handleExit}>
         <BiExit size={48} />
       </IconNav>
     </ThemeExitHolder>
