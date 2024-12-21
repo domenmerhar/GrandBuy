@@ -14,6 +14,7 @@ import { ProductPage } from "./pages/product/ProductPage";
 import { LoginPage } from "./pages/login/LoginPage";
 import { MyProductsPage } from "./pages/myProducts/MyProductsPage";
 import { WishlistPage } from "./pages/wishlist/WIshlistPage";
+import { OrdersPage } from "./pages/orders/OrdersPage";
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
             <Route path="/search/:query" element={<SearchPage />} />
             <Route path="/my-products" element={<MyProductsPage />} />
             <Route path="/wishlist" element={<WishlistPage />} />
+            <Route path="/orders" element={<OrdersPage />} />
             {/* TODO: NAVIGATE TO USER ID */}
             <Route
               path="/account"
