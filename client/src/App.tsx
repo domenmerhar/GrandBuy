@@ -27,7 +27,7 @@ function App() {
             <Route path="/settings" element={<SettingsPage />} />
             <Route path="/history" element={<HistoryPage />} />
             <Route path="/refund" element={<RefundPage />} />
-            <Route path="/search" element={<SearchPage />} />
+            <Route path="/search/:query" element={<SearchPage />} />
             <Route path="/my-products" element={<MyProductsPage />} />
             <Route path="/wishlist" element={<WishlistPage />} />
             {/* TODO: NAVIGATE TO USER ID */}
