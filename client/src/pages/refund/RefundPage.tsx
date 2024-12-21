@@ -1,7 +1,20 @@
 import styled from "styled-components";
 import { Content } from "../../Util/Content";
 import { RefundCard } from "./RefundCard";
-import { RefundPageHeader } from "./RefundPageHeader";
+import { IOption } from "../../Util/types";
+import { FilterSortHeader } from "../../Util/FilterSortHeader";
+
+const selectOptions: IOption[] = [
+  { value: "oldest", name: "Sort by age (oldest)" },
+  { value: "newest", name: "Sort by age (newest)" },
+];
+
+const filterOptions: IOption[] = [
+  { value: "all", name: "All" },
+  { value: "pending", name: "Pending" },
+  { value: "approved", name: "Approved" },
+  { value: "rejected", name: "Rejected" },
+];
 
 const Grid = styled.div`
   display: grid;
@@ -15,7 +28,11 @@ const Grid = styled.div`
 export const RefundPage = () => {
   return (
     <Content>
-      <RefundPageHeader />
+      <FilterSortHeader
+        headerText="Refund requests"
+        filterOptions={filterOptions}
+        selectOptions={selectOptions}
+      />
       <Grid>
         <RefundCard />
         <RefundCard />
