@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { Content } from "../../Util/Content";
-import { RefundCard } from "../refund/RefundCard";
-import { RefundPageHeader } from "../refund/RefundPageHeader";
+import { FilterSortHeader } from "../../Util/FilterSortHeader";
+import { NotificationCard } from "./NotificationCard";
 
 const Grid = styled.div`
   display: grid;
@@ -15,12 +15,24 @@ const Grid = styled.div`
 export const NotificationPage = () => {
   return (
     <Content>
-      <RefundPageHeader />
+      <FilterSortHeader
+        headerText="Notifications"
+        filterOptions={[
+          { value: "all", name: "All" },
+          { value: "message", name: "Message" },
+          { value: "warning", name: "Warning" },
+        ]}
+        selectOptions={[
+          { name: "Sort by age (oldest)", value: "oldest" },
+          { name: "Sort by age (newest)", value: "newest" },
+        ]}
+      />
       <Grid>
-        <RefundCard />
-        <RefundCard />
-        <RefundCard />
-        <RefundCard />
+        <NotificationCard />
+        <NotificationCard />
+        <NotificationCard />
+        <NotificationCard />
+        <NotificationCard />
       </Grid>
     </Content>
   );
