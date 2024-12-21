@@ -6,13 +6,13 @@ import { Row } from "./Row";
 
 interface ProductsCardProps {
   title: string;
-  items: number;
+  itemCount: number;
   children: React.ReactNode | React.ReactNode[] | null;
 }
 
 export const ProductsCard: FC<ProductsCardProps> = ({
   title,
-  items,
+  itemCount,
   children,
 }) => {
   return (
@@ -20,7 +20,7 @@ export const ProductsCard: FC<ProductsCardProps> = ({
       <Column $gap="1.6rem">
         <Row $justifyContent="space-between">
           <HeaderUppercaseBold>{title}</HeaderUppercaseBold>
-          Items({items})
+          Items({itemCount})
         </Row>
         {children}
       </Column>
