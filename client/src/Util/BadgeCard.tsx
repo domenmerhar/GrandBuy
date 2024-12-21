@@ -37,7 +37,7 @@ const P = styled.p`
 `;
 
 const BadgeCorner = styled(Badge)`
-  justify-self: flex-end;
+  margin-left: auto;
 `;
 
 interface RefundCardProps {
@@ -53,6 +53,7 @@ interface HeaderProps {
 
 interface RefundBadgeProps {
   children: string;
+  date: string;
 }
 
 export const BadgeCard: FC<RefundCardProps> & {
@@ -89,10 +90,14 @@ BadgeCard.Header = ({ imageLink, username, badgeText, date }) => {
   );
 };
 
-BadgeCard.Badge = ({ children, $color }) => {
+BadgeCard.Badge = ({ children, $color, date }) => {
   return (
-    <Row $justifyContent="space-between" $alignItems="center">
-      <BadgeCorner $color={$color}>{children}</BadgeCorner>
-    </Row>
+    <Column $gap="8px">
+      <Row $justifyContent="space-between" $alignItems="center">
+        <BadgeCorner $color={$color}>{children}</BadgeCorner>
+      </Row>
+
+      <Date>{date}</Date>
+    </Column>
   );
 };
