@@ -1,8 +1,5 @@
 import styled from "styled-components";
-
-interface BadgeProps {
-  $color: "orange" | "red" | "green" | "yellow";
-}
+import { BadgeProps } from "./types";
 
 export const Badge = styled.span<BadgeProps>`
   ${({ $color }) =>
