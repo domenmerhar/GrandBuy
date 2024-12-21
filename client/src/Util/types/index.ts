@@ -17,3 +17,7 @@ export interface RowColumnProps {
 }
 
 export type languages = "en" | "sl";
+
+export interface BadgeProps {
+  $color: "orange" | "red" | "green" | "yellow";
+}
