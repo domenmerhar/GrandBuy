@@ -15,6 +15,7 @@ import { LoginPage } from "./pages/login/LoginPage";
 import { MyProductsPage } from "./pages/myProducts/MyProductsPage";
 import { OrdersPage } from "./pages/orders/OrdersPage";
 import { WishlistPage } from "./pages/wishlist/WishlistPage";
+import { NotificationPage } from "./pages/notification/NotificationPage";
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
             <Route path="/my-products" element={<MyProductsPage />} />
             <Route path="/wishlist" element={<WishlistPage />} />
             <Route path="/orders" element={<OrdersPage />} />
+            <Route path="/notifications" element={<NotificationPage />} />
             {/* TODO: NAVIGATE TO USER ID */}
             <Route
               path="/account"
