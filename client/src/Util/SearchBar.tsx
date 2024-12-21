@@ -62,7 +62,7 @@ export const SearchBar = () => {
     e.preventDefault();
 
     if (!inputRef.current || !inputRef.current.value) return;
-    navigate(`/product/${inputRef.current.value}`);
+    navigate(`/search/${inputRef.current.value}`);
   };
 
   return (
