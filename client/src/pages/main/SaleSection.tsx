@@ -5,7 +5,7 @@ import { ProductCard } from "../../Util/ProductCard";
 export const SaleSection = () => {
   return (
     <>
-      <Header $color="orange" $size="medium">
+      <Header $color="orange" $size="medium" id="sale">
         Summer Sale
       </Header>
       <Grid
