@@ -5,6 +5,7 @@ import { useSearchParams } from "react-router-dom";
 
 interface SelectProps {
   options: IOption[];
+  searchParam?: string;
 }
 
 const StyledSelect = styled.select`
@@ -17,12 +18,12 @@ const StyledSelect = styled.select`
 
 const Option = styled.option``;
 
-export const Select: FC<SelectProps> = ({ options }) => {
+export const Select: FC<SelectProps> = ({ options, searchParam = "sort" }) => {
   const [, setSearchParams] = useSearchParams();
 
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSearchParams((searchParams) => {
-      searchParams.set("sort", e.target.value);
+      searchParams.set(searchParam, e.target.value);
       return searchParams;
     });
   };
