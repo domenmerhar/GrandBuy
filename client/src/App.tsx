@@ -13,8 +13,8 @@ import { SettingsPage } from "./pages/settings/SettingsPage";
 import { ProductPage } from "./pages/product/ProductPage";
 import { LoginPage } from "./pages/login/LoginPage";
 import { MyProductsPage } from "./pages/myProducts/MyProductsPage";
-import { WishlistPage } from "./pages/wishlist/WIshlistPage";
 import { OrdersPage } from "./pages/orders/OrdersPage";
+import { WishlistPage } from "./pages/wishlist/WishlistPage";
 
 function App() {
   return (
