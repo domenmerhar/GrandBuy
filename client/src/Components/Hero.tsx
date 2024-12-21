@@ -58,6 +58,10 @@ const ButtonHolder = styled.div`
   gap: 1.6rem;
 `;
 
+const ShopButton = styled(Button)`
+  text-decoration: none;
+`;
+
 export const Hero = () => {
   return (
     <StyledHero>
@@ -73,13 +77,19 @@ export const Hero = () => {
         <Countdown />
 
         <ButtonHolder>
-          <Button $color="orange" $shape="oval" $size="medium">
+          <ShopButton
+            as={"a"}
+            href="#sale"
+            $color="orange"
+            $shape="oval"
+            $size="large"
+          >
             Shop Now
-          </Button>
+          </ShopButton>
 
-          <Button $color="gray" $shape="oval" $size="medium">
+          {/* <Button $color="gray" $shape="oval" $size="medium">
             Learn More
-          </Button>
+          </Button> */}
         </ButtonHolder>
       </ContentHolder>
     </StyledHero>
