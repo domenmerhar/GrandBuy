@@ -28,8 +28,12 @@ export const FilterSortHeader: FC<RefundPageHeaderProps> = ({
       </Header>
 
       <Row $gap="12px" $alignItems="center">
-        {filterOptions && <Filter options={filterOptions} />}
-        {selectOptions && <Select options={selectOptions} />}
+        {filterOptions && filterOptions.length ? (
+          <Filter options={filterOptions} />
+        ) : null}
+        {selectOptions && selectOptions.length ? (
+          <Select options={selectOptions} />
+        ) : null}
       </Row>
     </Row>
   );
