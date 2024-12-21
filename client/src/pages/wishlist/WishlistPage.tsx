@@ -10,7 +10,7 @@ export const WishlistPage = () => {
   return (
     <Content>
       <CardFilterGrid>
-        <ProductsCard title="Wishlist" items={2}>
+        <ProductsCard title="Wishlist" itemCount={2}>
           <CartItem />
         </ProductsCard>
 
