@@ -16,6 +16,7 @@ import { MyProductsPage } from "./pages/myProducts/MyProductsPage";
 import { OrdersPage } from "./pages/orders/OrdersPage";
 import { WishlistPage } from "./pages/wishlist/WishlistPage";
 import { NotificationPage } from "./pages/notification/NotificationPage";
+import { Dashboard } from "./Components/Dashboard";
 
 function App() {
   return (
@@ -41,6 +42,8 @@ function App() {
             />
             <Route path="/account/:userId" element={<AccountPage />} />
             <Route path="/product/:productId" element={<ProductPage />} />
+
+            <Route path="/dashboard" element={<Dashboard />}></Route>
           </Route>
 
           <Route path="/signup" element={<SignupPage />} />
