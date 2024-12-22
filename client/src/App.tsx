@@ -16,7 +16,7 @@ import { MyProductsPage } from "./pages/myProducts/MyProductsPage";
 import { OrdersPage } from "./pages/orders/OrdersPage";
 import { WishlistPage } from "./pages/wishlist/WishlistPage";
 import { NotificationPage } from "./pages/notification/NotificationPage";
-import { Dashboard } from "./Components/Dashboard";
+import { Dashboard } from "./Components/Dashboard/Dashboard";
 
 function App() {
   return (
