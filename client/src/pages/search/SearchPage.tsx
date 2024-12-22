@@ -1,9 +1,10 @@
-import styled from "styled-components";
 import { IOption } from "../../Util/types";
 import { Select } from "../../Util/Select";
 import { SearchSidebar } from "./SearchSidebar";
 import { Grid } from "../../Util/Grid";
 import { ProductCard } from "../../Util/ProductCard";
+import { ContentWithSidebar } from "../../Util/ContentWithSidebar";
+import { SidebarLayout } from "../../Util/SidebarLayout";
 
 const selectOptions: IOption[] = [
   { name: "Sort by most orders", value: "-orders" },
@@ -14,32 +15,11 @@ const selectOptions: IOption[] = [
   { name: "Sort by date (oldest)", value: "createdAt" },
 ];
 
-const Layout = styled.div`
-  display: flex;
-  gap: 6.4rem;
-  padding-right: 6.4rem;
-
-  & > *:nth-child(3) {
-    padding-top: 2.4rem;
-  }
-`;
-
-const MainContent = styled.div`
-  max-width: 1265px;
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-
-  & > select {
-    align-self: flex-end;
-  }
-`;
-
 export const SearchPage = () => {
   return (
-    <Layout>
+    <SidebarLayout>
       <SearchSidebar />
-      <MainContent>
+      <ContentWithSidebar>
         <Select options={selectOptions} />
         <Grid
           $maxWidth="27rem"
@@ -59,7 +39,7 @@ export const SearchPage = () => {
             />
           ))}
         </Grid>
-      </MainContent>
-    </Layout>
+      </ContentWithSidebar>
+    </SidebarLayout>
   );
 };
