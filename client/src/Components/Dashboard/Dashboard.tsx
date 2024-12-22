@@ -3,10 +3,15 @@ import { Sidebar } from "../../Util/Sidebar";
 import { ContentWithSidebar } from "../../Util/ContentWithSidebar";
 import { SidebarLayout } from "../../Util/SidebarLayout";
 import { DashboardAdminList } from "./DashboardAdminList";
+import styled from "styled-components";
+
+const DashboardLayout = styled(SidebarLayout)`
+  font-weight: 500;
+`;
 
 export const Dashboard = () => {
   return (
-    <SidebarLayout>
+    <DashboardLayout>
       <Sidebar>
         {/* <DashboardSellerList /> */}
         <DashboardAdminList />
@@ -16,6 +21,6 @@ export const Dashboard = () => {
         Main
         <Outlet />
       </ContentWithSidebar>
-    </SidebarLayout>
+    </DashboardLayout>
   );
 };
