@@ -7,17 +7,11 @@ import {
 import { NavigationTextButton } from "../Util/NavigationTextButton";
 import { HiArrowUturnLeft, HiOutlineCog8Tooth } from "react-icons/hi2";
 import { BiPackage } from "react-icons/bi";
-import styled from "styled-components";
-
-const NavigationList = styled.ul`
-  display: flex;
-  flex-direction: column;
-  gap: 1.2rem;
-`;
+import { Column } from "../Util/Column";
 
 export const BurgerMenuNavigationList = () => {
   return (
-    <NavigationList>
+    <Column $gap="1.2rem">
       <NavigationTextButton to="account">
         <HiOutlineUser size={24} />
         Account
@@ -52,6 +46,6 @@ export const BurgerMenuNavigationList = () => {
         <HiArrowUturnLeft size={24} />
         Refund
       </NavigationTextButton>
-    </NavigationList>
+    </Column>
   );
 };
