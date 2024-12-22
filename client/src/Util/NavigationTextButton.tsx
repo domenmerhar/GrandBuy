@@ -5,6 +5,7 @@ import styled from "styled-components";
 interface NavigationTextButtonProps {
   children: React.ReactNode[];
   to: string;
+  variant?: "light" | "dark";
   iconColoring?: "fill" | "stroke";
 }
 
@@ -12,6 +13,7 @@ interface NavigationTextButtonProps {
 
 interface StyledNavigationTextButtonProps {
   $iconColoring?: "fill" | "stroke";
+  $variant: "light" | "dark";
 }
 
 const StyledNavigationTextButton = styled.a<StyledNavigationTextButtonProps>`
@@ -20,7 +22,9 @@ const StyledNavigationTextButton = styled.a<StyledNavigationTextButtonProps>`
 
   gap: 0.8rem;
   font-size: 2rem;
-  color: var(--gray-2);
+
+  color: ${({ $variant }) =>
+    $variant === "light" ? "var(--gray-2)" : "var(--gray-8)"};
 
   background-color: transparent;
   border: none;
@@ -30,19 +34,22 @@ const StyledNavigationTextButton = styled.a<StyledNavigationTextButtonProps>`
 
   & > svg {
     ${({ $iconColoring }) =>
-      $iconColoring === "fill"
-        ? "fill: var(--gray-2);"
-        : "stroke: var(--gray-2);"};
+      $iconColoring === "fill" ? "fill: " : "stroke: "};
+
+    ${({ $variant }) =>
+      $variant === "light" ? "var(--gray-2);" : "var(--gray-8);"};
   }
 
   &:hover {
-    color: var(--gray-0);
+    color: ${({ $variant }) =>
+      $variant === "light" ? "var(--gray-0)" : "var(--gray-9)"};
 
     & > svg {
       ${({ $iconColoring }) =>
-        $iconColoring === "fill"
-          ? "fill: var(--gray-0);"
-          : "stroke: var(--gray-0);"};
+        $iconColoring === "fill" ? "fill: " : "stroke: "};
+
+      color: ${({ $variant }) =>
+        $variant === "light" ? "var(--gray-0)" : "var(--gray-9)"};
     }
   }
 `;
@@ -54,6 +61,7 @@ const Li = styled.li`
 export const NavigationTextButton: FC<NavigationTextButtonProps> = ({
   children,
   to,
+  variant = "light",
   iconColoring = "stroke",
 }) => {
   return (
@@ -62,6 +70,7 @@ export const NavigationTextButton: FC<NavigationTextButtonProps> = ({
         as={NavLink}
         to={to}
         $iconColoring={iconColoring}
+        $variant={variant}
       >
         {children}
       </StyledNavigationTextButton>
