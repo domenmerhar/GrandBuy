@@ -1,14 +1,26 @@
-import { BlankCard } from "../../Util/BlankCard";
+import { FC, useEffect, useState } from "react";
+import { MarkdownRenderer } from "../../Components/MarkdownRenderer";
 
-export const ProductDescription = () => {
+interface MarkdownTestProps {
+  markdownSrc: string;
+}
+
+export const ProductDescription: FC<MarkdownTestProps> = ({ markdownSrc }) => {
+  const [markdownContent, setMarkdownContent] = useState<string>("");
+
+  useEffect(() => {
+    const fetchMarkdown = async () => {
+      const response = await fetch(markdownSrc);
+      const text = await response.text();
+      setMarkdownContent(text);
+    };
+
+    fetchMarkdown();
+  }, [markdownSrc]);
+
   return (
-    <BlankCard>
-      <p>
-        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Similique
-        aliquam tempora nemo repellat! Quasi, aliquid, magnam ratione illo,
-        provident hic repudiandae sit vel modi animi asperiores aliquam ab sequi
-        ullam.
-      </p>
-    </BlankCard>
+    <MarkdownRenderer>
+      {markdownContent || "Description is loading..."}
+    </MarkdownRenderer>
   );
 };
