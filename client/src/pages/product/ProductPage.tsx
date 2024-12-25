@@ -8,7 +8,7 @@ export const ProductPage = () => {
   return (
     <Content>
       <SliderInfoRow />
-      <ProductDescription />
+      <ProductDescription markdownSrc="http://localhost:3000/files/test.md" />
       <MoreFromSellerSection />
       <SaleSection />
     </Content>
