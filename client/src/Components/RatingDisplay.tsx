@@ -16,23 +16,31 @@ const fillColorArray = [
 
 interface RatingDisplayProps {
   rating: number;
+  size?: number;
+  fontSize?: string;
+  showTooltip?: boolean;
 }
 
-export const RatingDisplay: FC<RatingDisplayProps> = ({ rating }) => {
+export const RatingDisplay: FC<RatingDisplayProps> = ({
+  rating,
+  size = 28,
+  fontSize = "1.8rem",
+  showTooltip = true,
+}) => {
   return (
     <Rating
-      size={28}
+      size={size}
       transition
       allowFraction
-      showTooltip
+      showTooltip={showTooltip}
       tooltipDefaultText={String(rating)}
       fillColorArray={fillColorArray}
       tooltipStyle={{
         backgroundColor: "transparent",
         color: "var(--gray-8)",
         fontWeight: "500",
-        fontSize: "1.8rem",
         marginLeft: "0",
+        fontSize,
       }}
       initialValue={rating}
       readonly
