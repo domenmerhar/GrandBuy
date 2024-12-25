@@ -6,6 +6,7 @@ import { Select } from "../../Util/Select";
 import { IOption } from "../../Util/types";
 import { AverageRating } from "./AverageRating";
 import { RatingBreakdown } from "./RatingBreakDown";
+import { Review } from "./Review";
 
 const selectOptions: IOption[] = [
   { name: "Most liked", value: "+likes" },
@@ -25,7 +26,12 @@ export const ReviewSection = () => {
 
         <AverageRating rating={2.3} />
 
-        <RatingBreakdown />
+        <Row $gap="3.2rem">
+          <RatingBreakdown />
+          <Column>
+            <Review />
+          </Column>
+        </Row>
       </Column>
     </BlankCard>
   );
