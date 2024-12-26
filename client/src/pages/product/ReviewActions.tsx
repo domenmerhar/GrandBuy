@@ -3,6 +3,8 @@ import styled from "styled-components";
 import { Row } from "../../Util/Row";
 import { HiArrowUturnLeft, HiOutlineHandThumbUp } from "react-icons/hi2";
 import { HiChevronDown, HiChevronUp } from "react-icons/hi";
+import { Modal } from "../../Util/Modal";
+import { useSearchParams } from "react-router-dom";
 
 const ReviewActionsRow = styled(Row)`
   font-size: 1.4rem;
@@ -38,8 +40,18 @@ export const ReviewActions: FC<ReviewActionsProps> = ({
   showReplies,
   setShowReplies,
 }) => {
+  const id: string = "id1278203";
+
+  const { setIsOpen } = Modal.useModalContext();
+  const [, setSearchParams] = useSearchParams();
+
   const handleShowReplies = () => {
     setShowReplies((prev: boolean) => !prev);
+  };
+
+  const handleReply = () => {
+    setSearchParams({ reply: id });
+    setIsOpen(true);
   };
 
   return (
@@ -49,7 +61,12 @@ export const ReviewActions: FC<ReviewActionsProps> = ({
         <span>444</span>
       </ReviewAction>
 
-      <ReviewAction $gap="4px" $alignItems="center" as="button">
+      <ReviewAction
+        $gap="4px"
+        $alignItems="center"
+        as="button"
+        onClick={handleReply}
+      >
         <HiArrowUturnLeft size={22} />
         <span>Reply</span>
       </ReviewAction>
