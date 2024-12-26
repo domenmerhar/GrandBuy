@@ -11,10 +11,6 @@ const ContentHolder = styled.div`
   & > h2:not(:first-child) {
     margin-top: 12px;
   }
-
-  & .react-simple-star-rating-tooltip {
-    margin: 0 !important;
-  }
 `;
 
 export const ProductFilter = () => {
