@@ -14,7 +14,12 @@ interface ModalProps {
   onSubmitApprove?: (
     e?: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => unknown;
+
   onCancelReject?: (
+    e?: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => unknown;
+
+  onBackdropClick?: (
     e?: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => unknown;
 }
@@ -55,6 +60,8 @@ const Header = styled.div`
 
 const Title = styled.h1`
   color: var(--gray-1);
+  text-transform: uppercase;
+  letter-spacing: 2px;
 `;
 
 const Content = styled.p`
@@ -103,6 +110,7 @@ const Window: FC<ModalProps> = ({
   children,
   onCancelReject,
   onSubmitApprove,
+  onBackdropClick,
 }) => {
   const { isOpen, setIsOpen } = useModalContext();
 
@@ -121,7 +129,10 @@ const Window: FC<ModalProps> = ({
     setIsOpen(false);
   };
 
-  const handleBackdropClick = () => setIsOpen(false);
+  const handleBackdropClick = () => {
+    if (onBackdropClick) onBackdropClick();
+    setIsOpen(false);
+  };
 
   if (!isOpen) return null;
 
