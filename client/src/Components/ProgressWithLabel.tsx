@@ -30,6 +30,7 @@ const Progress = styled.progress`
 `;
 
 const Label = styled.label`
+  min-width: 100px;
   font-size: 1.4rem;
   font-weight: 500;
 `;
