@@ -1,6 +1,7 @@
 import { Button } from "../../Util/Button";
 import { Modal } from "../../Util/Modal";
 import styled from "styled-components";
+import { AddReviewModal } from "./AddReviewModal";
 
 const PostReviewButton = styled(Button)`
   margin-top: 12px;
@@ -24,12 +25,7 @@ export const AddReviewButton = () => {
         Add review
       </PostReviewButton>
 
-      <Modal.Window title="Post review">
-        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Expedita
-        possimus nesciunt eveniet at vitae officiis, illum architecto animi
-        atque nemo qui, ab commodi. Beatae, quod mollitia optio tenetur
-        voluptatem molestias.
-      </Modal.Window>
+      <AddReviewModal />
     </>
   );
 };
