@@ -1,22 +1,13 @@
 import { useSearchParams } from "react-router-dom";
 import { BlankCard } from "../../Util/BlankCard";
 import { Column } from "../../Util/Column";
-import { HeaderUppercaseBold } from "../../Util/HeaderUppercaseBold";
 import { Modal } from "../../Util/Modal";
 import { Row } from "../../Util/Row";
-import { Select } from "../../Util/Select";
-import { IOption } from "../../Util/types";
-import { AverageRating } from "./AverageRating";
 import { Review } from "./Review";
 import { RatingBreakdown } from "./RatingBreakdown";
 import styled from "styled-components";
-
-const selectOptions: IOption[] = [
-  { name: "Most liked", value: "+likes" },
-  { name: "Least liked", value: "-likes" },
-  { name: "Most recent", value: "+date" },
-  { name: "Least recent", value: "-date" },
-];
+import { AddReviewButton } from "./AddReviewButton";
+import { ReviewSectionHeader } from "./ReviewSectionHeader";
 
 const StyledReviewSection = styled(BlankCard)`
   height: 800px;
@@ -37,7 +28,7 @@ const RatingReviewHolder = styled(Row)`
 export const ReviewSection = () => {
   const [, setSearchParams] = useSearchParams();
 
-  const handleModalClose = () => {
+  const handleReplyClose = () => {
     setSearchParams((searchParams) => {
       searchParams.delete("reply");
       return searchParams;
@@ -45,35 +36,35 @@ export const ReviewSection = () => {
   };
 
   return (
-    <Modal>
-      <StyledReviewSection>
-        <Row $justifyContent="space-between" $flexWrap="wrap">
-          <HeaderUppercaseBold>Reviews</HeaderUppercaseBold>
-          <Select options={selectOptions} searchParam="sort" />
-        </Row>
+    <StyledReviewSection>
+      <ReviewSectionHeader />
 
-        <AverageRating rating={2.3} />
+      <RatingReviewHolder $gap="3.2rem">
+        <RatingBreakdown />
 
-        <RatingReviewHolder $gap="3.2rem">
-          <RatingBreakdown />
+        <Modal>
           <Reviews $gap="3.2rem">
             {Array.from({ length: 5 }).map((_, i) => (
               <Review key={i} />
             ))}
           </Reviews>
-        </RatingReviewHolder>
-      </StyledReviewSection>
 
-      <Modal.Window
-        title="Reply"
-        onCancelReject={handleModalClose}
-        onBackdropClick={handleModalClose}
-      >
-        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Expedita
-        possimus nesciunt eveniet at vitae officiis, illum architecto animi
-        atque nemo qui, ab commodi. Beatae, quod mollitia optio tenetur
-        voluptatem molestias.
-      </Modal.Window>
-    </Modal>
+          <Modal.Window
+            title="Reply"
+            onCancelReject={handleReplyClose}
+            onBackdropClick={handleReplyClose}
+          >
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Expedita
+            possimus nesciunt eveniet at vitae officiis, illum architecto animi
+            atque nemo qui, ab commodi. Beatae, quod mollitia optio tenetur
+            voluptatem molestias.
+          </Modal.Window>
+        </Modal>
+      </RatingReviewHolder>
+
+      <Modal>
+        <AddReviewButton />
+      </Modal>
+    </StyledReviewSection>
   );
 };
