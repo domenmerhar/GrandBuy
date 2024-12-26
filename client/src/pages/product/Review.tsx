@@ -2,6 +2,8 @@ import styled from "styled-components";
 import { Column } from "../../Util/Column";
 import { Row } from "../../Util/Row";
 import { RatingDisplay } from "../../Components/RatingDisplay";
+import { HiArrowUturnLeft, HiOutlineHandThumbUp } from "react-icons/hi2";
+import { HiChevronDown } from "react-icons/hi";
 
 const Icon = styled.img`
   width: 3.2rem;
@@ -10,6 +12,31 @@ const Icon = styled.img`
 `;
 
 const ReviewContent = styled.p``;
+
+const ReviewActionsRow = styled(Row)`
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--gray-7);
+  margin-top: 4px;
+`;
+
+interface ReviewActionProps {
+  $active?: boolean;
+}
+
+const ReviewAction = styled(Row)<ReviewActionProps>`
+  background: transparent;
+  border: none;
+  text-transform: uppercase;
+
+  transition: all 200ms;
+
+  ${({ $active }) => $active && `color: var(--orange-6);`}
+
+  &:hover {
+    color: var(--gray-9);
+  }
+`;
 
 export const Review = () => {
   return (
@@ -27,6 +54,23 @@ export const Review = () => {
         praesentium eligendi aliquid, veniam velit ratione necessitatibus
         maiores, impedit ex molestias facere voluptatibus.
       </ReviewContent>
+
+      <ReviewActionsRow $alignItems="center" $gap="1.6rem">
+        <ReviewAction $gap="4px" $alignItems="center" as="button">
+          <HiOutlineHandThumbUp size={24} />
+          <span>444</span>
+        </ReviewAction>
+
+        <ReviewAction $gap="4px" $alignItems="center" as="button">
+          <HiArrowUturnLeft size={22} />
+          <span>Reply</span>
+        </ReviewAction>
+
+        <ReviewAction $gap="4px" $alignItems="center" as="button">
+          <HiChevronDown size={22} />
+          <span>Show Replies</span>
+        </ReviewAction>
+      </ReviewActionsRow>
     </Column>
   );
 };
