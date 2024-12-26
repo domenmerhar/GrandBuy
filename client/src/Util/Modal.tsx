@@ -8,7 +8,7 @@ import { createPortal } from "react-dom";
 
 interface ModalProps {
   title?: string;
-  children?: string;
+  children?: string | ReactNode | ReactNode[];
   type?: "submitApprove" | "cancelReject";
 
   onSubmitApprove?: (
@@ -36,8 +36,8 @@ const StyledModal = styled.div`
 
   font-size: 1.4rem;
 
-  width: 40rem;
-  height: 30rem;
+  min-height: 60rem;
+  min-width: 60rem;
 
   & > :last-child {
     height: 80%;
@@ -64,7 +64,7 @@ const Title = styled.h1`
   letter-spacing: 2px;
 `;
 
-const Content = styled.p`
+const Content = styled.div`
   margin: 0.4rem 0.6rem;
   height: 100%;
   font-weight: 600;
