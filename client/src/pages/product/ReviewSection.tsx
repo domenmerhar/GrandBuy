@@ -28,8 +28,10 @@ export const ReviewSection = () => {
 
         <Row $gap="3.2rem">
           <RatingBreakdown />
-          <Column>
-            <Review />
+          <Column $gap="3.2rem">
+            {Array.from({ length: 3 }).map((_, i) => (
+              <Review key={i} />
+            ))}
           </Column>
         </Row>
       </Column>
