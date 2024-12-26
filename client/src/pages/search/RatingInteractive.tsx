@@ -1,3 +1,4 @@
+import { FC } from "react";
 import { useSearchParams } from "react-router-dom";
 import { Rating } from "react-simple-star-rating";
 
@@ -27,7 +28,15 @@ const fillColorArray = [
   "#f1d045",
 ];
 
-export const RatingInteractive = () => {
+interface RatingInteractiveProps {
+  size?: number;
+  fontSize?: string;
+}
+
+export const RatingInteractive: FC<RatingInteractiveProps> = ({
+  size = 32,
+  fontSize = "1.8rem",
+}) => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const handleRating = (rating: number) => {
@@ -40,7 +49,7 @@ export const RatingInteractive = () => {
   return (
     <Rating
       onClick={handleRating}
-      size={32}
+      size={size}
       transition
       allowFraction
       showTooltip
@@ -51,7 +60,8 @@ export const RatingInteractive = () => {
         backgroundColor: "transparent",
         color: "var(--gray-8)",
         fontWeight: "500",
-        fontSize: "1.8rem",
+        fontSize,
+        marginLeft: 0,
       }}
       initialValue={
         searchParams.get("rating") ? parseFloat(searchParams.get("rating")!) : 0
