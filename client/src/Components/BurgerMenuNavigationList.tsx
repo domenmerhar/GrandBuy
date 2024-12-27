@@ -12,7 +12,7 @@ import { Column } from "../Util/Column";
 export const BurgerMenuNavigationList = () => {
   return (
     <Column $gap="1.2rem">
-      <NavigationTextButton to="account">
+      <NavigationTextButton to="/account/user/123">
         <HiOutlineUser size={24} />
         Account
       </NavigationTextButton>
