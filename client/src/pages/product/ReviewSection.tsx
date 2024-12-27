@@ -1,4 +1,3 @@
-import { useSearchParams } from "react-router-dom";
 import { BlankCard } from "../../Util/BlankCard";
 import { Column } from "../../Util/Column";
 import { Modal } from "../../Util/Modal";
@@ -8,6 +7,7 @@ import { RatingBreakdown } from "./RatingBreakdown";
 import styled from "styled-components";
 import { AddReviewButton } from "./AddReviewButton";
 import { ReviewSectionHeader } from "./ReviewSectionHeader";
+import { ReplyModal } from "./ReplyModal";
 
 const StyledReviewSection = styled(BlankCard)`
   height: 800px;
@@ -26,15 +26,6 @@ const RatingReviewHolder = styled(Row)`
 `;
 
 export const ReviewSection = () => {
-  const [, setSearchParams] = useSearchParams();
-
-  const handleReplyClose = () => {
-    setSearchParams((searchParams) => {
-      searchParams.delete("reply");
-      return searchParams;
-    });
-  };
-
   return (
     <StyledReviewSection>
       <ReviewSectionHeader />
@@ -49,16 +40,7 @@ export const ReviewSection = () => {
             ))}
           </Reviews>
 
-          <Modal.Window
-            title="Reply"
-            onCancelReject={handleReplyClose}
-            onBackdropClick={handleReplyClose}
-          >
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Expedita
-            possimus nesciunt eveniet at vitae officiis, illum architecto animi
-            atque nemo qui, ab commodi. Beatae, quod mollitia optio tenetur
-            voluptatem molestias.
-          </Modal.Window>
+          <ReplyModal />
         </Modal>
       </RatingReviewHolder>
 
