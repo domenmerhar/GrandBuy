@@ -33,7 +33,8 @@ export const ProductInfo = () => {
         <ProductInfoParagraph title="Price" value="$299.99" />
         <ProductInfoParagraph title="Shipping" value="$20.99" />
         <ProductInfoParagraph title="Average Rating" value="3" />
-        <ProductInfoParagraph title="Uploaded" value="27. 12. 2024" />
+        <ProductInfoParagraph title="Created by" value="Jose" />
+        <ProductInfoParagraph title="Uploaded " value="27. 12. 2024" />
       </Info>
 
       <Stepper searchParamName="quantity" />
