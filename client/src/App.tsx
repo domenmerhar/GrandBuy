@@ -17,6 +17,8 @@ import { OrdersPage } from "./pages/orders/OrdersPage";
 import { WishlistPage } from "./pages/wishlist/WishlistPage";
 import { NotificationPage } from "./pages/notification/NotificationPage";
 import { Dashboard } from "./Components/Dashboard/Dashboard";
+import { ReviewReplyWindow } from "./pages/account/ReviewReplyWindow";
+import { SaleSection } from "./pages/main/SaleSection";
 
 function App() {
   return (
@@ -35,12 +37,16 @@ function App() {
             <Route path="/wishlist" element={<WishlistPage />} />
             <Route path="/orders" element={<OrdersPage />} />
             <Route path="/notifications" element={<NotificationPage />} />
-            {/* TODO: NAVIGATE TO USER ID */}
-            <Route
-              path="/account"
-              element={<Navigate to="/account/123" replace />}
-            />
-            <Route path="/account/:userId" element={<AccountPage />} />
+
+            <Route path="/account" element={<AccountPage />}>
+              <Route
+                path="/account/user/:userId"
+                element={<ReviewReplyWindow />}
+              />
+              <Route path="/account/seller/:userId" element={<SaleSection />} />
+              <Route path="*" element={<Navigate to="/" replace />} index />
+            </Route>
+
             <Route path="/product/:productId" element={<ProductPage />} />
 
             <Route path="/dashboard" element={<Dashboard />}></Route>
