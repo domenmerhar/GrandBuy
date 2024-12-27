@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { forwardRef } from "react";
 import styled from "styled-components";
 import { Label } from "../Util/Label";
 
@@ -17,22 +17,19 @@ const Textarea = styled.textarea`
 `;
 
 interface TextAreaWithLabelProps {
-  textAreaRef: React.RefObject<HTMLTextAreaElement>;
   id: string;
   label: string;
   placeholder?: string;
 }
 
-export const TextareaWithLabel: FC<TextAreaWithLabelProps> = ({
-  textAreaRef,
-  id,
-  label,
-  placeholder = "",
-}) => {
+export const TextareaWithLabel = forwardRef<
+  HTMLTextAreaElement,
+  TextAreaWithLabelProps
+>(({ id, label, placeholder = "" }, ref) => {
   return (
     <>
       <TextareaLabel htmlFor={id}>{label}</TextareaLabel>
-      <Textarea id={id} placeholder={placeholder} ref={textAreaRef} />
+      <Textarea id={id} placeholder={placeholder} ref={ref} />
     </>
   );
-};
+});
