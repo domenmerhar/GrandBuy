@@ -36,8 +36,8 @@ const StyledModal = styled.div`
 
   font-size: 1.4rem;
 
-  min-height: 60rem;
-  min-width: 60rem;
+  min-height: 38rem;
+  min-width: 55rem;
 
   & > :last-child {
     height: 80%;
