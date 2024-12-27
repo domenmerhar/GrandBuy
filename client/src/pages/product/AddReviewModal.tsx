@@ -34,7 +34,7 @@ export const AddReviewModal = () => {
         <TextareaWithLabel
           id="content"
           label="Content"
-          textAreaRef={textAreaRef}
+          ref={textAreaRef}
           placeholder="Beautiful product. I love it!"
         />
       </Column>
