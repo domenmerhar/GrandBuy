@@ -13,5 +13,4 @@ export const StyledSidebar = styled.aside<StyledSidebarProps>`
   height: ${({ $height }) => $height || "100vh"};
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   padding: 2.4rem 3.2rem;
-  border-radius: 15px;
 `;
