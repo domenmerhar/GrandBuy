@@ -42,7 +42,6 @@ export const ImagePicker = () => {
               alt={`Selected ${index}`}
               style={{
                 width: "200px",
-                height: "200px",
                 objectFit: "cover",
                 margin: "5px",
               }}
