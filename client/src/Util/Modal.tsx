@@ -34,10 +34,18 @@ const StyledModal = styled.div`
   border-radius: 10px;
   background-color: var(--gray-2);
 
+  display: flex;
+  flex-direction: column;
+
   font-size: 1.4rem;
 
   min-height: 38rem;
   min-width: 55rem;
+
+  max-height: 80vh;
+  max-width: 90vw;
+
+  overflow: hidden;
 
   & > :last-child {
     height: 80%;
@@ -104,6 +112,15 @@ const useModalContext = () => {
   return context;
 };
 
+const MainColumn = styled(Column)`
+  flex: 0.9;
+  overflow-y: auto;
+`;
+
+const ButtonsRow = styled(Row)`
+  margin-top: auto;
+`;
+
 const Window: FC<ModalProps> = ({
   title,
   type = "submitApprove",
@@ -143,10 +160,10 @@ const Window: FC<ModalProps> = ({
           <Title>{title}</Title>
         </Header>
 
-        <Column>
+        <MainColumn>
           <Content>{children}</Content>
 
-          <Row $gap="1.2rem" $alignItems="center">
+          <ButtonsRow $gap="1.2rem" $alignItems="center">
             <Button
               $color={type === "submitApprove" ? "gray" : "red"}
               $shape="oval"
@@ -164,8 +181,8 @@ const Window: FC<ModalProps> = ({
             >
               Submit
             </Button>
-          </Row>
-        </Column>
+          </ButtonsRow>
+        </MainColumn>
       </StyledModal>
       <Backdrop onClick={handleBackdropClick} />
     </>,
