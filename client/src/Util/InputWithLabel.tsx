@@ -5,9 +5,11 @@ import { Label } from "./Label";
 interface InputWithLabelProps {
   id: string;
   placeholder: string;
-  type: "text" | "password";
+  type: "text" | "password" | "number";
   title: string;
+  ref?: React.RefObject<HTMLInputElement>;
   disabled?: boolean;
+  min?: number;
 }
 
 export const InputWithLabel: FC<InputWithLabelProps> = ({
@@ -15,7 +17,9 @@ export const InputWithLabel: FC<InputWithLabelProps> = ({
   placeholder,
   type,
   title,
+  ref,
   disabled,
+  min = 0,
 }) => {
   return (
     <>
@@ -25,6 +29,8 @@ export const InputWithLabel: FC<InputWithLabelProps> = ({
         placeholder={placeholder}
         id={id}
         disabled={disabled || false}
+        min={min}
+        ref={ref}
       />
     </>
   );
