@@ -4,17 +4,26 @@ import { ContentWithSidebar } from "../../Util/ContentWithSidebar";
 import { SidebarLayout } from "../../Util/SidebarLayout";
 import { DashboardAdminList } from "./DashboardAdminList";
 import styled from "styled-components";
+import { DashboardSellerList } from "./DashboardSellerList";
+import { Modal } from "../../Util/Modal";
 
 const DashboardLayout = styled(SidebarLayout)`
   font-weight: 500;
 `;
 
+const role = "seller";
+
 export const Dashboard = () => {
   return (
     <DashboardLayout>
       <Sidebar>
-        {/* <DashboardSellerList /> */}
-        <DashboardAdminList />
+        {role === "seller" ? (
+          <Modal>
+            <DashboardSellerList />
+          </Modal>
+        ) : (
+          <DashboardAdminList />
+        )}
       </Sidebar>
 
       <ContentWithSidebar>
