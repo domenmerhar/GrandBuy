@@ -3,6 +3,7 @@ import { Column } from "../../Util/Column";
 import { InputWithLabel } from "../../Util/InputWithLabel";
 import { Modal } from "../../Util/Modal";
 import { useRef } from "react";
+import { ImagePicker } from "../ImagePicker";
 
 const Content = styled(Column)`
   & label {
@@ -41,6 +42,8 @@ export const AddProductModal = () => {
           type="number"
           ref={shippingRef}
         />
+
+        <ImagePicker />
       </Content>
     </Modal.Window>
   );
