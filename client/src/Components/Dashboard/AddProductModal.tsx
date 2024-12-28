@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { Column } from "../../Util/Column";
 import { InputWithLabel } from "../../Util/InputWithLabel";
 import { Modal } from "../../Util/Modal";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { ImagePicker } from "../ImagePicker";
 
 const Content = styled(Column)`
@@ -12,6 +12,8 @@ const Content = styled(Column)`
 `;
 
 export const AddProductModal = () => {
+  const [selectedImages, setSelectedImages] = useState<string[]>([]);
+
   const productRef = useRef<HTMLInputElement>(null);
   const priceRef = useRef<HTMLInputElement>(null);
   const shippingRef = useRef<HTMLInputElement>(null);
@@ -43,7 +45,24 @@ export const AddProductModal = () => {
           ref={shippingRef}
         />
 
-        <ImagePicker />
+        <ImagePicker setSelectedImages={setSelectedImages} />
+
+        {selectedImages.length > 0 && (
+          <div>
+            {selectedImages.map((image, index) => (
+              <img
+                key={index}
+                src={image}
+                alt={`Selected ${index}`}
+                style={{
+                  width: "200px",
+                  objectFit: "cover",
+                  margin: "5px",
+                }}
+              />
+            ))}
+          </div>
+        )}
       </Content>
     </Modal.Window>
   );
