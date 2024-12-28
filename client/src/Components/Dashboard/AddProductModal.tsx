@@ -3,7 +3,7 @@ import { Column } from "../../Util/Column";
 import { InputWithLabel } from "../../Util/InputWithLabel";
 import { Modal } from "../../Util/Modal";
 import { useRef, useState } from "react";
-import { ImagePicker } from "../ImagePicker";
+import { FilePicker } from "../FilePicker";
 
 const Content = styled(Column)`
   & label {
@@ -45,7 +45,7 @@ export const AddProductModal = () => {
           ref={shippingRef}
         />
 
-        <ImagePicker setSelectedImages={setSelectedImages} />
+        <FilePicker setSelectedFiles={setSelectedImages} multiple />
 
         {selectedImages.length > 0 && (
           <div>
