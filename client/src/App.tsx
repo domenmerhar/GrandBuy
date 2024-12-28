@@ -19,6 +19,7 @@ import { NotificationPage } from "./pages/notification/NotificationPage";
 import { Dashboard } from "./Components/Dashboard/Dashboard";
 import { ReviewReplyWindow } from "./pages/account/ReviewReplyWindow";
 import { SaleSection } from "./pages/main/SaleSection";
+import { AddProductPage } from "./pages/addProduct/AddProductPage";
 
 function App() {
   return (
@@ -47,6 +48,7 @@ function App() {
               <Route path="*" element={<Navigate to="/" replace />} index />
             </Route>
 
+            <Route path="/add-product" element={<AddProductPage />} />
             <Route path="/product/:productId" element={<ProductPage />} />
 
             <Route path="/dashboard" element={<Dashboard />}></Route>
