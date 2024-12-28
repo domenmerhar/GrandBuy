@@ -1,10 +1,10 @@
 import styled from "styled-components";
-import { Column } from "../../Util/Column";
+import { Column } from "../Util/Column";
 import { useParams } from "react-router-dom";
-import { HeaderUppercaseBold } from "../../Util/HeaderUppercaseBold";
-import { ProductInfoParagraph } from "./ProductInfoParagraph";
-import { Stepper } from "../../Util/Stepper";
-import { Button } from "../../Util/Button";
+import { HeaderUppercaseBold } from "../Util/HeaderUppercaseBold";
+import { ProductInfoParagraph } from "../pages/product/ProductInfoParagraph";
+import { Stepper } from "../Util/Stepper";
+import { Button } from "../Util/Button";
 
 const StyledProductInfo = styled(Column)`
   min-width: 25rem;
@@ -33,6 +33,7 @@ export const ProductInfo = () => {
         <ProductInfoParagraph title="Price" value="$299.99" />
         <ProductInfoParagraph title="Shipping" value="$20.99" />
         <ProductInfoParagraph title="Average Rating" value="3" />
+        <ProductInfoParagraph title="Units sold" value="290" />
         <ProductInfoParagraph title="Created by" value="Jose" />
         <ProductInfoParagraph title="Uploaded " value="27. 12. 2024" />
       </Info>
