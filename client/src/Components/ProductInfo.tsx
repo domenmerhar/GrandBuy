@@ -1,10 +1,10 @@
 import styled from "styled-components";
 import { Column } from "../Util/Column";
-import { useParams } from "react-router-dom";
 import { HeaderUppercaseBold } from "../Util/HeaderUppercaseBold";
 import { ProductInfoParagraph } from "../pages/product/ProductInfoParagraph";
 import { Stepper } from "../Util/Stepper";
 import { Button } from "../Util/Button";
+import { FC } from "react";
 
 const StyledProductInfo = styled(Column)`
   min-width: 25rem;
@@ -23,19 +23,35 @@ const Info = styled(Column)`
   } */
 `;
 
-export const ProductInfo = () => {
-  const { productId } = useParams();
+interface ProductInfoProps {
+  title: string;
+  price: string;
+  shipping: string;
+  averageRating: string;
+  unitsSold: string;
+  createdBy: string;
+  uploaded: string;
+}
 
+export const ProductInfo: FC<ProductInfoProps> = ({
+  title,
+  price,
+  shipping,
+  averageRating,
+  unitsSold,
+  createdBy,
+  uploaded,
+}) => {
   return (
     <StyledProductInfo $gap="2.4rem" $justifyContent="space-around">
       <Info $gap=".8rem">
-        <HeaderUppercaseBold>{productId}</HeaderUppercaseBold>
-        <ProductInfoParagraph title="Price" value="$299.99" />
-        <ProductInfoParagraph title="Shipping" value="$20.99" />
-        <ProductInfoParagraph title="Average Rating" value="3" />
-        <ProductInfoParagraph title="Units sold" value="290" />
-        <ProductInfoParagraph title="Created by" value="Jose" />
-        <ProductInfoParagraph title="Uploaded " value="27. 12. 2024" />
+        <HeaderUppercaseBold>{title}</HeaderUppercaseBold>
+        <ProductInfoParagraph title="Price" value={price} />
+        <ProductInfoParagraph title="Shipping" value={shipping} />
+        <ProductInfoParagraph title="Average Rating" value={averageRating} />
+        <ProductInfoParagraph title="Units sold" value={unitsSold} />
+        <ProductInfoParagraph title="Created by" value={createdBy} />
+        <ProductInfoParagraph title="Uploaded" value={uploaded} />
       </Info>
 
       <Stepper searchParamName="quantity" />
