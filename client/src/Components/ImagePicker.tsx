@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { FC } from "react";
 
-export const ImagePicker = () => {
-  const [selectedImages, setSelectedImages] = useState<string[]>([]);
+interface ImagePickerProps {
+  setSelectedImages: React.Dispatch<React.SetStateAction<string[]>>;
+}
 
+export const ImagePicker: FC<ImagePickerProps> = ({ setSelectedImages }) => {
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files) {
       const files = Array.from(event.target.files);
@@ -26,14 +28,14 @@ export const ImagePicker = () => {
   };
 
   return (
-    <div>
+    <>
       <input
         type="file"
         accept="image/*"
         onChange={handleImageChange}
         multiple
       />
-      {selectedImages.length > 0 && (
+      {/* {selectedImages.length > 0 && (
         <div>
           {selectedImages.map((image, index) => (
             <img
@@ -48,7 +50,7 @@ export const ImagePicker = () => {
             />
           ))}
         </div>
-      )}
-    </div>
+      )} */}
+    </>
   );
 };
