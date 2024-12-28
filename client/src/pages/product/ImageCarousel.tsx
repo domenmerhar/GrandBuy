@@ -1,11 +1,16 @@
 import styled from "styled-components";
 import { ArrowButton } from "../../Util/ArrowButton";
-import { HiChevronLeft, HiChevronRight } from "react-icons/hi";
-import { useState } from "react";
+import {
+  HiChevronLeft,
+  HiChevronRight,
+  HiOutlinePhotograph,
+} from "react-icons/hi";
+import { FC, useState } from "react";
 
 const StyledImageCarousel = styled.div`
   overflow: hidden;
   position: relative;
+  width: 100%;
 
   & > button:nth-of-type(1) {
     position: absolute;
@@ -30,16 +35,21 @@ const ImageSlider = styled.div<{ $currImageNumber: number }>`
   transform: translateX(-${({ $currImageNumber }) => $currImageNumber * 100}%);
   width: 100%;
 
-  & img {
+  & > * {
     height: auto;
     object-fit: cover;
     flex-shrink: 0;
     flex-grow: 0;
+    width: 100%;
   }
 `;
 
-export const ImageCarousel = () => {
-  const maxImages = 4;
+interface ImageCarouselProps {
+  images: string[];
+}
+
+export const ImageCarousel: FC<ImageCarouselProps> = ({ images }) => {
+  const maxImages = images.length || 1;
   const [currImageNumber, setCurrImageNumber] = useState<number>(0);
 
   const handleClick = (direction: "left" | "right") => () =>
@@ -51,17 +61,26 @@ export const ImageCarousel = () => {
   return (
     <StyledImageCarousel>
       <ImageSlider $currImageNumber={currImageNumber}>
-        <img src="/src/public/shopping-bag.jpg" />
-        <img src="/src/public/shopping-bag.jpg" />
-        <img src="/src/public/shopping-bag.jpg" />
-        <img src="/src/public/shopping-bag.jpg" />
+        {images.length ? (
+          images.map((image, index) => <img key={index} src={image} />)
+        ) : (
+          <HiOutlinePhotograph />
+        )}
       </ImageSlider>
 
-      <ArrowButton $size="large" onClick={handleClick("left")}>
+      <ArrowButton
+        $size="large"
+        onClick={handleClick("left")}
+        disabled={!images.length}
+      >
         <HiChevronLeft />
       </ArrowButton>
 
-      <ArrowButton $size="large" onClick={handleClick("right")}>
+      <ArrowButton
+        $size="large"
+        onClick={handleClick("right")}
+        disabled={!images.length}
+      >
         <HiChevronRight />
       </ArrowButton>
     </StyledImageCarousel>
