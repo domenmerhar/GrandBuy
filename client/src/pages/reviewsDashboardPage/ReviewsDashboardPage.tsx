@@ -4,6 +4,8 @@ import { Column } from "../../Util/Column";
 import { Header } from "../../Util/Header";
 import { Row } from "../../Util/Row";
 import { BiStar } from "react-icons/bi";
+import { ReviewCardDashboard } from "./ReviewCardDashboard";
+import { Modal } from "../../Util/Modal";
 
 export const ReviewsDashboardPage = () => {
   return (
@@ -20,6 +22,12 @@ export const ReviewsDashboardPage = () => {
         />
 
         <OverviewCard icon={<BiStar />} title="Average Rating" content="4.5" />
+      </Row>
+
+      <Row $alignItems="flex-start">
+        <Modal>
+          <ReviewCardDashboard />
+        </Modal>
       </Row>
     </Column>
   );
