@@ -1,5 +1,7 @@
 import { FilterSortHeader } from "../../../Util/FilterSortHeader";
+import { Modal } from "../../../Util/Modal";
 import { IOption } from "../../../Util/types";
+import { DashboardRefunds } from "./DashboardRefunds";
 
 const filterOptions: IOption[] = [
   { value: "all", name: "All" },
@@ -22,6 +24,10 @@ export const RefundDashboardPage = () => {
         filterOptions={filterOptions}
         selectOptions={selectOptions}
       />
+
+      <Modal>
+        <DashboardRefunds />
+      </Modal>
     </>
   );
 };
