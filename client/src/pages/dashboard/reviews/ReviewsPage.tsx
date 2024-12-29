@@ -6,13 +6,38 @@ import { Row } from "../../../Util/Row";
 import { BiStar } from "react-icons/bi";
 import { ReviewCardDashboard } from "./ReviewCardDashboard";
 import { Modal } from "../../../Util/Modal";
+import { Select } from "../../../Util/Select";
+import { IOption } from "../../../Util/types";
+
+const selectOptions: IOption[] = [
+  {
+    value: "all",
+    name: "All",
+  },
+  {
+    value: "oldest",
+    name: "Sort by age (oldest)",
+  },
+  {
+    value: "newest",
+    name: "Sort by age (newest)",
+  },
+];
 
 export const ReviewsPage = () => {
   return (
     <Column $gap="3.2rem">
-      <Header as="h1" $color="orange" $size="medium">
-        Reviews{" "}
-      </Header>
+      <Row
+        $flexWrap="wrap"
+        $justifyContent="space-between"
+        $alignItems="center"
+      >
+        <Header as="h1" $color="orange" $size="medium">
+          Reviews
+        </Header>
+
+        <Select options={selectOptions} />
+      </Row>
 
       <Row $gap="1.6rem" $flexWrap="wrap">
         <OverviewCard
