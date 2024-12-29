@@ -20,7 +20,7 @@ import { Dashboard } from "./Components/Dashboard/Dashboard";
 import { ReviewReplyWindow } from "./pages/account/ReviewReplyWindow";
 import { SaleSection } from "./pages/main/SaleSection";
 import { AddProductPage } from "./pages/addProduct/AddProductPage";
-import { ReviewsPage } from "./pages/reviews/ReviewsPage";
+import { ReviewsPage } from "./pages/dashboard/reviews/ReviewsPage";
 
 function App() {
   return (

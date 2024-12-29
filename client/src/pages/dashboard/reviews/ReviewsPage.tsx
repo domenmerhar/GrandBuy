@@ -1,11 +1,11 @@
 import { HiOutlineMicrophone } from "react-icons/hi";
-import { OverviewCard } from "../../Components/OverviewCard";
-import { Column } from "../../Util/Column";
-import { Header } from "../../Util/Header";
-import { Row } from "../../Util/Row";
+import { OverviewCard } from "../../../Components/OverviewCard";
+import { Column } from "../../../Util/Column";
+import { Header } from "../../../Util/Header";
+import { Row } from "../../../Util/Row";
 import { BiStar } from "react-icons/bi";
 import { ReviewCardDashboard } from "./ReviewCardDashboard";
-import { Modal } from "../../Util/Modal";
+import { Modal } from "../../../Util/Modal";
 
 export const ReviewsPage = () => {
   return (

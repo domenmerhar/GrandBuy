@@ -1,13 +1,13 @@
-import { BlankCard } from "../../Util/BlankCard";
-import { Row } from "../../Util/Row";
+import { BlankCard } from "../../../Util/BlankCard";
+import { Row } from "../../../Util/Row";
 import styled from "styled-components";
-import { Column } from "../../Util/Column";
-import { UserIcon } from "../../Util/ProfileIcon";
-import { RatingDisplay } from "../../Components/RatingDisplay";
+import { Column } from "../../../Util/Column";
+import { UserIcon } from "../../../Util/ProfileIcon";
+import { RatingDisplay } from "../../../Components/RatingDisplay";
 import { HiArrowUturnLeft, HiOutlineHandThumbUp } from "react-icons/hi2";
-import { ReviewAction } from "../../Util/ReviewAction";
-import { Modal } from "../../Util/Modal";
-import { ReplyModal } from "../product/ReplyModal";
+import { ReviewAction } from "../../../Util/ReviewAction";
+import { Modal } from "../../../Util/Modal";
+import { ReplyModal } from "../../product/ReplyModal";
 import { useSearchParams } from "react-router-dom";
 
 const Img = styled.img``;
