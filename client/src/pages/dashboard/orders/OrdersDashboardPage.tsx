@@ -1,11 +1,11 @@
-import { Button } from "../../../Util/Button";
 import { FilterSortHeader } from "../../../Util/FilterSortHeader";
 import { Stepper } from "../../../Util/Stepper";
-import { Table } from "../../../Components/Table";
-import { Badge } from "../../../Util/Badge";
 import { OverviewCard } from "../../../Components/OverviewCard";
 import { Row } from "../../../Util/Row";
 import { BiPackage } from "react-icons/bi";
+import { Modal } from "../../../Util/Modal";
+import { OrdersTable } from "./OrdersTable";
+import { IOrderTable } from "../../../Util/types";
 
 const filterOptions = [
   { value: "all", name: "All" },
@@ -21,7 +21,29 @@ const selectOptions = [
   { value: "newest", name: "Sort by age (newest)" },
 ];
 
-const headers = ["Username", "Quantity", "Product", "Status", ""];
+const tableData: IOrderTable[] = [
+  {
+    orderID: "1",
+    username: "User 1",
+    product: "Product 1",
+    quantity: 1,
+    status: "pending",
+  },
+  {
+    orderID: "2",
+    username: "User 2",
+    product: "Product 2",
+    quantity: 2,
+    status: "shipped",
+  },
+  {
+    orderID: "3",
+    username: "User 3",
+    product: "Product 3",
+    quantity: 3,
+    status: "cancelled",
+  },
+];
 
 export const OrdersDashboardPage = () => {
   return (
@@ -40,43 +62,9 @@ export const OrdersDashboardPage = () => {
         />
       </Row>
 
-      <Table headers={headers}>
-        <Table.Row>
-          <td>John Doe</td>
-          <td>2</td>
-          <td>Product 1</td>
-          <td>
-            <Badge $color="green" $size="small">
-              Shipped
-            </Badge>
-          </td>
-          <td></td>
-        </Table.Row>
-
-        <Table.Row>
-          <td>John Doe</td>
-          <td>2</td>
-          <td>Product 1</td>
-          <td>
-            <Badge $color="red" $size="small">
-              Cancelled
-            </Badge>
-          </td>
-          <td></td>
-        </Table.Row>
-
-        <Table.Row>
-          <td>John Doe</td>
-          <td>2</td>
-          <td>Product 1</td>
-          <td>Pending</td>
-          <td>
-            <Button $color="orange" $shape="oval" $size="small">
-              Respond
-            </Button>
-          </td>
-        </Table.Row>
-      </Table>
+      <Modal>
+        <OrdersTable data={tableData} />
+      </Modal>
 
       <Stepper searchParamName="page" />
     </>
