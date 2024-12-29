@@ -27,26 +27,26 @@ const RatingReviewHolder = styled(Row)`
 
 export const ReviewSection = () => {
   return (
-    <StyledReviewSection>
-      <ReviewSectionHeader />
+    <Modal>
+      <StyledReviewSection>
+        <ReviewSectionHeader />
 
-      <RatingReviewHolder $gap="3.2rem">
-        <RatingBreakdown />
+        <RatingReviewHolder $gap="3.2rem">
+          <RatingBreakdown />
 
-        <Modal>
-          <Reviews $gap="3.2rem">
-            {Array.from({ length: 5 }).map((_, i) => (
-              <Review key={i} />
-            ))}
-          </Reviews>
+          <Modal>
+            <Reviews $gap="3.2rem">
+              {Array.from({ length: 5 }).map((_, i) => (
+                <Review key={i} />
+              ))}
+            </Reviews>
 
-          <ReplyModal />
-        </Modal>
-      </RatingReviewHolder>
+            <ReplyModal />
+          </Modal>
+        </RatingReviewHolder>
 
-      <Modal>
         <AddReviewButton />
-      </Modal>
-    </StyledReviewSection>
+      </StyledReviewSection>
+    </Modal>
   );
 };
