@@ -3,7 +3,7 @@ import styled from "styled-components";
 interface ButtonProps {
   $shape: "rectangle" | "oval";
   $color: "orange" | "gray" | "red" | "green";
-  $size: "large" | "medium";
+  $size: "large" | "medium" | "small";
 }
 
 export const Button = styled.button<ButtonProps>`
@@ -28,7 +28,11 @@ export const Button = styled.button<ButtonProps>`
     return $shape === "rectangle" ? "0.5rem 0.75rem" : "0.5rem 0.75rem";
   }};
 
-  font-size: ${({ $size }) => ($size === "large" ? "1.8rem" : "1.6rem")};
+  font-size: ${({ $size }) => {
+    if ($size === "large") return "1.8rem";
+    if ($size === "medium") return "1.6rem";
+    return "1.4rem";
+  }};
   text-transform: uppercase;
   font-weight: 600;
   letter-spacing: 1px;
