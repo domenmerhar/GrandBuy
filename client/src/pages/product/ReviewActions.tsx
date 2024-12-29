@@ -5,30 +5,13 @@ import { HiArrowUturnLeft, HiOutlineHandThumbUp } from "react-icons/hi2";
 import { HiChevronDown, HiChevronUp } from "react-icons/hi";
 import { Modal } from "../../Util/Modal";
 import { useSearchParams } from "react-router-dom";
+import { ReviewAction } from "../../Util/ReviewAction";
 
 const ReviewActionsRow = styled(Row)`
   font-size: 1.4rem;
   font-weight: 600;
   color: var(--gray-7);
   margin-top: 4px;
-`;
-
-interface ReviewActionProps {
-  $active?: boolean;
-}
-
-const ReviewAction = styled(Row)<ReviewActionProps>`
-  background: transparent;
-  border: none;
-  text-transform: uppercase;
-
-  transition: all 200ms;
-
-  ${({ $active }) => $active && `color: var(--orange-6);`}
-
-  &:hover {
-    color: var(--gray-9);
-  }
 `;
 
 interface ReviewActionsProps {
