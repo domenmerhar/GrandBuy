@@ -22,6 +22,7 @@ import { SaleSection } from "./pages/main/SaleSection";
 import { AddProductPage } from "./pages/addProduct/AddProductPage";
 import { ReviewsPage } from "./pages/dashboard/reviews/ReviewsPage";
 import { OrdersDashboardPage } from "./pages/dashboard/orders/OrdersDashboardPage";
+import { RefundDashboardPage } from "./pages/dashboard/refund/RefundDashboardPage";
 
 function App() {
   return (
@@ -56,6 +57,7 @@ function App() {
             <Route path="/dashboard" element={<Dashboard />}>
               <Route path="reviews" element={<ReviewsPage />} />
               <Route path="orders" element={<OrdersDashboardPage />} />
+              <Route path="refund" element={<RefundDashboardPage />} />
             </Route>
           </Route>
 
