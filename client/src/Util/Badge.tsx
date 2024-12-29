@@ -17,7 +17,15 @@ export const Badge = styled.span<BadgeProps>`
   font-weight: ${({ $color }) => ($color === "red" ? 600 : 500)};
   letter-spacing: 0.2px;
 
-  padding: 0.6rem 0.9rem;
+  ${({ $size = "medium" }) => {
+    if ($size === "medium") return "padding: 0.6rem 0.9rem;";
+    if ($size === "small") return "padding: 0.4rem 0.7rem;";
+  }}
+
+  ${({ $size = "medium" }) => {
+    if ($size === "medium") return "font-size: 1.6rem;";
+    if ($size === "small") return "font-size: 1.4rem;";
+  }}
 
   border-radius: 2rem;
 `;
