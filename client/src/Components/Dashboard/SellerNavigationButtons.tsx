@@ -26,7 +26,7 @@ export const SellerNavigationButtons = () => {
         Refunds
       </NavigationTextButton>
 
-      <NavigationTextButton to="coupons" variant="dark" iconColoring="stroke">
+      <NavigationTextButton to="coupon" variant="dark" iconColoring="stroke">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
