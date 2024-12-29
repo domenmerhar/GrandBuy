@@ -11,6 +11,12 @@ const DashboardLayout = styled(SidebarLayout)`
   font-weight: 500;
 `;
 
+const DashboardContent = styled(ContentWithSidebar)`
+  display: flex;
+  flex-direction: column;
+  gap: 3.2rem;
+`;
+
 const role = "seller";
 
 export const Dashboard = () => {
@@ -26,9 +32,9 @@ export const Dashboard = () => {
         )}
       </Sidebar>
 
-      <ContentWithSidebar>
+      <DashboardContent>
         <Outlet />
-      </ContentWithSidebar>
+      </DashboardContent>
     </DashboardLayout>
   );
 };
