@@ -1,14 +1,9 @@
-import { useEffect } from "react";
 import { Modal } from "../../../Util/Modal";
 import { Row } from "../../../Util/Row";
 import { RefundCard } from "../../refund/RefundCard";
 import { RefundModal } from "./RefundModal";
 export const DashboardRefunds = () => {
   const { setIsOpen } = Modal.useModalContext();
-
-  useEffect(() => {
-    setIsOpen(true);
-  }, [setIsOpen]);
 
   return (
     <Row
