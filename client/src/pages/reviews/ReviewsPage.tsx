@@ -7,7 +7,7 @@ import { BiStar } from "react-icons/bi";
 import { ReviewCardDashboard } from "./ReviewCardDashboard";
 import { Modal } from "../../Util/Modal";
 
-export const ReviewsDashboardPage = () => {
+export const ReviewsPage = () => {
   return (
     <Column $gap="3.2rem">
       <Header as="h1" $color="orange" $size="medium">
