@@ -1,4 +1,3 @@
-import { Column } from "../../../Util/Column";
 import { Row } from "../../../Util/Row";
 import { ReviewCardDashboard } from "./ReviewCardDashboard";
 import { Modal } from "../../../Util/Modal";
@@ -7,7 +6,7 @@ import { ReviewsPageOverviewCards } from "./ReviewsPageOverviewCards";
 
 export const ReviewsPage = () => {
   return (
-    <Column $gap="3.2rem">
+    <>
       <ReviewsPageHeader />
 
       <ReviewsPageOverviewCards reviewsCount={10} averageRating={4.5} />
@@ -17,6 +16,6 @@ export const ReviewsPage = () => {
           <ReviewCardDashboard />
         </Modal>
       </Row>
-    </Column>
+    </>
   );
 };
