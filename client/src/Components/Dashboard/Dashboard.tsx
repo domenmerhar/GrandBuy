@@ -27,7 +27,6 @@ export const Dashboard = () => {
       </Sidebar>
 
       <ContentWithSidebar>
-        Main
         <Outlet />
       </ContentWithSidebar>
     </DashboardLayout>
