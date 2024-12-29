@@ -6,7 +6,7 @@ import { BiPackage } from "react-icons/bi";
 import { Modal } from "../../../Util/Modal";
 import { OrdersTable } from "./OrdersTable";
 import { IOrderTable } from "../../../Util/types";
-import { useSearchParams } from "react-router-dom";
+import { OrderRespondModal } from "./OrderRespondModal";
 
 const filterOptions = [
   { value: "all", name: "All" },
@@ -47,14 +47,6 @@ const tableData: IOrderTable[] = [
 ];
 
 export const OrdersDashboardPage = () => {
-  const [, setSearchParams] = useSearchParams();
-
-  const handleModalExit = () =>
-    setSearchParams((searchParams) => {
-      searchParams.delete("orderId");
-      return searchParams;
-    });
-
   return (
     <>
       <FilterSortHeader
@@ -73,13 +65,8 @@ export const OrdersDashboardPage = () => {
 
       <Modal>
         <OrdersTable data={tableData} />
-        <Modal.Window
-          title="Respond"
-          type="cancelReject"
-          onBackdropClick={handleModalExit}
-          onCancelReject={handleModalExit}
-          onSubmitApprove={handleModalExit}
-        ></Modal.Window>
+
+        <OrderRespondModal />
       </Modal>
 
       <Stepper searchParamName="page" />
