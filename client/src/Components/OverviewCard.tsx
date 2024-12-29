@@ -1,6 +1,6 @@
-import { HiOutlineMicrophone } from "react-icons/hi";
 import styled from "styled-components";
 import { Column } from "../Util/Column";
+import { FC } from "react";
 
 const Card = styled.div`
   background-color: var(--gray-2);
@@ -21,6 +21,11 @@ const IconHolder = styled.div`
   justify-content: center;
   align-items: center;
   border-radius: 50%;
+
+  & svg {
+    width: 3.6rem;
+    height: 3.6rem;
+  }
 `;
 
 const Title = styled.h2`
@@ -36,16 +41,24 @@ const Content = styled.p`
   color: var(--gray-7);
 `;
 
-export const OverviewCard = () => {
+interface OverviewCardProps {
+  icon: React.ReactNode;
+  title: string;
+  content: string;
+}
+
+export const OverviewCard: FC<OverviewCardProps> = ({
+  icon,
+  title,
+  content,
+}) => {
   return (
     <Card>
-      <IconHolder>
-        <HiOutlineMicrophone size={36} />
-      </IconHolder>
+      <IconHolder>{icon}</IconHolder>
 
       <Column>
-        <Title>Reviews</Title>
-        <Content>1111111</Content>
+        <Title>{title}</Title>
+        <Content>{content}</Content>
       </Column>
     </Card>
   );
