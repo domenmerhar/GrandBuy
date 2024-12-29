@@ -9,7 +9,6 @@ import { ReviewAction } from "../../Util/ReviewAction";
 import { Modal } from "../../Util/Modal";
 import { ReplyModal } from "../product/ReplyModal";
 import { useSearchParams } from "react-router-dom";
-import { useEffect } from "react";
 
 const Img = styled.img``;
 
@@ -27,10 +26,6 @@ const userId = "id1278203";
 export const ReviewCardDashboard = () => {
   const { setIsOpen } = Modal.useModalContext();
   const [, setSearchParams] = useSearchParams();
-
-  useEffect(() => {
-    setIsOpen(true);
-  }, [setIsOpen]);
 
   const handleReply = () => {
     setSearchParams((searchParams) => {
