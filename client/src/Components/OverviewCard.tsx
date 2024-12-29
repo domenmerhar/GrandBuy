@@ -31,7 +31,7 @@ const IconHolder = styled.div`
 const Title = styled.h2`
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 2px;
+  letter-spacing: 1px;
   color: var(--gray-7);
   font-size: 2rem;
 `;
