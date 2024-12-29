@@ -27,7 +27,7 @@ export const FilterSortHeader: FC<RefundPageHeaderProps> = ({
         {headerText}
       </Header>
 
-      <Row $gap="12px" $alignItems="center">
+      <Row $gap="12px" $alignItems="center" $flexWrap="wrap">
         {filterOptions && filterOptions.length ? (
           <Filter options={filterOptions} />
         ) : null}
