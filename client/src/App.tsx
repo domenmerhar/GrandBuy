@@ -20,7 +20,7 @@ import { Dashboard } from "./Components/Dashboard/Dashboard";
 import { ReviewReplyWindow } from "./pages/account/ReviewReplyWindow";
 import { SaleSection } from "./pages/main/SaleSection";
 import { AddProductPage } from "./pages/addProduct/AddProductPage";
-import { ReviewsDashboardPage } from "./pages/reviewsDashboardPage/ReviewsDashboardPage";
+import { ReviewsPage } from "./pages/reviews/ReviewsPage";
 
 function App() {
   return (
@@ -53,7 +53,7 @@ function App() {
             <Route path="/product/:productId" element={<ProductPage />} />
 
             <Route path="/dashboard" element={<Dashboard />}>
-              <Route path="reviews" element={<ReviewsDashboardPage />} />
+              <Route path="reviews" element={<ReviewsPage />} />
             </Route>
           </Route>
 
