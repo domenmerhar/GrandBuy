@@ -3,6 +3,9 @@ import { FilterSortHeader } from "../../../Util/FilterSortHeader";
 import { Stepper } from "../../../Util/Stepper";
 import { Table } from "../../../Components/Table";
 import { Badge } from "../../../Util/Badge";
+import { OverviewCard } from "../../../Components/OverviewCard";
+import { Row } from "../../../Util/Row";
+import { BiPackage } from "react-icons/bi";
 
 const filterOptions = [
   { value: "all", name: "All" },
@@ -28,6 +31,14 @@ export const OrdersDashboardPage = () => {
         filterOptions={filterOptions}
         selectOptions={selectOptions}
       />
+
+      <Row>
+        <OverviewCard
+          icon={<BiPackage />}
+          title="Pending orders"
+          content="234"
+        />
+      </Row>
 
       <Table headers={headers}>
         <Table.Row>
