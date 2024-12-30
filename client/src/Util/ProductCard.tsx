@@ -1,8 +1,7 @@
 import { FC } from "react";
 import styled from "styled-components";
-import { SquareButton } from "./SquareButton";
-import { HiPlus } from "react-icons/hi";
 import { AddButton } from "./AddButton";
+import { Link } from "react-router-dom";
 
 interface ProductCardProps {
   id: string;
@@ -12,23 +11,29 @@ interface ProductCardProps {
   discount?: number;
 }
 
-const StyledProductCard = styled.div`
-  background-color: var(--gray-1);
-  border-radius: 12px;
-  position: relative;
+const StyledProductCard = styled(Link)`
+  &:link,
+  &:visited {
+    text-decoration: none;
+    color: var(--gray-8);
+    background-color: var(--gray-1);
+    border-radius: 12px;
+    position: relative;
 
-  width: 30rem;
-  padding: 2.4rem;
+    width: 30rem;
+    padding: 2.4rem;
 
-  display: flex;
-  gap: 0.8rem;
-  align-items: start;
-  flex-direction: column;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    gap: 0.8rem;
+    align-items: start;
+    flex-direction: column;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 
-  transition: all 200ms ease-in;
+    transition: all 200ms ease-in;
+  }
 
-  &:hover {
+  &:hover,
+  &:active {
     transform: translateY(-2px);
     cursor: pointer;
   }
@@ -111,7 +116,7 @@ export const ProductCard: FC<ProductCardProps> = ({
   discount,
 }) => {
   return (
-    <StyledProductCard>
+    <StyledProductCard to={`/product/${id}?quantity=1`}>
       <ImageHolder>
         <Image src={image} alt={title} />
       </ImageHolder>
