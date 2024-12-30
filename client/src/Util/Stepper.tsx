@@ -40,17 +40,19 @@ export const Stepper: FC<StepperProps> = ({
   min = 1,
 }) => {
   const [currentStep, setCurrentStep] = useState<number>(1);
-  const [, setSearchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const handleNextPage = () => setCurrentStep((prev) => prev + 1);
   const handlePreviousPage = () => setCurrentStep((prev) => prev - 1);
 
   useEffect(() => {
+    if (searchParams.has(searchParamName)) return;
+
     setSearchParams((searchParams) => {
       searchParams.set(searchParamName, currentStep.toString());
       return searchParams;
     });
-  }, [currentStep, setSearchParams, searchParamName]);
+  }, [currentStep, searchParams, setSearchParams, searchParamName]);
 
   const handleChangePage = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (+e.target.value < 1) return setCurrentStep(1);
