@@ -9,6 +9,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
 import { getProducts } from "../../api/getProducts";
 import { IProductShort } from "../../Util/types/index";
+import { SpinnerInBox } from "../../Components/SpinnerInBox";
 
 const selectOptions: IOption[] = [
   { name: "Sort by most orders", value: "-orders" },
@@ -35,6 +36,7 @@ export const SearchPage = () => {
       <ContentWithSidebar>
         <Select options={selectOptions} />
 
+        <SpinnerInBox isLoading={isLoading} size="large" />
         <Grid
           $maxWidth="27rem"
           $minWidth="27rem"
@@ -42,7 +44,6 @@ export const SearchPage = () => {
           $rowGap="3.2rem"
           $margin="4.8rem 0"
         >
-          {isLoading && <div>Loading...</div>}
           {!isLoading &&
             !error &&
             data.data &&
