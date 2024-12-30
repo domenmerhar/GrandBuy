@@ -125,7 +125,7 @@ export const ProductCard: FC<ProductCardProps> = ({
       <Title>{title}</Title>
 
       <PriceButtonHolder>
-        <Price>${price}</Price>
+        <Price>${price.toFixed(2)}</Price>
         <AddButton />
       </PriceButtonHolder>
     </StyledProductCard>
