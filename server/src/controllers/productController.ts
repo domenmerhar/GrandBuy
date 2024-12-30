@@ -49,10 +49,14 @@ export const getProduct = catchAsync(
 
 export const getProducts = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    const features = new APIFeatures(
-      Product.find({ isSelling: { $ne: false } }),
-      req.query
-    );
+    const { search } = req.query;
+
+    let query = Product.find({ isSelling: { $ne: false } });
+
+    if (search && String(search).trim().length > 0)
+      query = query.find({ name: { $regex: search, $options: "i" } });
+
+    const features = new APIFeatures(query, { ...req.query, search: null });
 
     const products = await features
       .filter()
