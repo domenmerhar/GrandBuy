@@ -24,12 +24,14 @@ import { ReviewsPage } from "./pages/dashboard/reviews/ReviewsPage";
 import { OrdersDashboardPage } from "./pages/dashboard/orders/OrdersDashboardPage";
 import { RefundDashboardPage } from "./pages/dashboard/refund/RefundDashboardPage";
 import { CouponPage } from "./pages/dashboard/coupon/CouponPage";
+import { ScrollToTop } from "./Components/ScrollToTop";
 
 function App() {
   return (
     <LanguageProvider>
       <GlobalStyles />
       <BrowserRouter>
+        <ScrollToTop />
         <Routes>
           <Route path="/" element={<NavigationBar />}>
             <Route path="/" element={<MainPage />} />
