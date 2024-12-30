@@ -31,3 +31,11 @@ export interface IOrderTable {
   product: string;
   status: OrderStatus;
 }
+
+export interface IProductShort {
+  id: string;
+  name: string;
+  coverImage: string;
+  discount: number;
+  totalPrice: number;
+}
