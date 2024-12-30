@@ -25,53 +25,71 @@ import { OrdersDashboardPage } from "./pages/dashboard/orders/OrdersDashboardPag
 import { RefundDashboardPage } from "./pages/dashboard/refund/RefundDashboardPage";
 import { CouponPage } from "./pages/dashboard/coupon/CouponPage";
 import { ScrollToTop } from "./Components/ScrollToTop";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 60 * 1000,
+    },
+  },
+});
 
 function App() {
   return (
-    <LanguageProvider>
+    <>
       <GlobalStyles />
-      <BrowserRouter>
-        <ScrollToTop />
-        <Routes>
-          <Route path="/" element={<NavigationBar />}>
-            <Route path="/" element={<MainPage />} />
-            <Route path="/cart" element={<CartPage />} />
-            <Route path="/settings" element={<SettingsPage />} />
-            <Route path="/history" element={<HistoryPage />} />
-            <Route path="/refund" element={<RefundPage />} />
-            <Route path="/search/:query" element={<SearchPage />} />
-            <Route path="/my-products" element={<MyProductsPage />} />
-            <Route path="/wishlist" element={<WishlistPage />} />
-            <Route path="/orders" element={<OrdersPage />} />
-            <Route path="/notifications" element={<NotificationPage />} />
+      <QueryClientProvider client={queryClient}>
+        <ReactQueryDevtools initialIsOpen={false} />
+        <BrowserRouter>
+          <ScrollToTop />
+          <LanguageProvider>
+            <Routes>
+              <Route path="/" element={<NavigationBar />}>
+                <Route path="/" element={<MainPage />} />
+                <Route path="/cart" element={<CartPage />} />
+                <Route path="/settings" element={<SettingsPage />} />
+                <Route path="/history" element={<HistoryPage />} />
+                <Route path="/refund" element={<RefundPage />} />
+                <Route path="/search/:query" element={<SearchPage />} />
+                <Route path="/my-products" element={<MyProductsPage />} />
+                <Route path="/wishlist" element={<WishlistPage />} />
+                <Route path="/orders" element={<OrdersPage />} />
+                <Route path="/notifications" element={<NotificationPage />} />
 
-            <Route path="/account" element={<AccountPage />}>
-              <Route
-                path="/account/user/:userId"
-                element={<ReviewReplyWindow />}
-              />
-              <Route path="/account/seller/:userId" element={<SaleSection />} />
-              <Route path="*" element={<Navigate to="/" replace />} index />
-            </Route>
+                <Route path="/account" element={<AccountPage />}>
+                  <Route
+                    path="/account/user/:userId"
+                    element={<ReviewReplyWindow />}
+                  />
+                  <Route
+                    path="/account/seller/:userId"
+                    element={<SaleSection />}
+                  />
+                  <Route path="*" element={<Navigate to="/" replace />} index />
+                </Route>
 
-            <Route path="/add-product" element={<AddProductPage />} />
-            <Route path="/product/:productId" element={<ProductPage />} />
+                <Route path="/add-product" element={<AddProductPage />} />
+                <Route path="/product/:productId" element={<ProductPage />} />
 
-            <Route path="/dashboard" element={<Dashboard />}>
-              <Route path="reviews" element={<ReviewsPage />} />
-              <Route path="orders" element={<OrdersDashboardPage />} />
-              <Route path="refund" element={<RefundDashboardPage />} />
-              <Route path="coupon" element={<CouponPage />} />
-            </Route>
-          </Route>
+                <Route path="/dashboard" element={<Dashboard />}>
+                  <Route path="reviews" element={<ReviewsPage />} />
+                  <Route path="orders" element={<OrdersDashboardPage />} />
+                  <Route path="refund" element={<RefundDashboardPage />} />
+                  <Route path="coupon" element={<CouponPage />} />
+                </Route>
+              </Route>
 
-          <Route path="/signup" element={<SignupPage />} />
-          <Route path="/login" element={<LoginPage />} />
+              <Route path="/signup" element={<SignupPage />} />
+              <Route path="/login" element={<LoginPage />} />
 
-          <Route path="*" element={<h1>404 Not Found</h1>} />
-        </Routes>
-      </BrowserRouter>
-    </LanguageProvider>
+              <Route path="*" element={<h1>404 Not Found</h1>} />
+            </Routes>
+          </LanguageProvider>
+        </BrowserRouter>
+      </QueryClientProvider>
+    </>
   );
 }
 
