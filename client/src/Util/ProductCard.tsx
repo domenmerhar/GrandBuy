@@ -78,6 +78,7 @@ const ImageHolder = styled.div`
 const Image = styled.img`
   width: 30rem;
   overflow: hidden;
+  color: transparent;
 
   @media (max-width: 82em) {
     width: 27rem;
