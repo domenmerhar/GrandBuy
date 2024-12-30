@@ -32,6 +32,8 @@ export const filterYourHistory = (
 
 export const addToHistory = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
+    if (!res.locals.user) return next();
+
     const userId = res.locals.user._id;
     const productId = req.params.productId;
 
