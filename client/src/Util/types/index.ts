@@ -33,7 +33,7 @@ export interface IOrderTable {
 }
 
 export interface IProductShort {
-  id: string;
+  _id: string;
   name: string;
   coverImage: string;
   discount: number;
