@@ -7,7 +7,7 @@ import { ContentWithSidebar } from "../../Util/ContentWithSidebar";
 import { SidebarLayout } from "../../Util/SidebarLayout";
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
-import { getProducts } from "../../api/getProduct";
+import { getProducts } from "../../api/getProducts";
 import { IProductShort } from "../../Util/types/index";
 
 const selectOptions: IOption[] = [
@@ -27,7 +27,7 @@ export const SearchPage = () => {
     queryFn: () => getProducts(query!, 1),
   });
 
-  // console.log(data.products);
+  if (data) console.log(data.data.products);
 
   return (
     <SidebarLayout>
@@ -48,14 +48,15 @@ export const SearchPage = () => {
             data.data &&
             data.data.products.map(
               ({
-                id,
+                _id,
                 name,
                 coverImage,
                 discount,
                 totalPrice,
               }: IProductShort) => (
                 <ProductCard
-                  id={id}
+                  key={_id}
+                  id={_id}
                   title={name}
                   image={coverImage}
                   discount={discount}
