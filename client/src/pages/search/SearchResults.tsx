@@ -6,6 +6,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
 import { SpinnerInBox } from "../../Components/SpinnerInBox";
 import { ErrorBox } from "../../Components/ErrorBox";
+import { toApiFilesPath } from "../../functions/toApiFilesPath";
 
 export const SearchResults = () => {
   const { query } = useParams();
@@ -35,7 +36,7 @@ export const SearchResults = () => {
               key={_id}
               id={_id}
               title={name}
-              image={coverImage}
+              image={toApiFilesPath(coverImage)}
               discount={discount}
               price={totalPrice}
             />
