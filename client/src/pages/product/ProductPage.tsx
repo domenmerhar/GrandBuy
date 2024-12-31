@@ -41,7 +41,7 @@ export const ProductPage = () => {
       </Content>
     );
 
-  if (error) return <ErrorBox />;
+  if (error || !data.data) return <ErrorBox />;
 
   const {
     description,
