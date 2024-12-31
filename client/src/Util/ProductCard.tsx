@@ -2,14 +2,8 @@ import { FC } from "react";
 import styled from "styled-components";
 import { AddButton } from "./AddButton";
 import { Link } from "react-router-dom";
-
-interface ProductCardProps {
-  id: string;
-  title: string;
-  price: number;
-  image?: string;
-  discount?: number;
-}
+import { ProductCardProps } from "./types";
+import { toPrice } from "../functions/toPrice";
 
 const StyledProductCard = styled(Link)`
   &:link,
@@ -126,7 +120,7 @@ export const ProductCard: FC<ProductCardProps> = ({
       <Title>{title}</Title>
 
       <PriceButtonHolder>
-        <Price>${price.toFixed(2)}</Price>
+        <Price>{toPrice(price, "USD")}</Price>
         <AddButton />
       </PriceButtonHolder>
     </StyledProductCard>
