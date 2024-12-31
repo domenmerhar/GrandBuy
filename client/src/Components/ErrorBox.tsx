@@ -2,9 +2,14 @@ import { HiOutlineExclamationTriangle } from "react-icons/hi2";
 import styled from "styled-components";
 import { Column } from "../Util/Column";
 import { HeaderUppercaseBold } from "../Util/HeaderUppercaseBold";
+import { FC } from "react";
 
-const StyledErrorBox = styled.div`
-  height: 80dvh;
+interface StyledErrorBoxProps {
+  $fullPage?: boolean;
+}
+
+const StyledErrorBox = styled.div<StyledErrorBoxProps>`
+  height: ${({ $fullPage }) => ($fullPage ? "80dvh" : "100%")};
 
   display: flex;
   justify-content: center;
@@ -17,9 +22,13 @@ const StyledErrorBox = styled.div`
   }
 `;
 
-export const ErrorBox = () => {
+interface ErrorBoxProps {
+  fullPage?: boolean;
+}
+
+export const ErrorBox: FC<ErrorBoxProps> = ({ fullPage = true }) => {
   return (
-    <StyledErrorBox>
+    <StyledErrorBox $fullPage={fullPage}>
       <HiOutlineExclamationTriangle />
 
       <Column $gap="8px">
