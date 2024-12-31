@@ -39,3 +39,11 @@ export interface IProductShort {
   discount: number;
   totalPrice: number;
 }
+
+export interface ProductCardProps {
+  id: string;
+  title: string;
+  price: number;
+  image?: string;
+  discount?: number;
+}
