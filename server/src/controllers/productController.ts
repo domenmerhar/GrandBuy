@@ -268,13 +268,13 @@ export const getSellerProducts = catchAsync(
       req.query
     );
 
-    const product = await features.paginate().query;
+    const products = await features.paginate().query;
 
-    if (!product.length) return next(new AppError("No products found.", 404));
+    if (!products.length) return next(new AppError("No products found.", 404));
 
     res
       .status(200)
-      .json({ status: "success", length: product.length, data: { product } });
+      .json({ status: "success", length: products.length, data: { products } });
   }
 );
 
