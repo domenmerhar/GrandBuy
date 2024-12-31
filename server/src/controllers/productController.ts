@@ -260,10 +260,15 @@ export const getSellerProducts = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const { sellerId } = req.params;
 
-    const product = await Product.find({
-      user: sellerId,
-      isSelling: { $ne: false },
-    }).select("-user -descriptionLink -id");
+    const features = new APIFeatures(
+      Product.find({
+        user: sellerId,
+        isSelling: { $ne: false },
+      }).select("-user -descriptionLink -id"),
+      req.query
+    );
+
+    const product = await features.paginate().query;
 
     if (!product.length) return next(new AppError("No products found.", 404));
 
