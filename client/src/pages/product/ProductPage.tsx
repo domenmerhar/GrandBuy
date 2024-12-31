@@ -10,6 +10,7 @@ import { SpinnerInBox } from "../../Components/SpinnerInBox";
 import { toPrice } from "../../functions/toPrice";
 import { toDate } from "../../functions/toDate";
 import { toApiFilesPath } from "../../functions/toApiFilesPath";
+import { ErrorBox } from "../../Components/ErrorBox";
 
 interface IProductDetails {
   isSelling: boolean;
@@ -39,6 +40,8 @@ export const ProductPage = () => {
         <SpinnerInBox />
       </Content>
     );
+
+  if (error) return <ErrorBox />;
 
   const {
     description,
