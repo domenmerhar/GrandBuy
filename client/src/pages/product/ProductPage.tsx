@@ -14,7 +14,10 @@ import { toApiFilesPath } from "../../functions/toApiFilesPath";
 interface IProductDetails {
   isSelling: boolean;
   _id: string;
-  user: string;
+  user: {
+    _id: string;
+    username: string;
+  };
   name: string;
   coverImage: string;
   images: string[];
@@ -45,7 +48,7 @@ export const ProductPage = () => {
     orders,
     price,
     shipping,
-    user,
+    user: { username },
   } = data.data.product as IProductDetails;
 
   const markdownPath = toApiFilesPath(description);
@@ -61,7 +64,7 @@ export const ProductPage = () => {
             images={imagesPath}
             title={name}
             averageRating="N/A"
-            createdBy={user}
+            createdBy={username}
             uploaded={toDate(lastChanged)}
             price={toPrice(price, "USD")}
             shipping={toPrice(shipping, "USD")}
