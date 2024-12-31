@@ -46,6 +46,12 @@ app.use(mongoSanitize());
 
 app.use(dayLimiter, hourLimiter);
 
+//CORS image
+app.use((req, res, next) => {
+  res.setHeader("Cross-Origin-Resource-Policy", "cross-origin");
+  next();
+});
+
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "..", "public")));
 
