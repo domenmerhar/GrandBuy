@@ -10,6 +10,7 @@ import {
 } from "./fileController";
 import User from "../models/userModel";
 import { UploadedFile } from "express-fileupload";
+import path from "path";
 
 const checkForUniqueName = async (name: string, userId: string) => {
   const productCheck = await Product.findOne({
@@ -39,7 +40,7 @@ export const getProduct = catchAsync(
     const product = await Product.findOne({
       _id: productId,
       isSelling: { $ne: false },
-    });
+    }).populate({ path: "user", select: "username _id" });
 
     if (!product) return next(new AppError("Product not found", 404));
 
