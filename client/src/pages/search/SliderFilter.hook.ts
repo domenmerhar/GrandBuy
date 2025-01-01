@@ -32,7 +32,6 @@ export const useSliderFilter = () => {
       Math.max(...(newValue as number[])),
     ];
     setValue([min, max]);
-    updateSearchParamsAndInputs(min, max);
 
     setMaxValue((prev) => (max * 1.1 > prev ? prev + 5 : prev));
   };
@@ -57,5 +56,22 @@ export const useSliderFilter = () => {
     });
   };
 
-  return { value, maxValue, minRef, maxRef, handleChangeSlider, handleBlur };
+  const handleChangeCommited = (
+    _: React.SyntheticEvent | Event,
+    val: number | number[]
+  ) => {
+    if (Array.isArray(val)) {
+      updateSearchParamsAndInputs(val[0], val[1]);
+    }
+  };
+
+  return {
+    value,
+    maxValue,
+    minRef,
+    maxRef,
+    handleChangeSlider,
+    handleBlur,
+    handleChangeCommited,
+  };
 };
