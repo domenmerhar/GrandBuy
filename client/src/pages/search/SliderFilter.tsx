@@ -14,14 +14,22 @@ function valuetext(value: number) {
 }
 
 export const SliderFilter = () => {
-  const { handleBlur, handleChangeSlider, maxRef, maxValue, minRef, value } =
-    useSliderFilter();
+  const {
+    handleBlur,
+    handleChangeSlider,
+    handleChangeCommited,
+    maxRef,
+    maxValue,
+    minRef,
+    value,
+  } = useSliderFilter();
 
   return (
     <>
       <Slider
         value={value}
         onChange={handleChangeSlider}
+        onChangeCommitted={handleChangeCommited}
         getAriaValueText={valuetext}
         color="warning"
         max={maxValue}
