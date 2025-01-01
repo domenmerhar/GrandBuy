@@ -31,6 +31,9 @@ export const useSliderFilter = () => {
       Math.min(...(newValue as number[])),
       Math.max(...(newValue as number[])),
     ];
+
+    minRef.current!.value = `$${min}`;
+    maxRef.current!.value = `$${max}`;
     setValue([min, max]);
 
     setMaxValue((prev) => (max * 1.1 > prev ? prev + 5 : prev));
