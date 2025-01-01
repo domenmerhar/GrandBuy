@@ -35,7 +35,7 @@ const ProductSchema = new mongoose.Schema({
 
   shipping: {
     type: Number,
-    min: [0, "Please provide a shipping higher than 0."],
+    min: [0, "Please provide a shipping higher than or equal 0."],
     max: [10000, "Please provide a shipping lower than 10000."],
     required: [true, "Please provide a price."],
   },
