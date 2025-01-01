@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import { HiOutlineSearch } from "react-icons/hi";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 const StyledSearchBar = styled.form`
@@ -57,12 +57,14 @@ const IconHolder = styled.button`
 export const SearchBar = () => {
   const navigate = useNavigate();
   const inputRef = useRef<HTMLInputElement>(null);
+  const { search } = useLocation();
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (!inputRef.current || !inputRef.current.value) return;
-    navigate(`/search/${inputRef.current.value}`);
+
+    navigate(`/search/${inputRef.current.value}${search}`);
   };
 
   return (
