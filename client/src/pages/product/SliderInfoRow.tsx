@@ -23,6 +23,7 @@ interface SliderInfoRowProps {
   unitsSold: string;
   createdBy: string;
   uploaded: string;
+  discount: number;
 }
 
 export const SliderInfoRow: FC<SliderInfoRowProps> = ({
@@ -34,6 +35,7 @@ export const SliderInfoRow: FC<SliderInfoRowProps> = ({
   unitsSold,
   createdBy,
   uploaded,
+  discount,
 }) => {
   return (
     <Row $gap="2.8rem" $alignItems="center">
@@ -51,6 +53,7 @@ export const SliderInfoRow: FC<SliderInfoRowProps> = ({
           unitsSold={unitsSold}
           createdBy={createdBy}
           uploaded={uploaded}
+          discount={discount}
         />
       </ProductInfoHolder>
     </Row>
