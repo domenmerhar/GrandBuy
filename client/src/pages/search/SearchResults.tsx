@@ -21,7 +21,16 @@ export const SearchResults = () => {
   ];
 
   const { data, isLoading, error } = useQuery({
-    queryKey: ["products", query, 1, from, to, freeShipping, sale, rating],
+    queryKey: [
+      "products-search",
+      query,
+      1,
+      from,
+      to,
+      freeShipping,
+      sale,
+      rating,
+    ],
     queryFn: () => {
       return getProducts({
         query: String(query),
