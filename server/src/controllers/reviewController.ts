@@ -29,6 +29,13 @@ export const getProductReviews = catchAsync(
 
     if (!reviews) return next(new AppError("No reviews found", 404));
 
+    console.log(req.query.sort);
+
+    if (req.query.sort === "-likesCount")
+      reviews.sort((a, b) => b.likesCount - a.likesCount);
+    else if (req.query.sort === "+likesCount")
+      reviews.sort((a, b) => a.likesCount - b.likesCount);
+
     res.status(200).json({
       status: "success",
       data: {
