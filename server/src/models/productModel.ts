@@ -1,4 +1,6 @@
 import mongoose from "mongoose";
+import Review from "./reviewModel";
+import Order from "./orderModel";
 
 const ProductSchema = new mongoose.Schema({
   user: {
@@ -65,13 +67,21 @@ const ProductSchema = new mongoose.Schema({
     type: Boolean,
     default: true,
   },
-
-  orders: {
-    type: Number,
-    min: [0, "Please provide a number higher than 0."],
-    default: 0,
-  },
 });
+
+ProductSchema.methods.getOrdersCount = async function () {
+  const count = await Order.countDocuments({ products: this._id });
+  return count;
+};
+
+ProductSchema.methods.getAverageRating = async function () {
+  const result = await Review.aggregate([
+    { $match: { product: this._id } },
+    { $group: { _id: "$product", averageRating: { $avg: "$rating" } } },
+  ]);
+
+  return result.length > 0 ? result[0].averageRating : 0;
+};
 
 ProductSchema.pre("save", function (next) {
   const discountMultiplier = (100 - (this?.discount ?? 0)) / 100;
@@ -82,7 +92,6 @@ ProductSchema.pre("save", function (next) {
   next();
 });
 
-//ProductSchema.index({ user: 1, name: 1 }, { unique: true });
 ProductSchema.index({ name: 1 });
 ProductSchema.index({ user: 1 });
 ProductSchema.index({ totalPrice: 1 });
