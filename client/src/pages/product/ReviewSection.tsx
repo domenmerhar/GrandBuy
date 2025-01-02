@@ -8,6 +8,8 @@ import { ReviewSectionHeader } from "./ReviewSectionHeader";
 import { ReplyModal } from "./ReplyModal";
 import { Reviews } from "./Reviews";
 import { Stepper } from "../../Util/Stepper";
+import { useReviews } from "./useReviews";
+import { useSearchParams } from "react-router-dom";
 
 const StyledReviewSection = styled(BlankCard)`
   height: 800px;
@@ -26,6 +28,18 @@ const ButtonsHolder = styled(Row)`
 `;
 
 export const ReviewSection = () => {
+  const [searchParams] = useSearchParams();
+  const { data } = useReviews();
+
+  const reviewPerPage = Number(import.meta.env.VITE_REVIEWS_PAGE_SIZE);
+
+  const max =
+    data?.data?.reviews?.length < reviewPerPage
+      ? Number(searchParams.get("page"))
+      : null;
+
+  console.log({ max });
+
   return (
     <Modal>
       <StyledReviewSection>
@@ -42,7 +56,11 @@ export const ReviewSection = () => {
         </RatingReviewHolder>
 
         <ButtonsHolder $alignItems="center" $gap="1.2rem">
-          <Stepper searchParamName="page" />
+          {max ? (
+            <Stepper searchParamName="page" max={Number(max)} />
+          ) : (
+            <Stepper searchParamName="page" />
+          )}
           <AddReviewButton />
         </ButtonsHolder>
       </StyledReviewSection>
