@@ -33,6 +33,7 @@ export const Reviews = () => {
         }) => (
           <Review
             key={_id}
+            id={_id}
             content={review}
             likeCount={likesCount}
             rating={rating}
