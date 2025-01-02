@@ -17,11 +17,13 @@ const ReviewActionsRow = styled(Row)`
 interface ReviewActionsProps {
   showReplies: boolean;
   setShowReplies: React.Dispatch<React.SetStateAction<boolean>>;
+  likeCount: number;
 }
 
 export const ReviewActions: FC<ReviewActionsProps> = ({
   showReplies,
   setShowReplies,
+  likeCount,
 }) => {
   const id: string = "id1278203";
 
@@ -41,7 +43,7 @@ export const ReviewActions: FC<ReviewActionsProps> = ({
     <ReviewActionsRow $alignItems="center" $gap="1.6rem">
       <ReviewAction $gap="4px" $alignItems="center" as="button">
         <HiOutlineHandThumbUp size={24} />
-        <span>444</span>
+        <span>{likeCount}</span>
       </ReviewAction>
 
       <ReviewAction
