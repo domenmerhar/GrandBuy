@@ -5,6 +5,7 @@ import { ProductInfoParagraph } from "../pages/product/ProductInfoParagraph";
 import { Stepper } from "../Util/Stepper";
 import { Button } from "../Util/Button";
 import { FC } from "react";
+import { Discount } from "../Util/Discount";
 
 const StyledProductInfo = styled(Column)`
   min-width: 25rem;
@@ -13,6 +14,7 @@ const StyledProductInfo = styled(Column)`
 
 const Info = styled(Column)`
   font-size: 2rem;
+  position: relative;
   & > :first-child {
     font-size: 3.6rem;
     margin-bottom: 1.6rem;
@@ -23,6 +25,11 @@ const Info = styled(Column)`
   } */
 `;
 
+const StyledDiscount = styled(Discount)`
+  right: -20%;
+  top: -20%;
+`;
+
 interface ProductInfoProps {
   title: string;
   price: string;
@@ -31,6 +38,7 @@ interface ProductInfoProps {
   unitsSold: string;
   createdBy: string;
   uploaded: string;
+  discount: number;
 }
 
 export const ProductInfo: FC<ProductInfoProps> = ({
@@ -41,6 +49,7 @@ export const ProductInfo: FC<ProductInfoProps> = ({
   unitsSold,
   createdBy,
   uploaded,
+  discount,
 }) => {
   return (
     <StyledProductInfo $gap="2.4rem" $justifyContent="space-around">
@@ -52,6 +61,7 @@ export const ProductInfo: FC<ProductInfoProps> = ({
         <ProductInfoParagraph title="Units sold" value={unitsSold} />
         <ProductInfoParagraph title="Created by" value={createdBy} />
         <ProductInfoParagraph title="Uploaded" value={uploaded} />
+        {discount ? <StyledDiscount>{discount}%</StyledDiscount> : null}
       </Info>
 
       <Stepper searchParamName="quantity" />
