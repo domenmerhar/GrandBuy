@@ -22,6 +22,7 @@ export const getProducts = async ({
     sale && "discount[gt]=0",
     from && `totalPrice[gte]=${from}`,
     to && `totalPrice[lte]=${to}`,
+    rating && `averageRating=${rating}`,
   ]
     .filter((param) => !!param)
     .join("&");
