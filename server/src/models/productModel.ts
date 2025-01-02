@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import Review from "./reviewModel";
-import Order from "./orderModel";
+import CartItem from "./cartItemModel";
 
 const ProductSchema = new mongoose.Schema({
   user: {
@@ -67,20 +67,30 @@ const ProductSchema = new mongoose.Schema({
     type: Boolean,
     default: true,
   },
+
+  averageRating: {
+    type: Number,
+    default: 0,
+  },
+
+  orders: {
+    type: Number,
+    default: 0,
+  },
 });
 
-ProductSchema.methods.getOrdersCount = async function () {
-  const count = await Order.countDocuments({ products: this._id });
-  return count;
-};
-
-ProductSchema.methods.getAverageRating = async function () {
+ProductSchema.methods.getOrdersAndAverageRating = async function () {
   const result = await Review.aggregate([
     { $match: { product: this._id } },
     { $group: { _id: "$product", averageRating: { $avg: "$rating" } } },
   ]);
 
-  return result.length > 0 ? result[0].averageRating : 0;
+  this.averageRating = result.length > 0 ? result[0].averageRating : 0;
+
+  const count = await CartItem.countDocuments({
+    product: this._id,
+  });
+  this.orders = count;
 };
 
 ProductSchema.pre("save", function (next) {
