@@ -4,10 +4,10 @@ import { Row } from "../../Util/Row";
 import { IOption } from "../../Util/types";
 
 const selectOptions: IOption[] = [
-  { name: "Most liked", value: "+likes" },
-  { name: "Least liked", value: "-likes" },
-  { name: "Most recent", value: "+date" },
-  { name: "Least recent", value: "-date" },
+  { name: "Most liked", value: "+likesCount" },
+  { name: "Least liked", value: "-likesCount" },
+  { name: "Most recent", value: "+createdAt" },
+  { name: "Least recent", value: "-createdAt" },
 ];
 
 export const ReviewSectionHeader = () => {
