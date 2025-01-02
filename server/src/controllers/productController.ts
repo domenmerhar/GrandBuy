@@ -30,6 +30,8 @@ const findMyProduct = async (productId: string, userId: string) => {
   });
   if (!product) throw new AppError("Product not found", 404);
 
+  await product.getOrdersAndAverageRating();
+
   return product;
 };
 
@@ -44,26 +46,41 @@ export const getProduct = catchAsync(
 
     if (!product) return next(new AppError("Product not found", 404));
 
+    await product.getOrdersAndAverageRating();
+
     res.status(200).json({ status: "success", data: { product } });
   }
 );
 
 export const getProducts = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    const { search } = req.query;
+    const { search, averageRating } = req.query;
 
     let query = Product.find({ isSelling: { $ne: false } });
 
     if (search && String(search).trim().length > 0)
       query = query.find({ name: { $regex: search, $options: "i" } });
 
-    const features = new APIFeatures(query, { ...req.query, search: null });
+    const features = new APIFeatures(query, {
+      ...req.query,
+      search: null,
+      averageRating: null,
+    });
 
-    const products = await features
+    let products = await features
       .filter()
       .sort()
       .paginate()
       .query.select("_id name coverImage totalPrice discount");
+
+    await Promise.all(
+      products.map((product) => product.getOrdersAndAverageRating())
+    );
+
+    if (averageRating)
+      products = products.filter(
+        (prod) => prod.averageRating >= Number(averageRating)
+      );
 
     if (products.length === 0) {
       return next(new AppError("No products found.", 404));
@@ -193,6 +210,8 @@ export const updateProduct = catchAsync(
     product.shipping = shipping;
     product.save();
 
+    await product.getOrdersAndAverageRating();
+
     res.status(200).json({ status: "success", data: { product } });
   }
 );
@@ -252,6 +271,10 @@ export const getHighestDiscount = catchAsync(
       .limit(10)
       .select("-user -images -descriptionLink -lastChanged");
 
+    await Promise.all(
+      products.map((product) => product.getOrdersAndAverageRating())
+    );
+
     res.status(200).json({ status: "success", data: { products } });
   }
 );
@@ -272,6 +295,10 @@ export const getSellerProducts = catchAsync(
 
     if (!products.length) return next(new AppError("No products found.", 404));
 
+    await Promise.all(
+      products.map((product) => product.getOrdersAndAverageRating())
+    );
+
     res
       .status(200)
       .json({ status: "success", length: products.length, data: { products } });
@@ -289,6 +316,8 @@ export const deleteImage = catchAsync(
     await product.save();
 
     await deleteFile(imageName);
+
+    await product.getOrdersAndAverageRating();
 
     res.status(203).json({ status: "success", data: { product } });
   }
@@ -311,6 +340,8 @@ export const addImages = catchAsync(
 
     await product.save();
 
+    await product.getOrdersAndAverageRating();
+
     res.status(203).json({ status: "success", data: { product } });
   }
 );
@@ -326,6 +357,8 @@ export const deleteDescription = catchAsync(
 
     product.description = "";
     product.save();
+
+    await product.getOrdersAndAverageRating();
 
     res.status(203).json({ status: "success", data: { product } });
   }
