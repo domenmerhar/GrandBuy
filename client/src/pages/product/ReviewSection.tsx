@@ -7,6 +7,7 @@ import { AddReviewButton } from "./AddReviewButton";
 import { ReviewSectionHeader } from "./ReviewSectionHeader";
 import { ReplyModal } from "./ReplyModal";
 import { Reviews } from "./Reviews";
+import { Stepper } from "../../Util/Stepper";
 
 const StyledReviewSection = styled(BlankCard)`
   height: 800px;
@@ -18,6 +19,10 @@ const StyledReviewSection = styled(BlankCard)`
 const RatingReviewHolder = styled(Row)`
   flex: 1;
   overflow: hidden;
+`;
+
+const ButtonsHolder = styled(Row)`
+  align-self: flex-end;
 `;
 
 export const ReviewSection = () => {
@@ -36,7 +41,10 @@ export const ReviewSection = () => {
           </Modal>
         </RatingReviewHolder>
 
-        <AddReviewButton />
+        <ButtonsHolder $alignItems="center" $gap="1.2rem">
+          <Stepper searchParamName="page" />
+          <AddReviewButton />
+        </ButtonsHolder>
       </StyledReviewSection>
     </Modal>
   );
