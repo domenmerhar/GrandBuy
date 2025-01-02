@@ -10,7 +10,7 @@ const sellerId = "66dd4bf8240a800b87c13da2";
 
 export const MoreFromSellerSection = () => {
   const { data, isLoading, error } = useQuery({
-    queryKey: ["products", sellerId, 1],
+    queryKey: ["seller-products", sellerId, 1],
     queryFn: () => getSellerProducts(sellerId, 1),
   });
 
