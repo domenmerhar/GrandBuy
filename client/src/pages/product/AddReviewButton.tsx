@@ -4,7 +4,6 @@ import styled from "styled-components";
 import { AddReviewModal } from "./AddReviewModal";
 
 const PostReviewButton = styled(Button)`
-  margin-top: 12px;
   align-self: flex-end;
 `;
 
