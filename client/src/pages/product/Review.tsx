@@ -4,30 +4,40 @@ import { RatingDisplay } from "../../Components/RatingDisplay";
 import { Reply } from "./Reply";
 import { UsernameIcon } from "./UsernameIcon";
 import { ReviewActions } from "./ReviewActions";
-import { useState } from "react";
+import { FC, useState } from "react";
 
 const ReviewContent = styled.p``;
 
-export const Review = () => {
+interface ReviewProps {
+  userImage: string;
+  username: string;
+  rating: number;
+  content: string;
+  likeCount: number;
+}
+
+export const Review: FC<ReviewProps> = ({
+  userImage,
+  username,
+  rating,
+  content,
+  likeCount,
+}) => {
   const [showReplies, setShowReplies] = useState<boolean>(false);
 
   return (
     <>
       <Column $gap="4px">
-        <UsernameIcon />
+        <UsernameIcon username={username} icon={userImage} />
 
-        <RatingDisplay rating={4} size={16} showTooltip={false} />
+        <RatingDisplay rating={rating} size={16} showTooltip={false} />
 
-        <ReviewContent>
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolor
-          blanditiis natus deserunt fugit numquam doloremque atque placeat
-          praesentium eligendi aliquid, veniam velit ratione necessitatibus
-          maiores, impedit ex molestias facere voluptatibus.
-        </ReviewContent>
+        <ReviewContent>{content}</ReviewContent>
 
         <ReviewActions
           showReplies={showReplies}
           setShowReplies={setShowReplies}
+          likeCount={likeCount}
         />
       </Column>
 
