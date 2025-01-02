@@ -92,7 +92,7 @@ export const ProductCard: FC<ProductCardProps> = ({
   discount,
 }) => {
   return (
-    <StyledProductCard to={`/product/${id}?quantity=1`}>
+    <StyledProductCard to={`/product/${id}?quantity=1&page=1&sort=-likesCount`}>
       <ImageHolder>
         <Image src={image} alt={title} />
       </ImageHolder>
