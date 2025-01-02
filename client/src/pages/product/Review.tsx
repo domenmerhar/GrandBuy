@@ -1,14 +1,15 @@
 import styled from "styled-components";
 import { Column } from "../../Util/Column";
 import { RatingDisplay } from "../../Components/RatingDisplay";
-import { Reply } from "./Reply";
 import { UsernameIcon } from "./UsernameIcon";
 import { ReviewActions } from "./ReviewActions";
 import { FC, useState } from "react";
+import { Replies } from "./Replies";
 
 const ReviewContent = styled.p``;
 
 interface ReviewProps {
+  id: string;
   userImage: string;
   username: string;
   rating: number;
@@ -22,6 +23,7 @@ export const Review: FC<ReviewProps> = ({
   rating,
   content,
   likeCount,
+  id,
 }) => {
   const [showReplies, setShowReplies] = useState<boolean>(false);
 
@@ -41,7 +43,7 @@ export const Review: FC<ReviewProps> = ({
         />
       </Column>
 
-      {showReplies && <Reply />}
+      {showReplies && <Replies id={id} />}
     </>
   );
 };
