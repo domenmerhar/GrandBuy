@@ -25,12 +25,12 @@ export const useReviewStats = () => {
       ratingBreakdowns: [],
     };
 
-  const averageRating = data.data.overallStats.avgRating;
+  const averageRating = data?.data?.overallStats?.avgRating || 0;
 
   const ratingBreakdowns: IRatingBreakdown[] = Array.from({ length: 5 })
     .map(
       (_, i) =>
-        data.data.ratingBreakdown.find(
+        data?.data?.ratingBreakdown.find(
           (ratingBreakdown: IRatingBreakdown) =>
             ratingBreakdown.rating === i + 1
         ) || { rating: i + 1, count: 0, percentage: 0 }
