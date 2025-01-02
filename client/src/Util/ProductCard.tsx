@@ -4,6 +4,7 @@ import { AddButton } from "./AddButton";
 import { Link } from "react-router-dom";
 import { ProductCardProps } from "./types";
 import { toPrice } from "../functions/toPrice";
+import { Discount } from "./Discount";
 
 const StyledProductCard = styled(Link)`
   &:link,
@@ -36,26 +37,6 @@ const StyledProductCard = styled(Link)`
     width: 28rem;
     padding: 2rem;
   }
-`;
-
-const Discount = styled.p`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  position: absolute;
-  right: -25px;
-  top: -25px;
-
-  background-color: var(--red);
-  color: var(--gray-0);
-
-  rotate: 30deg;
-  height: 5rem;
-  width: 5rem;
-  border-radius: 50px;
-
-  font-weight: 600;
 `;
 
 const ImageHolder = styled.div`
