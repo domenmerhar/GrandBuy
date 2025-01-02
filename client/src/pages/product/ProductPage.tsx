@@ -52,12 +52,11 @@ export const ProductPage = () => {
     price,
     shipping,
     user: { username },
+    discount,
   } = data.data.product as IProductDetails;
 
   const markdownPath = toApiFilesPath(description);
   const imagesPath = images.map((image) => toApiFilesPath(image));
-
-  console.log(imagesPath);
 
   return (
     <>
@@ -72,6 +71,7 @@ export const ProductPage = () => {
             price={toPrice(price, "USD")}
             shipping={toPrice(shipping, "USD")}
             unitsSold={String(orders)}
+            discount={discount}
           />
           <ProductDescription markdownSrc={markdownPath} />
           <ReviewSection />
