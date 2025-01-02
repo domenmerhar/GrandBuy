@@ -18,7 +18,7 @@ export const getProductReviews = catchAsync(
     const features = new APIFeatures(
       Review.find({ product: productId })
         .select("-__v -lastChanged -product")
-        .populate({ path: "user", select: "username _id" }),
+        .populate({ path: "user", select: "username _id image" }),
       req.query
     )
       .filter()
