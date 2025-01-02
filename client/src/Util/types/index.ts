@@ -47,3 +47,9 @@ export interface ProductCardProps {
   image?: string;
   discount?: number;
 }
+
+export type ReviewSort =
+  | "+likesCount"
+  | "-likesCount"
+  | "+createdAt"
+  | "-createdAt";
