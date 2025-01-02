@@ -12,7 +12,7 @@ export const MainPage = () => {
       <SkewedContainer>
         <SaleSection />
         <CardMultipleItems />
-        <HorizontalProducts />
+        {/* <HorizontalProducts /> */}
       </SkewedContainer>
     </>
   );
