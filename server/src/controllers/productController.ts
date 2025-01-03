@@ -61,16 +61,15 @@ export const getProducts = catchAsync(
     if (search && String(search).trim().length > 0)
       query = query.find({ name: { $regex: search, $options: "i" } });
 
-    const features = new APIFeatures(query, {
-      ...req.query,
-      search: null,
-      averageRating: null,
-    });
+    const features = new APIFeatures(query, req.query, [
+      "search",
+      "averageRating",
+    ]);
 
     let products = await features
-      .filter()
-      .sort()
       .paginate()
+      .sort()
+      .filter()
       .query.select("_id name coverImage totalPrice discount");
 
     await Promise.all(
