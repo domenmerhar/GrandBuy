@@ -1,7 +1,5 @@
 import { toApiPath } from "../functions/toApiPath";
 
-const limit = 8;
-
 export const getProducts = async ({
   query,
   page,
@@ -10,6 +8,8 @@ export const getProducts = async ({
   from,
   to,
   rating,
+  sort,
+  limit = 8,
 }: {
   query: string;
   page: number;
@@ -18,6 +18,8 @@ export const getProducts = async ({
   rating?: number;
   from?: number;
   to?: number;
+  sort?: string;
+  limit?: number;
 }) => {
   const queryParamsStr = [
     freeShipping && "shipping[lte]=0",
@@ -25,6 +27,7 @@ export const getProducts = async ({
     from && `totalPrice[gte]=${from}`,
     to && `totalPrice[lte]=${to}`,
     rating && `averageRating=${rating}`,
+    sort && `sort=${sort}`,
   ]
     .filter((param) => !!param)
     .join("&");
