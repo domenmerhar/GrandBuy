@@ -1,5 +1,7 @@
 import { toApiPath } from "../functions/toApiPath";
 
+const limit = 8;
+
 export const getProducts = async ({
   query,
   page,
@@ -30,9 +32,13 @@ export const getProducts = async ({
   const queryParams = queryParamsStr ? `&${queryParamsStr}` : "";
 
   const response = await fetch(
-    toApiPath(`product?search=${query}&page=${page}${queryParams}`)
+    toApiPath(
+      `product?search=${query}&page=${page}${queryParams}&limit=${limit}`
+    )
   );
 
   const data = await response.json();
-  return data;
+  const nextItem = data.length === limit ? page + 1 : null;
+
+  return { ...data, nextItem };
 };
