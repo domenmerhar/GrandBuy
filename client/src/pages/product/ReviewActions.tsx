@@ -6,6 +6,7 @@ import { HiChevronDown, HiChevronUp } from "react-icons/hi";
 import { Modal } from "../../Util/Modal";
 import { useSearchParams } from "react-router-dom";
 import { ReviewAction } from "../../Util/ReviewAction";
+import { useAuthContext } from "../../contexts/AuthContext";
 
 const ReviewActionsRow = styled(Row)`
   font-size: 1.4rem;
@@ -25,6 +26,7 @@ export const ReviewActions: FC<ReviewActionsProps> = ({
   setShowReplies,
   likeCount,
 }) => {
+  const [{ JWT }] = useAuthContext();
   const id: string = "id1278203";
 
   const { setIsOpen } = Modal.useModalContext();
@@ -41,20 +43,24 @@ export const ReviewActions: FC<ReviewActionsProps> = ({
 
   return (
     <ReviewActionsRow $alignItems="center" $gap="1.6rem">
-      <ReviewAction $gap="4px" $alignItems="center" as="button">
-        <HiOutlineHandThumbUp size={24} />
-        <span>{likeCount}</span>
-      </ReviewAction>
+      {JWT ? (
+        <>
+          <ReviewAction $gap="4px" $alignItems="center" as="button">
+            <HiOutlineHandThumbUp size={24} />
+            <span>{likeCount}</span>
+          </ReviewAction>
 
-      <ReviewAction
-        $gap="4px"
-        $alignItems="center"
-        as="button"
-        onClick={handleReply}
-      >
-        <HiArrowUturnLeft size={22} />
-        <span>Reply</span>
-      </ReviewAction>
+          <ReviewAction
+            $gap="4px"
+            $alignItems="center"
+            as="button"
+            onClick={handleReply}
+          >
+            <HiArrowUturnLeft size={22} />
+            <span>Reply</span>
+          </ReviewAction>
+        </>
+      ) : null}
 
       <ReviewAction
         $gap="4px"
