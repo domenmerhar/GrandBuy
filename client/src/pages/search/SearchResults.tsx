@@ -1,4 +1,3 @@
-import { Grid } from "../../Util/Grid";
 import { ProductCard } from "../../Util/ProductCard";
 import { IProductShort } from "../../Util/types";
 import { useParams, useSearchParams } from "react-router-dom";
@@ -7,6 +6,7 @@ import { ErrorBox } from "../../Components/ErrorBox";
 import { toApiFilesPath } from "../../functions/toApiFilesPath";
 import styled from "styled-components";
 import { useProductsInfinite } from "./useProductsInfinite";
+import { ProductGrid } from "../../Util/ProductGrid";
 
 const Div = styled.div`
   height: 200px;
@@ -39,13 +39,7 @@ export const SearchResults = () => {
 
   return (
     <>
-      <Grid
-        $maxWidth="27rem"
-        $minWidth="27rem"
-        $colGap="3.2rem"
-        $rowGap="3.2rem"
-        $margin="4.8rem 0"
-      >
+      <ProductGrid>
         {!isLoading &&
           !error &&
           data?.pages?.map((page) =>
@@ -68,7 +62,7 @@ export const SearchResults = () => {
               )
             )
           )}
-      </Grid>
+      </ProductGrid>
       {isFetching && <SpinnerInBox fullPage={false} />}
       <Div ref={ref}></Div>
     </>
