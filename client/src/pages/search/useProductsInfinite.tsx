@@ -46,7 +46,6 @@ export const useProductsInfinite = ({
 
   useEffect(() => {
     if (inView && !isFetching) {
-      console.log("fetching next page");
       fetchNextPage();
     }
   }, [ref, inView, fetchNextPage, isFetching]);
