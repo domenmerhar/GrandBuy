@@ -8,10 +8,10 @@ import { SearchResults } from "./SearchResults";
 const selectOptions: IOption[] = [
   { name: "Sort by most orders", value: "-orders" },
   { name: "Sort by least orders", value: "orders" },
-  { name: "Sort by most expensive", value: "-price" },
-  { name: "Sort by cheapest", value: "price" },
+  { name: "Sort by most expensive", value: "-totalPrice" },
+  { name: "Sort by cheapest", value: "+totalPrice" },
   { name: "Sort by date (youngest)", value: "-createdAt" },
-  { name: "Sort by date (oldest)", value: "createdAt" },
+  { name: "Sort by date (oldest)", value: "+createdAt" },
 ];
 
 export const SearchPage = () => {
