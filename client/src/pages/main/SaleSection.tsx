@@ -1,5 +1,4 @@
 import { Header } from "../../Util/Header";
-import { Grid } from "../../Util/Grid";
 import { ProductCard } from "../../Util/ProductCard";
 import { useQuery } from "@tanstack/react-query";
 import { getProducts } from "../../api/getProducts";
@@ -7,6 +6,7 @@ import { SpinnerInBox } from "../../Components/SpinnerInBox";
 import { ErrorBox } from "../../Components/ErrorBox";
 import { IProductShort } from "../../Util/types/index";
 import { toApiFilesPath } from "../../functions/toApiFilesPath";
+import { ProductGrid } from "../../Util/ProductGrid";
 
 export const SaleSection = () => {
   const { data, isLoading, error } = useQuery({
@@ -29,13 +29,7 @@ export const SaleSection = () => {
       <Header $color="orange" $size="medium" id="sale">
         Summer Sale
       </Header>
-      <Grid
-        $maxWidth="27rem"
-        $minWidth="27rem"
-        $colGap="3.2rem"
-        $rowGap="3.2rem"
-        $margin="4.8rem 0"
-      >
+      <ProductGrid>
         {data?.data?.products?.map(
           ({ _id, coverImage, discount, name, totalPrice }: IProductShort) => (
             <ProductCard
@@ -48,7 +42,7 @@ export const SaleSection = () => {
             />
           )
         )}
-      </Grid>
+      </ProductGrid>
     </>
   );
 };
