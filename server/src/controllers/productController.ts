@@ -66,11 +66,13 @@ export const getProducts = catchAsync(
       "averageRating",
     ]);
 
-    let products = await features
-      .paginate()
-      .sort()
-      .filter()
-      .query.select("_id name coverImage totalPrice discount");
+    let products = features.paginate().filter();
+
+    products = sort && sort?.includes("orders") ? products : products.sort();
+
+    products = await products.query.select(
+      "_id name coverImage totalPrice discount"
+    );
 
     await Promise.all(
       products.map((product) => product.getOrdersAndAverageRating())
