@@ -1,6 +1,7 @@
 import { useParams, useSearchParams } from "react-router-dom";
-import { useProductsInfinite } from "./useProductsInfinite";
 import { InfiniteProducts } from "../../Components/InfiniteProducts";
+import { useInfinite } from "../../hooks/useInfinite";
+import { getProducts } from "../../api/getProducts";
 
 export const SearchResults = () => {
   const { query } = useParams();
@@ -15,17 +16,34 @@ export const SearchResults = () => {
     searchParams.get("sort") || "-orders",
   ];
 
-  console.log(searchParams.get("sort"));
+  const queryFn = ({ pageParam }) => {
+    if (pageParam === null) return;
 
-  const { data, isLoading, isFetching, error, ref } = useProductsInfinite({
-    queryName: "products-search",
-    query: String(query),
-    from,
-    to,
-    freeShipping,
-    sale,
-    rating,
-    sort,
+    return getProducts({
+      query: query || "",
+      from,
+      to,
+      freeShipping,
+      limit: 8,
+      page: pageParam,
+      rating,
+      sale,
+      sort,
+    });
+  };
+
+  const { data, error, isFetching, isLoading, ref } = useInfinite({
+    queryFn,
+    queryKey: [
+      "products-search",
+      query,
+      from,
+      to,
+      freeShipping,
+      sale,
+      rating,
+      sort,
+    ],
   });
 
   return (
