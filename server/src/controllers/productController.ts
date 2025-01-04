@@ -54,7 +54,7 @@ export const getProduct = catchAsync(
 
 export const getProducts = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    const { search, averageRating } = req.query;
+    const { search, averageRating, sort } = req.query;
 
     let query = Product.find({ isSelling: { $ne: false } });
 
@@ -84,6 +84,9 @@ export const getProducts = catchAsync(
     if (products.length === 0) {
       return next(new AppError("No products found.", 404));
     }
+
+    if (sort === "-orders") products.sort((a, b) => b.orders - a.orders);
+    else if (sort === "+orders") products.sort((a, b) => a.orders - b.orders);
 
     res.status(200).json({
       status: "success",
