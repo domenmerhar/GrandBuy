@@ -1,6 +1,5 @@
 import { Content } from "../../Util/Content";
 import { MoreFromSellerSection } from "./MoreFromSellerSection";
-import { SaleSection } from "../main/SaleSection";
 import { SliderInfoRow } from "./SliderInfoRow";
 import { ProductDescription } from "./ProductDescription";
 import { Column } from "../../Util/Column";
@@ -11,6 +10,7 @@ import { toPrice } from "../../functions/toPrice";
 import { toDate } from "../../functions/toDate";
 import { toApiFilesPath } from "../../functions/toApiFilesPath";
 import { ErrorBox } from "../../Components/ErrorBox";
+import { ProductPageInfiniteProducts } from "./ProductPageInfiniteProducts";
 
 interface IProductDetails {
   isSelling: boolean;
@@ -76,7 +76,7 @@ export const ProductPage = () => {
           <ProductDescription markdownSrc={markdownPath} />
           <ReviewSection />
           <MoreFromSellerSection />
-          <SaleSection />
+          <ProductPageInfiniteProducts />
         </Column>
       </Content>
     </>
