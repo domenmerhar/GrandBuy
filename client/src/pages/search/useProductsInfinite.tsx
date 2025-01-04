@@ -11,6 +11,7 @@ interface useProductsInfiniteProps {
   freeShipping: boolean;
   sale: boolean;
   rating: number;
+  sort: string;
 }
 
 export const useProductsInfinite = ({
@@ -21,12 +22,13 @@ export const useProductsInfinite = ({
   freeShipping,
   sale,
   rating,
+  sort,
 }: useProductsInfiniteProps) => {
   const { ref, inView } = useInView({ threshold: 0.5 });
 
   const { data, isLoading, error, fetchNextPage, isFetching } =
     useInfiniteQuery({
-      queryKey: [queryName, query, from, to, freeShipping, sale, rating],
+      queryKey: [queryName, query, from, to, freeShipping, sale, rating, sort],
       queryFn: ({ pageParam }) => {
         if (pageParam === null) return;
 
@@ -38,6 +40,7 @@ export const useProductsInfinite = ({
           freeShipping,
           sale,
           rating,
+          sort,
         });
       },
       getNextPageParam: (lastPage) => lastPage?.nextItem || null,
