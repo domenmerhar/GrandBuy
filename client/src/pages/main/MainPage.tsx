@@ -3,6 +3,7 @@ import { SaleSection } from "./SaleSection";
 import { SkewedContainer } from "./SkewedContainer";
 import { LatestProducts } from "./LatestProducts.tsx";
 import { ForYouSection } from "./ForYouSection.tsx";
+import { MainPageInfiniteProducts } from "./MainPageInfiniteProducts.tsx";
 
 export const MainPage = () => {
   return (
@@ -12,8 +13,8 @@ export const MainPage = () => {
       <SkewedContainer>
         <SaleSection />
         <ForYouSection />
-
         <LatestProducts />
+        <MainPageInfiniteProducts />
       </SkewedContainer>
     </>
   );
