@@ -9,7 +9,7 @@ import { toApiFilesPath } from "../../functions/toApiFilesPath";
 
 export const Under50 = () => {
   const { data, isLoading, error } = useQuery({
-    queryKey: ["products-free-shipping"],
+    queryKey: ["products-under-x"],
     queryFn: () =>
       getProducts({
         query: "",
