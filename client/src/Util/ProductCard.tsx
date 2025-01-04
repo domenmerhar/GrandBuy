@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { ProductCardProps } from "./types";
 import { toPrice } from "../functions/toPrice";
 import { Discount } from "./Discount";
+import { useAuthContext } from "../contexts/AuthContext";
 
 const StyledProductCard = styled.div`
   text-decoration: none;
@@ -88,6 +89,8 @@ export const ProductCard: FC<ProductCardProps> = ({
   image,
   discount,
 }) => {
+  const [{ JWT }] = useAuthContext();
+
   return (
     <StyledProductCard>
       <Link to={`/product/${id}?quantity=1&page=1&sort=-likesCount`}>
@@ -101,7 +104,7 @@ export const ProductCard: FC<ProductCardProps> = ({
 
       <PriceButtonHolder>
         <Price>{toPrice(price, "USD")}</Price>
-        <AddButton />
+        {JWT ? <AddButton /> : null}
       </PriceButtonHolder>
     </StyledProductCard>
   );
