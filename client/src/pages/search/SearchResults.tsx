@@ -1,16 +1,6 @@
-import { ProductCard } from "../../Util/ProductCard";
-import { IProductShort } from "../../Util/types";
 import { useParams, useSearchParams } from "react-router-dom";
-import { SpinnerInBox } from "../../Components/SpinnerInBox";
-import { ErrorBox } from "../../Components/ErrorBox";
-import { toApiFilesPath } from "../../functions/toApiFilesPath";
-import styled from "styled-components";
 import { useProductsInfinite } from "./useProductsInfinite";
-import { ProductGrid } from "../../Util/ProductGrid";
-
-const Div = styled.div`
-  height: 200px;
-`;
+import { InfiniteProducts } from "../../Components/InfiniteProducts";
 
 export const SearchResults = () => {
   const { query } = useParams();
@@ -34,37 +24,13 @@ export const SearchResults = () => {
     rating,
   });
 
-  if (isLoading) return <SpinnerInBox fullPage={false} />;
-  if (error) return <ErrorBox fullPage={false} />;
-
   return (
-    <>
-      <ProductGrid>
-        {!isLoading &&
-          !error &&
-          data?.pages?.map((page) =>
-            page?.data?.products?.map(
-              ({
-                _id,
-                name,
-                coverImage,
-                discount,
-                totalPrice,
-              }: IProductShort) => (
-                <ProductCard
-                  key={_id}
-                  id={_id}
-                  title={name}
-                  image={toApiFilesPath(coverImage)}
-                  discount={discount}
-                  price={totalPrice}
-                />
-              )
-            )
-          )}
-      </ProductGrid>
-      {isFetching && <SpinnerInBox fullPage={false} />}
-      <Div ref={ref}></Div>
-    </>
+    <InfiniteProducts
+      data={data}
+      error={error}
+      isFetching={isFetching}
+      isLoading={isLoading}
+      ref={ref}
+    />
   );
 };
