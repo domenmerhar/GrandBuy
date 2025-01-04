@@ -12,6 +12,7 @@ import { SearchBar } from "../Util/SearchBar";
 import { BurgerMenu } from "./BurgerMenu";
 import { createPortal } from "react-dom";
 import { NavLink, Outlet } from "react-router-dom";
+import { useAuthContext } from "../contexts/AuthContext";
 
 const Placeholder = styled.div`
   height: 7.5rem;
@@ -51,6 +52,7 @@ const NavLinkHolder = styled(NavLink)`
 
 export const NavigationBar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [{ JWT }] = useAuthContext();
 
   const menuHandler = () => {
     setIsOpen((prev) => !prev);
@@ -67,21 +69,29 @@ export const NavigationBar = () => {
           <SearchBar />
 
           <ButtonHolder>
-            <NavLinkHolder to="/notifications">
-              <ButtonWithNotifcations notificationCount={50}>
-                <HiOutlineBell size={44} />
-              </ButtonWithNotifcations>
-            </NavLinkHolder>
+            {JWT ? (
+              <>
+                <NavLinkHolder to="/notifications">
+                  <ButtonWithNotifcations notificationCount={50}>
+                    <HiOutlineBell size={44} />
+                  </ButtonWithNotifcations>
+                </NavLinkHolder>
 
-            <NavLinkHolder to="/cart">
-              <ButtonWithNotifcations notificationCount={50}>
-                <HiOutlineShoppingCart size={44} />
-              </ButtonWithNotifcations>
-            </NavLinkHolder>
+                <NavLinkHolder to="/cart">
+                  <ButtonWithNotifcations notificationCount={50}>
+                    <HiOutlineShoppingCart size={44} />
+                  </ButtonWithNotifcations>
+                </NavLinkHolder>
 
-            <ButtonWithNotifcations onClick={menuHandler}>
-              {isOpen ? <HiOutlineX size={44} /> : <HiOutlineMenu size={44} />}
-            </ButtonWithNotifcations>
+                <ButtonWithNotifcations onClick={menuHandler}>
+                  {isOpen ? (
+                    <HiOutlineX size={44} />
+                  ) : (
+                    <HiOutlineMenu size={44} />
+                  )}
+                </ButtonWithNotifcations>
+              </>
+            ) : null}
           </ButtonHolder>
         </NavigationHolder>
 
