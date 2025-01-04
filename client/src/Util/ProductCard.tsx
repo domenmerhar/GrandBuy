@@ -6,26 +6,23 @@ import { ProductCardProps } from "./types";
 import { toPrice } from "../functions/toPrice";
 import { Discount } from "./Discount";
 
-const StyledProductCard = styled(Link)`
-  &:link,
-  &:visited {
-    text-decoration: none;
-    color: var(--gray-8);
-    background-color: var(--gray-1);
-    border-radius: 12px;
-    position: relative;
+const StyledProductCard = styled.div`
+  text-decoration: none;
+  color: var(--gray-8);
+  background-color: var(--gray-1);
+  border-radius: 12px;
+  position: relative;
 
-    width: 30rem;
-    padding: 2.4rem;
+  width: 30rem;
+  padding: 2.4rem;
 
-    display: flex;
-    gap: 0.8rem;
-    align-items: start;
-    flex-direction: column;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  gap: 0.8rem;
+  align-items: start;
+  flex-direction: column;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 
-    transition: all 200ms ease-in;
-  }
+  transition: all 200ms ease-in;
 
   &:hover,
   &:active {
@@ -92,10 +89,12 @@ export const ProductCard: FC<ProductCardProps> = ({
   discount,
 }) => {
   return (
-    <StyledProductCard to={`/product/${id}?quantity=1&page=1&sort=-likesCount`}>
-      <ImageHolder>
-        <Image src={image} alt={title} />
-      </ImageHolder>
+    <StyledProductCard>
+      <Link to={`/product/${id}?quantity=1&page=1&sort=-likesCount`}>
+        <ImageHolder>
+          <Image src={image} alt={title} />
+        </ImageHolder>
+      </Link>
 
       {discount && discount > 0 ? <Discount>-{discount}%</Discount> : null}
       <Title>{title}</Title>
