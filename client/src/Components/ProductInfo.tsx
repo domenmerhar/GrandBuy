@@ -61,7 +61,7 @@ export const ProductInfo: FC<ProductInfoProps> = ({
         <ProductInfoParagraph title="Units sold" value={unitsSold} />
         <ProductInfoParagraph title="Created by" value={createdBy} />
         <ProductInfoParagraph title="Uploaded" value={uploaded} />
-        {discount ? <StyledDiscount>{discount}%</StyledDiscount> : null}
+        {discount ? <StyledDiscount>-{discount}%</StyledDiscount> : null}
       </Info>
 
       <Stepper searchParamName="quantity" />
