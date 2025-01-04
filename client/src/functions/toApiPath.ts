@@ -1,2 +1,2 @@
 export const toApiPath = (path: string) =>
-  `${import.meta.env.VITE_API_LINK}/${path}`;
+  `${import.meta.env.VITE_API_LINK}/${path}`.replace("+", "%2B");
