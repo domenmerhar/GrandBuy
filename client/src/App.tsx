@@ -28,6 +28,7 @@ import { ScrollToTop } from "./Components/ScrollToTop";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { AuthProvider } from "./contexts/AuthContext";
+import { RouteProtector } from "./Components/RouteProtector";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -50,15 +51,21 @@ function App() {
               <Routes>
                 <Route path="/" element={<NavigationBar />}>
                   <Route path="/" element={<MainPage />} />
-                  <Route path="/cart" element={<CartPage />} />
                   <Route path="/settings" element={<SettingsPage />} />
                   <Route path="/history" element={<HistoryPage />} />
-                  <Route path="/refund" element={<RefundPage />} />
                   <Route path="/search/:query" element={<SearchPage />} />
                   <Route path="/my-products" element={<MyProductsPage />} />
-                  <Route path="/wishlist" element={<WishlistPage />} />
-                  <Route path="/orders" element={<OrdersPage />} />
                   <Route path="/notifications" element={<NotificationPage />} />
+
+                  <Route
+                    path="/"
+                    element={<RouteProtector allowedRoles={["user"]} />}
+                  >
+                    <Route path="/wishlist" element={<WishlistPage />} />
+                    <Route path="/cart" element={<CartPage />} />
+                    <Route path="/refund" element={<RefundPage />} />
+                    <Route path="/orders" element={<OrdersPage />} />
+                  </Route>
 
                   <Route path="/account" element={<AccountPage />}>
                     <Route
