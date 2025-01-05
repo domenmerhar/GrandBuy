@@ -10,7 +10,6 @@ import { useAuthContext } from "../contexts/AuthContext";
 
 const StyledProductInfo = styled(Column)`
   min-width: 25rem;
-  height: 100%;
   justify-content: flex-start;
 `;
 
