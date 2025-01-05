@@ -26,7 +26,7 @@ export const ReviewActions: FC<ReviewActionsProps> = ({
   setShowReplies,
   likeCount,
 }) => {
-  const [{ JWT }] = useAuthContext();
+  const [{ role }] = useAuthContext();
   const id: string = "id1278203";
 
   const { setIsOpen } = Modal.useModalContext();
@@ -43,7 +43,7 @@ export const ReviewActions: FC<ReviewActionsProps> = ({
 
   return (
     <ReviewActionsRow $alignItems="center" $gap="1.6rem">
-      {JWT ? (
+      {["user", "seller"].includes(role) ? (
         <>
           <ReviewAction $gap="4px" $alignItems="center" as="button">
             <HiOutlineHandThumbUp size={24} />
