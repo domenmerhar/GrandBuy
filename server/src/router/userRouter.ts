@@ -13,6 +13,7 @@ import {
   updateMe,
   updatePrivileges,
   updateRole,
+  getUser,
 } from "../controllers/userController";
 import { protect, restrictTo } from "../controllers/authController";
 import { getAll } from "../controllers/handlerFactory";
@@ -27,6 +28,23 @@ import { body, param } from "express-validator";
 //TODO: GET ONE USER
 
 const userRouter = Router();
+
+userRouter
+  .route("/:userId")
+  .get(
+    validate([
+      param("userId")
+        .isMongoId()
+        .withMessage("Please provide a valid user ID.")
+        .notEmpty()
+        .withMessage("Please provide a user ID."),
+
+      body("role")
+        .isIn(["user", "seller"])
+        .withMessage("Please provide a valid role (user or seller)."),
+    ]),
+    getUser
+  );
 
 userRouter.route("/login").post(
   validate([
