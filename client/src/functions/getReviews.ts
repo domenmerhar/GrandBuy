@@ -10,12 +10,6 @@ export const getReviews = async ({
   page: number;
   sort: ReviewSort;
 }) => {
-  console.log(
-    toApiPath(
-      `review/product/${productId}?page=${page}${sort ? `&sort=${sort.replace("+", "%2B")}` : ""}`
-    )
-  );
-
   const response = await fetch(
     toApiPath(
       `review/product/${productId}?page=${page}${sort ? `&sort=${sort.replace("+", "%2B")}` : ""}`
