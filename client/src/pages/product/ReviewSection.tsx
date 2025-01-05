@@ -10,6 +10,7 @@ import { Reviews } from "./Reviews";
 import { Stepper } from "../../Util/Stepper";
 import { useReviews } from "./useReviews";
 import { useSearchParams } from "react-router-dom";
+import { useAuthContext } from "../../contexts/AuthContext";
 
 const StyledReviewSection = styled(BlankCard)`
   height: 800px;
@@ -30,6 +31,7 @@ const ButtonsHolder = styled(Row)`
 export const ReviewSection = () => {
   const [searchParams] = useSearchParams();
   const { data } = useReviews();
+  const [{ role }] = useAuthContext();
 
   const reviewPerPage = Number(import.meta.env.VITE_REVIEWS_PAGE_SIZE);
 
@@ -37,8 +39,6 @@ export const ReviewSection = () => {
     data?.data?.reviews?.length < reviewPerPage
       ? Number(searchParams.get("page"))
       : null;
-
-  console.log({ max });
 
   return (
     <Modal>
@@ -61,7 +61,7 @@ export const ReviewSection = () => {
           ) : (
             <Stepper searchParamName="page" />
           )}
-          <AddReviewButton />
+          {role === "user" ? <AddReviewButton /> : null}
         </ButtonsHolder>
       </StyledReviewSection>
     </Modal>
