@@ -52,7 +52,7 @@ export const ProductInfo: FC<ProductInfoProps> = ({
   uploaded,
   discount,
 }) => {
-  const [{ JWT }] = useAuthContext();
+  const [{ role }] = useAuthContext();
 
   return (
     <StyledProductInfo $gap="2.4rem" $justifyContent="space-around">
@@ -67,7 +67,7 @@ export const ProductInfo: FC<ProductInfoProps> = ({
         {discount ? <StyledDiscount>-{discount}%</StyledDiscount> : null}
       </Info>
 
-      {JWT ? (
+      {role === "user" ? (
         <>
           <Stepper searchParamName="quantity" />
 
