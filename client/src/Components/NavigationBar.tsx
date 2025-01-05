@@ -13,6 +13,7 @@ import { BurgerMenu } from "./BurgerMenu";
 import { createPortal } from "react-dom";
 import { NavLink, Outlet } from "react-router-dom";
 import { useAuthContext } from "../contexts/AuthContext";
+import { HiOutlineArrowRightEndOnRectangle } from "react-icons/hi2";
 
 const Placeholder = styled.div`
   height: 7.5rem;
@@ -52,7 +53,7 @@ const NavLinkHolder = styled(NavLink)`
 
 export const NavigationBar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [{ JWT }] = useAuthContext();
+  const [{ role }] = useAuthContext();
 
   const menuHandler = () => {
     setIsOpen((prev) => !prev);
@@ -69,7 +70,7 @@ export const NavigationBar = () => {
           <SearchBar />
 
           <ButtonHolder>
-            {JWT ? (
+            {["admin", "user", "seller"].includes(role) ? (
               <>
                 <NavLinkHolder to="/notifications">
                   <ButtonWithNotifcations notificationCount={50}>
@@ -91,7 +92,13 @@ export const NavigationBar = () => {
                   )}
                 </ButtonWithNotifcations>
               </>
-            ) : null}
+            ) : (
+              <NavLinkHolder to="/login">
+                <ButtonWithNotifcations>
+                  <HiOutlineArrowRightEndOnRectangle size={44} />
+                </ButtonWithNotifcations>
+              </NavLinkHolder>
+            )}
           </ButtonHolder>
         </NavigationHolder>
 
