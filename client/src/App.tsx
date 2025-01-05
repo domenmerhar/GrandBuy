@@ -51,31 +51,23 @@ function App() {
               <Routes>
                 <Route path="/" element={<NavigationBar />}>
                   <Route path="/" element={<MainPage />} />
-                  <Route path="/settings" element={<SettingsPage />} />
-                  <Route path="/history" element={<HistoryPage />} />
                   <Route path="/search/:query" element={<SearchPage />} />
-                  <Route path="/my-products" element={<MyProductsPage />} />
-                  <Route path="/notifications" element={<NotificationPage />} />
+                  <Route path="/product/:productId" element={<ProductPage />} />
 
-                  <Route
-                    path="/"
-                    element={<RouteProtector allowedRoles={["user"]} />}
-                  >
-                    <Route path="/wishlist" element={<WishlistPage />} />
-                    <Route path="/cart" element={<CartPage />} />
-                    <Route path="/refund" element={<RefundPage />} />
-                    <Route path="/orders" element={<OrdersPage />} />
-                  </Route>
+                  <Route path="/signup" element={<SignupPage />} />
+                  <Route path="/login" element={<LoginPage />} />
 
                   <Route path="/account" element={<AccountPage />}>
                     <Route
                       path="/account/user/:userId"
                       element={<ReviewReplyWindow />}
                     />
+
                     <Route
                       path="/account/seller/:userId"
                       element={<SaleSection />}
                     />
+
                     <Route
                       path="*"
                       element={<Navigate to="/" replace />}
@@ -83,19 +75,130 @@ function App() {
                     />
                   </Route>
 
-                  <Route path="/add-product" element={<AddProductPage />} />
-                  <Route path="/product/:productId" element={<ProductPage />} />
+                  {/* User Routes */}
+                  <Route
+                    path="/wishlist"
+                    element={
+                      <RouteProtector allowedRoles={["user"]}>
+                        <WishlistPage />
+                      </RouteProtector>
+                    }
+                  />
 
-                  <Route path="/dashboard" element={<Dashboard />}>
-                    <Route path="reviews" element={<ReviewsPage />} />
-                    <Route path="orders" element={<OrdersDashboardPage />} />
-                    <Route path="refund" element={<RefundDashboardPage />} />
-                    <Route path="coupon" element={<CouponPage />} />
+                  <Route
+                    path="/cart"
+                    element={
+                      <RouteProtector allowedRoles={["user"]}>
+                        <CartPage />
+                      </RouteProtector>
+                    }
+                  />
+
+                  <Route
+                    path="/refund"
+                    element={
+                      <RouteProtector allowedRoles={["user"]}>
+                        <RefundPage />{" "}
+                      </RouteProtector>
+                    }
+                  />
+
+                  <Route
+                    path="/orders"
+                    element={
+                      <RouteProtector allowedRoles={["user"]}>
+                        <OrdersPage />
+                      </RouteProtector>
+                    }
+                  />
+
+                  <Route
+                    path="/add-product"
+                    element={
+                      <RouteProtector allowedRoles={["seller"]}>
+                        <AddProductPage />
+                      </RouteProtector>
+                    }
+                  />
+                  <Route
+                    path="/my-products"
+                    element={
+                      <RouteProtector allowedRoles={["seller"]}>
+                        <MyProductsPage />
+                      </RouteProtector>
+                    }
+                  />
+
+                  <Route
+                    path="/dashboard"
+                    element={
+                      <RouteProtector allowedRoles={["admin", "seller"]}>
+                        <Dashboard />{" "}
+                      </RouteProtector>
+                    }
+                  >
+                    <Route
+                      path="reviews"
+                      element={
+                        <RouteProtector allowedRoles={["seller"]}>
+                          <ReviewsPage />
+                        </RouteProtector>
+                      }
+                    />
+                    <Route
+                      path="orders"
+                      element={
+                        <RouteProtector allowedRoles={["seller"]}>
+                          <OrdersDashboardPage />
+                        </RouteProtector>
+                      }
+                    />
+                    <Route
+                      path="refund"
+                      element={
+                        <RouteProtector allowedRoles={["seller"]}>
+                          <RefundDashboardPage />
+                        </RouteProtector>
+                      }
+                    />
+                    <Route
+                      path="coupon"
+                      element={
+                        <RouteProtector allowedRoles={["seller"]}>
+                          <CouponPage />
+                        </RouteProtector>
+                      }
+                    />
                   </Route>
                 </Route>
 
-                <Route path="/signup" element={<SignupPage />} />
-                <Route path="/login" element={<LoginPage />} />
+                {/* Authorized routes  */}
+                <Route
+                  path="/settings"
+                  element={
+                    <RouteProtector allowedRoles={["user", "seller", "admin"]}>
+                      <SettingsPage />
+                    </RouteProtector>
+                  }
+                />
+
+                <Route
+                  path="/history"
+                  element={
+                    <RouteProtector allowedRoles={["user", "seller", "admin"]}>
+                      <HistoryPage />
+                    </RouteProtector>
+                  }
+                />
+
+                <Route
+                  path="/notifications"
+                  element={
+                    <RouteProtector allowedRoles={["user", "seller", "admin"]}>
+                      <NotificationPage />
+                    </RouteProtector>
+                  }
+                />
 
                 <Route path="*" element={<h1>404 Not Found</h1>} />
               </Routes>
