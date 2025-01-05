@@ -21,7 +21,7 @@ import User from "../models/userModel";
 import fileUpload from "express-fileupload";
 import { fileExtLimiterOne } from "../controllers/fileController";
 import { validate } from "../utils/validate";
-import { body, param } from "express-validator";
+import { body, check, param } from "express-validator";
 //TODO: CHECK EVERY ROUTER FOR AUTH MIDDLEWARE
 //TODO: NORMALIZE RESPONE FORMAT
 
@@ -39,7 +39,7 @@ userRouter
         .notEmpty()
         .withMessage("Please provide a user ID."),
 
-      body("role")
+      check("role")
         .isIn(["user", "seller"])
         .withMessage("Please provide a valid role (user or seller)."),
     ]),
