@@ -54,9 +54,6 @@ function App() {
                   <Route path="/search/:query" element={<SearchPage />} />
                   <Route path="/product/:productId" element={<ProductPage />} />
 
-                  <Route path="/signup" element={<SignupPage />} />
-                  <Route path="/login" element={<LoginPage />} />
-
                   <Route path="/account" element={<AccountPage />}>
                     <Route
                       path="/account/user/:userId"
@@ -170,35 +167,44 @@ function App() {
                       }
                     />
                   </Route>
+
+                  {/* Authorized routes  */}
+                  <Route
+                    path="/settings"
+                    element={
+                      <RouteProtector
+                        allowedRoles={["user", "seller", "admin"]}
+                      >
+                        <SettingsPage />
+                      </RouteProtector>
+                    }
+                  />
+
+                  <Route
+                    path="/history"
+                    element={
+                      <RouteProtector
+                        allowedRoles={["user", "seller", "admin"]}
+                      >
+                        <HistoryPage />
+                      </RouteProtector>
+                    }
+                  />
+
+                  <Route
+                    path="/notifications"
+                    element={
+                      <RouteProtector
+                        allowedRoles={["user", "seller", "admin"]}
+                      >
+                        <NotificationPage />
+                      </RouteProtector>
+                    }
+                  />
                 </Route>
 
-                {/* Authorized routes  */}
-                <Route
-                  path="/settings"
-                  element={
-                    <RouteProtector allowedRoles={["user", "seller", "admin"]}>
-                      <SettingsPage />
-                    </RouteProtector>
-                  }
-                />
-
-                <Route
-                  path="/history"
-                  element={
-                    <RouteProtector allowedRoles={["user", "seller", "admin"]}>
-                      <HistoryPage />
-                    </RouteProtector>
-                  }
-                />
-
-                <Route
-                  path="/notifications"
-                  element={
-                    <RouteProtector allowedRoles={["user", "seller", "admin"]}>
-                      <NotificationPage />
-                    </RouteProtector>
-                  }
-                />
+                <Route path="/signup" element={<SignupPage />} />
+                <Route path="/login" element={<LoginPage />} />
 
                 <Route path="*" element={<h1>404 Not Found</h1>} />
               </Routes>
