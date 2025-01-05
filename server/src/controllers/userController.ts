@@ -22,6 +22,23 @@ const createToken = (id: Types.ObjectId) =>
     expiresIn: process.env.JWT_EXPIRES_IN,
   });
 
+export const getUser = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const { userId } = req.params;
+    const { role } = req.body;
+
+    const user = await User.findOne({
+      _id: userId,
+      verified: true,
+      role,
+    }).select("username role banned");
+
+    if (!user) return next(new AppError("No user found with that ID.", 404));
+
+    res.status(200).json({ status: "success", data: user });
+  }
+);
+
 export const signup = catchAsync(
   async (
     req: Request<
