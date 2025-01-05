@@ -25,13 +25,13 @@ const createToken = (id: Types.ObjectId) =>
 export const getUser = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const { userId } = req.params;
-    const { role } = req.body;
+    const { role } = req.query;
 
     const user = await User.findOne({
       _id: userId,
       verified: true,
       role,
-    }).select("username role banned");
+    }).select("username role banned image");
 
     if (!user) return next(new AppError("No user found with that ID.", 404));
 
