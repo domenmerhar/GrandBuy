@@ -5,6 +5,10 @@ import { StyledLink } from "../../Util/Link";
 import { InputWithLabel } from "../../Util/InputWithLabel";
 import { AuthContainer } from "../../Util/AuthContainer";
 import { useNavigate } from "react-router-dom";
+import { useRef } from "react";
+import { login } from "../../api/login";
+import { useMutation } from "@tanstack/react-query";
+import { useAuthContext } from "../../contexts/AuthContext";
 
 const Form = styled.form`
   display: flex;
@@ -33,10 +37,33 @@ const P = styled.p`
 `;
 
 export const LoginPage = () => {
+  const [, setAuth] = useAuthContext();
+  const { mutate } = useMutation({
+    mutationFn: login,
+    onSuccess: (data) => {
+      if (data.status === "fail") return;
+
+      setAuth({
+        userId: data?.data?.user?._id,
+        username: data?.data?.user?.username,
+        JWT: data?.token,
+        role: data?.data?.user?.role,
+      });
+
+      navigate("/");
+    },
+  });
+
+  const usernameRef = useRef<HTMLInputElement>(null);
+  const passwordRef = useRef<HTMLInputElement>(null);
+
   const navigate = useNavigate();
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    navigate("/");
+    mutate({
+      email: String(usernameRef.current?.value),
+      password: String(passwordRef.current?.value),
+    });
   };
 
   return (
@@ -49,12 +76,15 @@ export const LoginPage = () => {
           placeholder="Username"
           type="text"
           title="Username"
+          ref={usernameRef}
         />
+
         <InputWithLabel
           id="password"
           placeholder="Password"
           type="password"
           title="Password"
+          ref={passwordRef}
         />
 
         <StyledLink $fontSize="1.4rem" to="/forgot-password">
