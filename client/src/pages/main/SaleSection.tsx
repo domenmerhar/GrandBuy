@@ -17,7 +17,6 @@ export const SaleSection = () => {
         query: "",
         sale: true,
         sort: "-discount",
-        limit: 20,
       }),
   });
 
