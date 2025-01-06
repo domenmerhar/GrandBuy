@@ -238,6 +238,7 @@ export const login = catchAsync(
       message: "Logged in.",
       data: {
         user: {
+          _id: user._id,
           username: user.username,
           role: user.role,
         },
