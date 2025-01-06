@@ -8,11 +8,14 @@ import { NavigationTextButton } from "../Util/NavigationTextButton";
 import { HiArrowUturnLeft, HiOutlineCog8Tooth } from "react-icons/hi2";
 import { BiPackage } from "react-icons/bi";
 import { Column } from "../Util/Column";
+import { useAuthContext } from "../contexts/AuthContext";
 
 export const BurgerMenuNavigationList = () => {
+  const [{ userId, role }] = useAuthContext();
+
   return (
     <Column $gap="1.2rem">
-      <NavigationTextButton to="/account/user/123">
+      <NavigationTextButton to={`/account/user/${userId}`}>
         <HiOutlineUser size={24} />
         Account
       </NavigationTextButton>
@@ -37,10 +40,12 @@ export const BurgerMenuNavigationList = () => {
         Settings
       </NavigationTextButton>
 
-      <NavigationTextButton to="dashboard">
-        <HiOutlinePresentationChartBar size={24} />
-        Dashboard
-      </NavigationTextButton>
+      {["admin", "seller"].includes(role) && (
+        <NavigationTextButton to="dashboard">
+          <HiOutlinePresentationChartBar size={24} />
+          Dashboard
+        </NavigationTextButton>
+      )}
 
       <NavigationTextButton to="refund" iconColoring="stroke">
         <HiArrowUturnLeft size={24} />
