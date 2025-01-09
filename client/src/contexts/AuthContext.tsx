@@ -30,6 +30,8 @@ export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
     setAuthStorage("");
   };
 
+  console.log({ authInfo });
+
   // Initialize authInfo
   useEffect(() => {
     if (!authStorage) return;
