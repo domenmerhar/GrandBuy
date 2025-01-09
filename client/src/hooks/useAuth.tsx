@@ -1,18 +1,18 @@
 import { useLocalStorage } from "./useLocalStorage";
 
 export const useAuth = (): {
-  auth: { JWT: string };
-  setAuth: (JWT: string) => void;
-  clearAuth: () => void;
+  authStorage: string;
+  setAuthStorage: (JWT: string) => void;
+  clearAuthStorage: () => void;
 } => {
-  const [auth, setAuth] = useLocalStorage(
+  const [authStorage, setAuthStorage] = useLocalStorage(
     {
       JWT: "",
     },
     "auth"
   );
 
-  const clearAuth = () => setAuth({ JWT: "" });
+  const clearAuthStorage = () => authStorage({ JWT: "" });
 
-  return { auth, setAuth, clearAuth };
+  return { authStorage, setAuthStorage, clearAuthStorage };
 };
