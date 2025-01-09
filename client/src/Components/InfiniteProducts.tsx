@@ -12,12 +12,13 @@ interface InfiniteProductsProps {
   isLoading: boolean;
   error: unknown;
   isFetching: boolean;
+  renderFn?: (page: unknown) => typeof ProductCard;
 }
 
 export const InfiniteProducts = forwardRef<
   HTMLDivElement,
   InfiniteProductsProps
->(({ data, isLoading, isFetching, error }, ref) => {
+>(({ data, isLoading, isFetching, error, renderFn }, ref) => {
   if (isLoading) return <SpinnerInBox fullPage={false} />;
   if (error) return <ErrorBox fullPage={false} />;
 
@@ -26,25 +27,28 @@ export const InfiniteProducts = forwardRef<
       <ProductGrid>
         {!isLoading &&
           !error &&
-          data?.pages?.map((page) =>
-            page?.data?.products?.map(
-              ({
-                _id,
-                name,
-                coverImage,
-                discount,
-                totalPrice,
-              }: IProductShort) => (
-                <ProductCard
-                  key={_id}
-                  id={_id}
-                  title={name}
-                  image={toApiFilesPath(coverImage)}
-                  discount={discount}
-                  price={totalPrice}
-                />
-              )
-            )
+          data?.pages?.map(
+            renderFn
+              ? renderFn
+              : (page) =>
+                  page?.data?.products?.map(
+                    ({
+                      _id,
+                      name,
+                      coverImage,
+                      discount,
+                      totalPrice,
+                    }: IProductShort) => (
+                      <ProductCard
+                        key={_id}
+                        id={_id}
+                        title={name}
+                        image={toApiFilesPath(coverImage)}
+                        discount={discount}
+                        price={totalPrice}
+                      />
+                    )
+                  )
           )}
       </ProductGrid>
       {isFetching && <SpinnerInBox fullPage={false} />}
