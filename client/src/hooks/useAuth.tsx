@@ -5,14 +5,9 @@ export const useAuth = (): {
   setAuthStorage: (JWT: string) => void;
   clearAuthStorage: () => void;
 } => {
-  const [authStorage, setAuthStorage] = useLocalStorage(
-    {
-      JWT: "",
-    },
-    "auth"
-  );
+  const [authStorage, setAuthStorage] = useLocalStorage("", "auth");
 
-  const clearAuthStorage = () => authStorage({ JWT: "" });
+  const clearAuthStorage = () => authStorage("");
 
   return { authStorage, setAuthStorage, clearAuthStorage };
 };
