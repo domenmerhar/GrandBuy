@@ -17,7 +17,7 @@ interface AuthProviderProps {
 }
 
 export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
-  const { auth, setAuth } = useAuth();
+  const { authStorage, setAuthStorage } = useAuth();
   const [authInfo, setAuthInfo] = useState<AuthInfo>({
     userId: "",
     username: "",
@@ -27,25 +27,21 @@ export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
 
   const clearAuthInfo = () => {
     setAuthInfo({ JWT: "", userId: "", username: "", role: "" });
-    setAuth("");
+    setAuthStorage("");
   };
 
+  // Initialize authInfo
   useEffect(() => {
-    setAuth(authInfo.JWT);
-  }, [
-    authInfo.JWT,
-    authInfo.role,
-    authInfo.userId,
-    authInfo.username,
-    setAuth,
-  ]);
-
-  useEffect(() => {
-    if (!auth.JWT) return;
-    console.log("fetching user info from server");
+    if (!authStorage) return;
 
     //TODO fetch user info from server
-  }, [auth.JWT]);
+    setAuthInfo({ JWT: authStorage, role: "user", userId: "", username: "" });
+  }, [setAuthInfo, authStorage]);
+
+  // Update authStorage when authInfo.JWT changes
+  useEffect(() => {
+    setAuthStorage(authInfo.JWT);
+  }, [authStorage, setAuthStorage, authInfo.JWT]);
 
   return (
     <AuthContext.Provider value={[authInfo, setAuthInfo, clearAuthInfo]}>
