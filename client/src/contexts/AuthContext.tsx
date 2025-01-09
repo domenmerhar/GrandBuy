@@ -1,4 +1,5 @@
-import { createContext, FC, useContext, useState } from "react";
+import { createContext, FC, useContext, useEffect, useState } from "react";
+import { useAuth } from "../hooks/useAuth";
 
 interface AuthInfo {
   userId: string;
@@ -8,7 +9,7 @@ interface AuthInfo {
 }
 
 const AuthContext = createContext<
-  [AuthInfo, React.Dispatch<React.SetStateAction<AuthInfo>>] | null
+  [AuthInfo, React.Dispatch<React.SetStateAction<AuthInfo>>, () => void] | null
 >(null);
 
 interface AuthProviderProps {
@@ -16,6 +17,7 @@ interface AuthProviderProps {
 }
 
 export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
+  const { auth, setAuth } = useAuth();
   const [authInfo, setAuthInfo] = useState<AuthInfo>({
     userId: "",
     username: "",
@@ -23,8 +25,30 @@ export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
     role: "",
   });
 
+  const clearAuthInfo = () => {
+    setAuthInfo({ JWT: "", userId: "", username: "", role: "" });
+    setAuth("");
+  };
+
+  useEffect(() => {
+    setAuth(authInfo.JWT);
+  }, [
+    authInfo.JWT,
+    authInfo.role,
+    authInfo.userId,
+    authInfo.username,
+    setAuth,
+  ]);
+
+  useEffect(() => {
+    if (!auth.JWT) return;
+    console.log("fetching user info from server");
+
+    //TODO fetch user info from server
+  }, [auth.JWT]);
+
   return (
-    <AuthContext.Provider value={[authInfo, setAuthInfo]}>
+    <AuthContext.Provider value={[authInfo, setAuthInfo, clearAuthInfo]}>
       {children}
     </AuthContext.Provider>
   );
