@@ -89,7 +89,7 @@ export const ProductCard: FC<ProductCardProps> = ({
   image,
   discount,
 }) => {
-  const [{ JWT }] = useAuthContext();
+  const [{ role }] = useAuthContext();
 
   return (
     <StyledProductCard>
@@ -104,7 +104,7 @@ export const ProductCard: FC<ProductCardProps> = ({
 
       <PriceButtonHolder>
         <Price>{toPrice(price, "USD")}</Price>
-        {JWT ? <AddButton /> : null}
+        {role === "user" ? <AddButton /> : null}
       </PriceButtonHolder>
     </StyledProductCard>
   );
