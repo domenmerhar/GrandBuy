@@ -9,7 +9,6 @@ export const getProducts = async ({
   to,
   rating,
   sort,
-  limit = 8,
 }: {
   query: string;
   page: number;
@@ -19,8 +18,9 @@ export const getProducts = async ({
   from?: number;
   to?: number;
   sort?: string;
-  limit?: number;
 }) => {
+  const limit = Number(import.meta.env.VITE_PRODUCT_PAGE_SIZE);
+
   const queryParamsStr = [
     freeShipping && "shipping[lte]=0",
     sale && "discount[gt]=0",
