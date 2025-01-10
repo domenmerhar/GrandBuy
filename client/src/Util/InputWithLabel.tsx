@@ -9,6 +9,7 @@ interface InputWithLabelProps {
   title: string;
   disabled?: boolean;
   min?: number;
+  error?: boolean;
 }
 
 const Label = styled.label`
@@ -17,7 +18,7 @@ const Label = styled.label`
 `;
 
 export const InputWithLabel = forwardRef<HTMLInputElement, InputWithLabelProps>(
-  ({ id, placeholder, type, title, disabled, min = 0 }, ref) => {
+  ({ id, placeholder, type, title, disabled, min = 0, error = false }, ref) => {
     return (
       <>
         <Label htmlFor={id}>{title}</Label>
@@ -28,6 +29,7 @@ export const InputWithLabel = forwardRef<HTMLInputElement, InputWithLabelProps>(
           disabled={disabled || false}
           min={min}
           ref={ref}
+          $error={error}
         />
       </>
     );
