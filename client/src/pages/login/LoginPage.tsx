@@ -9,6 +9,7 @@ import { useRef, useState } from "react";
 import { login } from "../../api/login";
 import { useMutation } from "@tanstack/react-query";
 import { useAuthContext } from "../../contexts/AuthContext";
+import toast from "react-hot-toast";
 
 const Form = styled.form`
   display: flex;
@@ -36,6 +37,10 @@ const P = styled.p`
   font-size: 1.4rem;
 `;
 
+const toastOptions = {
+  id: "login-toast",
+};
+
 export const LoginPage = () => {
   const [, setAuth] = useAuthContext();
   const [isError, setError] = useState<boolean>(false);
@@ -43,8 +48,10 @@ export const LoginPage = () => {
   const { mutate } = useMutation({
     mutationFn: login,
     onSuccess: (data) => {
-      if (data.status === "fail" || data?.errors?.length > 0)
+      if (data.status === "fail" || data?.errors?.length > 0) {
+        toast.error("Invalid username or password", toastOptions);
         return setError(true);
+      }
 
       setAuth({
         userId: data?.data?.user?._id,
@@ -52,6 +59,8 @@ export const LoginPage = () => {
         JWT: data?.token,
         role: data?.data?.user?.role,
       });
+
+      toast.success("Logged in successfully", toastOptions);
 
       navigate("/");
     },
@@ -63,6 +72,7 @@ export const LoginPage = () => {
   const navigate = useNavigate();
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    toast.loading("Logging in...", toastOptions);
     mutate({
       email: String(usernameRef.current?.value),
       password: String(passwordRef.current?.value),
