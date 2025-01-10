@@ -29,6 +29,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { AuthProvider } from "./contexts/AuthContext";
 import { RouteProtector } from "./Components/RouteProtector";
+import { Toaster } from "react-hot-toast";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -48,6 +49,7 @@ function App() {
           <ScrollToTop />
           <AuthProvider>
             <LanguageProvider>
+              <Toaster />
               <Routes>
                 <Route path="/" element={<NavigationBar />}>
                   <Route path="/" element={<MainPage />} />
