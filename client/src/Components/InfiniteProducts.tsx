@@ -1,7 +1,6 @@
-import { forwardRef } from "react";
+import { forwardRef, ReactNode } from "react";
 import { SpinnerInBox } from "./SpinnerInBox";
 import { ErrorBox } from "./ErrorBox";
-import { ProductGrid } from "../Util/ProductGrid";
 import { IProductShort } from "../Util/types";
 import { ProductCard } from "../Util/ProductCard";
 import { toApiFilesPath } from "../functions/toApiFilesPath";
@@ -13,18 +12,21 @@ interface InfiniteProductsProps {
   error: unknown;
   isFetching: boolean;
   renderFn?: (page: unknown) => typeof ProductCard;
+  container: React.ComponentType<{ children: ReactNode }>;
 }
 
 export const InfiniteProducts = forwardRef<
   HTMLDivElement,
   InfiniteProductsProps
->(({ data, isLoading, isFetching, error, renderFn }, ref) => {
+>(({ data, isLoading, isFetching, error, renderFn, container }, ref) => {
   if (isLoading) return <SpinnerInBox fullPage={false} />;
   if (error) return <ErrorBox fullPage={false} />;
 
+  const Container = container;
+
   return (
     <>
-      <ProductGrid>
+      <Container>
         {!isLoading &&
           !error &&
           data?.pages?.map(
@@ -50,7 +52,7 @@ export const InfiniteProducts = forwardRef<
                     )
                   )
           )}
-      </ProductGrid>
+      </Container>
       {isFetching && <SpinnerInBox fullPage={false} />}
       <InfiniteDiv ref={ref}></InfiniteDiv>
     </>
