@@ -55,7 +55,7 @@ export const getAll = (
     if (!doc.length) return next(new AppError("No documents found", 404));
 
     res.json({
-      stauts: "success",
+      status: "success",
       results: doc.length,
       data: { doc },
     });
