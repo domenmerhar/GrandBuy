@@ -1,27 +1,16 @@
-import { useLocation, useParams } from "react-router-dom";
 import { Badge } from "../../Util/Badge";
 import { Header } from "../../Util/Header";
 import { Row } from "../../Util/Row";
 import { UserImageBig } from "../../Util/UserImageBig";
-import { useQuery } from "@tanstack/react-query";
-import { getUser } from "../../api/getUser";
 import { SpinnerInBox } from "../../Components/SpinnerInBox";
 import { ErrorBox } from "../../Components/ErrorBox";
+import { useUser } from "../../hooks/useUser";
 
 export const UserInfo = () => {
-  const { userId } = useParams();
-  const { pathname } = useLocation();
-  const role = pathname.includes("user") ? "user" : "seller";
-
-  const { data, error, isLoading } = useQuery({
-    queryKey: ["user", userId],
-    queryFn: () => getUser(userId!, role),
-  });
+  const { data, error, isLoading } = useUser();
 
   if (isLoading) return <SpinnerInBox size="large" />;
   if (error) return <ErrorBox fullPage={false} />;
-
-  console.log(data?.data?.user);
 
   return (
     <>
