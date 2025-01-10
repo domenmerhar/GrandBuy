@@ -1,6 +1,7 @@
 import { getProducts } from "../../api/getProducts";
 import { useProduct } from "./useProduct";
 import { useInfinite } from "../../hooks/useInfinite";
+import { ProductGrid } from "../../Util/ProductGrid";
 import { InfiniteProducts } from "../../Components/InfiniteProducts";
 
 const queryFn =
@@ -38,6 +39,7 @@ export const ProductPageInfiniteProducts = () => {
       isFetching={isFetching}
       isLoading={isLoading}
       ref={ref}
+      container={ProductGrid}
     />
   );
 };
