@@ -2,6 +2,7 @@ import { useParams, useSearchParams } from "react-router-dom";
 import { InfiniteProducts } from "../../Components/InfiniteProducts";
 import { useInfinite } from "../../hooks/useInfinite";
 import { getProducts } from "../../api/getProducts";
+import { ProductGrid } from "../../Util/ProductGrid";
 
 export const SearchResults = () => {
   const { query } = useParams();
@@ -53,6 +54,7 @@ export const SearchResults = () => {
       isFetching={isFetching}
       isLoading={isLoading}
       ref={ref}
+      container={ProductGrid}
     />
   );
 };
