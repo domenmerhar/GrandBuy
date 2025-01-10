@@ -11,7 +11,7 @@ interface InfiniteProductsProps {
   isLoading: boolean;
   error: unknown;
   isFetching: boolean;
-  renderFn?: (page: unknown) => typeof ProductCard;
+  renderFn?: (page: any) => unknown;
   container: React.ComponentType<{ children: ReactNode }>;
 }
 
