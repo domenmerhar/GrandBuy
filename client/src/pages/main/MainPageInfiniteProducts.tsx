@@ -1,6 +1,7 @@
 import { getProducts } from "../../api/getProducts";
 import { InfiniteProducts } from "../../Components/InfiniteProducts";
 import { useInfinite } from "../../hooks/useInfinite";
+import { ProductGrid } from "../../Util/ProductGrid";
 
 const queryFn = ({ pageParam }: unknown) => {
   if (pageParam === null) return;
@@ -18,5 +19,5 @@ export const MainPageInfiniteProducts = () => {
     queryFn,
   });
 
-  return <InfiniteProducts {...data} />;
+  return <InfiniteProducts {...data} container={ProductGrid} />;
 };
