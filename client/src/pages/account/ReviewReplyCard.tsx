@@ -2,11 +2,13 @@ import styled from "styled-components";
 import { BlankCard } from "../../Util/BlankCard";
 import { Column } from "../../Util/Column";
 import { Row } from "../../Util/Row";
+import { FC } from "react";
 
 const ProfileImage = styled.img`
   width: 48px;
   height: 48px;
   border-radius: 50%;
+  color: transparent;
 `;
 
 const User = styled.span`
@@ -23,27 +25,34 @@ const P = styled.p`
   max-width: 50ch;
 `;
 
-export const ReviewReplyCard = () => {
+interface ReviewReplyCardProps {
+  profileImage: string;
+  username: string;
+  date: string;
+  content: string;
+}
+
+export const ReviewReplyCard: FC<ReviewReplyCardProps> = ({
+  profileImage,
+  username,
+  date,
+  content,
+}) => {
   return (
     <BlankCard>
       <Column $gap="2rem">
         <Column $gap="8px">
           <Row $justifyContent="space-between" $alignItems="center">
             <Row $gap="12px" $alignItems="center">
-              <ProfileImage src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSA4_6SCuZdyzZD0pgNR1ncralqCAz_8w8R_g&s" />
-              <User>John Doe</User>
+              <ProfileImage src={profileImage} alt={username} />
+              <User>{username}</User>
             </Row>
           </Row>
 
-          <Date>22. 5. 2025</Date>
+          <Date>{date}</Date>
         </Column>
 
-        <P>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam fugit
-          laudantium aliquid labore et deleniti distinctio. Recusandae libero
-          minus laudantium, incidunt magnam deserunt ipsam fugiat perspiciatis
-          ut ea dolore obcaecati!
-        </P>
+        <P>{content}</P>
       </Column>
     </BlankCard>
   );
