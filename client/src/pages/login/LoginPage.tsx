@@ -5,7 +5,7 @@ import { StyledLink } from "../../Util/Link";
 import { InputWithLabel } from "../../Util/InputWithLabel";
 import { AuthContainer } from "../../Util/AuthContainer";
 import { useNavigate } from "react-router-dom";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { login } from "../../api/login";
 import { useMutation } from "@tanstack/react-query";
 import { useAuthContext } from "../../contexts/AuthContext";
@@ -38,10 +38,13 @@ const P = styled.p`
 
 export const LoginPage = () => {
   const [, setAuth] = useAuthContext();
+  const [isError, setError] = useState<boolean>(false);
+
   const { mutate } = useMutation({
     mutationFn: login,
     onSuccess: (data) => {
-      if (data.status === "fail") return;
+      if (data.status === "fail" || data?.errors?.length > 0)
+        return setError(true);
 
       setAuth({
         userId: data?.data?.user?._id,
@@ -77,6 +80,7 @@ export const LoginPage = () => {
           type="text"
           title="Username"
           ref={usernameRef}
+          error={isError}
         />
 
         <InputWithLabel
@@ -85,6 +89,7 @@ export const LoginPage = () => {
           type="password"
           title="Password"
           ref={passwordRef}
+          error={isError}
         />
 
         <StyledLink $fontSize="1.4rem" to="/forgot-password">
