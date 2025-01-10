@@ -8,7 +8,6 @@ export const getHistory = async ({
   page: number;
 }) => {
   const limit = Number(import.meta.env.VITE_PRODUCT_PAGE_SIZE);
-  console.log(JWT);
 
   const res = await fetch(toApiPath(`history?page=${page}&limit=${limit}`), {
     method: "GET",
