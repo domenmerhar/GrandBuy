@@ -40,6 +40,18 @@ export interface IProductShort {
   totalPrice: number;
 }
 
+export interface Review {
+  _id: string;
+  user: string;
+  product: string;
+  rating: number;
+  review: string;
+  likes: string[];
+  lastChange: string;
+  createdAt: string;
+  likesCount: number;
+}
+
 export interface ProductCardProps {
   id: string;
   title: string;
