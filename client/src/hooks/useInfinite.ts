@@ -19,10 +19,10 @@ export const useInfinite = ({ queryKey, queryFn }: useInfiniteProps) => {
     });
 
   useEffect(() => {
-    if (inView && !isFetching) {
+    if (inView && !isFetching && !error) {
       fetchNextPage();
     }
-  }, [ref, inView, fetchNextPage, isFetching]);
+  }, [ref, inView, fetchNextPage, isFetching, error]);
 
   return { data, isLoading, error, isFetching, ref };
 };
