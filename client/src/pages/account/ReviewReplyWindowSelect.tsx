@@ -8,10 +8,13 @@ const SelectHolder = styled.div`
 `;
 
 const options = [
-  { name: "Sort by likes (highest)", value: "-likes" },
-  { name: "Sort by likes (lowest)", value: "+likes" },
   { name: "Sort by age (newest)", value: "-createdAt" },
   { name: "Sort by age (oldest)", value: "+createdAt" },
+];
+
+const optionsAdditional = [
+  { name: "Sort by likes (highest)", value: "-likes" },
+  { name: "Sort by likes (lowest)", value: "+likes" },
 ];
 
 export const ReviewReplyWindowSelect = () => {
@@ -19,7 +22,11 @@ export const ReviewReplyWindowSelect = () => {
   return (
     <SelectHolder>
       <Select
-        options={searchParams.get("location") === "replies" ? options : options}
+        options={
+          searchParams.get("location") === "replies"
+            ? options
+            : [...options, ...optionsAdditional]
+        }
       />
     </SelectHolder>
   );
