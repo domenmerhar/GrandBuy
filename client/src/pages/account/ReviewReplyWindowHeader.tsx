@@ -29,6 +29,7 @@ export const ReviewReplyWindowHeader = () => {
   const handleLocation = (newLocation: "reviews" | "replies") => () =>
     setSearchParams((params) => {
       params.set("location", newLocation);
+      params.set("sort", "-createdAt");
       return params;
     });
 
