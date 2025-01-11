@@ -30,7 +30,7 @@ import { body, check, param } from "express-validator";
 const userRouter = Router();
 
 userRouter
-  .route("/:userId")
+  .route("/id/:userId")
   .get(
     validate([
       param("userId")
@@ -252,7 +252,7 @@ userRouter.use(restrictTo("admin"), restrictPrivileges("admin"));
 userRouter.route("/").get(getAll(User));
 
 userRouter
-  .route("/:userId")
+  .route("/id/:userId")
   .delete(
     validate([
       param("userId")
@@ -283,7 +283,7 @@ userRouter
     updatePrivileges
   );
 
-userRouter.route("/:userId/role/:role").patch(
+userRouter.route("/id/:userId/role/:role").patch(
   validate([
     param("userId")
       .isMongoId()
