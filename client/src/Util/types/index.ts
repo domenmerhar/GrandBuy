@@ -52,6 +52,14 @@ export interface Review {
   likesCount: number;
 }
 
+export interface Reply {
+  _id: string;
+  user: string;
+  review: string;
+  reply: string;
+  createdAt: string;
+}
+
 export interface ProductCardProps {
   id: string;
   title: string;
