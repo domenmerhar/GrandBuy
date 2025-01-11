@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { Select } from "../../Util/Select";
+import { useSearchParams } from "react-router-dom";
 
 const SelectHolder = styled.div`
   display: flex;
@@ -7,14 +8,19 @@ const SelectHolder = styled.div`
 `;
 
 const options = [
-  { name: "Sort by age (newest)", value: "-date" },
-  { name: "Sort by age (oldest)", value: "date" },
+  { name: "Sort by likes (highest)", value: "-likes" },
+  { name: "Sort by likes (lowest)", value: "+likes" },
+  { name: "Sort by age (newest)", value: "-createdAt" },
+  { name: "Sort by age (oldest)", value: "+createdAt" },
 ];
 
 export const ReviewReplyWindowSelect = () => {
+  const [searchParams] = useSearchParams();
   return (
     <SelectHolder>
-      <Select options={options} />
+      <Select
+        options={searchParams.get("location") === "replies" ? options : options}
+      />
     </SelectHolder>
   );
 };
