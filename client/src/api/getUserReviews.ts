@@ -1,11 +1,14 @@
 import { toApiPath } from "../functions/toApiPath";
 
-export const getUserReviews = async (userId: string, page: number) => {
+export const getUserReviews = async (
+  userId: string,
+  page: number,
+  sort: string = "-likes"
+) => {
   const limit = Number(import.meta.env.VITE_USER_REVIEWS_PAGE_SIZE);
+
   const response = await fetch(
-    toApiPath(
-      `review?sort=-likes,-rating&user=${userId}&page=${page}&limit=${limit}`
-    )
+    toApiPath(`review?sort=${sort}&user=${userId}&page=${page}&limit=${limit}`)
   );
 
   const data = await response.json();
