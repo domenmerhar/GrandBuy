@@ -6,6 +6,7 @@ import { ReviewReplyCard } from "./ReviewReplyCard";
 import { toDate } from "../../functions/toDate";
 import { InfiniteProducts } from "../../Components/InfiniteProducts";
 import styled from "styled-components";
+import { useUser } from "../../hooks/useUser";
 
 const Grid = styled.div`
   display: grid;
@@ -18,6 +19,8 @@ export const UserReplies = () => {
   const [searchParams] = useSearchParams();
   const sort =
     searchParams.get("sort") === "-createdAt" ? "-createdAt" : "+createdAt";
+
+  const { data: dataUser, isLoading } = useUser();
 
   const data = useInfinite({
     queryKey: ["userReplies", searchParams.get("sort"), userId],
@@ -40,11 +43,18 @@ export const UserReplies = () => {
         key={_id}
         content={reply}
         date={toDate(createdAt)}
-        profileImage=""
-        username=""
+        profileImage={dataUser?.data?.image || ""}
+        username={dataUser?.data?.username}
       />
     ));
   };
 
-  return <InfiniteProducts {...data} renderFn={renderFn} container={Grid} />;
+  return (
+    <InfiniteProducts
+      {...data}
+      renderFn={renderFn}
+      container={Grid}
+      isLoading={isLoading || data.isLoading}
+    />
+  );
 };
