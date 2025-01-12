@@ -6,15 +6,21 @@ import { Modal } from "../../Util/Modal";
 import { SettingsForm } from "./SettingsForm";
 import { useMe } from "../../hooks/useMe";
 import { UserSettings } from "../../Util/types";
+import { useRequestSeller } from "../../hooks/useRequestSeller";
+import { useAuthContext } from "../../contexts/AuthContext";
 
 export const RoleSection = () => {
+  const [{ JWT }] = useAuthContext();
   const { setIsOpen } = Modal.useModalContext();
   const { data }: { data: { data: UserSettings } } = useMe();
+  const { mutate } = useRequestSeller();
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsOpen(true);
   };
+
+  const handleModal = () => mutate(JWT);
 
   return (
     <>
@@ -34,9 +40,8 @@ export const RoleSection = () => {
         </Button>
       </SettingsForm>
 
-      <Modal.Window title="Test">
-        After the requests approval you won’t be able to post a review on a
-        product anymore.
+      <Modal.Window title="Request Seller" onSubmitApprove={handleModal}>
+        Are you sure? You won't be able to revert this decision.
       </Modal.Window>
     </>
   );
