@@ -6,8 +6,10 @@ import { RoleSection } from "./RoleSection";
 import { PasswordSection } from "./PasswordSection";
 import { AccountSection } from "./AccountSection";
 import { UserImageBig } from "../../Util/UserImageBig";
+import { useAuthContext } from "../../contexts/AuthContext";
 
 export const SettingsPage = () => {
+  const [{ role }] = useAuthContext();
   return (
     <Content>
       <Column $alignItems="center" $gap="36px">
@@ -17,10 +19,11 @@ export const SettingsPage = () => {
 
         <PasswordSection />
 
-        <Modal>
-          <RoleSection />
-        </Modal>
-
+        {role === "user" && (
+          <Modal>
+            <RoleSection />
+          </Modal>
+        )}
         <LanguageSection />
       </Column>
     </Content>
