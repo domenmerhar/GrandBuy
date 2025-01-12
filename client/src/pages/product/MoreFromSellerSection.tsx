@@ -2,9 +2,9 @@ import { Column } from "../../Util/Column";
 import { Header } from "../../Util/Header";
 import { useQuery } from "@tanstack/react-query";
 import HorizontalProducts from "../main/HorizontalProducts";
-import { getSellerProducts } from "../../api/getSellerProducts";
 import { SpinnerInBox } from "../../Components/SpinnerInBox";
 import { ErrorBox } from "../../Components/ErrorBox";
+import { getSellerProducts } from "../../api/product/getSellerProducts";
 
 const sellerId = "66dd4bf8240a800b87c13da2";
 

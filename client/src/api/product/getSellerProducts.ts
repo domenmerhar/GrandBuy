@@ -1,4 +1,4 @@
-import { toApiPath } from "../functions/toApiPath";
+import { toApiPath } from "../../functions/toApiPath";
 
 export const getSellerProducts = async (id: string, page = 1) => {
   const response = await fetch(
