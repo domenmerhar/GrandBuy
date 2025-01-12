@@ -1,4 +1,4 @@
-import { getUser } from "../api/getUser";
+import { getUser } from "../api/user/getUser";
 import { useQuery } from "@tanstack/react-query";
 import { useLocation, useParams } from "react-router-dom";
 

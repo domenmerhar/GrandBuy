@@ -1,4 +1,4 @@
-import { toApiPath } from "../functions/toApiPath";
+import { toApiPath } from "../../functions/toApiPath";
 
 interface UpdateMeArguments {
   JWT: string;

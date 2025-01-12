@@ -1,4 +1,4 @@
-import { getMe } from "../api/getMe";
+import { getMe } from "../api/user/getMe";
 import { useQuery } from "@tanstack/react-query";
 import { useAuthContext } from "../contexts/AuthContext";
 

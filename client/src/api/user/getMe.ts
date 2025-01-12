@@ -1,4 +1,4 @@
-import { toApiPath } from "../functions/toApiPath";
+import { toApiPath } from "../../functions/toApiPath";
 
 export const getMe = async (JWT: string) => {
   const res = await fetch(toApiPath(`user/me`), {

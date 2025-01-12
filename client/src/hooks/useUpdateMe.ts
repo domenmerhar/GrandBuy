@@ -1,5 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
-import { updateMe } from "../api/updateMe";
+import { updateMe } from "../api/user/updateMe";
 import toast from "react-hot-toast";
 
 export const useUpdateMe = () => {
