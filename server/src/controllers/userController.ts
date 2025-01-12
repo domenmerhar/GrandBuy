@@ -18,10 +18,9 @@ const createVerificationCode = async (): Promise<[number, string]> => {
 };
 
 const createToken = (id: Types.ObjectId) =>
-  jwt.sign({ id, iat: Date.now() }, process.env.JWT_SECRET!, {
+  jwt.sign({ id, iat: Date.now() + 10000 }, process.env.JWT_SECRET!, {
     expiresIn: process.env.JWT_EXPIRES_IN,
   });
-
 export const getUser = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const { userId } = req.params;
