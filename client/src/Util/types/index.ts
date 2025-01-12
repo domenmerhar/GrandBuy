@@ -68,6 +68,23 @@ export interface ProductCardProps {
   discount?: number;
 }
 
+export type role = "user" | "seller" | "admin";
+
+export interface UserSettings {
+  username: string;
+  email: string;
+  image?: string;
+  firstName?: string;
+  lastName?: string;
+  street?: string;
+  city?: string;
+  zipCode?: string;
+  country?: string;
+  phoneNumber?: string;
+  banned?: boolean;
+  role: role;
+}
+
 export type ReviewSort =
   | "+likesCount"
   | "-likesCount"
