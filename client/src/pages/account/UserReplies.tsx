@@ -1,6 +1,6 @@
 import { useParams, useSearchParams } from "react-router-dom";
 import { useInfinite } from "../../hooks/useInfinite";
-import { getUserReplies } from "../../api/getUserReplies";
+import { getUserReplies } from "../../api/repliesReviews/getUserReplies";
 import { Reply } from "../../Util/types";
 import { ReviewReplyCard } from "./ReviewReplyCard";
 import { toDate } from "../../functions/toDate";

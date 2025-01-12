@@ -2,7 +2,7 @@ import { InfiniteProducts } from "../../Components/InfiniteProducts";
 import { useParams, useSearchParams } from "react-router-dom";
 import { useUser } from "../../hooks/useUser";
 import { useInfinite } from "../../hooks/useInfinite";
-import { getUserReviews } from "../../api/getUserReviews";
+import { getUserReviews } from "../../api/repliesReviews/getUserReviews";
 import { Review } from "../../Util/types";
 import { toApiFilesPath } from "../../functions/toApiFilesPath";
 import { toDate } from "../../functions/toDate";

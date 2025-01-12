@@ -1,4 +1,4 @@
-import { toApiPath } from "../functions/toApiPath";
+import { toApiPath } from "../../functions/toApiPath";
 
 export const getUserReplies = async ({
   userId,
