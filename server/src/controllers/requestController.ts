@@ -67,7 +67,7 @@ export const createRequest = catchAsync(
     });
 
     res.status(201).json({
-      status: "succcess",
+      status: "success",
       data: {
         request: newRequest,
       },
@@ -107,7 +107,7 @@ export const rejectRequest = catchAsync(
     );
 
     res.status(200).json({
-      status: "succcess",
+      status: "success",
       data: {
         request: request,
       },
