@@ -9,9 +9,11 @@ import { UserSettings } from "../../Util/types";
 import { SettingsForm } from "./SettingsForm";
 import { useUpdateMe } from "../../hooks/useUpdateMe";
 import toast from "react-hot-toast";
+import { useAuthContext } from "../../contexts/AuthContext";
 
 export const AccountSection = () => {
   const { data }: { data: { data: UserSettings } } = useMe();
+  const [{ JWT }] = useAuthContext();
   const { mutate } = useUpdateMe();
 
   const firstNameRef = useRef<HTMLInputElement>(null);
@@ -37,7 +39,7 @@ export const AccountSection = () => {
       return toast.error("Please fill in at least one field");
 
     mutate({
-      JWT: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2ZGQ0YmQyMjQwYTgwMGI4N2MxM2Q5ZSIsImlhdCI6MTczNjY3MDk2ODE0NSwiZXhwIjoxNzM2Njc4NzQ0MTQ1fQ.xgGa9u6_hV32w8YyavsmMMVOau8EGkbXb6rxTT3JNkY",
+      JWT,
       firstName: firstNameRef.current?.value,
       lastName: lastNameRef.current?.value,
       street: billingAddressRef.current?.value,
