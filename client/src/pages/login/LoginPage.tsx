@@ -6,7 +6,7 @@ import { InputWithLabel } from "../../Util/InputWithLabel";
 import { AuthContainer } from "../../Util/AuthContainer";
 import { useNavigate } from "react-router-dom";
 import { useRef, useState } from "react";
-import { login } from "../../api/login";
+import { login } from "../../api/auth/login";
 import { useMutation } from "@tanstack/react-query";
 import { useAuthContext } from "../../contexts/AuthContext";
 import toast from "react-hot-toast";
