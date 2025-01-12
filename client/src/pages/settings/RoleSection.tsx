@@ -4,9 +4,12 @@ import { HeaderUppercaseBold } from "../../Util/HeaderUppercaseBold";
 import { InputWithLabel } from "../../Util/InputWithLabel";
 import { Modal } from "../../Util/Modal";
 import { SettingsForm } from "./SettingsForm";
+import { useMe } from "../../hooks/useMe";
+import { UserSettings } from "../../Util/types";
 
 export const RoleSection = () => {
   const { setIsOpen } = Modal.useModalContext();
+  const { data }: { data: { data: UserSettings } } = useMe();
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -22,7 +25,7 @@ export const RoleSection = () => {
           id="role"
           title="Role"
           type="text"
-          placeholder="User"
+          placeholder={data?.data?.role}
           disabled={true}
         />
 
