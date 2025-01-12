@@ -18,7 +18,7 @@ export const AccountSection = () => {
 
   const firstNameRef = useRef<HTMLInputElement>(null);
   const lastNameRef = useRef<HTMLInputElement>(null);
-  const billingAddressRef = useRef<HTMLInputElement>(null);
+  const streetRef = useRef<HTMLInputElement>(null);
   const cityRef = useRef<HTMLInputElement>(null);
   const zipRef = useRef<HTMLInputElement>(null);
   const countryRef = useRef<HTMLInputElement>(null);
@@ -30,7 +30,7 @@ export const AccountSection = () => {
     if (
       !firstNameRef.current?.value &&
       !lastNameRef.current?.value &&
-      !billingAddressRef.current?.value &&
+      !streetRef.current?.value &&
       !cityRef.current?.value &&
       !zipRef.current?.value &&
       !countryRef.current?.value &&
@@ -42,7 +42,7 @@ export const AccountSection = () => {
       JWT,
       firstName: firstNameRef.current?.value,
       lastName: lastNameRef.current?.value,
-      street: billingAddressRef.current?.value,
+      street: streetRef.current?.value,
       city: cityRef.current?.value,
       zipCode: zipRef.current?.value,
       country: countryRef.current?.value,
@@ -76,11 +76,11 @@ export const AccountSection = () => {
       </Row>
 
       <InputWithLabel
-        id="billing"
-        title="Billing Address"
+        id="street"
+        title="Street Address"
         type="text"
         placeholder={data?.data?.street}
-        ref={billingAddressRef}
+        ref={streetRef}
       />
 
       <InputWithLabel
