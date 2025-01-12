@@ -1,7 +1,7 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useEffect } from "react";
 import { useInView } from "react-intersection-observer";
-import { getProducts } from "../../api/getProducts";
+import { getProducts } from "../../api/product/getProducts";
 
 interface useProductsInfiniteProps {
   queryName: string;

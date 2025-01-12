@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { CardMultipleItems } from "./CardMultipleItems";
-import { getProducts } from "../../api/getProducts";
+import { getProducts } from "../../api/product/getProducts";
 import { SpinnerInBox } from "../../Components/SpinnerInBox";
 import { ErrorBox } from "../../Components/ErrorBox";
 import { toApiFilesPath } from "../../functions/toApiFilesPath";

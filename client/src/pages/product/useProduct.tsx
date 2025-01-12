@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
-import { getProduct } from "../../api/getProduct";
+import { getProduct } from "../../api/product/getProduct";
 import { useAuthContext } from "../../contexts/AuthContext";
 
 export const useProduct = () => {

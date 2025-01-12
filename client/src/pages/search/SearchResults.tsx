@@ -1,7 +1,7 @@
 import { useParams, useSearchParams } from "react-router-dom";
 import { InfiniteProducts } from "../../Components/InfiniteProducts";
 import { useInfinite } from "../../hooks/useInfinite";
-import { getProducts } from "../../api/getProducts";
+import { getProducts } from "../../api/product/getProducts";
 import { ProductGrid } from "../../Util/ProductGrid";
 
 export const SearchResults = () => {

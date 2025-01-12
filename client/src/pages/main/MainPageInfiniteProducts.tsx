@@ -1,4 +1,4 @@
-import { getProducts } from "../../api/getProducts";
+import { getProducts } from "../../api/product/getProducts";
 import { InfiniteProducts } from "../../Components/InfiniteProducts";
 import { useInfinite } from "../../hooks/useInfinite";
 import { ProductGrid } from "../../Util/ProductGrid";

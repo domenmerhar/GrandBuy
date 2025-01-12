@@ -1,4 +1,4 @@
-import { toApiPath } from "../functions/toApiPath";
+import { toApiPath } from "../../functions/toApiPath";
 
 export const getProductReviewStats = async (productId: string) => {
   const response = await fetch(toApiPath(`review/product/${productId}/stats`));

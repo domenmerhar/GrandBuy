@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { getProducts } from "../../api/getProducts";
+import { getProducts } from "../../api/product/getProducts";
 import { SpinnerInBox } from "../../Components/SpinnerInBox";
 import { ErrorBox } from "../../Components/ErrorBox";
 import HorizontalProducts from "./HorizontalProducts";

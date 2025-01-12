@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
-import { getProductReviewStats } from "../../api/getProductReviewStats";
+import { getProductReviewStats } from "../../api/product/getProductReviewStats";
 
 interface IRatingBreakdown {
   rating: number;
