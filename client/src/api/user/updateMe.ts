@@ -22,8 +22,6 @@ export const updateMe = async (info: UpdateMeArguments) => {
     }, {})
   );
 
-  console.log(body);
-
   const response = await fetch(toApiPath("user/me"), {
     method: "PATCH",
     headers: {
