@@ -16,7 +16,7 @@ export const getYourNotifications = async ({
 
   const res = await fetch(
     toApiPath(
-      `notification/?page=${page}&limit=${limit}&sort=${sort}${["message", "warning"].includes(type) && `&type=${type}`}`
+      `notification/?page=${page}&limit=${limit}&sort=${sort}${["message", "warning"].includes(type) ? `&type=${type}` : ""}`
     ),
     {
       method: "GET",
