@@ -14,7 +14,8 @@ export const useInfinite = ({ queryKey, queryFn }: useInfiniteProps) => {
     useInfiniteQuery({
       queryKey,
       queryFn,
-      getNextPageParam: (lastPage) => lastPage?.nextItem || null,
+      getNextPageParam: (lastPage) =>
+        (lastPage as { nextItem?: number }).nextItem || null,
       initialPageParam: 1,
     });
 
