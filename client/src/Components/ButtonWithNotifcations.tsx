@@ -38,11 +38,11 @@ export const ButtonWithNotifcations: React.FC<ButtonWithNotifcationsProps> = ({
 }) => {
   return (
     <ButtonHolder>
-      {notificationCount && (
+      {notificationCount && notificationCount > 0 ? (
         <Notification>
           {notificationCount > 99 ? `${99}+` : notificationCount}
         </Notification>
-      )}
+      ) : null}
       <SquareButton $size="large" $color="white" onClick={onClick}>
         {children}
       </SquareButton>
