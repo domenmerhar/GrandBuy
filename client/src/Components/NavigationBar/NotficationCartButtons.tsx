@@ -30,7 +30,7 @@ export const NotficationCartButtons: FC<NotificatioCartButtonsProps> = ({
 
   return (
     <>
-      <NavlinkHolder to="/notifications">
+      <NavlinkHolder to="/notifications?filter=all&sort=newest">
         <ButtonWithNotifcations
           notificationCount={isLoading ? null : data?.data?.count}
         >
