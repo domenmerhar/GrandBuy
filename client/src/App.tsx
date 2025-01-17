@@ -1,5 +1,5 @@
 import GlobalStyles from "./GlobalStyles";
-import { NavigationBar } from "./Components/NavigationBar";
+import { NavigationBar } from "./Components/NavigationBar/NavigationBar";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { LanguageProvider } from "./Util/LanguageContext";
 import { MainPage } from "./pages/main/MainPage";
