@@ -97,7 +97,7 @@ export type NotificationType = "message" | "warning";
 
 export interface Notification {
   _id: string;
-  type: string;
+  type: NotificationType;
   message: string;
   viewed: boolean;
   createdAt: string;
