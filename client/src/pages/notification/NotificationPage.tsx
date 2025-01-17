@@ -8,6 +8,7 @@ import { NotificationResponse, NotificationType } from "../../Util/types";
 import { useAuthContext } from "../../contexts/AuthContext";
 import { getYourNotifications } from "../../api/notification/getYourNotifications";
 import { InfiniteProducts } from "../../Components/InfiniteProducts";
+import { toDate } from "../../functions/toDate";
 
 const Grid = styled.div`
   display: grid;
@@ -22,10 +23,10 @@ export const NotificationPage = () => {
   const [{ JWT, userId }] = useAuthContext();
   const [searchParams] = useSearchParams();
 
-  const type: NotificationType & "all" = ["message", "warning"].includes(
-    searchParams.get("type")!
+  const type: NotificationType | "all" = ["message", "warning"].includes(
+    searchParams.get("filter")!
   )
-    ? (searchParams.get("type") as NotificationType)
+    ? (searchParams.get("filter") as NotificationType)
     : "all";
 
   const sort: "-createdAt" | "+createdAt" = [
@@ -68,7 +69,11 @@ export const NotificationPage = () => {
         container={Grid}
         {...data}
         renderFn={(page: NotificationResponse) =>
-          page.data.notifications.map((notification) => <NotificationCard />)
+          page?.data?.notifications.map(({ _id, createdAt, message, type }) => (
+            <NotificationCard key={_id} date={toDate(createdAt)} type={type}>
+              {message}
+            </NotificationCard>
+          ))
         }
       />
     </Content>
