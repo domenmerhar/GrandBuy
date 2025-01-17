@@ -1,12 +1,6 @@
 import styled from "styled-components";
 import { Logo } from "../../Util/Logo";
 import { ButtonWithNotifcations } from "../ButtonWithNotifcations";
-import {
-  HiOutlineBell,
-  HiOutlineMenu,
-  HiOutlineShoppingCart,
-  HiOutlineX,
-} from "react-icons/hi";
 import { useState } from "react";
 import { SearchBar } from "../../Util/SearchBar";
 import { BurgerMenu } from "../BurgerMenu/BurgerMenu";
@@ -14,6 +8,7 @@ import { createPortal } from "react-dom";
 import { NavLink, Outlet } from "react-router-dom";
 import { useAuthContext } from "../../contexts/AuthContext";
 import { HiArrowRightStartOnRectangle } from "react-icons/hi2";
+import { NotficationCartButtons } from "./NotficationCartButtons";
 
 const Placeholder = styled.div`
   height: 7.5rem;
@@ -71,33 +66,16 @@ export const NavigationBar = () => {
 
           <ButtonHolder>
             {["admin", "user", "seller"].includes(role) ? (
-              <>
-                <NavLinkHolder to="/notifications">
-                  <ButtonWithNotifcations notificationCount={50}>
-                    <HiOutlineBell size={44} />
-                  </ButtonWithNotifcations>
-                </NavLinkHolder>
-
-                <NavLinkHolder to="/cart">
-                  <ButtonWithNotifcations notificationCount={50}>
-                    <HiOutlineShoppingCart size={44} />
-                  </ButtonWithNotifcations>
-                </NavLinkHolder>
-
-                <ButtonWithNotifcations onClick={menuHandler}>
-                  {isOpen ? (
-                    <HiOutlineX size={44} />
-                  ) : (
-                    <HiOutlineMenu size={44} />
-                  )}
-                </ButtonWithNotifcations>
-              </>
+              <NotficationCartButtons
+                isOpen={isOpen}
+                menuHandler={menuHandler}
+              />
             ) : (
-              <NavLinkHolder to="/login">
+              <NavLink to="/login">
                 <ButtonWithNotifcations>
                   <HiArrowRightStartOnRectangle size={44} />
                 </ButtonWithNotifcations>
-              </NavLinkHolder>
+              </NavLink>
             )}
           </ButtonHolder>
         </NavigationHolder>
