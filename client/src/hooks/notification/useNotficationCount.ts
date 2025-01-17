@@ -3,10 +3,10 @@ import { getNotificationCount } from "../../api/notification/getNotificationCoun
 import { useAuthContext } from "../../contexts/AuthContext";
 
 export const useNotficationCount = () => {
-  const [{ JWT }] = useAuthContext();
+  const [{ JWT, userId }] = useAuthContext();
 
   return useQuery({
-    queryKey: ["notificationCount"],
+    queryKey: ["notificationCount", userId],
     queryFn: () => getNotificationCount(JWT),
   });
 };
