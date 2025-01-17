@@ -13,7 +13,7 @@ import { BurgerMenu } from "./BurgerMenu";
 import { createPortal } from "react-dom";
 import { NavLink, Outlet } from "react-router-dom";
 import { useAuthContext } from "../contexts/AuthContext";
-import { HiOutlineArrowRightEndOnRectangle } from "react-icons/hi2";
+import { HiArrowRightStartOnRectangle } from "react-icons/hi2";
 
 const Placeholder = styled.div`
   height: 7.5rem;
@@ -95,7 +95,7 @@ export const NavigationBar = () => {
             ) : (
               <NavLinkHolder to="/login">
                 <ButtonWithNotifcations>
-                  <HiOutlineArrowRightEndOnRectangle size={44} />
+                  <HiArrowRightStartOnRectangle size={44} />
                 </ButtonWithNotifcations>
               </NavLinkHolder>
             )}
