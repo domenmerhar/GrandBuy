@@ -26,7 +26,8 @@ export const getYourNotifications = catchAsync(
       ["createdBy"]
     )
       .sort()
-      .filter().query;
+      .filter()
+      .paginate().query;
 
     if (!notifications)
       return next(new AppError("No notifications found", 404));
