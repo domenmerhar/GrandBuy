@@ -1,7 +1,8 @@
 import { BiExit } from "react-icons/bi";
 import { HiOutlineMoon } from "react-icons/hi";
-import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { useLogout } from "../hooks/useLogout";
+import { useAuthContext } from "../contexts/AuthContext";
 
 const ThemeExitHolder = styled.div`
   margin-top: auto;
@@ -45,11 +46,13 @@ const IconNav = styled.button<IconNavProps>`
 `;
 
 export const BurgerMenuThemeExit = () => {
-  const navigate = useNavigate();
+  const { mutate } = useLogout();
+  const [{ JWT }] = useAuthContext();
+
   const handleThemeChange = () => {};
 
   const handleExit = () => {
-    navigate("/login");
+    mutate(JWT);
   };
 
   return (
