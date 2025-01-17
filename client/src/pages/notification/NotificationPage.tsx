@@ -2,6 +2,12 @@ import styled from "styled-components";
 import { Content } from "../../Util/Content";
 import { FilterSortHeader } from "../../Util/FilterSortHeader";
 import { NotificationCard } from "./NotificationCard";
+import { useInfinite } from "../../hooks/useInfinite";
+import { useSearchParams } from "react-router-dom";
+import { NotificationResponse, NotificationType } from "../../Util/types";
+import { useAuthContext } from "../../contexts/AuthContext";
+import { getYourNotifications } from "../../api/notification/getYourNotifications";
+import { InfiniteProducts } from "../../Components/InfiniteProducts";
 
 const Grid = styled.div`
   display: grid;
@@ -13,6 +19,36 @@ const Grid = styled.div`
 `;
 
 export const NotificationPage = () => {
+  const [{ JWT, userId }] = useAuthContext();
+  const [searchParams] = useSearchParams();
+
+  const type: NotificationType & "all" = ["message", "warning"].includes(
+    searchParams.get("type")!
+  )
+    ? (searchParams.get("type") as NotificationType)
+    : "all";
+
+  const sort: "-createdAt" | "+createdAt" = [
+    "-createdAt",
+    "+createdAt",
+  ].includes(searchParams.get("sort") ?? "")
+    ? (searchParams.get("sort") as "-createdAt" | "+createdAt")
+    : "-createdAt";
+
+  const data = useInfinite({
+    queryKey: ["notifications", userId, type, sort],
+    queryFn: ({ pageParam }) => {
+      if (pageParam === null) return;
+
+      return getYourNotifications({
+        JWT,
+        page: Number(pageParam),
+        type,
+        sort,
+      });
+    },
+  });
+
   return (
     <Content>
       <FilterSortHeader
@@ -23,17 +59,18 @@ export const NotificationPage = () => {
           { value: "warning", name: "Warning" },
         ]}
         selectOptions={[
-          { name: "Sort by age (oldest)", value: "oldest" },
-          { name: "Sort by age (newest)", value: "newest" },
+          { name: "Sort by age (newest)", value: "-createdAt" },
+          { name: "Sort by age (oldest)", value: "+createdAt" },
         ]}
       />
-      <Grid>
-        <NotificationCard />
-        <NotificationCard />
-        <NotificationCard />
-        <NotificationCard />
-        <NotificationCard />
-      </Grid>
+
+      <InfiniteProducts
+        container={Grid}
+        {...data}
+        renderFn={(page: NotificationResponse) =>
+          page.data.notifications.map((notification) => <NotificationCard />)
+        }
+      />
     </Content>
   );
 };
