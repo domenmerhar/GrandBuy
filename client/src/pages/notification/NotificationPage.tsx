@@ -9,6 +9,8 @@ import { useAuthContext } from "../../contexts/AuthContext";
 import { getYourNotifications } from "../../api/notification/getYourNotifications";
 import { InfiniteProducts } from "../../Components/InfiniteProducts";
 import { toDate } from "../../functions/toDate";
+import { useEffect } from "react";
+import { useQueryClient } from "@tanstack/react-query";
 
 const Grid = styled.div`
   display: grid;
@@ -22,6 +24,7 @@ const Grid = styled.div`
 export const NotificationPage = () => {
   const [{ JWT, userId }] = useAuthContext();
   const [searchParams] = useSearchParams();
+  const queryClient = useQueryClient();
 
   const type: NotificationType | "all" = ["message", "warning"].includes(
     searchParams.get("filter")!
@@ -35,6 +38,12 @@ export const NotificationPage = () => {
   ].includes(searchParams.get("sort") ?? "")
     ? (searchParams.get("sort") as "-createdAt" | "+createdAt")
     : "-createdAt";
+
+  useEffect(() => {
+    queryClient.invalidateQueries({
+      queryKey: ["notificationCount", userId],
+    });
+  }, [queryClient, userId]);
 
   const data = useInfinite({
     queryKey: ["notifications", userId, type, sort],
