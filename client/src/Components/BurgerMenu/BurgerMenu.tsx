@@ -1,9 +1,9 @@
 import { FC } from "react";
 import styled from "styled-components";
-import { Backdrop } from "../Util/Backdrop";
-import { BurgerMenuNavigationList } from "./BurgerMenuNavigationList";
+import { Backdrop } from "../../Util/Backdrop";
 import { BurgerMenuThemeExit } from "./BurgerMenuThemeExit";
-import { useAuthContext } from "../contexts/AuthContext";
+import { useAuthContext } from "../../contexts/AuthContext";
+import { BurgerMenuNavigationList } from "./BurgerMenuNavigationList";
 
 const StyledBurgerMenu = styled.aside`
   height: 93vh;

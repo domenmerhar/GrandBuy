@@ -1,8 +1,8 @@
 import { BiExit } from "react-icons/bi";
 import { HiOutlineMoon } from "react-icons/hi";
 import styled from "styled-components";
-import { useLogout } from "../hooks/useLogout";
-import { useAuthContext } from "../contexts/AuthContext";
+import { useLogout } from "../../hooks/useLogout";
+import { useAuthContext } from "../../contexts/AuthContext";
 
 const ThemeExitHolder = styled.div`
   margin-top: auto;
