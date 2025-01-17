@@ -30,6 +30,26 @@ const sellerChangeOrderStatus = async (
   return cartItem;
 };
 
+export const getCartItemCount = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const userId = res.locals.user._id;
+
+    const cartItems = await CartItem.countDocuments({
+      user: userId,
+      ordered: { $ne: true },
+    });
+
+    if (!cartItems) return next(new AppError("No items found", 404));
+
+    res.status(200).json({
+      status: "success",
+      data: {
+        cartItems,
+      },
+    });
+  }
+);
+
 export const getCartItems = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const userId = res.locals.user._id;
