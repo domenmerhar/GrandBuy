@@ -59,7 +59,7 @@ export const getCartItems = catchAsync(
       req.query
     );
 
-    const cartItems = await features.paginate().sort().query;
+    const cartItems = await features.paginate().sort().filter().query;
 
     if (!cartItems) return next(new AppError("No items found", 404));
 
