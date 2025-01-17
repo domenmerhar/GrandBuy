@@ -8,30 +8,45 @@ import {
 } from "react-icons/hi";
 import { NavLink } from "react-router-dom";
 import { useNotficationCount } from "../../hooks/notification/useNotficationCount";
+import { useCartItemsCount } from "../../hooks/cart/useCartItemsCount";
+import styled from "styled-components";
 
 interface NotificatioCartButtonsProps {
   isOpen: boolean;
   menuHandler: () => void;
 }
 
+const NavlinkHolder = styled(NavLink)`
+  text-decoration: none;
+`;
+
 export const NotficationCartButtons: FC<NotificatioCartButtonsProps> = ({
   isOpen,
   menuHandler,
 }) => {
-  const { data } = useNotficationCount();
+  const { data, isLoading } = useNotficationCount();
+  const { data: dataItemsCount, isLoading: isLoadingCartItems } =
+    useCartItemsCount();
+
   return (
     <>
-      <NavLink to="/notifications">
-        <ButtonWithNotifcations notificationCount={data?.data?.count ?? 0}>
+      <NavlinkHolder to="/notifications">
+        <ButtonWithNotifcations
+          notificationCount={isLoading ? null : data?.data?.count}
+        >
           <HiOutlineBell size={44} />
         </ButtonWithNotifcations>
-      </NavLink>
+      </NavlinkHolder>
 
-      <NavLink to="/cart">
-        <ButtonWithNotifcations notificationCount={50}>
+      <NavlinkHolder to="/cart">
+        <ButtonWithNotifcations
+          notificationCount={
+            isLoadingCartItems ? null : dataItemsCount?.data?.cartItems
+          }
+        >
           <HiOutlineShoppingCart size={44} />
         </ButtonWithNotifcations>
-      </NavLink>
+      </NavlinkHolder>
 
       <ButtonWithNotifcations onClick={menuHandler}>
         {isOpen ? <HiOutlineX size={44} /> : <HiOutlineMenu size={44} />}
