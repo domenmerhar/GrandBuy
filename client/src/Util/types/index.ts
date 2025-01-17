@@ -90,3 +90,23 @@ export type ReviewSort =
   | "-likesCount"
   | "+createdAt"
   | "-createdAt";
+
+export type RefundStatus = "pending" | "approved" | "rejected";
+
+export type NotificationType = "message" | "warning";
+
+export interface Notification {
+  _id: string;
+  type: string;
+  message: string;
+  viewed: boolean;
+  createdAt: string;
+}
+
+export interface NotificationResponse {
+  status: string;
+  data: {
+    notifications: Notification[];
+  };
+  nextItem: number;
+}
