@@ -3,6 +3,7 @@ import { protect, restrictTo } from "../controllers/authController";
 import {
   createCartItem,
   deleteCartItem,
+  getCartItemCount,
   getCartItems,
   getRecentRevenueForSeller,
   getSellerRecent5,
@@ -17,6 +18,8 @@ const cartRouter = express.Router();
 cartRouter.use(protect);
 
 cartRouter.route("/").get(getCartItems);
+cartRouter.route("/count").get(getCartItemCount);
+
 cartRouter
   .route("/add/:productId")
   .post(
