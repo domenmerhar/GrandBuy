@@ -1,18 +1,27 @@
+import { FC } from "react";
 import { BadgeCard } from "../../Util/BadgeCard";
+import { NotificationType } from "../../Util/types";
 
-export const NotificationCard = () => {
+interface NotificationCardProps {
+  date: string;
+  type: NotificationType;
+  children: string;
+}
+
+export const NotificationCard: FC<NotificationCardProps> = ({
+  date,
+  type,
+  children,
+}) => {
+  const color = type === "message" ? "green" : "red";
+
   return (
     <BadgeCard>
-      <BadgeCard.Badge date="22. 5. 2024" $color="green">
-        Message
+      <BadgeCard.Badge date={date} $color={color}>
+        {type}
       </BadgeCard.Badge>
 
-      <BadgeCard.P>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam fugit
-        laudantium aliquid labore et deleniti distinctio. Recusandae libero
-        minus laudantium, incidunt magnam deserunt ipsam fugiat perspiciatis ut
-        ea dolore obcaecati!
-      </BadgeCard.P>
+      <BadgeCard.P>{children}</BadgeCard.P>
     </BadgeCard>
   );
 };
