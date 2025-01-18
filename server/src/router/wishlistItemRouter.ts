@@ -1,9 +1,11 @@
 import express from "express";
 import { protect, restrictTo } from "../controllers/authController";
 import {
-  addToWishlist,
   getWishlist,
+  getWishlistItemByProductID,
+  addToWishlist,
   removeFromWishlist,
+  removeFromWishlistWithProductId,
 } from "../controllers/wishlistItemController";
 import { validate } from "../utils/validate";
 import { param } from "express-validator";
@@ -26,16 +28,40 @@ wishlistRouter.route("/:id").delete(
   removeFromWishlist
 );
 
-wishlistRouter.route("/add/:productId").post(
-  validate([
-    param("productId")
-      .isMongoId()
-      .withMessage("Please provide a valid product ID.")
-      .notEmpty()
-      .withMessage("Please provide a product ID."),
-  ]),
+wishlistRouter
+  .route("/product/:productId")
+  .get(
+    validate([
+      param("productId")
+        .isMongoId()
+        .withMessage("Please provide a valid product ID.")
+        .notEmpty()
+        .withMessage("Please provide a product ID."),
+    ]),
 
-  addToWishlist
-);
+    getWishlistItemByProductID
+  )
+  .post(
+    validate([
+      param("productId")
+        .isMongoId()
+        .withMessage("Please provide a valid product ID.")
+        .notEmpty()
+        .withMessage("Please provide a product ID."),
+    ]),
+
+    addToWishlist
+  )
+  .delete(
+    validate([
+      param("productId")
+        .isMongoId()
+        .withMessage("Please provide a valid product ID.")
+        .notEmpty()
+        .withMessage("Please provide a product ID."),
+    ]),
+
+    removeFromWishlistWithProductId
+  );
 
 export default wishlistRouter;
