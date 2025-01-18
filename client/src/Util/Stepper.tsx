@@ -56,6 +56,8 @@ export const Stepper: FC<StepperProps> = ({
 
   const handleChangePage = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (+e.target.value < 1) return setCurrentStep(1);
+    if (max && +e.target.value > max) return setCurrentStep(max);
+
     setCurrentStep(+e.target.value);
   };
 
@@ -72,6 +74,9 @@ export const Stepper: FC<StepperProps> = ({
         type="number"
         value={currentStep}
         onChange={handleChangePage}
+        step={1}
+        max={max}
+        min={min}
       />
 
       <StepperButton onClick={handleNextPage} disabled={currentStep === max}>
