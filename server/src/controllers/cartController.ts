@@ -55,7 +55,10 @@ export const getCartItems = catchAsync(
     const userId = res.locals.user._id;
 
     const features = new APIFeatures(
-      CartItem.find({ user: userId, ordered: { $ne: true } }),
+      CartItem.find({ user: userId, ordered: { $ne: true } }).populate({
+        path: "product",
+        select: "_id name coverImage price shipping totalPrice orders",
+      }),
       req.query
     );
 
