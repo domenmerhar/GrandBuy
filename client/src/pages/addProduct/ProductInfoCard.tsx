@@ -48,6 +48,7 @@ export const ProductInfoCard = () => {
           unitsSold="0"
           createdBy={createdBy}
           uploaded={new Date().toLocaleDateString()}
+          discount={0}
         />
       </ProductInfoHolder>
 
