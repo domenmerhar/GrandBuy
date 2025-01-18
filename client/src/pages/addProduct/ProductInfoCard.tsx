@@ -35,7 +35,7 @@ export const ProductInfoCard = () => {
 
   return (
     <>
-      <ProductInfoHolder $position="sticky" $height="500px" $rounded>
+      <ProductInfoHolder $position="sticky" $height="auto" $rounded>
         <ButtonWithNotifcations onClick={handleClick}>
           <HiPencil size={24} />
         </ButtonWithNotifcations>

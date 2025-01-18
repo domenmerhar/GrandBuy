@@ -44,7 +44,7 @@ export const SliderInfoRow: FC<SliderInfoRowProps> = ({
       ) : (
         <NoImage></NoImage>
       )}
-      <ProductInfoHolder $position="sticky" $height="500px" $rounded>
+      <ProductInfoHolder $position="sticky" $height="auto" $rounded>
         <ProductInfo
           title={title}
           price={price}
