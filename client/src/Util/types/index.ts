@@ -119,3 +119,24 @@ export interface WishlistItemCountResponse {
     wishlistItemCount: number;
   };
 }
+
+export interface WishlistResponse {
+  status: APIstatus;
+  results: number;
+  totalItems: number;
+  data: {
+    wishlistItems: WishlistItem[];
+  };
+}
+
+export interface WishlistItem {
+  _id: string;
+  user: string;
+  productId: string;
+  name: string;
+  shipping: number;
+  discount: number;
+  totalPrice: number;
+  coverImage: string;
+  createdAt: string;
+}
