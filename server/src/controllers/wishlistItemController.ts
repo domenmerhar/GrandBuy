@@ -5,6 +5,23 @@ import APIFeatures from "../utils/ApiFeatures";
 import AppError from "../utils/AppError";
 import productModel from "../models/productModel";
 
+export const getWishlistItemCount = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const userId = res.locals.user._id;
+
+    const items = await WishlistItem.countDocuments({
+      user: userId,
+    });
+
+    res.status(200).json({
+      status: "success",
+      data: {
+        items,
+      },
+    });
+  }
+);
+
 export const getWishlistItemByProductID = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const { productId } = req.params;
