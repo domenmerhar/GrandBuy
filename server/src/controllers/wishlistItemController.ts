@@ -56,11 +56,11 @@ export const getWishlist = catchAsync(
     const wishlistItems = await features.filter().sort().paginate().query;
 
     const totalItemsFeatures = new APIFeatures(
-      WishlistItem.countDocuments({ user: userId }),
+      WishlistItem.find({ user: userId }),
       req.query
     );
 
-    const totalItems = await totalItemsFeatures.query;
+    const totalItems = await totalItemsFeatures.filter().query.countDocuments();
 
     res.status(200).json({
       status: "success",
