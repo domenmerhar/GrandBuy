@@ -16,6 +16,6 @@ export const CardFilterGrid = styled.div`
   }
 
   & > *:last-child {
-    margin-bottom: auto;
+    margin-top: auto;
   }
 `;
