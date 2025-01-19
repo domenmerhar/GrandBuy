@@ -11,9 +11,11 @@ export const useWishlistItems = () => {
   const from = Number(searchParams.get("from")) || undefined;
   const to = Number(searchParams.get("to")) || undefined;
   const sale = searchParams.get("sale") === "true" || undefined;
+  const freeShipping =
+    searchParams.get("free-shipping") === "true" || undefined;
 
   return useQuery({
-    queryKey: ["wishlistItems", userId, page, from, to, sale],
+    queryKey: ["wishlistItems", userId, page, from, to, sale, freeShipping],
     queryFn: () =>
       getWishlistItems({
         JWT,
@@ -21,6 +23,7 @@ export const useWishlistItems = () => {
         from,
         to,
         sale,
+        freeShipping,
       }),
   });
 };
