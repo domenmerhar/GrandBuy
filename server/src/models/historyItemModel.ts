@@ -13,6 +13,14 @@ const historyItemSchema = new mongoose.Schema({
     required: true,
   },
 
+  name: String,
+
+  coverImage: String,
+
+  discount: Number,
+
+  totalPrice: Number,
+
   createdAt: {
     type: Date,
     default: Date.now,
