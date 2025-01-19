@@ -3,6 +3,7 @@ import { HeaderUppercaseBold } from "./HeaderUppercaseBold";
 import { CheckboxWithText } from "../pages/search/CheckboxWithText";
 import { SliderFilter } from "../pages/search/SliderFilter";
 import { RatingInteractive } from "../pages/search/RatingInteractive";
+import { FC } from "react";
 
 const ContentHolder = styled.div`
   display: flex;
@@ -13,20 +14,48 @@ const ContentHolder = styled.div`
   }
 `;
 
-export const ProductFilter = () => {
+interface ProductFilterProps {
+  freeShipping?: boolean;
+  sale?: boolean;
+  rating?: boolean;
+  price?: boolean;
+}
+
+export const ProductFilter: FC<ProductFilterProps> = ({
+  freeShipping,
+  sale,
+  rating,
+  price,
+}) => {
   return (
     <ContentHolder>
-      <HeaderUppercaseBold>Delivery</HeaderUppercaseBold>
-      <CheckboxWithText id="free-shipping" label="Free Shipping" />
+      {freeShipping ? (
+        <>
+          <HeaderUppercaseBold>Delivery</HeaderUppercaseBold>
+          <CheckboxWithText id="free-shipping" label="Free Shipping" />
+        </>
+      ) : null}
 
-      <HeaderUppercaseBold>Discount</HeaderUppercaseBold>
-      <CheckboxWithText id="sale" label="Sale" />
+      {sale ? (
+        <>
+          <HeaderUppercaseBold>Discount</HeaderUppercaseBold>
+          <CheckboxWithText id="sale" label="Sale" />
+        </>
+      ) : null}
 
-      <HeaderUppercaseBold>Rating</HeaderUppercaseBold>
-      <RatingInteractive />
+      {rating ? (
+        <>
+          <HeaderUppercaseBold>Rating</HeaderUppercaseBold>
+          <RatingInteractive />
+        </>
+      ) : null}
 
-      <HeaderUppercaseBold>Price</HeaderUppercaseBold>
-      <SliderFilter />
+      {price ? (
+        <>
+          <HeaderUppercaseBold>Price</HeaderUppercaseBold>
+          <SliderFilter />
+        </>
+      ) : null}
     </ContentHolder>
   );
 };
