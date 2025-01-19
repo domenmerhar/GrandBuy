@@ -19,8 +19,12 @@ export const useAddToWishlist = (productId: string) => {
         toast.error("Failed to add to wishlist", { id: "add-to-wishlist" });
 
       toast.success("Added to wishlist", { id: "add-to-wishlist" });
+
       client.invalidateQueries({
         queryKey: ["wishlistItem", userId, productId],
+      });
+      client.invalidateQueries({
+        queryKey: ["wishlistItemCount", userId],
       });
     },
   });

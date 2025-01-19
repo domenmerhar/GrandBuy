@@ -15,10 +15,15 @@ export const useRemoveFromWishlist = (productId: string) => {
     },
 
     onSettled: () => {
+      toast.success("Removed from wishlist", { id: "add-to-wishlist" });
+
       client.invalidateQueries({
         queryKey: ["wishlistItem", userId, productId],
       });
-      toast.success("Removed from wishlist", { id: "add-to-wishlist" });
+
+      client.invalidateQueries({
+        queryKey: ["wishlistItemCount", userId],
+      });
     },
   });
 };
