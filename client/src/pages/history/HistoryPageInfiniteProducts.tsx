@@ -2,7 +2,7 @@ import { useInfinite } from "../../hooks/useInfinite";
 import { useAuthContext } from "../../contexts/AuthContext";
 import { getHistory } from "../../api/getHistory";
 import { InfiniteProducts } from "../../Components/InfiniteProducts";
-import { IProductShort } from "../../Util/types";
+import { HistoryItem, HistoryResponse } from "../../Util/types";
 import { ProductCard } from "../../Util/ProductCard";
 import { toApiFilesPath } from "../../functions/toApiFilesPath";
 import { ProductGrid } from "../../Util/ProductGrid";
@@ -23,16 +23,13 @@ export const HistoryPageInfiniteProducts = () => {
     queryFn: queryFn(JWT),
   });
 
-  const renderFn = (page) =>
+  const renderFn = (page: HistoryResponse) =>
     page?.data?.historyItems?.map(
-      ({ product }: { _id: string; product: IProductShort }) => {
-        if (!product) return null;
-        const { _id, name, coverImage, discount, totalPrice } = product;
-
+      ({ product, name, coverImage, discount, totalPrice }: HistoryItem) => {
         return (
           <ProductCard
-            key={_id}
-            id={_id}
+            key={product}
+            id={product}
             title={name}
             image={toApiFilesPath(coverImage)}
             discount={discount}
