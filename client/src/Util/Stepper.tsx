@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from "react";
+import { FC } from "react";
 import { HiChevronLeft, HiChevronRight } from "react-icons/hi";
 import { useSearchParams } from "react-router-dom";
 
@@ -39,23 +39,20 @@ export const Stepper: FC<StepperProps> = ({
   max,
   min = 1,
 }) => {
-  const [currentStep, setCurrentStep] = useState<number>(1);
   const [searchParams, setSearchParams] = useSearchParams();
+  const currentStep = Number(searchParams.get(searchParamName)) || 1;
 
-  const handleNextPage = () => setCurrentStep((prev) => prev + 1);
-  const handlePreviousPage = () => setCurrentStep((prev) => prev - 1);
-
-  useEffect(() => {
-    if (searchParams.has(searchParamName)) return;
-
-    setSearchParams((searchParams) => {
-      searchParams.set(searchParamName, currentStep.toString());
-      return searchParams;
+  const setCurrentStep = (newStep: number) =>
+    setSearchParams((prevSearchParams) => {
+      prevSearchParams.set(searchParamName, String(newStep));
+      return prevSearchParams;
     });
-  }, [currentStep, searchParams, setSearchParams, searchParamName]);
+
+  const handleNextPage = () => setCurrentStep(currentStep + 1);
+  const handlePreviousPage = () => setCurrentStep(currentStep - 1);
 
   const handleChangePage = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (+e.target.value < 1) return setCurrentStep(1);
+    if (+e.target.value < 1) return 1;
     if (max && +e.target.value > max) return setCurrentStep(max);
 
     setCurrentStep(+e.target.value);
