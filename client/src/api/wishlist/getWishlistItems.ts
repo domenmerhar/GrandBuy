@@ -6,16 +6,19 @@ export const getWishlistItems = async ({
   from,
   to,
   sale,
+  freeShipping,
 }: {
   JWT: string;
   page: number;
   sale?: boolean;
   from?: number;
   to?: number;
+  freeShipping?: boolean;
 }) => {
   const limit = Number(import.meta.env.VITE_PRODUCTS_PER_STEPPER);
 
   const queryParamsStr = [
+    freeShipping && "shipping[lte]=0",
     limit && `limit=${limit}`,
     page && `page=${page}`,
     sale && "discount[gt]=0",
