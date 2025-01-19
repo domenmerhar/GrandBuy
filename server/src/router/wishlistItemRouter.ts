@@ -6,6 +6,7 @@ import {
   addToWishlist,
   removeFromWishlist,
   removeFromWishlistWithProductId,
+  getWishlistItemCount,
 } from "../controllers/wishlistItemController";
 import { validate } from "../utils/validate";
 import { param } from "express-validator";
@@ -15,6 +16,8 @@ const wishlistRouter = express.Router();
 wishlistRouter.use(protect, restrictTo("user"));
 
 wishlistRouter.route("/").get(getWishlist);
+
+wishlistRouter.route("/count").get(getWishlistItemCount);
 
 wishlistRouter.route("/:id").delete(
   validate([
