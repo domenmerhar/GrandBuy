@@ -23,8 +23,13 @@ export const useAddToWishlist = (productId: string) => {
       client.invalidateQueries({
         queryKey: ["wishlistItem", userId, productId],
       });
+
       client.invalidateQueries({
         queryKey: ["wishlistItemCount", userId],
+      });
+
+      client.invalidateQueries({
+        predicate: (query) => query.queryKey.includes("wishlistItems"),
       });
     },
   });

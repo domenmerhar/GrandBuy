@@ -24,6 +24,10 @@ export const useRemoveFromWishlist = (productId: string) => {
       client.invalidateQueries({
         queryKey: ["wishlistItemCount", userId],
       });
+
+      client.invalidateQueries({
+        predicate: (query) => query.queryKey.includes("wishlistItems"),
+      });
     },
   });
 };
