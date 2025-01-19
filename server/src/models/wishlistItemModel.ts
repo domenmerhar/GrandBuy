@@ -21,6 +21,10 @@ const wishListItemSchema = new mongoose.Schema({
     type: Number,
   },
 
+  discount: {
+    type: Number,
+  },
+
   totalPrice: {
     type: Number,
   },
