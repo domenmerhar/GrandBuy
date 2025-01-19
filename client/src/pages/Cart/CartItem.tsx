@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { AddButton } from "../../Util/AddButton";
 import { Row } from "../../Util/Row";
+import { FC } from "react";
 
 const Image = styled.img`
   width: 14rem;
@@ -36,19 +37,26 @@ const Price = styled.p`
   color: var(--gray-8);
 `;
 
-export const CartItem = () => {
+interface CartItemProps {
+  image: string;
+  name: string;
+  description: string;
+  price: string;
+}
+
+export const CartItem: FC<CartItemProps> = ({
+  image,
+  name,
+  description,
+  price,
+}) => {
   return (
     <Row $gap="2rem">
-      <Image src="https://via.placeholder.com/140" />
+      <Image src={image} />
       <ProductInfoHolder>
-        <Product>Product Name</Product>
-        <Description>
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quod aliquam
-          ut laudantium, illum distinctio dolorum aliquid? Excepturi,
-          praesentium, sint culpa eaque reprehenderit dolorum, impedit quisquam
-          nobis minima quas facilis voluptate!
-        </Description>
-        <Price>$100.00</Price>
+        <Product>{name}</Product>
+        <Description>{description}</Description>
+        <Price>{price}</Price>
       </ProductInfoHolder>
       <AddButton />
     </Row>
