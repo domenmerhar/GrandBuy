@@ -103,10 +103,19 @@ export interface Notification {
   createdAt: string;
 }
 
+export type APIstatus = "success" | "error";
+
 export interface NotificationResponse {
-  status: string;
+  status: APIstatus;
   data: {
     notifications: Notification[];
   };
   nextItem: number;
+}
+
+export interface WishlistItemCountResponse {
+  status: APIstatus;
+  data: {
+    wishlistItemCount: number;
+  };
 }
