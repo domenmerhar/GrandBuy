@@ -4,11 +4,11 @@ import { CardFilterGrid } from "../../Util/CardFilterGrid";
 import { StyledSidebar } from "../../Util/StyledSidebar";
 import { ProductFilter } from "../../Util/ProductFilter";
 import { ProductsCard } from "../../Util/ProductsCard";
-import { CartItem } from "../Cart/CartItem";
 import { useWishlistItems } from "../../hooks/wishlist/useWishlistItems";
+import { WishlistItems } from "./WishlistItems";
 
 export const WishlistPage = () => {
-  const { data, isLoading, error } = useWishlistItems();
+  const { data } = useWishlistItems();
 
   const itemCount = data?.totalItems || 0;
   const max = data?.totalItems
@@ -19,7 +19,7 @@ export const WishlistPage = () => {
     <Content>
       <CardFilterGrid>
         <ProductsCard title="Wishlist" itemCount={itemCount}>
-          <CartItem />
+          <WishlistItems />
         </ProductsCard>
 
         <StyledSidebar $position="sticky" $width="auto" $height="80vh">
