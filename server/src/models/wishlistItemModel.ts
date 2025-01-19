@@ -7,10 +7,26 @@ const wishListItemSchema = new mongoose.Schema({
     required: [true, "Please provide a user ID."],
   },
 
-  product: {
+  productId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Product",
     required: [true, "Please provide a product ID."],
+  },
+
+  name: {
+    type: String,
+  },
+
+  shipping: {
+    type: Number,
+  },
+
+  totalPrice: {
+    type: Number,
+  },
+
+  coverImage: {
+    type: String,
   },
 
   createdAt: {
@@ -21,6 +37,7 @@ const wishListItemSchema = new mongoose.Schema({
 
 wishListItemSchema.index({ user: 1, product: 1 }, { unique: true });
 wishListItemSchema.index({ createdAt: 1 });
+wishListItemSchema.index({ productId: 1 });
 
 wishListItemSchema.set("toJSON", {
   virtuals: true,
