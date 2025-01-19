@@ -35,9 +35,8 @@ const wishListItemSchema = new mongoose.Schema({
   },
 });
 
-wishListItemSchema.index({ user: 1, product: 1 }, { unique: true });
+wishListItemSchema.index({ user: 1, productId: 1 }, { unique: true });
 wishListItemSchema.index({ createdAt: 1 });
-wishListItemSchema.index({ productId: 1 });
 
 wishListItemSchema.set("toJSON", {
   virtuals: true,
