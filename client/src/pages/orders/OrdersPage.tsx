@@ -15,7 +15,7 @@ export const OrdersPage = () => {
         </ProductsCard>
 
         <StyledSidebar $position="sticky" $width="auto" $height="80vh">
-          <ProductFilter />
+          <ProductFilter freeShipping price sale />
         </StyledSidebar>
         <Stepper searchParamName="page" max={10} />
       </CardFilterGrid>

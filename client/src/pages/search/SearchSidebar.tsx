@@ -4,7 +4,7 @@ import { Sidebar } from "../../Util/Sidebar";
 export const SearchSidebar = () => {
   return (
     <Sidebar>
-      <ProductFilter />
+      <ProductFilter freeShipping rating price sale />
     </Sidebar>
   );
 };

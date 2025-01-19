@@ -28,7 +28,7 @@ export const CartPage = () => {
         </ProductsCard>
 
         <StyledSidebar $position="sticky" $width="auto" $height="80vh">
-          <ProductFilter />
+          <ProductFilter freeShipping price sale />
         </StyledSidebar>
         <Stepper searchParamName="page" max={max} />
       </CardFilterGrid>
