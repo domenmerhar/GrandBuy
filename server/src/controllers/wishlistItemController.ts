@@ -55,9 +55,17 @@ export const getWishlist = catchAsync(
 
     const wishlistItems = await features.filter().sort().paginate().query;
 
+    const totalItemsFeatures = new APIFeatures(
+      WishlistItem.countDocuments({ user: userId }),
+      req.query
+    );
+
+    const totalItems = await totalItemsFeatures.query;
+
     res.status(200).json({
       status: "success",
       results: wishlistItems.length,
+      totalItems: totalItems,
       data: {
         wishlistItems,
       },
@@ -83,6 +91,7 @@ export const addToWishlist = catchAsync(
       shipping: product.shipping,
       totalPrice: product.totalPrice,
       coverImage: product.coverImage,
+      discount: product.discount,
     });
 
     res.status(201).json({
