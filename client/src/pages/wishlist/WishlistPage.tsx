@@ -5,12 +5,15 @@ import { StyledSidebar } from "../../Util/StyledSidebar";
 import { ProductFilter } from "../../Util/ProductFilter";
 import { ProductsCard } from "../../Util/ProductsCard";
 import { CartItem } from "../Cart/CartItem";
+import { useWishlistItemCount } from "../../hooks/wishlist/useWishlistItemCount";
 
 export const WishlistPage = () => {
+  const { data } = useWishlistItemCount();
+
   return (
     <Content>
       <CardFilterGrid>
-        <ProductsCard title="Wishlist" itemCount={2}>
+        <ProductsCard title="Wishlist" itemCount={data?.data?.items || 0}>
           <CartItem />
         </ProductsCard>
 
