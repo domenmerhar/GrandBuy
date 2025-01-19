@@ -5,22 +5,27 @@ import { StyledSidebar } from "../../Util/StyledSidebar";
 import { ProductFilter } from "../../Util/ProductFilter";
 import { ProductsCard } from "../../Util/ProductsCard";
 import { CartItem } from "../Cart/CartItem";
-import { useWishlistItemCount } from "../../hooks/wishlist/useWishlistItemCount";
+import { useWishlistItems } from "../../hooks/wishlist/useWishlistItems";
 
 export const WishlistPage = () => {
-  const { data } = useWishlistItemCount();
+  const { data, isLoading, error } = useWishlistItems();
+
+  const itemCount = data?.totalItems || 0;
+  const max = data?.totalItems
+    ? Math.ceil(data?.totalItems / import.meta.env.VITE_PRODUCTS_PER_STEPPER)
+    : 1;
 
   return (
     <Content>
       <CardFilterGrid>
-        <ProductsCard title="Wishlist" itemCount={data?.data?.items || 0}>
+        <ProductsCard title="Wishlist" itemCount={itemCount}>
           <CartItem />
         </ProductsCard>
 
         <StyledSidebar $position="sticky" $width="auto" $height="80vh">
           <ProductFilter freeShipping price sale />
         </StyledSidebar>
-        <Stepper searchParamName="page" max={10} />
+        <Stepper searchParamName="page" max={max} />
       </CardFilterGrid>
     </Content>
   );
