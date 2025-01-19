@@ -3,6 +3,7 @@ import catchAsync from "../utils/catchAsync";
 import WishlistItem from "../models/wishlistItemModel";
 import APIFeatures from "../utils/ApiFeatures";
 import AppError from "../utils/AppError";
+import productModel from "../models/productModel";
 
 export const getWishlistItemByProductID = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
@@ -11,7 +12,7 @@ export const getWishlistItemByProductID = catchAsync(
 
     const wishlistItem = await WishlistItem.findOne({
       user: userId,
-      product: productId,
+      productId: productId,
     });
 
     if (!wishlistItem)
@@ -31,10 +32,7 @@ export const getWishlist = catchAsync(
     const userId = res.locals.user._id;
 
     const features = new APIFeatures(
-      WishlistItem.find({ user: userId }).populate({
-        path: "product",
-        select: "name price shipping imageCover",
-      }),
+      WishlistItem.find({ user: userId }),
       req.query
     );
 
@@ -55,9 +53,19 @@ export const addToWishlist = catchAsync(
     const { productId } = req.params;
     const userId = res.locals.user._id;
 
+    const product = await productModel.findOne({
+      _id: productId,
+      isSelling: { $ne: false },
+    });
+    if (!product) return next(new AppError("Product not found", 404));
+
     const wishlistItem = await WishlistItem.create({
       user: userId,
-      product: productId,
+      productId: productId,
+      name: product.name,
+      shipping: product.shipping,
+      totalPrice: product.totalPrice,
+      coverImage: product.coverImage,
     });
 
     res.status(201).json({
@@ -93,7 +101,7 @@ export const removeFromWishlistWithProductId = catchAsync(
 
     const removedItem = await WishlistItem.findOneAndDelete({
       user: userId,
-      product: productId,
+      productId: productId,
     });
 
     if (!removedItem)
