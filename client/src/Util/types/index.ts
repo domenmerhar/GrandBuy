@@ -105,6 +105,25 @@ export interface Notification {
 
 export type APIstatus = "success" | "error";
 
+export interface HistoryResponse {
+  status: APIstatus;
+  length: number;
+  data: {
+    historyItems: HistoryItem[];
+  };
+}
+
+export interface HistoryItem {
+  _id: string;
+  user: string;
+  product: string;
+  name: string;
+  coverImage: string;
+  discount: number;
+  totalPrice: number;
+  createdAt: string;
+}
+
 export interface NotificationResponse {
   status: APIstatus;
   data: {
