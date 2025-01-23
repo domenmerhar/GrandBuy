@@ -122,7 +122,7 @@ export const createCartItem = catchAsync(
         quantity,
         user: userId,
         name: product.name,
-        image: product.image,
+        image: product.coverImage,
         price: product.price,
         shipping: product?.shipping,
         totalPrice: product.totalPrice,
