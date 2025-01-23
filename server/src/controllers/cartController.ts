@@ -124,6 +124,7 @@ export const createCartItem = catchAsync(
         name: product.name,
         image: product.coverImage,
         price: product.price,
+        discount: product.discount,
         shipping: product?.shipping,
         totalPrice: product.totalPrice,
       });
