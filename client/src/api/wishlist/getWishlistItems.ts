@@ -35,8 +35,6 @@ export const getWishlistItems = async ({
     },
   });
 
-  console.log(toApiPath(`wishlist?${queryParamsStr}`));
-
   const data = await res.json();
 
   return data;
