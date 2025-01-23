@@ -3,6 +3,11 @@ import mongoose, { Document, Schema } from "mongoose";
 interface ICartItem extends Document {
   user: mongoose.Schema.Types.ObjectId;
   product: mongoose.Schema.Types.ObjectId;
+  name: string;
+  image: string;
+  price: number;
+  shipping: number;
+  totalPrice: number;
   quantity: number;
   createdAt: Date;
   discount: number;
@@ -16,32 +21,48 @@ const CartItemSchema = new Schema<ICartItem>({
     ref: "User",
     required: true,
   },
+
   product: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Product",
     required: true,
   },
+
+  name: String,
+
+  image: String,
+
+  price: Number,
+
+  shipping: Number,
+
+  totalPrice: Number,
+
   quantity: {
     type: Number,
     min: [1, "Quantity must be at least 1"],
     required: true,
   },
+
   createdAt: {
     type: Date,
     default: Date.now,
   },
+
   discount: {
     type: Number,
     min: [0, "Discount must be at least 0"],
     max: [100, "Discount cannot exceed 100"],
     default: 0,
   },
+
   status: {
     type: String,
     enum: {
       values: ["pending", "cancelled", "shipped", "delivered", "refunded"],
       message: "Please provide a valid status.",
     },
+
     default: "pending",
   },
   ordered: Boolean,
