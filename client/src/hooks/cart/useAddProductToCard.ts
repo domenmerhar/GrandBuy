@@ -3,7 +3,6 @@ import toast from "react-hot-toast";
 import { addProductToCart } from "../../api/cart/addProductToCard";
 
 export const useAddProductToCard = () => {
-  //TODO: Invalidate cartItems, cartCount
   const client = useQueryClient();
 
   return useMutation({
@@ -20,9 +19,9 @@ export const useAddProductToCard = () => {
 
       toast.success("Added to cart", { id: "add-to-cart" });
 
-      //   client.invalidateQueries({
-      //     predicate: (query) => query.queryKey.includes("wishlistItems"),
-      //   });
+      client.invalidateQueries({
+        predicate: (query) => query.queryKey[0].includes("cart"),
+      });
     },
   });
 };
