@@ -16,8 +16,6 @@ export const PasswordSection = () => {
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    console.log(passwordRef.current?.value, confirmPasswordRef.current?.value);
-
     if (!passwordRef.current?.value || !confirmPasswordRef.current?.value)
       return toast.error("Please fill in all fields", { id: "changePassword" });
 
