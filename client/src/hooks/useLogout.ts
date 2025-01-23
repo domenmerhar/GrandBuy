@@ -12,8 +12,7 @@ export const useLogout = () => {
       toast.loading("Logging out...", { id: "logout" });
     },
 
-    onSuccess: (data) => {
-      console.log(data);
+    onSuccess: () => {
       toast.success("Logged out", { id: "logout" });
       navigate("/login");
     },
