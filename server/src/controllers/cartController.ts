@@ -55,10 +55,7 @@ export const getCartItems = catchAsync(
     const userId = res.locals.user._id;
 
     const features = new APIFeatures(
-      CartItem.find({ user: userId, ordered: { $ne: true } }).populate({
-        path: "product",
-        select: "_id name coverImage price shipping totalPrice orders",
-      }),
+      CartItem.find({ user: userId, ordered: { $ne: true } }),
       req.query
     );
 
@@ -113,15 +110,24 @@ export const createCartItem = catchAsync(
       user: userId,
       ordered: { $ne: true },
     });
+
     if (item) {
       item.quantity += +quantity;
       res.locals.newItem = await item.save();
-    } else
+    } else {
+      const product = await Product.findById(productId);
+
       res.locals.newItem = await CartItem.create({
         product: productId,
         quantity,
         user: userId,
+        name: product.name,
+        image: product.image,
+        price: product.price,
+        shipping: product?.shipping,
+        totalPrice: product.totalPrice,
       });
+    }
 
     res.status(201).json({
       status: "success",
