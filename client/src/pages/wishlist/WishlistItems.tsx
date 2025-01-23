@@ -1,4 +1,3 @@
-import React from "react";
 import { SpinnerInBox } from "../../Components/SpinnerInBox";
 import { useWishlistItems } from "../../hooks/wishlist/useWishlistItems";
 import { ErrorBox } from "../../Components/ErrorBox";
