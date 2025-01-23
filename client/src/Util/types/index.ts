@@ -159,3 +159,24 @@ export interface WishlistItem {
   coverImage: string;
   createdAt: string;
 }
+
+export interface CartItemInterface {
+  _id: string;
+  user: {
+    _id: string;
+    email: string;
+  };
+  product: {
+    _id: string;
+    name: string;
+    coverImage: string;
+    price: number;
+    shipping: number;
+    orders: number;
+    totalPrice: number;
+  };
+  quantity: number;
+  discount: number;
+  status: string;
+  createdAt: string;
+}
