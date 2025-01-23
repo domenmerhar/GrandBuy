@@ -13,9 +13,9 @@ export const CartItems = () => {
   if (error) return <ErrorBox fullPage={false} />;
 
   return data?.data?.cartItems?.map(
-    ({ product: { coverImage, name, totalPrice, _id } }: CartItemInterface) => (
+    ({ _id, image, name, totalPrice }: CartItemInterface) => (
       <CartItem
-        image={toApiFilesPath(coverImage)}
+        image={toApiFilesPath(image)}
         description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat animi nam aperiam earum explicabo ratione reiciendis, vel, a veritatis voluptatum molestias quaerat cumque, aut natus deleniti architecto iusto fugiat dignissimos."
         name={name}
         price={toPrice(totalPrice, "USD")}
