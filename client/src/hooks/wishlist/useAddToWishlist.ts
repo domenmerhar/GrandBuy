@@ -16,7 +16,9 @@ export const useAddToWishlist = (productId: string) => {
 
     onSuccess: (data) => {
       if (data.status !== "success" || data?.errors?.length > 0)
-        toast.error("Failed to add to wishlist", { id: "add-to-wishlist" });
+        return toast.error("Failed to add to wishlist", {
+          id: "add-to-wishlist",
+        });
 
       toast.success("Added to wishlist", { id: "add-to-wishlist" });
 
