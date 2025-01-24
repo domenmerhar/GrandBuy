@@ -139,12 +139,69 @@ export const createCartItem = catchAsync(
   }
 );
 
+export const decrementCartItem = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const { cartItemId } = req.params;
+    const userId = res.locals.user._id;
+
+    const item = await CartItem.findOne({
+      _id: cartItemId,
+      user: userId,
+      ordered: { $ne: true },
+    });
+
+    if (!item) return next(new AppError("Item not found", 404));
+
+    if (item.quantity === 1) {
+      return next(new AppError("Minimum quantity reached", 400));
+    }
+
+    item.quantity -= 1;
+    await item.save({ validateBeforeSave: false });
+
+    res.status(201).json({
+      status: "success",
+      data: {
+        item,
+      },
+    });
+  }
+);
+
+export const incrementCartItem = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const { cartItemId } = req.params;
+    const userId = res.locals.user._id;
+
+    const item = await CartItem.findOneAndUpdate(
+      {
+        _id: cartItemId,
+        user: userId,
+        ordered: { $ne: true },
+      },
+      {
+        $inc: { quantity: 1 },
+      },
+      { new: true }
+    );
+
+    if (!item) return next(new AppError("Item not found", 404));
+
+    res.status(201).json({
+      status: "success",
+      data: {
+        item,
+      },
+    });
+  }
+);
+
 export const deleteCartItem = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    const { cartId } = req.params;
+    const { cartItemId } = req.params;
 
     const deletedItem = await CartItem.findOneAndDelete({
-      _id: cartId,
+      _id: cartItemId,
       ordered: { $ne: true },
     });
 
