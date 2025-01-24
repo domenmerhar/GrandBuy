@@ -68,10 +68,10 @@ cartRouter
   );
 
 cartRouter
-  .route("/:cartId")
+  .route("/:cartItemId")
   .patch(
     validate([
-      param("cartId")
+      param("cartItemId")
         .isMongoId()
         .withMessage("Please provide a valid cart ID.")
         .notEmpty()
@@ -90,7 +90,7 @@ cartRouter
   )
   .delete(
     validate([
-      param("cartId")
+      param("cartItemId")
         .isMongoId()
         .withMessage("Please provide a cart valid ID.")
         .notEmpty()
