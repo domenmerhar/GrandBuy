@@ -10,7 +10,7 @@ export const SquareButton = styled.button<SquareButtonProps>`
     $color === "orange" &&
     "background-image: linear-gradient(120deg, var(--orange-6), var(--orange-5));"}
 
-  color: ${({ $color }) => ($color === "red" ? "var(--red)" : "var(--gray-3)")};
+  ${({ $color }) => $color === "red" && "background-color: var(--red)"};
 
   display: flex;
   justify-content: center;
@@ -37,6 +37,12 @@ export const SquareButton = styled.button<SquareButtonProps>`
   }
 
   svg {
-    color: var(--gray-7);
+    ${({ $color }) =>
+      $color === "white" ? "color: var(--gray-7);" : "color: var(--gray-1);"}
+
+    width: ${({ $size }) =>
+      $size === "large" ? "4.2rem" : $size === "medium" ? "3.8rem" : "2.6rem"};
+    height: ${({ $size }) =>
+      $size === "large" ? "4.2rem" : $size === "medium" ? "3.8rem" : "2.6rem"};
   }
 `;
