@@ -76,14 +76,14 @@ export const getCartItems = catchAsync(
 export const updateItemQuantity = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const { quantity } = req.body;
-    const { cartId } = req.params;
+    const { cartItemId } = req.params;
 
     if (!quantity) {
       return next(new AppError("Quantity is required", 400));
     }
 
     const updatedItem = await CartItem.findOneAndUpdate(
-      { _id: cartId, ordered: { $ne: true } },
+      { _id: cartItemId, ordered: { $ne: true } },
       { quantity },
       { new: true }
     );
