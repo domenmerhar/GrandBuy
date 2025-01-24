@@ -13,7 +13,6 @@ export const useAddProductToCard = () => {
     },
 
     onSuccess: (data) => {
-      console.log(data);
       if (data.status !== "success" || data?.errors?.length > 0)
         return toast.error("Failed to add to cart", { id: "add-to-cart" });
 
