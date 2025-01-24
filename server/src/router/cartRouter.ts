@@ -2,11 +2,13 @@ import express from "express";
 import { protect, restrictTo } from "../controllers/authController";
 import {
   createCartItem,
+  decrementCartItem,
   deleteCartItem,
   getCartItemCount,
   getCartItems,
   getRecentRevenueForSeller,
   getSellerRecent5,
+  incrementCartItem,
   redeemCouponOnCartItems,
   updateItemQuantity,
 } from "../controllers/cartController";
@@ -37,6 +39,32 @@ cartRouter
         .withMessage("Please provide a product ID."),
     ]),
     createCartItem
+  );
+
+cartRouter
+  .route("/increment/:cartItemId")
+  .patch(
+    validate([
+      param("cartItemId")
+        .isMongoId()
+        .withMessage("Please provide a valid cart item ID.")
+        .notEmpty()
+        .withMessage("Please provide a cart item ID."),
+    ]),
+    incrementCartItem
+  );
+
+cartRouter
+  .route("/decrement/:cartItemId")
+  .patch(
+    validate([
+      param("cartItemId")
+        .isMongoId()
+        .withMessage("Please provide a valid cart item ID.")
+        .notEmpty()
+        .withMessage("Please provide a cart item ID."),
+    ]),
+    decrementCartItem
   );
 
 cartRouter
