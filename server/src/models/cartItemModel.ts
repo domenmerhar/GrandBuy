@@ -65,7 +65,11 @@ const CartItemSchema = new Schema<ICartItem>({
 
     default: "pending",
   },
-  ordered: Boolean,
+
+  ordered: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 CartItemSchema.index({ user: 1, createdAt: 1 });
