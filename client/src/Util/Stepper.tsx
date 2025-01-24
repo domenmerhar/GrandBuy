@@ -1,41 +1,16 @@
 import { FC } from "react";
-import { HiChevronLeft, HiChevronRight } from "react-icons/hi";
 import { useSearchParams } from "react-router-dom";
-
-import styled from "styled-components";
-import { NakedInput } from "./NakedInput";
-
-const StyledStepper = styled.div`
-  display: flex;
-  gap: 1.2rem;
-`;
-
-const StepperButton = styled.button`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  border: none;
-  padding: 0.8rem;
-  background-color: var(--gray-1);
-  border-radius: 8px;
-
-  transition: all 200ms;
-
-  &:disabled {
-    background-color: var(--gray-4);
-    opacity: 0.5;
-  }
-`;
-
+import { StepperRaw } from "./StepperRaw";
 interface StepperProps {
   searchParamName: string;
+  color?: "orange" | "white";
   max?: number;
   min?: number;
 }
 
 export const Stepper: FC<StepperProps> = ({
   searchParamName,
+  color = "white",
   max,
   min = 1,
 }) => {
@@ -59,26 +34,16 @@ export const Stepper: FC<StepperProps> = ({
   };
 
   return (
-    <StyledStepper>
-      <StepperButton
-        disabled={currentStep === min}
-        onClick={handlePreviousPage}
-      >
-        <HiChevronLeft size={20} fill="#343a40" />
-      </StepperButton>
-
-      <NakedInput
-        type="number"
-        value={currentStep}
-        onChange={handleChangePage}
-        step={1}
-        max={max}
-        min={min}
-      />
-
-      <StepperButton onClick={handleNextPage} disabled={currentStep === max}>
-        <HiChevronRight size={20} fill="#343a40" />
-      </StepperButton>
-    </StyledStepper>
+    <StepperRaw
+      color={color}
+      min={min}
+      max={max}
+      currentStep={currentStep}
+      handleChangePage={handleChangePage}
+      handleNextPage={handleNextPage}
+      handlePreviousPage={handlePreviousPage}
+      disabledLeft={currentStep === 1}
+      disabledRight={currentStep === max}
+    />
   );
 };
