@@ -6,6 +6,7 @@ import {
   deleteCartItem,
   getCartItemCount,
   getCartItems,
+  getCartItemsSummary,
   getRecentRevenueForSeller,
   getSellerRecent5,
   incrementCartItem,
@@ -21,6 +22,14 @@ cartRouter.use(protect);
 
 cartRouter.route("/").get(getCartItems);
 cartRouter.route("/count").get(getCartItemCount);
+cartRouter
+  .route("/summary")
+  .post(
+    validate([
+      body("cartItems").isArray().withMessage("cartItems should be an array."),
+    ]),
+    getCartItemsSummary
+  );
 
 cartRouter
   .route("/add/:productId")
