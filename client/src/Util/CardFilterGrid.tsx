@@ -11,6 +11,8 @@ export const CardFilterGrid = styled.div`
   align-items: start;
   gap: 2.8rem;
 
+  min-height: 77rem;
+
   & > *:nth-child(2) {
     grid-row: span 2;
   }
