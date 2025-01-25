@@ -357,13 +357,15 @@ export const getSellerOrders = catchAsync(
 
 export const redeemCouponOnCartItems = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    const { couponCode: code } = req.params;
+    const { couponCode } = req.params;
+    const code = couponCode.toUpperCase();
     const userId = res.locals.user._id;
 
     const coupon = await couponModel.findOne({
       code,
       expireAt: { $gt: Date.now() },
     });
+
     if (!coupon) return next(new AppError("Invalid coupon code", 400));
 
     const cartItems = await CartItem.updateMany(
@@ -377,14 +379,12 @@ export const redeemCouponOnCartItems = catchAsync(
       { new: true }
     );
 
-    //if (!cartItems.length) return next(new AppError("No items found", 404));
+    if (!cartItems.modifiedCount)
+      return next(new AppError("No items found", 404));
 
     res.status(200).json({
       status: "success",
-      // length: cartItems.length,
-      // data: {
-      //   cartItems,
-      //},
+      length: cartItems.modifiedCount,
     });
   }
 );
