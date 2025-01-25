@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { AddButton } from "../../Util/AddButton";
 import { Row } from "../../Util/Row";
 import { FC } from "react";
+import { Link } from "react-router-dom";
 
 const Image = styled.img`
   width: 14rem;
@@ -54,7 +55,10 @@ export const WishlistItem: FC<CartItemProps> = ({
 }) => {
   return (
     <Row $gap="2rem">
-      <Image src={image} />
+      <Link to={`/product/${productId}?quantity=1&page=1&sort=-likesCount`}>
+        <Image src={image} />
+      </Link>
+
       <ProductInfoHolder>
         <Product>{name}</Product>
         <Description>{description}</Description>
