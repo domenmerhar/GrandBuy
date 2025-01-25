@@ -144,11 +144,11 @@ export interface WishlistResponse {
   results: number;
   totalItems: number;
   data: {
-    wishlistItems: WishlistItem[];
+    wishlistItems: WishlistItemInterface[];
   };
 }
 
-export interface WishlistItem {
+export interface WishlistItemInterface {
   _id: string;
   user: string;
   productId: string;
@@ -166,15 +166,12 @@ export interface CartItemInterface {
     _id: string;
     email: string;
   };
-  product: {
-    _id: string;
-    name: string;
-    coverImage: string;
-    price: number;
-    shipping: number;
-    orders: number;
-    totalPrice: number;
-  };
+  product: string;
+  name: string;
+  price: number;
+  shipping: number;
+  totalPrice: number;
+  image: string;
   quantity: number;
   discount: number;
   status: string;
