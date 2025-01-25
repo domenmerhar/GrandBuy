@@ -22,14 +22,7 @@ cartRouter.use(protect);
 
 cartRouter.route("/").get(getCartItems);
 cartRouter.route("/count").get(getCartItemCount);
-cartRouter
-  .route("/summary")
-  .post(
-    validate([
-      body("cartItems").isArray().withMessage("cartItems should be an array."),
-    ]),
-    getCartItemsSummary
-  );
+cartRouter.route("/summary/:cartItems").get(getCartItemsSummary);
 
 cartRouter
   .route("/add/:productId")
