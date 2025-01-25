@@ -10,7 +10,8 @@ import { useIncrementCartItem } from "../../hooks/cart/useIncrementCartItem";
 import { useDecrementCartItem } from "../../hooks/cart/useDecrementCartItem";
 import { useDeleteCartItem } from "../../hooks/cart/useDeleteCartItem";
 import { useUpdateCartItemQuantity } from "../../hooks/cart/useupdateCartItemQuantity";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
+import { CartItemButton } from "./CartItemButton";
 
 const Image = styled.img`
   width: 14rem;
@@ -58,6 +59,7 @@ export const CartItem: FC<CartItemProps> = ({
   quantity,
 }) => {
   const [quantityState, setQuantityState] = useState<number>(quantity);
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const [{ JWT }] = useAuthContext();
   const { mutate: increment } = useIncrementCartItem();
@@ -67,7 +69,21 @@ export const CartItem: FC<CartItemProps> = ({
 
   const handlePreviousPage = () => decrement({ JWT, cartItemId });
   const handleNextPage = () => increment({ JWT, cartItemId });
-  const handleDelete = () => deleteItem({ JWT, cartItemId });
+  const handleDelete = () => {
+    if (searchParams.get("products")?.includes(cartItemId)) {
+      const products = searchParams.get("products");
+      const newProducts = products
+        ?.split(",")
+        ?.filter((id) => id !== cartItemId);
+
+      setSearchParams((prev) => {
+        if (!newProducts || newProducts?.length === 0) prev.delete("products");
+        else prev.set("products", newProducts.join(","));
+        return prev;
+      });
+    }
+    deleteItem({ JWT, cartItemId });
+  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setQuantityState(Number(e.target.value));
@@ -88,6 +104,8 @@ export const CartItem: FC<CartItemProps> = ({
 
   return (
     <Row $gap="2rem">
+      <CartItemButton cartItemId={cartItemId} />
+
       <Link to={`/product/${productId}?quantity=1&page=1&sort=-likesCount`}>
         <Image src={image} />
       </Link>
