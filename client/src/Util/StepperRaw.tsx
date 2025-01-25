@@ -42,6 +42,7 @@ interface StepperRawProps {
   handlePreviousPage: (e: React.MouseEvent<HTMLButtonElement>) => unknown;
   handleNextPage: (e: React.MouseEvent<HTMLButtonElement>) => unknown;
   handleChangePage: (e: React.ChangeEvent<HTMLInputElement>) => unknown;
+  handleBlurPage: (e: React.ChangeEvent<HTMLInputElement>) => unknown;
 
   max?: number;
   min?: number;
@@ -60,6 +61,7 @@ export const StepperRaw: FC<StepperRawProps> = ({
   handlePreviousPage,
   handleNextPage,
   handleChangePage,
+  handleBlurPage,
 
   max,
   min = 1,
@@ -90,6 +92,7 @@ export const StepperRaw: FC<StepperRawProps> = ({
         min={min}
         placeholder={placeholder}
         disabled={disabledInput}
+        onBlur={handleBlurPage}
       />
 
       <StepperButton
