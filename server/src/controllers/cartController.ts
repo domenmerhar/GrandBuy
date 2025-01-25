@@ -41,7 +41,6 @@ export const getCartItemsSummary = catchAsync(
     }
 
     const pipeline = [
-      // Step 1: Match documents based on user and cart items provided in the request
       {
         $match: {
           _id: {
@@ -52,28 +51,12 @@ export const getCartItemsSummary = catchAsync(
         },
       },
 
-      // Step 2: Lookup product details to get the price
-      {
-        $lookup: {
-          from: "products",
-          localField: "product",
-          foreignField: "_id",
-          as: "productDetails",
-        },
-      },
-
-      // Step 3: Unwind the product details array to simplify calculations
-      {
-        $unwind: "$productDetails",
-      },
-
-      // Step 4: Add calculated fields for basePrice, discountAmount, and totalPrice
       {
         $addFields: {
-          basePrice: { $multiply: ["$productDetails.price", "$quantity"] }, // price * quantity
+          basePrice: { $multiply: ["$price", "$quantity"] },
           discountAmount: {
             $multiply: [
-              { $multiply: ["$productDetails.price", "$quantity"] },
+              { $multiply: ["$price", "$quantity"] },
               { $divide: ["$discount", 100] },
             ],
           },
@@ -81,7 +64,7 @@ export const getCartItemsSummary = catchAsync(
             $add: [
               {
                 $multiply: [
-                  { $multiply: ["$productDetails.price", "$quantity"] },
+                  { $multiply: ["$price", "$quantity"] },
                   { $divide: [{ $subtract: [100, "$discount"] }, 100] },
                 ],
               },
@@ -91,18 +74,16 @@ export const getCartItemsSummary = catchAsync(
         },
       },
 
-      // Step 5: Group to calculate aggregate totals
       {
         $group: {
           _id: null,
-          items: { $sum: "$basePrice" }, // Sum of price * quantity (base price)
-          shipping: { $sum: "$shipping" }, // Total shipping costs
-          discount: { $sum: "$discountAmount" }, // Total discount across all items
-          total: { $sum: "$totalPrice" }, // Total price (basePrice after discount + shipping)
+          items: { $sum: "$basePrice" },
+          shipping: { $sum: "$shipping" },
+          discount: { $sum: "$discountAmount" },
+          total: { $sum: "$totalPrice" },
         },
       },
 
-      // Step 6: Project the results for clean output
       {
         $project: {
           _id: 0,
@@ -114,7 +95,6 @@ export const getCartItemsSummary = catchAsync(
       },
     ];
 
-    // Execute the aggregation pipeline
     const result = await CartItem.aggregate(pipeline);
 
     if (result.length === 0) {
@@ -123,7 +103,7 @@ export const getCartItemsSummary = catchAsync(
 
     res.status(200).json({
       status: "success",
-      data: result[0], // Return the first (and only) result of the aggregation
+      data: result[0],
     });
   }
 );
