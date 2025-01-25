@@ -6,6 +6,7 @@ import APIFeatures from "../utils/ApiFeatures";
 import Product from "../models/productModel";
 import couponModel from "../models/couponModel";
 import { mapProductIds } from "../utils/mapProductIds";
+import mongoose from "mongoose";
 
 const sellerChangeOrderStatus = async (
   orderId: string,
@@ -29,6 +30,103 @@ const sellerChangeOrderStatus = async (
 
   return cartItem;
 };
+
+export const getCartItemsSummary = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const userId = res.locals.user._id;
+    const { cartItems } = req.body;
+
+    if (!Array.isArray(cartItems) || cartItems.length === 0) {
+      return next(new AppError("Please provide valid cart items.", 400));
+    }
+
+    const pipeline = [
+      // Step 1: Match documents based on user and cart items provided in the request
+      {
+        $match: {
+          _id: {
+            $in: cartItems.map((id: string) => new mongoose.Types.ObjectId(id)),
+          },
+          user: new mongoose.Types.ObjectId(userId),
+          ordered: { $ne: true },
+        },
+      },
+
+      // Step 2: Lookup product details to get the price
+      {
+        $lookup: {
+          from: "products",
+          localField: "product",
+          foreignField: "_id",
+          as: "productDetails",
+        },
+      },
+
+      // Step 3: Unwind the product details array to simplify calculations
+      {
+        $unwind: "$productDetails",
+      },
+
+      // Step 4: Add calculated fields for basePrice, discountAmount, and totalPrice
+      {
+        $addFields: {
+          basePrice: { $multiply: ["$productDetails.price", "$quantity"] }, // price * quantity
+          discountAmount: {
+            $multiply: [
+              { $multiply: ["$productDetails.price", "$quantity"] },
+              { $divide: ["$discount", 100] },
+            ],
+          },
+          totalPrice: {
+            $add: [
+              {
+                $multiply: [
+                  { $multiply: ["$productDetails.price", "$quantity"] },
+                  { $divide: [{ $subtract: [100, "$discount"] }, 100] },
+                ],
+              },
+              "$shipping",
+            ],
+          },
+        },
+      },
+
+      // Step 5: Group to calculate aggregate totals
+      {
+        $group: {
+          _id: null,
+          items: { $sum: "$basePrice" }, // Sum of price * quantity (base price)
+          shipping: { $sum: "$shipping" }, // Total shipping costs
+          discount: { $sum: "$discountAmount" }, // Total discount across all items
+          total: { $sum: "$totalPrice" }, // Total price (basePrice after discount + shipping)
+        },
+      },
+
+      // Step 6: Project the results for clean output
+      {
+        $project: {
+          _id: 0,
+          items: 1,
+          shipping: 1,
+          discount: 1,
+          total: 1,
+        },
+      },
+    ];
+
+    // Execute the aggregation pipeline
+    const result = await CartItem.aggregate(pipeline);
+
+    if (result.length === 0) {
+      return next(new AppError("No valid cart items found.", 400));
+    }
+
+    res.status(200).json({
+      status: "success",
+      data: result[0], // Return the first (and only) result of the aggregation
+    });
+  }
+);
 
 export const getCartItemCount = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
