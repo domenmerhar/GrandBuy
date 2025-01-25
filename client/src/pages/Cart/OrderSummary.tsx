@@ -2,6 +2,9 @@ import styled from "styled-components";
 import { BlankCard } from "../../Util/BlankCard";
 import { HeaderUppercaseBold } from "../../Util/HeaderUppercaseBold";
 import { SummaryRow } from "./SummaryRow";
+import { useGetCartItemsSummary } from "../../hooks/cart/useGetCartItemsSummary";
+import { toPrice } from "../../functions/toPrice";
+import { SpinnerInBox } from "../../Components/SpinnerInBox";
 
 const StyledOrderSummary = styled(BlankCard)`
   display: flex;
@@ -14,15 +17,29 @@ const Hr = styled.hr`
 `;
 
 export const OrderSummary = () => {
+  const { data, isLoading } = useGetCartItemsSummary();
+
+  const items = data?.data?.items || 0;
+  const shipping = data?.data?.shipping || 0;
+  const discount = data?.data?.discount || 0;
+  const total = data?.data?.total || 0;
+
+  if (isLoading)
+    return (
+      <StyledOrderSummary>
+        <SpinnerInBox fullPage={false} />
+      </StyledOrderSummary>
+    );
+
   return (
     <StyledOrderSummary>
       <HeaderUppercaseBold>Summary</HeaderUppercaseBold>
 
-      <SummaryRow name="Items" price="$320.99" />
-      <SummaryRow name="Shipping" price="$41.99" />
-      <SummaryRow name="Coupons" price="$30.99" />
+      <SummaryRow name="Items" price={toPrice(items, "USD")} />
+      <SummaryRow name="Shipping" price={toPrice(shipping, "USD")} />
+      <SummaryRow name="Coupons" price={toPrice(discount, "USD")} />
       <Hr />
-      <SummaryRow name="Total" price="$331.99" />
+      <SummaryRow name="Total" price={toPrice(total, "USD")} />
     </StyledOrderSummary>
   );
 };
