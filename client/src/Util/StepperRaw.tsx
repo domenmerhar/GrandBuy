@@ -23,7 +23,7 @@ const StepperButton = styled.button<StepperButtonProps>`
 
   ${({ $color }) =>
     $color === "orange"
-      ? "background: linear-gradient(var(--orange-5), var(--orange-6))"
+      ? "background: linear-gradient(45deg, var(--orange-5), var(--orange-6))"
       : "background-color: var(--gray-1)"};
 
   border-radius: 8px;
