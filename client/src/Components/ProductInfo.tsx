@@ -9,6 +9,8 @@ import { Discount } from "../Util/Discount";
 import { useAuthContext } from "../contexts/AuthContext";
 import { Row } from "../Util/Row";
 import { AddToWishlistButton } from "../pages/product/AddToWishlistButton";
+import { useAddProductToCard } from "../hooks/cart/useAddProductToCard";
+import { useParams, useSearchParams } from "react-router-dom";
 
 const StyledProductInfo = styled(Column)`
   min-width: 25rem;
@@ -54,7 +56,16 @@ export const ProductInfo: FC<ProductInfoProps> = ({
   uploaded,
   discount,
 }) => {
-  const [{ role }] = useAuthContext();
+  const [{ JWT, role }] = useAuthContext();
+
+  const [searchParams] = useSearchParams();
+  const { productId } = useParams<{ productId: string }>();
+
+  const { mutate } = useAddProductToCard();
+
+  const quantity = Number(searchParams.get("quantity")) || 1;
+
+  const handleClick = () => mutate({ JWT, productId: productId!, quantity });
 
   return (
     <StyledProductInfo $gap="2.4rem" $justifyContent="space-around">
@@ -79,7 +90,12 @@ export const ProductInfo: FC<ProductInfoProps> = ({
           <Stepper searchParamName="quantity" />
 
           <Column $gap=".8rem">
-            <Button $color="orange" $shape="oval" $size="medium">
+            <Button
+              $color="orange"
+              $shape="oval"
+              $size="medium"
+              onClick={handleClick}
+            >
               Add to Cart
             </Button>
 
