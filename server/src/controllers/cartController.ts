@@ -34,7 +34,9 @@ const sellerChangeOrderStatus = async (
 export const getCartItemsSummary = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const userId = res.locals.user._id;
-    const { cartItems } = req.body;
+    const { cartItems: cartItemsRaw } = req.params;
+
+    const cartItems = cartItemsRaw.replace(/["']/gi, "").split(",");
 
     if (!Array.isArray(cartItems) || cartItems.length === 0) {
       return next(new AppError("Please provide valid cart items.", 400));
