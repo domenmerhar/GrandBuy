@@ -19,11 +19,14 @@ export interface RowColumnProps {
 export type languages = "en" | "sl";
 
 export interface BadgeProps {
-  $color: "orange" | "red" | "green" | "yellow";
+  $color: BadgeColor;
   $size?: "medium" | "small";
 }
 
-export type OrderStatus = "shipped" | "cancelled" | "pending";
+export type BadgeColor = "orange" | "red" | "green" | "yellow";
+
+export type OrderStatus = "pending" | "cancelled" | "shipped" | "delivered";
+
 export interface IOrderTable {
   username: string;
   orderID: string;
@@ -176,4 +179,26 @@ export interface CartItemInterface {
   discount: number;
   status: string;
   createdAt: string;
+}
+
+export interface IOrder {
+  _id: string;
+  user: string;
+  products: OrderProduct[];
+  totalPrice: number;
+  status: OrderStatus;
+  paid: boolean;
+  createdAt: string;
+  estimatedDelivery: string;
+  deliveredAt?: string;
+}
+
+export interface OrderProduct {
+  _id: string;
+  product: string;
+  name: string;
+  image: string;
+  totalPrice: number;
+  quantity: number;
+  id: string;
 }
