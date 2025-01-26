@@ -7,6 +7,7 @@ import CartItem from "../models/cartItemModel";
 import cartItemModel from "../models/cartItemModel";
 import userModel from "../models/userModel";
 import { stripe } from "../utils/stripe";
+import mongoose from "mongoose";
 
 const ordersPerRequest = 10;
 
@@ -14,16 +15,7 @@ export const getUserOrders = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const id = res.locals.user._id;
 
-    const ordersQuery = new APIFeatures(
-      Order.find({ user: id }).populate({
-        path: "products",
-        populate: {
-          path: "product",
-          select: "_id name",
-        },
-      }),
-      req.query
-    );
+    const ordersQuery = new APIFeatures(Order.find({ user: id }), req.query);
 
     const orders = await ordersQuery.filter().sort().limitFields().paginate()
       .query;
@@ -40,33 +32,48 @@ export const getUserOrders = catchAsync(
 
 export const addOrder = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    const { cartItems } = req.body;
-    const userId = res.locals.user._id;
+    const cartItems = req.body.cartItems.map(
+      (id: string) => new mongoose.Types.ObjectId(id)
+    );
+    const userId = new mongoose.Types.ObjectId(res.locals.user._id);
+    const { email } = res.locals.user;
 
-    const user = await userModel.findOne({ _id: userId }).select("email");
-    if (!user) return next(new AppError("User not found.", 404));
+    const products = await CartItem.aggregate([
+      {
+        $match: {
+          _id: {
+            $in: cartItems,
+          },
+          user: new mongoose.Types.ObjectId(userId),
+          ordered: { $ne: true },
+        },
+      },
+      {
+        $project: {
+          _id: 1,
+          name: 1,
+          image: 1,
+          quantity: 1,
+          totalPrice: {
+            $multiply: [
+              "$totalPrice",
+              { $subtract: [1, { $divide: ["$discount", 100] }] },
+            ],
+          },
+        },
+      },
+    ]);
 
-    const cartItemsArray = !Array.isArray(cartItems) ? [cartItems] : cartItems;
-
-    const items = await CartItem.find({
-      _id: { $in: cartItemsArray },
-      user: userId,
-      ordered: { $ne: true },
-    }).populate({ path: "product", select: "price name" });
-    if (items.length !== cartItemsArray.length)
+    if (products.length !== cartItems.length)
       return next(new AppError("Please provide valid cart items.", 400));
 
     const order = await Order.create({
       user: userId,
-      products: cartItemsArray,
-      totalPrice: items.reduce((acc, item) => {
-        const priceBeforeDiscount =
-          (item.product as unknown as { price: number }).price * item.quantity;
-        const discountMultiplier = (100 - item.discount || 0) / 100;
-        const totalPrice = priceBeforeDiscount * discountMultiplier;
-
-        return acc + totalPrice;
-      }, 0),
+      products,
+      totalPrice: products.reduce(
+        (acc, product) => acc + product.totalPrice * product.quantity,
+        0
+      ),
     });
 
     const session = await stripe.checkout.sessions.create({
@@ -76,28 +83,25 @@ export const addOrder = catchAsync(
       locale: "auto",
       //TODO: SUCCESS URL
       //TODO: CANCEL URL
-      success_url: "https://docs.stripe.com/keys",
+      success_url: "http://localhost:5173",
       cancel_url: "https://www.google.com",
-      customer_email: user!.email,
-      line_items: items.map((item) => {
-        const priceBeforeDiscount = (
-          item.product as unknown as { price: number }
-        ).price;
-        const discountMultiplier = (100 - item.discount || 0) / 100;
-        const totalPrice = priceBeforeDiscount * discountMultiplier;
+      customer_email: email,
 
+      line_items: products.map((product) => {
         return {
           price_data: {
             currency: "usd",
-            unit_amount: totalPrice * 100,
+            unit_amount: (product.totalPrice * 100).toFixed(0),
             product_data: {
-              name: (item.product as unknown as { name: string }).name,
+              name: product.name,
             },
           },
-          quantity: item.quantity,
+          quantity: product.quantity,
         };
       }),
     });
+
+    await CartItem.updateMany({ _id: { $in: cartItems } }, { ordered: true });
 
     res.status(201).json({
       status: "success",
@@ -112,16 +116,21 @@ export const confirmDelivery = catchAsync(
     const { id } = req.params;
 
     const order = await Order.findOneAndUpdate(
-      { _id: id, user: res.locals.user._id },
+      {
+        _id: id,
+        user: res.locals.user._id,
+        status: { $in: ["pending", "shipped"] },
+      },
       { status: "delivered", deliveredAt: Date.now() },
       { new: true }
-    ).select("products");
+    );
 
     if (!order) return next(new AppError("Order not found.", 404));
 
-    const updated = await Promise.all(
+    await Promise.all(
       order.products.map((product: any) => {
-        const productId = product.toString();
+        const productId = product._id.toString();
+
         return cartItemModel.findOneAndUpdate(
           { _id: productId },
           { status: "delivered" },
