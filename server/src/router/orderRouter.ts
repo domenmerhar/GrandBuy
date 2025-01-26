@@ -8,13 +8,23 @@ import {
 } from "../controllers/orderController";
 import { cancelOrder, shipOrder } from "../controllers/cartController";
 import { validate } from "../utils/validate";
-import { param } from "express-validator";
+import { body, param } from "express-validator";
 
 const orderRouter = express.Router();
 
 orderRouter.use(protect);
 
-orderRouter.route("/").post(restrictTo("user"), addOrder);
+orderRouter
+  .route("/")
+  .post(
+    restrictTo("user"),
+    validate([
+      body("cartItems")
+        .isArray({ min: 1 })
+        .withMessage("Please provide an array."),
+    ]),
+    addOrder
+  );
 
 orderRouter.route("/user").get(restrictTo("user"), getUserOrders);
 
