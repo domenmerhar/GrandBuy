@@ -5,6 +5,7 @@ import {
   confirmDelivery,
   getSellerOrders,
   getUserOrders,
+  getUserOrdersCount,
 } from "../controllers/orderController";
 import { cancelOrder, shipOrder } from "../controllers/cartController";
 import { validate } from "../utils/validate";
@@ -27,6 +28,7 @@ orderRouter
   );
 
 orderRouter.route("/user").get(restrictTo("user"), getUserOrders);
+orderRouter.route("/user/count").get(restrictTo("user"), getUserOrdersCount);
 
 orderRouter.route("/user/:id/confirmDelivery").patch(
   validate([
