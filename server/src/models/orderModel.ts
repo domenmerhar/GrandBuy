@@ -35,6 +35,12 @@ const orderSchema = new Schema<Order>({
         required: [true, "Please provide a cart item ID."],
       },
 
+      product: {
+        type: Schema.Types.ObjectId,
+        ref: "Product",
+        required: [true, "Please provide a product ID."],
+      },
+
       name: {
         type: String,
         required: [true, "Please provide a product name."],
