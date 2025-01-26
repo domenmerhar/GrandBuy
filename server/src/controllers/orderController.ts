@@ -28,6 +28,20 @@ export const getUserOrders = catchAsync(
   }
 );
 
+export const getUserOrdersCount = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const id = res.locals.user._id;
+
+    const ordersQuery = new APIFeatures(Order.find({ user: id }), req.query);
+    const ordersCount = await ordersQuery
+      .filter()
+      .sort()
+      .query.countDocuments();
+
+    res.status(200).json({ status: "success", data: { ordersCount } });
+  }
+);
+
 //TODO: ADMIN CANT ORDER
 
 export const addOrder = catchAsync(
@@ -54,6 +68,7 @@ export const addOrder = catchAsync(
           name: 1,
           image: 1,
           quantity: 1,
+          product: 1,
           totalPrice: {
             $multiply: [
               "$totalPrice",
@@ -63,6 +78,8 @@ export const addOrder = catchAsync(
         },
       },
     ]);
+
+    console.log({ products });
 
     if (products.length !== cartItems.length)
       return next(new AppError("Please provide valid cart items.", 400));
