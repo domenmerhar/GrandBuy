@@ -19,7 +19,6 @@ export const getCartItemsSummary = async ({
     };
 
   const cartItemsStr = cartItems.sort().join(",");
-  console.log(cartItemsStr);
 
   const res = await fetch(toApiPath(`cart/summary/${cartItemsStr}`), {
     method: "GET",
