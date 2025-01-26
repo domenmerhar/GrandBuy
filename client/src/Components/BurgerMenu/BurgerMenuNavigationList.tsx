@@ -47,7 +47,10 @@ export const BurgerMenuNavigationList = () => {
         </NavigationTextButton>
       )}
 
-      <NavigationTextButton to="refund" iconColoring="stroke">
+      <NavigationTextButton
+        to="refund?filter=all&sort=oldest"
+        iconColoring="stroke"
+      >
         <HiArrowUturnLeft size={24} />
         Refund
       </NavigationTextButton>
