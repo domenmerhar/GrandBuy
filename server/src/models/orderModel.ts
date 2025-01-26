@@ -1,10 +1,26 @@
-import mongoose, { Schema } from "mongoose";
+import mongoose, { Schema, Types } from "mongoose";
 
 const dateInFuture = (val: Date) => {
   return val > new Date();
 };
 
-const orderSchema = new Schema({
+interface Order {
+  user: Types.ObjectId;
+  products: {
+    name: string;
+    image: string;
+    totalPrice: number;
+    quantity: number;
+  }[];
+  totalPrice: number;
+  status: "pending" | "cancelled" | "shipped" | "delivered";
+  estimatedDelivery?: Date;
+  createdAt?: Date;
+  deliveredAt?: Date;
+  paid: boolean;
+}
+
+const orderSchema = new Schema<Order>({
   user: {
     type: Schema.Types.ObjectId,
     ref: "User",
@@ -13,9 +29,32 @@ const orderSchema = new Schema({
 
   products: [
     {
-      type: Schema.Types.ObjectId,
-      ref: "CartItem",
-      required: [true, "Please provide a cart item ID."],
+      _id: {
+        type: Schema.Types.ObjectId,
+        ref: "CartItem",
+        required: [true, "Please provide a cart item ID."],
+      },
+
+      name: {
+        type: String,
+        required: [true, "Please provide a product name."],
+      },
+
+      image: {
+        type: String,
+        required: [true, "Please provide a product image."],
+      },
+
+      totalPrice: {
+        type: Number,
+        required: [true, "Please provide a total price."],
+      },
+
+      quantity: {
+        type: Number,
+        min: [1, "Quantity must be at least 1"],
+        required: [true, "Please provide a quantity."],
+      },
     },
   ],
 
