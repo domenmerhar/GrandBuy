@@ -28,8 +28,6 @@ export const CartPage = () => {
   const handleOrder = () => {
     const cartItems = searchParams.get("products")?.split(",");
 
-    console.log({ cartItems });
-
     if (!cartItems?.length)
       return toast.error("Please add items to cart first", { id: "add-order" });
 
