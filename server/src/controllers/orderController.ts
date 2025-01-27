@@ -132,21 +132,29 @@ export const confirmDelivery = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const { id } = req.params;
 
-    const order = await Order.findOneAndUpdate(
-      {
-        _id: id,
-        user: res.locals.user._id,
-        status: { $in: ["pending", "shipped"] },
-      },
-      { status: "delivered", deliveredAt: Date.now() },
-      { new: true }
-    );
+    const order = await Order.findOne({
+      _id: id,
+      user: res.locals.user._id,
+      status: { $in: ["pending", "shipped"] },
+    });
+
+    console.log({ order });
 
     if (!order) return next(new AppError("Order not found.", 404));
 
+    order.status = "delivered";
+    order.deliveredAt = new Date();
+
+    order.products = order?.products.map((product) => {
+      product.status = "delivered";
+      return product;
+    });
+
+    order.save();
+
     await Promise.all(
       order.products.map((product: any) => {
-        const productId = product._id.toString();
+        const productId = product.product;
 
         return cartItemModel.findOneAndUpdate(
           { _id: productId },
