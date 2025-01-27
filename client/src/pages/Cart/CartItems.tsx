@@ -17,15 +17,20 @@ export const CartItems = () => {
       _id,
       image,
       name,
-      totalPrice,
+      price,
       quantity,
       product,
+      shipping,
+      discount,
     }: CartItemInterface) => (
       <CartItem
         image={toApiFilesPath(image)}
         description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat animi nam aperiam earum explicabo ratione reiciendis, vel, a veritatis voluptatum molestias quaerat cumque, aut natus deleniti architecto iusto fugiat dignissimos."
         name={name}
-        price={toPrice(totalPrice, "USD")}
+        price={toPrice(
+          price * ((100 - discount) / 100) * quantity + shipping,
+          "USD"
+        )}
         quantity={quantity}
         key={_id}
         productId={product}
