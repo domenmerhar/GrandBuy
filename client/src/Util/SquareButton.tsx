@@ -16,6 +16,8 @@ export const SquareButton = styled.button<SquareButtonProps>`
   justify-content: center;
   align-items: center;
 
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
   color: var(--gray-0);
 
   border: none;
