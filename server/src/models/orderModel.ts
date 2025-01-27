@@ -11,6 +11,7 @@ interface Order {
     image: string;
     totalPrice: number;
     quantity: number;
+    status: ["pending", "cancelled", "shipped", "delivered", "refunded"];
   }[];
   totalPrice: number;
   status: "pending" | "cancelled" | "shipped" | "delivered";
@@ -60,6 +61,16 @@ const orderSchema = new Schema<Order>({
         type: Number,
         min: [1, "Quantity must be at least 1"],
         required: [true, "Please provide a quantity."],
+      },
+
+      status: {
+        type: String,
+        enum: {
+          values: ["pending", "cancelled", "shipped", "delivered", "refunded"],
+          message: "Please provide a valid status.",
+        },
+
+        default: "pending",
       },
     },
   ],
