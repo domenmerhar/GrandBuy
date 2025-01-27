@@ -18,7 +18,6 @@ export const useAddOrder = () => {
           query.queryKey[0] === "cartItemsCount",
       });
 
-      console.log("success", data);
       window.location.href = data?.session;
     },
   });
