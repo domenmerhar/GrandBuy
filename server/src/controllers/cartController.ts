@@ -375,8 +375,25 @@ export const redeemCouponOnCartItems = catchAsync(
         product: { $in: coupon.products },
         discount: { $lt: coupon.discount },
       },
-      { discount: coupon.discount },
-      { new: true }
+      [
+        {
+          $set: {
+            discount: coupon.discount,
+            totalPrice: {
+              $add: [
+                {
+                  $multiply: [
+                    "$price",
+                    { $divide: [{ $subtract: [100, coupon.discount] }, 100] },
+                    "$quantity",
+                  ],
+                },
+                "$shipping",
+              ],
+            },
+          },
+        },
+      ]
     );
 
     if (!cartItems.modifiedCount)
