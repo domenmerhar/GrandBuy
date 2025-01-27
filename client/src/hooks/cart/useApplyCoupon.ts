@@ -20,7 +20,8 @@ export const useApplyCoupon = () => {
 
       client.invalidateQueries({
         predicate: (query) =>
-          (query.queryKey[0] as string).includes("cartItemsSummary"),
+          (query.queryKey[0] as string).includes("cartItemsSummary") ||
+          (query.queryKey[0] as string).includes("cartItems"),
       });
     },
   });
