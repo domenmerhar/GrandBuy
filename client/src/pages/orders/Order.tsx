@@ -69,14 +69,25 @@ export const Order: FC<IOrder> = ({
       </RowInfo>
 
       {products.map(
-        ({ _id, product, image, name, quantity, totalPrice }: OrderProduct) => (
+        ({
+          _id: productId,
+          product,
+          image,
+          name,
+          quantity,
+          totalPrice,
+          status,
+        }: OrderProduct) => (
           <OrderItem
-            key={_id}
+            orderId={_id}
+            key={productId}
             productId={product}
             image={toApiFilesPath(image)}
             name={name}
             quantity={quantity}
             price={toPrice(totalPrice, "USD")}
+            status={status}
+            delivered={status === "delivered"}
           />
         )
       )}
