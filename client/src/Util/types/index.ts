@@ -181,6 +181,8 @@ export interface CartItemInterface {
   createdAt: string;
 }
 
+export type ItemStatus = OrderStatus | "refunded";
+
 export interface IOrder {
   _id: string;
   user: string;
@@ -201,4 +203,5 @@ export interface OrderProduct {
   totalPrice: number;
   quantity: number;
   id: string;
+  status: ItemStatus;
 }
