@@ -6,9 +6,10 @@ import { SearchBar } from "../../Util/SearchBar";
 import { BurgerMenu } from "../BurgerMenu/BurgerMenu";
 import { createPortal } from "react-dom";
 import { NavLink, Outlet } from "react-router-dom";
-import { useAuthContext } from "../../contexts/AuthContext";
 import { HiArrowRightStartOnRectangle } from "react-icons/hi2";
 import { NotficationCartButtons } from "./NotficationCartButtons";
+import { useMe } from "../../hooks/useMe";
+import { useAuthContext } from "../../contexts/AuthContext";
 
 const Placeholder = styled.div`
   height: 7.5rem;
@@ -47,11 +48,18 @@ const NavLinkHolder = styled(NavLink)`
 `;
 
 export const NavigationBar = () => {
+  const { clearAuthInfo } = useAuthContext();
   const [isOpen, setIsOpen] = useState(false);
-  const [{ role }] = useAuthContext();
+  const { data } = useMe();
+
+  const role = data?.data?.role;
 
   const menuHandler = () => {
     setIsOpen((prev) => !prev);
+  };
+
+  const handleLogout = () => {
+    clearAuthInfo();
   };
 
   return (
@@ -71,7 +79,7 @@ export const NavigationBar = () => {
                 menuHandler={menuHandler}
               />
             ) : (
-              <NavLink to="/login">
+              <NavLink to="/login" onClick={handleLogout}>
                 <ButtonWithNotifcations>
                   <HiArrowRightStartOnRectangle size={44} />
                 </ButtonWithNotifcations>
