@@ -17,7 +17,7 @@ const itemsPerPage = import.meta.env.VITE_PRODUCTS_PER_STEPPER;
 
 export const CartPage = () => {
   const { data, isLoading, isError } = useCartItemsCount();
-  const [{ JWT }] = useAuthContext();
+  const { JWT } = useAuthContext();
   const [searchParams] = useSearchParams();
   const { mutate } = useAddOrder();
 

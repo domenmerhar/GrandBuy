@@ -6,6 +6,7 @@ import { HistoryItem, HistoryResponse } from "../../Util/types";
 import { ProductCard } from "../../Util/ProductCard";
 import { toApiFilesPath } from "../../functions/toApiFilesPath";
 import { ProductGrid } from "../../Util/ProductGrid";
+import { useMe } from "../../hooks/useMe";
 
 const queryFn =
   (JWT: string) =>
@@ -16,7 +17,10 @@ const queryFn =
   };
 
 export const HistoryPageInfiniteProducts = () => {
-  const [{ userId, JWT }] = useAuthContext();
+  const { JWT } = useAuthContext();
+  const { data: dataUser } = useMe();
+
+  const userId = dataUser?.data?._id;
 
   const data = useInfinite({
     queryKey: ["history", userId],

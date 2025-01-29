@@ -6,10 +6,13 @@ import { RoleSection } from "./RoleSection";
 import { PasswordSection } from "./PasswordSection";
 import { AccountSection } from "./AccountSection";
 import { UserImageBig } from "../../Util/UserImageBig";
-import { useAuthContext } from "../../contexts/AuthContext";
+import { useMe } from "../../hooks/useMe";
 
 export const SettingsPage = () => {
-  const [{ role }] = useAuthContext();
+  const { data } = useMe();
+
+  const role = data?.data?.role;
+
   return (
     <Content>
       <Column $alignItems="center" $gap="36px">

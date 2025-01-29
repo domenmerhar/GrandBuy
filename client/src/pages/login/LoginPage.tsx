@@ -42,7 +42,7 @@ const toastOptions = {
 };
 
 export const LoginPage = () => {
-  const [, setAuth] = useAuthContext();
+  const { setJWT } = useAuthContext();
   const [isError, setError] = useState<boolean>(false);
 
   const { mutate } = useMutation({
@@ -53,12 +53,7 @@ export const LoginPage = () => {
         return setError(true);
       }
 
-      setAuth({
-        userId: data?.data?.user?._id,
-        username: data?.data?.user?.username,
-        JWT: data?.token,
-        role: data?.data?.user?.role,
-      });
+      setJWT(data?.token);
 
       toast.success("Logged in successfully", toastOptions);
 

@@ -10,7 +10,7 @@ const InputHolder = styled(BlankCard)`
 `;
 
 export const CouponInput = () => {
-  const [{ JWT }] = useAuthContext();
+  const { JWT } = useAuthContext();
   const { mutate } = useApplyCoupon();
 
   return (

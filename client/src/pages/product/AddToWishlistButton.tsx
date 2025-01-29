@@ -25,7 +25,7 @@ const StyledAddToWishlistButton = styled.button<ButtonProps>`
 `;
 
 export const AddToWishlistButton = () => {
-  const [{ JWT }] = useAuthContext();
+  const { JWT } = useAuthContext();
   const { productId } = useParams<{ productId: string }>();
 
   const { mutate: addToWishlist } = useAddToWishlist(productId!);

@@ -68,7 +68,7 @@ export const OrderItem: FC<OrderItemProps> = ({
   delivered,
   status,
 }) => {
-  const [{ JWT }] = useAuthContext();
+  const { JWT } = useAuthContext();
   const { mutate } = useConfirmOrder();
 
   return (

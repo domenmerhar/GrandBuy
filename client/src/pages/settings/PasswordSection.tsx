@@ -8,7 +8,7 @@ import { useChangePassword } from "../../hooks/useChangePassword";
 import { useAuthContext } from "../../contexts/AuthContext";
 
 export const PasswordSection = () => {
-  const [{ JWT }] = useAuthContext();
+  const { JWT } = useAuthContext();
   const { mutate } = useChangePassword();
   const passwordRef = useRef<HTMLInputElement>(null);
   const confirmPasswordRef = useRef<HTMLInputElement>(null);

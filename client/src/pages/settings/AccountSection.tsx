@@ -13,7 +13,7 @@ import { useAuthContext } from "../../contexts/AuthContext";
 
 export const AccountSection = () => {
   const { data }: { data: { data: UserSettings } } = useMe();
-  const [{ JWT }] = useAuthContext();
+  const { JWT } = useAuthContext();
   const { mutate } = useUpdateMe();
 
   const firstNameRef = useRef<HTMLInputElement>(null);

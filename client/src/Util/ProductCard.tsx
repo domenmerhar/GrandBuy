@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { ProductCardProps } from "./types";
 import { toPrice } from "../functions/toPrice";
 import { Discount } from "./Discount";
-import { useAuthContext } from "../contexts/AuthContext";
+import { useMe } from "../hooks/useMe";
 
 const StyledProductCard = styled.div`
   text-decoration: none;
@@ -89,7 +89,9 @@ export const ProductCard: FC<ProductCardProps> = ({
   image,
   discount,
 }) => {
-  const [{ role }] = useAuthContext();
+  const { data } = useMe();
+
+  const role = data?.data?.role;
 
   return (
     <StyledProductCard>

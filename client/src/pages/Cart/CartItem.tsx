@@ -9,9 +9,9 @@ import { useAuthContext } from "../../contexts/AuthContext";
 import { useIncrementCartItem } from "../../hooks/cart/useIncrementCartItem";
 import { useDecrementCartItem } from "../../hooks/cart/useDecrementCartItem";
 import { useDeleteCartItem } from "../../hooks/cart/useDeleteCartItem";
-import { useUpdateCartItemQuantity } from "../../hooks/cart/useupdateCartItemQuantity";
 import { Link, useSearchParams } from "react-router-dom";
 import { CartItemButton } from "./CartItemButton";
+import { useUpdateCartItemQuantity } from "../../hooks/cart/useUpdateCartItemQuantity";
 
 const Image = styled.img`
   width: 14rem;
@@ -61,7 +61,7 @@ export const CartItem: FC<CartItemProps> = ({
   const [quantityState, setQuantityState] = useState<number>(quantity);
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const [{ JWT }] = useAuthContext();
+  const { JWT } = useAuthContext();
   const { mutate: increment } = useIncrementCartItem();
   const { mutate: decrement } = useDecrementCartItem();
   const { mutate: deleteItem } = useDeleteCartItem();

@@ -6,7 +6,7 @@ import { HiChevronDown, HiChevronUp } from "react-icons/hi";
 import { Modal } from "../../Util/Modal";
 import { useSearchParams } from "react-router-dom";
 import { ReviewAction } from "../../Util/ReviewAction";
-import { useAuthContext } from "../../contexts/AuthContext";
+import { useMe } from "../../hooks/useMe";
 
 const ReviewActionsRow = styled(Row)`
   font-size: 1.4rem;
@@ -26,7 +26,8 @@ export const ReviewActions: FC<ReviewActionsProps> = ({
   setShowReplies,
   likeCount,
 }) => {
-  const [{ role }] = useAuthContext();
+  const { data } = useMe();
+  const role = data?.data?.role;
   const id: string = "id1278203";
 
   const { setIsOpen } = Modal.useModalContext();

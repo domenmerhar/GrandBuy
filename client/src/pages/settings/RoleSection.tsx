@@ -10,7 +10,7 @@ import { useRequestSeller } from "../../hooks/useRequestSeller";
 import { useAuthContext } from "../../contexts/AuthContext";
 
 export const RoleSection = () => {
-  const [{ JWT }] = useAuthContext();
+  const { JWT } = useAuthContext();
   const { setIsOpen } = Modal.useModalContext();
   const { data }: { data: { data: UserSettings } } = useMe();
   const { mutate } = useRequestSeller();

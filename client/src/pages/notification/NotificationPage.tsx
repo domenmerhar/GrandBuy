@@ -11,6 +11,7 @@ import { InfiniteProducts } from "../../Components/InfiniteProducts";
 import { toDate } from "../../functions/toDate";
 import { useEffect } from "react";
 import { useQueryClient } from "@tanstack/react-query";
+import { useMe } from "../../hooks/useMe";
 
 const Grid = styled.div`
   display: grid;
@@ -22,9 +23,12 @@ const Grid = styled.div`
 `;
 
 export const NotificationPage = () => {
-  const [{ JWT, userId }] = useAuthContext();
+  const { JWT } = useAuthContext();
+  const { data: dataUser } = useMe();
   const [searchParams] = useSearchParams();
   const queryClient = useQueryClient();
+
+  const userId = dataUser?.data?._id;
 
   const type: NotificationType | "all" = ["message", "warning"].includes(
     searchParams.get("filter")!

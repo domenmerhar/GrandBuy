@@ -9,7 +9,7 @@ interface AddButtonProps {
 }
 
 export const AddButton: FC<AddButtonProps> = ({ productId }) => {
-  const [{ JWT }] = useAuthContext();
+  const { JWT } = useAuthContext();
   const { mutate } = useAddProductToCard();
 
   const handleClick = () => {
