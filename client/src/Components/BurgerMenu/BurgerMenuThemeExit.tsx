@@ -47,7 +47,7 @@ const IconNav = styled.button<IconNavProps>`
 
 export const BurgerMenuThemeExit = () => {
   const { mutate } = useLogout();
-  const [{ JWT }] = useAuthContext();
+  const { JWT } = useAuthContext();
 
   const handleThemeChange = () => {};
 
