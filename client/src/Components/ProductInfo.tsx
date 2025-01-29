@@ -6,11 +6,12 @@ import { Stepper } from "../Util/Stepper";
 import { Button } from "../Util/Button";
 import { FC } from "react";
 import { Discount } from "../Util/Discount";
-import { useAuthContext } from "../contexts/AuthContext";
 import { Row } from "../Util/Row";
 import { AddToWishlistButton } from "../pages/product/AddToWishlistButton";
 import { useAddProductToCard } from "../hooks/cart/useAddProductToCard";
 import { useParams, useSearchParams } from "react-router-dom";
+import { useAuthContext } from "../contexts/AuthContext";
+import { useMe } from "../hooks/useMe";
 
 const StyledProductInfo = styled(Column)`
   min-width: 25rem;
@@ -56,7 +57,10 @@ export const ProductInfo: FC<ProductInfoProps> = ({
   uploaded,
   discount,
 }) => {
-  const [{ JWT, role }] = useAuthContext();
+  const { data } = useMe();
+  const { JWT } = useAuthContext();
+
+  const role = data?.data?.role;
 
   const [searchParams] = useSearchParams();
   const { productId } = useParams<{ productId: string }>();
