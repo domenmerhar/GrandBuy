@@ -1,6 +1,6 @@
 import { FC, ReactNode } from "react";
-import { useAuthContext } from "../contexts/AuthContext";
 import { Navigate } from "react-router-dom";
+import { useMe } from "../hooks/useMe";
 type UserRole = "admin" | "user" | "seller" | "";
 
 interface RouteProtectorProps {
@@ -12,7 +12,9 @@ export const RouteProtector: FC<RouteProtectorProps> = ({
   allowedRoles,
   children,
 }) => {
-  const [{ role }] = useAuthContext();
+  const { data } = useMe();
+
+  const role = data?.data?.role;
 
   return !allowedRoles.includes(role) ? (
     <Navigate to={"/"} replace relative="path" />
