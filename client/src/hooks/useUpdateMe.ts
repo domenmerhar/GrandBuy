@@ -1,11 +1,13 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { updateMe } from "../api/user/updateMe";
 import toast from "react-hot-toast";
-import { useAuthContext } from "../contexts/AuthContext";
+import { useMe } from "./useMe";
 
 export const useUpdateMe = () => {
   const queryClient = useQueryClient();
-  const [{ userId }] = useAuthContext();
+  const { data: userData } = useMe();
+
+  const userId = userData?.data?._id;
 
   const { mutate } = useMutation({
     mutationFn: updateMe,
