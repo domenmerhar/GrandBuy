@@ -8,10 +8,13 @@ import { NavigationTextButton } from "../../Util/NavigationTextButton";
 import { HiArrowUturnLeft, HiOutlineCog8Tooth } from "react-icons/hi2";
 import { BiPackage } from "react-icons/bi";
 import { Column } from "../../Util/Column";
-import { useAuthContext } from "../../contexts/AuthContext";
+import { useMe } from "../../hooks/useMe";
 
 export const BurgerMenuNavigationList = () => {
-  const [{ userId, role }] = useAuthContext();
+  const { data } = useMe();
+
+  const userId = data?.data?._id;
+  const role = data?.data?.role;
 
   return (
     <Column $gap="1.2rem">
