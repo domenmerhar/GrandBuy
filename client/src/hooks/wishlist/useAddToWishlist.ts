@@ -1,11 +1,13 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { addToWishlist } from "../../api/wishlist/addToWishlist";
 import toast from "react-hot-toast";
-import { useAuthContext } from "../../contexts/AuthContext";
+import { useMe } from "../useMe";
 
 export const useAddToWishlist = (productId: string) => {
-  const [{ userId }] = useAuthContext();
+  const { data } = useMe();
   const client = useQueryClient();
+
+  const userId = data?.data?._id;
 
   return useMutation({
     mutationFn: addToWishlist,

@@ -2,10 +2,14 @@ import { useQuery } from "@tanstack/react-query";
 import { getCartItems } from "../../api/cart/getCartItems";
 import { useAuthContext } from "../../contexts/AuthContext";
 import { useSearchParams } from "react-router-dom";
+import { useMe } from "../useMe";
 
 export const useCartItems = () => {
   const [searchParams] = useSearchParams();
-  const [{ JWT, userId }] = useAuthContext();
+  const { JWT } = useAuthContext();
+  const { data } = useMe();
+
+  const userId = data?.data?._id;
 
   const page = Number(searchParams.get("page")) || 1;
   const from = Number(searchParams.get("from")) || undefined;

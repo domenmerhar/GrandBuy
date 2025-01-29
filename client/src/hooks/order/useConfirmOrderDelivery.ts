@@ -1,13 +1,15 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
-import { useAuthContext } from "../../contexts/AuthContext";
 import { confirmOrderDelivery } from "../../api/order/confirmOrderDelivery";
 import { useSearchParams } from "react-router-dom";
+import { useMe } from "../useMe";
 
 export const useConfirmOrder = () => {
   const [searchParams] = useSearchParams();
-  const [{ userId }] = useAuthContext();
+  const { data: userData } = useMe();
   const client = useQueryClient();
+
+  const userId = userData?.data?._id;
 
   const page = Number(searchParams.get("page")) || 1;
 
