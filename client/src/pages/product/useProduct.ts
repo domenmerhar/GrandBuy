@@ -3,11 +3,15 @@ import { useParams } from "react-router-dom";
 import { getProduct } from "../../api/product/getProduct";
 import { useAuthContext } from "../../contexts/AuthContext";
 import { useEffect } from "react";
+import { useMe } from "../../hooks/useMe";
 
 export const useProduct = () => {
   const { productId } = useParams();
-  const [{ JWT, userId }] = useAuthContext();
+  const { JWT } = useAuthContext();
+  const { data: dataUser } = useMe();
   const client = useQueryClient();
+
+  const userId = dataUser?.data?._id;
 
   if (!productId) throw new Error("No productId found in URL");
 
