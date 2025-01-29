@@ -2,8 +2,8 @@ import { FC } from "react";
 import styled from "styled-components";
 import { Backdrop } from "../../Util/Backdrop";
 import { BurgerMenuThemeExit } from "./BurgerMenuThemeExit";
-import { useAuthContext } from "../../contexts/AuthContext";
 import { BurgerMenuNavigationList } from "./BurgerMenuNavigationList";
+import { useMe } from "../../hooks/useMe";
 
 const StyledBurgerMenu = styled.aside`
   height: 93vh;
@@ -46,7 +46,9 @@ interface BurgerMenuProps {
 }
 
 export const BurgerMenu: FC<BurgerMenuProps> = ({ isOpen, handleClose }) => {
-  const [{ username }] = useAuthContext();
+  const { data } = useMe();
+
+  const username = data?.data?.username;
 
   return (
     isOpen && (
