@@ -1,52 +1,35 @@
+import { useQueryClient } from "@tanstack/react-query";
 import { createContext, FC, useContext, useEffect, useState } from "react";
-import { useAuth } from "../hooks/useAuth";
 
-interface AuthInfo {
-  userId: string;
-  username: string;
+const AuthContext = createContext<{
   JWT: string;
-  role: "admin" | "user" | "seller" | "";
-}
-
-const AuthContext = createContext<
-  [AuthInfo, React.Dispatch<React.SetStateAction<AuthInfo>>, () => void] | null
->(null);
+  setJWT: React.Dispatch<React.SetStateAction<string>>;
+  clearAuthInfo: () => void;
+} | null>(null);
 
 interface AuthProviderProps {
   children: React.ReactNode | React.ReactNode[];
 }
 
 export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
-  const { authStorage, setAuthStorage } = useAuth();
-  const [authInfo, setAuthInfo] = useState<AuthInfo>({
-    userId: "",
-    username: "",
-    JWT: "",
-    role: "",
-  });
+  const client = useQueryClient();
+  const [JWT, setJWT] = useState<string>(
+    () => localStorage.getItem("JWT") || ""
+  );
+
+  useEffect(() => {
+    if (!JWT) return;
+    localStorage.setItem("JWT", JWT);
+  }, [JWT]);
 
   const clearAuthInfo = () => {
-    setAuthInfo({ JWT: "", userId: "", username: "", role: "" });
-    setAuthStorage("");
+    setJWT("");
+    client.invalidateQueries({ queryKey: ["user-settings", JWT] });
+    localStorage.removeItem("JWT");
   };
 
-  console.log({ authInfo });
-
-  // Initialize authInfo
-  useEffect(() => {
-    if (!authStorage) return;
-
-    //TODO fetch user info from server
-    setAuthInfo({ JWT: authStorage, role: "user", userId: "", username: "" });
-  }, [setAuthInfo, authStorage]);
-
-  // Update authStorage when authInfo.JWT changes
-  useEffect(() => {
-    setAuthStorage(authInfo.JWT);
-  }, [authStorage, setAuthStorage, authInfo.JWT]);
-
   return (
-    <AuthContext.Provider value={[authInfo, setAuthInfo, clearAuthInfo]}>
+    <AuthContext.Provider value={{ JWT, setJWT, clearAuthInfo }}>
       {children}
     </AuthContext.Provider>
   );
