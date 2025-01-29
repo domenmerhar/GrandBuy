@@ -38,7 +38,7 @@ export const requestRefund = catchAsync(
       })
       .select("createdAt");
 
-    if (!order || order.createdAt < refundStartDate)
+    if (!order?.createdAt || order.createdAt < refundStartDate)
       return next(new AppError("You can't refund this item", 400));
 
     const refundRequest = await Refund.create({
