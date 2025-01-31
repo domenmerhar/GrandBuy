@@ -30,6 +30,7 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { AuthProvider } from "./contexts/AuthContext";
 import { RouteProtector } from "./Components/RouteProtector";
 import { Toaster } from "react-hot-toast";
+import { SignupConfirmPage } from "./pages/signupConfirm/SignUpConfirmPage";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -206,6 +207,10 @@ function App() {
                 </Route>
 
                 <Route path="/signup" element={<SignupPage />} />
+                <Route
+                  path="/signup/confirm/:email"
+                  element={<SignupConfirmPage />}
+                />
                 <Route path="/login" element={<LoginPage />} />
 
                 <Route path="*" element={<h1>404 Not Found</h1>} />
