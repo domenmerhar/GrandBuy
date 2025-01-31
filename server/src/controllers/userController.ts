@@ -69,7 +69,7 @@ export const signup = catchAsync(
     await new Email(email).sendConfirmEmail(verificationCode);
 
     res.status(201).json({
-      status: "sucess",
+      status: "success",
       message: `Your verification code has been sent to ${email}. Please visit user/confirm-email/<YOUR VERIFICATION CODE HERE> to verify your email.`,
     });
   }
@@ -162,7 +162,8 @@ export const updateMe = catchAsync(
       });
 
       const oldUser = await User.findById(id);
-      if (oldUser?.image) await deleteFile(oldUser.image);
+
+      if (oldUser?.image) await deleteFile(String(oldUser.image));
     }
 
     const updateObj = {
