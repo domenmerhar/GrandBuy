@@ -80,10 +80,10 @@ export const LoginPage = () => {
         <Logo $color="orange" />
 
         <InputWithLabel
-          id="username"
-          placeholder="Username"
+          id="email"
+          placeholder="Email"
           type="text"
-          title="Username"
+          title="Email"
           ref={usernameRef}
           error={isError}
         />
