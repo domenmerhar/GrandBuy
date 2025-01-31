@@ -4,7 +4,8 @@ import { Button } from "../../Util/Button";
 import { StyledLink } from "../../Util/Link";
 import { InputWithLabel } from "../../Util/InputWithLabel";
 import { AuthContainer } from "../../Util/AuthContainer";
-import { useNavigate } from "react-router-dom";
+import { useSignup } from "../../hooks/useSignup";
+import toast from "react-hot-toast";
 
 const Form = styled.form`
   display: flex;
@@ -37,10 +38,24 @@ const P = styled.p`
 `;
 
 export const SignupPage = () => {
-  const navigate = useNavigate();
+  const { mutate } = useSignup();
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    navigate("/");
+
+    const email = (e.currentTarget.elements[0] as HTMLInputElement).value;
+    const username = (e.currentTarget.elements[1] as HTMLInputElement).value;
+    const password = (e.currentTarget.elements[2] as HTMLInputElement).value;
+    const confirmPassword = (e.currentTarget.elements[3] as HTMLInputElement)
+      .value;
+
+    if (!email || !username || !password || !confirmPassword)
+      return toast.error("Please fill in all fields.", { id: "signup" });
+
+    if (password !== confirmPassword)
+      return toast.error("Passwords don't match.", { id: "signup" });
+
+    mutate({ email, username, password, confirmPassword });
   };
 
   return (
