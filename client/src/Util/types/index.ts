@@ -205,3 +205,33 @@ export interface OrderProduct {
   id: string;
   status: ItemStatus;
 }
+
+export interface RefundUser {
+  _id: string;
+  cartItemId: {
+    _id: string;
+    user: {
+      _id: string;
+      email: string;
+    };
+    name: string;
+    quantity: number;
+  };
+  reason: string;
+  status: RefundStatus;
+  user: string;
+  seller: {
+    _id: string;
+    email: string;
+  };
+  createdAt: string;
+  resolvedAt: string;
+  resolvedMessage: string;
+}
+
+export interface IRefundPage {
+  status: APIstatus;
+  data: { refunds: RefundUser[] };
+  length: number;
+  nextItem: string | null;
+}
