@@ -6,7 +6,7 @@ import AppError from "../utils/AppError";
 import Refund from "../models/refundModel";
 import APIFeatures from "../utils/ApiFeatures";
 import notificationModel from "../models/notificationModel";
-import { ObjectId } from "mongoose";
+import mongoose, { ObjectId } from "mongoose";
 
 const refundPeriodDays = parseInt(process.env.REFUND_PERIOD_DAYS || "60", 10); // Default to 60 days
 const refundPeriod = refundPeriodDays * 24 * 60 * 60 * 1000; // Convert days to milliseconds
@@ -34,9 +34,9 @@ export const requestRefund = catchAsync(
     const order = await orderModel
       .findOne({
         user: userId,
-        products: cartItem._id,
+        products: { $elemMatch: { _id: id } },
       })
-      .select("createdAt");
+      .select("createdAt products");
 
     if (!order?.createdAt || order.createdAt < refundStartDate)
       return next(new AppError("You can't refund this item", 400));
@@ -47,6 +47,15 @@ export const requestRefund = catchAsync(
       user: userId,
       seller: (cartItem.product as unknown as { user: ObjectId }).user,
     });
+
+    cartItem.status = "pending";
+    await cartItem.save();
+
+    order.products.forEach((product) => {
+      if (product?._id?.toString() === id) product.status = "pending";
+    });
+
+    await order.save();
 
     res.status(201).json({ status: "success", refundRequest });
   }
@@ -59,7 +68,8 @@ export const getMyRefunds = catchAsync(
     const refunds = await new APIFeatures(
       Refund.find({
         user: userId,
-      }),
+      }).populate({ path: "cartItemId", select: "name quantity" }),
+
       req.query
     )
       .sort()
@@ -107,7 +117,7 @@ export const cancelRefund = catchAsync(
         _id: refund.cartItemId,
       },
       {
-        status: "refunded",
+        status: "delivered",
       },
       { new: true }
     );
@@ -140,15 +150,14 @@ export const respondToRefund = catchAsync(
     );
     if (!refund) return next(new AppError("No refund found with that ID", 404));
 
-    let carItem;
-    if (status === "approved")
-      carItem = await cartItemModel.findOneAndUpdate(
-        {
-          _id: refund.cartItemId,
-        },
-        { status: "refunded" },
-        { new: true }
-      );
+    let cartItem;
+    cartItem = await cartItemModel.findOneAndUpdate(
+      {
+        _id: refund.cartItemId,
+      },
+      { status: status === "approved" ? "refunded" : "delivered" },
+      { new: true }
+    );
 
     await notificationModel.create({
       user: refund.user,
