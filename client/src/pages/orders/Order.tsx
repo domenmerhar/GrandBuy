@@ -70,7 +70,7 @@ export const Order: FC<IOrder> = ({
 
       {products.map(
         ({
-          _id: productId,
+          _id: cartItemId,
           product,
           image,
           name,
@@ -80,7 +80,8 @@ export const Order: FC<IOrder> = ({
         }: OrderProduct) => (
           <OrderItem
             orderId={_id}
-            key={productId}
+            cartItemId={cartItemId}
+            key={cartItemId}
             productId={product}
             image={toApiFilesPath(image)}
             name={name}
