@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import { Content } from "../../Util/Content";
-import { RefundCard } from "./RefundCard";
-import { IOption, IRefundPage, Refund } from "../../Util/types";
+import { IOption, IRefundPage, RefundUser } from "../../Util/types";
 import { FilterSortHeader } from "../../Util/FilterSortHeader";
 import { useInfinite } from "../../hooks/useInfinite";
 import { getUserRefunds } from "../../api/refund/getUserRefunds";
@@ -9,6 +8,8 @@ import { useAuthContext } from "../../contexts/AuthContext";
 import { useSearchParams } from "react-router-dom";
 import { InfiniteProducts } from "../../Components/InfiniteProducts";
 import { useMe } from "../../hooks/useMe";
+import { RefundCardUser } from "./RefundCardUser";
+import { toDate } from "../../functions/toDate";
 
 const selectOptions: IOption[] = [
   { value: "oldest", name: "Sort by age (oldest)" },
@@ -40,7 +41,7 @@ export const RefundPage = () => {
 
   const filter = searchParams.get("filter") || "all";
   const sort =
-    searchParams.get("sort") === "+createdAt" ? "+createdAt" : "-createdAt";
+    searchParams.get("sort") === "youngest" ? "+createdAt" : "-createdAt";
 
   const data = useInfinite({
     queryKey: ["userRefunds", userId, filter, sort],
@@ -68,23 +69,19 @@ export const RefundPage = () => {
         container={Grid}
         renderFn={(page: IRefundPage) =>
           page.data.refunds.map(
-            ({
-              _id,
-              createdAt,
-              reason,
-              cartItemId,
-              status,
-              seller,
-            }: Refund) => <RefundCard key={_id} />
+            ({ _id, createdAt, reason, cartItemId, status }: RefundUser) => (
+              <RefundCardUser
+                key={_id}
+                date={toDate(createdAt)}
+                productName={cartItemId?.name}
+                quantity={cartItemId?.quantity}
+                reason={reason}
+                status={status}
+              />
+            )
           )
         }
       />
-      {/* <Grid>
-        <RefundCard />
-        <RefundCard />
-        <RefundCard />
-        <RefundCard />
-      </Grid> */}
     </Content>
   );
 };
