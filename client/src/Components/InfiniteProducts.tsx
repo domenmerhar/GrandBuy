@@ -24,6 +24,8 @@ export const InfiniteProducts = forwardRef<
 
   const Container = container;
 
+  if (!isLoading && !error && !data?.pages?.length) return null;
+
   return (
     <>
       <Container>
