@@ -9,6 +9,7 @@ import { HiArrowUturnLeft } from "react-icons/hi2";
 import { useConfirmOrder } from "../../hooks/order/useConfirmOrderDelivery";
 import { useAuthContext } from "../../contexts/AuthContext";
 import { ItemStatus } from "../../Util/types";
+import { useRequestRefund } from "../../hooks/refund/useRequestRefund";
 
 const StyledOrderItem = styled(Row)`
   & div:nth-child(3) {
@@ -49,6 +50,7 @@ const Quantity = styled.p``;
 
 interface OrderItemProps {
   orderId: string;
+  cartItemId: string;
   image: string;
   name: string;
   price: string;
@@ -60,6 +62,7 @@ interface OrderItemProps {
 
 export const OrderItem: FC<OrderItemProps> = ({
   orderId,
+  cartItemId,
   image,
   name,
   price,
@@ -69,7 +72,13 @@ export const OrderItem: FC<OrderItemProps> = ({
   status,
 }) => {
   const { JWT } = useAuthContext();
-  const { mutate } = useConfirmOrder();
+  const { mutate: confirmOrder } = useConfirmOrder();
+  const { mutate: requestRefund } = useRequestRefund();
+
+  const reason = "test";
+
+  const handleConfirmOrder = () => confirmOrder({ JWT, orderId });
+  const handleRequestRefund = () => requestRefund({ JWT, cartItemId, reason });
 
   return (
     <ExpandingList>
@@ -93,15 +102,17 @@ export const OrderItem: FC<OrderItemProps> = ({
           </ExpandingList.Button>
         )}
 
+        {`refund status: ${status}`}
+
         <ExpandingList.List>
           <ExpandingList.Ul>
             {!delivered ? (
-              <ExpandingList.Li onClick={() => mutate({ JWT, orderId })}>
+              <ExpandingList.Li onClick={handleConfirmOrder}>
                 <HiOutlineCheck />
                 Confirm order delivery
               </ExpandingList.Li>
             ) : status !== "refunded" ? (
-              <ExpandingList.Li>
+              <ExpandingList.Li onClick={handleRequestRefund}>
                 <HiArrowUturnLeft />
                 Refund item
               </ExpandingList.Li>
