@@ -235,3 +235,6 @@ export interface IRefundPage {
   length: number;
   nextItem: string | null;
 }
+
+export type SortCreatedAt = "+createdAt" | "-createdAt";
+export type SortDiscount = "+discount" | "-discount";
