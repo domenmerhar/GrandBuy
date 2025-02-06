@@ -6,7 +6,7 @@ interface LogoProps {
 }
 
 const LogoHolder = styled.div<LogoProps>`
-  ${({ $color }) => $color === "white" && "color: var(--gray-0);"}
+  ${({ $color }) => $color === "white" && "color: var(--gray-1);"}
 
   ${({ $color }) =>
     $color === "orange" &&
