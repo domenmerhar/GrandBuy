@@ -7,7 +7,7 @@ import { useMe } from "../../hooks/useMe";
 
 const StyledBurgerMenu = styled.aside`
   height: 93vh;
-  background-color: var(--gray-9);
+  background-color: var(--gray-light-9);
   position: fixed;
   right: 0;
   top: 75px;
@@ -17,6 +17,11 @@ const StyledBurgerMenu = styled.aside`
   display: flex;
   gap: 3.2rem;
   flex-direction: column;
+
+  body.dark-mode & * {
+    color: var(--gray-light-2);
+    stroke: var(--gray-light-2);
+  }
 `;
 
 const UserHolder = styled.div`
@@ -33,7 +38,6 @@ const UserImage = styled.img`
 `;
 
 const UserText = styled.p`
-  color: var(--gray-2);
   letter-spacing: 1px;
   font-weight: 600;
   text-transform: capitalize;
