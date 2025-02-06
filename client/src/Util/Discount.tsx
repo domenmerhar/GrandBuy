@@ -10,7 +10,7 @@ export const Discount = styled.p`
   top: -25px;
 
   background-color: var(--red);
-  color: var(--gray-0);
+  color: var(--gray-light-0);
 
   rotate: 30deg;
   height: 5rem;
