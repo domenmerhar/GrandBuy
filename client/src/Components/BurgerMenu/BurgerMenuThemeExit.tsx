@@ -66,7 +66,7 @@ export const BurgerMenuThemeExit = () => {
         {darkMode ? <HiOutlineSun /> : <HiOutlineMoon />}
       </IconNav>
 
-      <IconNav $iconColoring="fill" onClick={handleExit}>
+      <IconNav onClick={handleExit}>
         <HiArrowRightStartOnRectangle size={48} />
       </IconNav>
     </ThemeExitHolder>
