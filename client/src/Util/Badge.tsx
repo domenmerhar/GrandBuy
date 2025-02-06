@@ -13,6 +13,11 @@ export const Badge = styled.span<BadgeProps>`
   ${({ $color }) => $color === "yellow" && "background-color: var(--yellow);"}
 
   color: var(--gray-0);
+
+  body.dark-mode & {
+    color: var(--gray-7);
+  }
+
   text-transform: uppercase;
   font-weight: ${({ $color }) => ($color === "red" ? 600 : 500)};
   letter-spacing: 0.2px;
