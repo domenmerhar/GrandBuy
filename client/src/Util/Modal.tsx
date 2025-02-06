@@ -63,7 +63,7 @@ const Header = styled.div`
   overflow: hidden;
   min-height: 4.8rem;
 
-  padding: 0.4rem 0.6rem;
+  padding: 0.8rem 1.2rem;
 `;
 
 const Title = styled.h1`
@@ -73,7 +73,7 @@ const Title = styled.h1`
 `;
 
 const Content = styled.div`
-  margin: 0.4rem 0.6rem;
+  margin: 0.8rem 1.2rem;
   height: 100%;
   font-weight: 600;
 
