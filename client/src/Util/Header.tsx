@@ -13,7 +13,8 @@ export const Header = styled.h1<HeaderProps>`
   background-clip: text;
   -webkit-text-fill-color: transparent;`}
 
-  ${({ $color }) => $color === "white" && "color: var(--gray-0);"}
+  ${({ $color }) => $color === "white" && `color: var(--gray-light-0);`}
+
 
   font-size: ${({ $size }) =>
     $size === "large" ? "6.4rem" : $size === "medium" ? "4.8rem" : "3.2rem"};
