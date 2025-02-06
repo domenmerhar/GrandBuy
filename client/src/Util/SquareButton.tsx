@@ -8,17 +8,17 @@ interface SquareButtonProps {
 export const SquareButton = styled.button<SquareButtonProps>`
   ${({ $color }) =>
     $color === "orange" &&
-    "background-image: linear-gradient(120deg, var(--orange-6), var(--orange-5));"}
+    `background-image: linear-gradient(120deg, var(--orange-6), var(--orange-5));`}
 
   ${({ $color }) => $color === "red" && "background-color: var(--red)"};
+
+  ${({ $color }) => $color === "white" && "background-color: var(--gray-2)"};
 
   display: flex;
   justify-content: center;
   align-items: center;
 
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-
-  color: var(--gray-0);
 
   border: none;
   border-radius: 1rem;
@@ -40,7 +40,12 @@ export const SquareButton = styled.button<SquareButtonProps>`
 
   svg {
     ${({ $color }) =>
-      $color === "white" ? "color: var(--gray-7);" : "color: var(--gray-1);"}
+      $color === "white"
+        ? "color: var(--gray-7);"
+        : `color: var(--gray-3);
+      body.dark-mode & {
+        color: var(--gray-8);
+      }`}
 
     width: ${({ $size }) =>
       $size === "large" ? "4.2rem" : $size === "medium" ? "3.8rem" : "2.6rem"};
