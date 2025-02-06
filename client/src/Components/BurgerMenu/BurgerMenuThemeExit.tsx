@@ -1,8 +1,8 @@
-import { BiExit } from "react-icons/bi";
 import { HiOutlineMoon } from "react-icons/hi";
 import styled from "styled-components";
 import { useLogout } from "../../hooks/useLogout";
 import { useAuthContext } from "../../contexts/AuthContext";
+import { HiArrowRightStartOnRectangle } from "react-icons/hi2";
 
 const ThemeExitHolder = styled.div`
   margin-top: auto;
@@ -62,7 +62,7 @@ export const BurgerMenuThemeExit = () => {
       </IconNav>
 
       <IconNav $iconColoring="fill" onClick={handleExit}>
-        <BiExit size={48} />
+        <HiArrowRightStartOnRectangle size={48} />
       </IconNav>
     </ThemeExitHolder>
   );
