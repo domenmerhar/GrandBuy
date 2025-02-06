@@ -5,6 +5,7 @@ import { AppRouter } from "./AppRouter";
 import { AuthProvider } from "./contexts/AuthContext";
 import { LanguageProvider } from "./Util/LanguageContext";
 import { Toaster } from "react-hot-toast";
+import { DarkModeProvider } from "./contexts/DarkModeContext";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -24,7 +25,9 @@ function App() {
 
         <AuthProvider>
           <LanguageProvider>
-            <AppRouter />
+            <DarkModeProvider>
+              <AppRouter />
+            </DarkModeProvider>
           </LanguageProvider>
         </AuthProvider>
       </QueryClientProvider>
