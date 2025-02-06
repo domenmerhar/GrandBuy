@@ -16,13 +16,16 @@ export const BurgerMenuNavigationList = () => {
   const userId = data?.data?._id;
   const role = data?.data?.role;
 
+  const navigateTo = `/account/${role === "user" ? "user" : "seller"}/${userId}`;
+
   return (
     <Column $gap="1.2rem">
-      <NavigationTextButton to={`/account/user/${userId}`}>
-        <HiOutlineUser size={24} />
-        Account
-      </NavigationTextButton>
-
+      {role !== "admin" ? (
+        <NavigationTextButton to={navigateTo}>
+          <HiOutlineUser size={24} />
+          Account
+        </NavigationTextButton>
+      ) : null}
       <NavigationTextButton to="wishlist">
         <HiOutlineClipboardList size={24} />
         Wishlist
