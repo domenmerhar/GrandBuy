@@ -18,7 +18,7 @@ const Notification = styled.div`
   top: -1rem;
   z-index: 1;
   background-color: var(--red);
-  color: var(--gray-0);
+  color: var(--gray-light-0);
   border-radius: 50%;
   width: 3.6rem;
   height: 3.6rem;
