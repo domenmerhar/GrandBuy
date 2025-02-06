@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 export const ProductGrid = styled.div`
+  width: 100%;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(27rem, 27rem));
   justify-content: space-around;
