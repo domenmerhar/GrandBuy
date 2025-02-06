@@ -22,4 +22,9 @@ export const NakedInput = styled.input<NakedInputProps>`
 
   font-size: ${({ $fontSize }) => $fontSize || "2rem"};
   font-weight: ${({ $fontWeight }) => $fontWeight || "500"};
+
+  body.dark-mode & {
+    background-color: var(--gray-0);
+    color: var(--gray-4);
+  }
 `;
