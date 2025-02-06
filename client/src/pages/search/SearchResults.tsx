@@ -3,6 +3,7 @@ import { InfiniteProducts } from "../../Components/InfiniteProducts";
 import { useInfinite } from "../../hooks/useInfinite";
 import { getProducts } from "../../api/product/getProducts";
 import { ProductGrid } from "../../Util/ProductGrid";
+import { renderProduct } from "../../Util/renderProduct";
 
 export const SearchResults = () => {
   const { query } = useParams();
@@ -55,6 +56,7 @@ export const SearchResults = () => {
       isLoading={isLoading}
       ref={ref}
       container={ProductGrid}
+      renderFn={renderProduct}
     />
   );
 };

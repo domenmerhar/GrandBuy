@@ -3,6 +3,7 @@ import { useProduct } from "./useProduct";
 import { useInfinite } from "../../hooks/useInfinite";
 import { ProductGrid } from "../../Util/ProductGrid";
 import { InfiniteProducts } from "../../Components/InfiniteProducts";
+import { renderProduct } from "../../Util/renderProduct";
 
 const queryFn =
   (to: number) =>
@@ -40,6 +41,7 @@ export const ProductPageInfiniteProducts = () => {
       isLoading={isLoading}
       ref={ref}
       container={ProductGrid}
+      renderFn={renderProduct}
     />
   );
 };
