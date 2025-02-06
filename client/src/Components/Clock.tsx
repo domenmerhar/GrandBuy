@@ -25,7 +25,7 @@ const Timer = styled.div`
 
 const Span = styled.span`
   font-size: 1.6rem;
-  color: var(--gray-0);
+  color: var(--gray-light-0);
 `;
 
 const ClockTextHolder = styled.div`
@@ -35,7 +35,7 @@ const ClockTextHolder = styled.div`
 
   & > *:last-child {
     margin-top: -1.2rem;
-    color: var(--gray-2);
+    color: var(--gray-light-2);
   }
 `;
 
@@ -43,7 +43,7 @@ const ClockText = styled.span<ClockTextProps>`
   font-size: 4.8rem;
   font-weight: 600;
   color: ${({ $color }) =>
-    $color === "orange" ? "var(--orange-4)" : "var(--gray-0)"};
+    $color === "orange" ? "var(--orange-4)" : "var(--gray-light-0)"};
 `;
 
 export const Clock: FC<ClockProps> = ({ days, hours, minutes, seconds }) => {
