@@ -6,7 +6,7 @@ import { SearchBar } from "../../Util/SearchBar";
 import { BurgerMenu } from "../BurgerMenu/BurgerMenu";
 import { createPortal } from "react-dom";
 import { NavLink, Outlet } from "react-router-dom";
-import { HiArrowRightStartOnRectangle } from "react-icons/hi2";
+import { HiArrowRightEndOnRectangle } from "react-icons/hi2";
 import { NotficationCartButtons } from "./NotficationCartButtons";
 import { useMe } from "../../hooks/useMe";
 import { useAuthContext } from "../../contexts/AuthContext";
@@ -81,7 +81,7 @@ export const NavigationBar = () => {
             ) : (
               <NavLink to="/login" onClick={handleLogout}>
                 <ButtonWithNotifcations>
-                  <HiArrowRightStartOnRectangle size={44} />
+                  <HiArrowRightEndOnRectangle size={44} />
                 </ButtonWithNotifcations>
               </NavLink>
             )}
