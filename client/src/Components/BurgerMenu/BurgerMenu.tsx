@@ -18,6 +18,8 @@ const StyledBurgerMenu = styled.aside`
   gap: 3.2rem;
   flex-direction: column;
 
+  color: var(--gray-light-2);
+
   body.dark-mode & * {
     color: var(--gray-light-2);
     stroke: var(--gray-light-2);
