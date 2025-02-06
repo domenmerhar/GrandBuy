@@ -1,8 +1,9 @@
-import { HiOutlineMoon } from "react-icons/hi";
+import { HiOutlineMoon, HiOutlineSun } from "react-icons/hi";
 import styled from "styled-components";
 import { useLogout } from "../../hooks/useLogout";
 import { useAuthContext } from "../../contexts/AuthContext";
 import { HiArrowRightStartOnRectangle } from "react-icons/hi2";
+import { useDarkMode } from "../../contexts/DarkModeContext";
 
 const ThemeExitHolder = styled.div`
   margin-top: auto;
@@ -21,6 +22,11 @@ const IconNav = styled.button<IconNavProps>`
   background-color: transparent;
   border: none;
   transition: all 200ms;
+
+  & svg {
+    width: 4.8rem;
+    height: 4.8rem;
+  }
 
   &:hover * {
     transform: scale(1.05);
@@ -48,8 +54,7 @@ const IconNav = styled.button<IconNavProps>`
 export const BurgerMenuThemeExit = () => {
   const { mutate } = useLogout();
   const { JWT } = useAuthContext();
-
-  const handleThemeChange = () => {};
+  const { darkMode, toggleDarkMode } = useDarkMode();
 
   const handleExit = () => {
     mutate(JWT);
@@ -57,8 +62,8 @@ export const BurgerMenuThemeExit = () => {
 
   return (
     <ThemeExitHolder>
-      <IconNav onClick={handleThemeChange}>
-        <HiOutlineMoon size={48} />
+      <IconNav onClick={toggleDarkMode}>
+        {darkMode ? <HiOutlineSun /> : <HiOutlineMoon />}
       </IconNav>
 
       <IconNav $iconColoring="fill" onClick={handleExit}>
