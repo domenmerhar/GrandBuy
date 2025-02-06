@@ -6,7 +6,6 @@ import { SearchPage } from "./pages/search/SearchPage";
 import { ProductPage } from "./pages/product/ProductPage";
 import { AccountPage } from "./pages/account/AccountPage";
 import { ReviewReplyWindow } from "./pages/account/ReviewReplyWindow";
-import { SaleSection } from "./pages/main/SaleSection";
 import { RouteProtector } from "./Components/RouteProtector";
 import { WishlistPage } from "./pages/wishlist/WishlistPage";
 import { CartPage } from "./pages/Cart/CartPage";
@@ -25,6 +24,7 @@ import { OrdersDashboardPage } from "./pages/dashboard/orders/OrdersDashboardPag
 import { RefundDashboardPage } from "./pages/dashboard/refund/RefundDashboardPage";
 import { SettingsPage } from "./pages/settings/SettingsPage";
 import { CouponPage } from "./pages/dashboard/coupon/CouponPage";
+import { SellerProducts } from "./pages/account/SellerProducts";
 
 export const AppRouter = () => {
   return (
@@ -42,7 +42,10 @@ export const AppRouter = () => {
               element={<ReviewReplyWindow />}
             />
 
-            <Route path="/account/seller/:userId" element={<SaleSection />} />
+            <Route
+              path="/account/seller/:userId"
+              element={<SellerProducts />}
+            />
 
             <Route path="*" element={<Navigate to="/" replace />} index />
           </Route>
