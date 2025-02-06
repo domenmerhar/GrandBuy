@@ -7,7 +7,6 @@ const StyledTable = styled.table`
   border-collapse: collapse;
   text-align: center;
 
-  & th,
   & td {
     padding: 0.5rem;
   }
@@ -27,7 +26,7 @@ const Tr = styled.tr`
 `;
 
 const Th = styled.th`
-  padding: 1rem;
+  padding: 0.8rem 1.2rem;
   color: var(--gray-0);
   text-transform: uppercase;
 `;
@@ -42,11 +41,13 @@ export const Table: FC<TableProps> & {
 } = ({ headers, children }) => {
   return (
     <StyledTable>
-      <Header>
-        {headers.map((header) => (
-          <Th key={header}>{header}</Th>
-        ))}
-      </Header>
+      <tbody>
+        <Header>
+          {headers.map((header) => (
+            <Th key={header}>{header}</Th>
+          ))}
+        </Header>
+      </tbody>
 
       {children}
     </StyledTable>
