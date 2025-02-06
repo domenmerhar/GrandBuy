@@ -34,7 +34,7 @@ export const Coupons = () => {
 
   const data = useInfinite({
     queryFn,
-    queryKey: ["couponsSeller", userId],
+    queryKey: ["couponsSeller", userId, sort],
   });
 
   const renderFn = ({ data }: { data: { coupons: ICoupon[] } }) => {
