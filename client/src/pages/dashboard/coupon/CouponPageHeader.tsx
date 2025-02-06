@@ -9,7 +9,6 @@ const selectOptions = [
   { value: "oldest", name: "Sort by age (oldest)" },
   { value: "highest", name: "Sort by highest discount" },
   { value: "lowest", name: "Sort by lowest discount" },
-  { value: "all", name: "All" },
 ];
 
 export const CouponPageHeader = () => {
