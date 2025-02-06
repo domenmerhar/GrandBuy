@@ -11,6 +11,9 @@ const StyledHero = styled.div`
   background-position: 0% 50%;
   background-size: 120%;
 
+  display: flex;
+  align-items: center;
+
   @media (max-width: 85em) {
     background-position: 0% 0%;
     background-size: 160%;
@@ -30,9 +33,6 @@ const StyledHero = styled.div`
     background-position: 45% 0%;
     background-size: 315%;
   }
-
-  display: flex;
-  align-items: center;
 `;
 
 const ContentHolder = styled.div`
