@@ -26,15 +26,20 @@ export const BurgerMenuNavigationList = () => {
           Account
         </NavigationTextButton>
       ) : null}
-      <NavigationTextButton to="wishlist">
-        <HiOutlineClipboardList size={24} />
-        Wishlist
-      </NavigationTextButton>
 
-      <NavigationTextButton to="orders" iconColoring="fill">
-        <BiPackage size={24} />
-        Orders
-      </NavigationTextButton>
+      {role === "user" ? (
+        <NavigationTextButton to="wishlist">
+          <HiOutlineClipboardList size={24} />
+          Wishlist
+        </NavigationTextButton>
+      ) : null}
+
+      {role === "user" ? (
+        <NavigationTextButton to="orders" iconColoring="fill">
+          <BiPackage size={24} />
+          Orders
+        </NavigationTextButton>
+      ) : null}
 
       <NavigationTextButton to="history">
         <HiOutlineClock size={24} />
@@ -53,13 +58,15 @@ export const BurgerMenuNavigationList = () => {
         </NavigationTextButton>
       )}
 
-      <NavigationTextButton
-        to="refund?filter=all&sort=oldest"
-        iconColoring="stroke"
-      >
-        <HiArrowUturnLeft size={24} />
-        Refund
-      </NavigationTextButton>
+      {role === "user" ? (
+        <NavigationTextButton
+          to="refund?filter=all&sort=oldest"
+          iconColoring="stroke"
+        >
+          <HiArrowUturnLeft size={24} />
+          Refund
+        </NavigationTextButton>
+      ) : null}
     </Column>
   );
 };
