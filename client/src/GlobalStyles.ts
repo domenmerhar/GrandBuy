@@ -13,6 +13,17 @@ const GlobalStyles = createGlobalStyle`
   --gray-8: #343a40;
   --gray-9: #212529;
 
+  --gray-light-0: #f8f9fa;
+  --gray-light-1: #f1f3f5;
+  --gray-light-2: #e9ecef;
+  --gray-light-3: #dee2e6;
+  --gray-light-4: #ced4da;
+  --gray-light-5: #adb5bd;
+  --gray-light-6: #868e96;
+  --gray-light-7: #495057;
+  --gray-light-8: #343a40;
+  --gray-light-9: #212529;
+
   --orange-0: #fff4e6;
   --orange-1: #ffe8cc;
   --orange-2: #ffd8a8;
@@ -31,6 +42,19 @@ const GlobalStyles = createGlobalStyle`
 
   --skew: 5deg;
   --skew-negative: -5deg;
+}
+
+&body.dark-mode {
+  --gray-9: #f8f9fa;
+  --gray-8: #f1f3f5;
+  --gray-7: #e9ecef;
+  --gray-6: #dee2e6;
+  --gray-5: #ced4da;
+  --gray-4: #adb5bd;
+  --gray-3: #868e96;
+  --gray-2: #495057;
+  --gray-1: #343a40;
+  --gray-0: #212529;
 }
 
 *,
