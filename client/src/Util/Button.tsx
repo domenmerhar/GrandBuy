@@ -15,7 +15,12 @@ export const Button = styled.button<ButtonProps>`
   ${({ $color }) => $color === "green" && "background-color: var(--green);"}
 
   color: ${({ $color }) =>
-    $color === "orange" ? "var(--gray-0)" : "var(--gray-7)"};
+    $color === "orange"
+      ? `var(--gray-light-0); body.dark-mode & {
+    color: var(--gray-8); }`
+      : $color === "red"
+        ? "var(--gray-light-2);"
+        : "var(--gray-light-7);"};
 
   border: none;
   border-radius: ${({ $shape }) =>
