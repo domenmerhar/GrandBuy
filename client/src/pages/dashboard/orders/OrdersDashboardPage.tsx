@@ -17,9 +17,8 @@ const filterOptions = [
 ];
 
 const selectOptions = [
-  { value: "all", name: "All" },
-  { value: "oldest", name: "Sort by age (oldest)" },
   { value: "newest", name: "Sort by age (newest)" },
+  { value: "oldest", name: "Sort by age (oldest)" },
 ];
 
 const tableData: IOrderTable[] = [
