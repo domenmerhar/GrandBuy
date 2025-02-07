@@ -11,22 +11,30 @@ export const SellerNavigationButtons = () => {
         Overview
       </NavigationTextButton>
 
-      <NavigationTextButton to="reviews" variant="dark">
+      <NavigationTextButton to="reviews?sort=newest" variant="dark">
         <HiOutlineMicrophone size={24} />
         Reviews
       </NavigationTextButton>
 
-      <NavigationTextButton to="orders" variant="dark">
+      <NavigationTextButton to="orders?sort=newest" variant="dark">
         <BiPackage size={24} />
         Orders
       </NavigationTextButton>
 
-      <NavigationTextButton to="refund" iconColoring="stroke" variant="dark">
+      <NavigationTextButton
+        to="refund?sort=newest"
+        iconColoring="stroke"
+        variant="dark"
+      >
         <HiArrowUturnLeft size={24} />
         Refunds
       </NavigationTextButton>
 
-      <NavigationTextButton to="coupon" variant="dark" iconColoring="stroke">
+      <NavigationTextButton
+        to="coupon?sort=newest"
+        variant="dark"
+        iconColoring="stroke"
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
