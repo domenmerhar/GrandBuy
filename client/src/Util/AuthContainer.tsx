@@ -1,5 +1,6 @@
 import { FC } from "react";
 import styled from "styled-components";
+import { ThemeLanguageRow } from "../Components/ThemeLanguageRow";
 
 interface AuthContainerProps {
   children: React.ReactNode | React.ReactNode[];
@@ -63,6 +64,7 @@ export const AuthContainer: FC<AuthContainerProps> = ({ children }) => {
       <SkewedBackground />
       <ContentHolder>{children}</ContentHolder>
       <BackgroundImage />
+      <ThemeLanguageRow />
     </>
   );
 };
