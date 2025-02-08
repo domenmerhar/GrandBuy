@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { Header } from "../Util/Header";
 import { Button } from "../Util/Button";
-import { Countdown } from "./Countdown";
+import { Countdown } from "./Time/Countdown";
 
 const StyledHero = styled.div`
   position: relative;

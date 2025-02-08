@@ -1,10 +1,9 @@
 import styled from "styled-components";
-import { timeUntilMidnight } from "../functions/timeUntilMidnight";
 import { Clock } from "./Clock";
 import { useEffect, useState } from "react";
-import { iTime } from "../Util/types";
-import { getMonthDaysLeft } from "../functions/getMonthDaysLeft";
-
+import { iTime } from "../../Util/types";
+import { timeUntilMidnight } from "../../functions/timeUntilMidnight";
+import { getMonthDaysLeft } from "../../functions/getMonthDaysLeft";
 const StyledCountdown = styled.div`
   display: flex;
   flex-direction: column;
