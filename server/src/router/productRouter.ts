@@ -63,9 +63,9 @@ productRouter
     restrictTo("seller"),
     fileUpload({ createParentPath: true }),
     filesPayloadExists,
-    fileExtLimiterArr("images", [".png", ".jpg", ".jpeg"]),
+    fileExtLimiterArr("images", [".png", ".jpg", ".jpeg", ".webp", ".gif"]),
     fileExtLimiterOne("description", [".md"]),
-    fileExtLimiterOne("coverImage", [".png", ".jpg", ".jpeg"]),
+    fileExtLimiterOne("coverImage", [".png", ".jpg", ".jpeg", ".webp", ".gif"]),
     uploadProductFiles,
     createProduct
   );
@@ -187,9 +187,13 @@ productRouter.route("/:productId").patch(
     //body("discount").isInt({ min: 0, max: 100 }),
   ]),
   fileUpload({ createParentPath: true }),
-  fileExtLimiterArr("images", [".png", ".jpg", ".jpeg"], true),
+  fileExtLimiterArr("images", [".png", ".jpg", ".jpeg", ".webp", ".gif"], true),
   fileExtLimiterOne("description", [".md"], true),
-  fileExtLimiterOne("coverImage", [".png", ".jpg", ".jpeg"], true),
+  fileExtLimiterOne(
+    "coverImage",
+    [".png", ".jpg", ".jpeg", ".webp", ".gif"],
+    true
+  ),
   updateProduct
 );
 
@@ -199,7 +203,7 @@ productRouter
     validate([param("productId").isMongoId()]),
     fileUpload({ createParentPath: true }),
     filesPayloadExists,
-    fileExtLimiterArr("images", [".png", ".jpg", ".jpeg"]),
+    fileExtLimiterArr("images", [".png", ".jpg", ".jpeg", ".webp", ".gif"]),
     addImages
   );
 
