@@ -10,7 +10,7 @@ export const addProduct = async ({
   coverImage,
   description,
 }: {
-  JWT?: string;
+  JWT: string;
   name: string;
   price: number;
   discount: number;
@@ -19,7 +19,7 @@ export const addProduct = async ({
   coverImage: File;
   description: File;
 }) => {
-  const Authorization = JWT ? `Bearer ${JWT}` : "";
+  const Authorization = `Bearer ${JWT}`;
 
   const formData = new FormData();
   formData.append("name", name);
