@@ -13,6 +13,8 @@ import { useParams, useSearchParams } from "react-router-dom";
 import { useAuthContext } from "../contexts/AuthContext";
 import { useMe } from "../hooks/useMe";
 import { DeleteButton } from "./Button/DeleteButton";
+import { useIsSellingProduct } from "../hooks/products/useIsSellingProduct";
+import { useDeleteProduct } from "../hooks/products/useDeleteProduct";
 
 const StyledProductInfo = styled(Column)`
   min-width: 25rem;
@@ -61,6 +63,9 @@ export const ProductInfo: FC<ProductInfoProps> = ({
   const { data } = useMe();
   const { JWT } = useAuthContext();
 
+  const { mutate: deleteProduct } = useDeleteProduct();
+  const isSellingProduct = useIsSellingProduct();
+
   const role = data?.data?.role;
 
   const [searchParams] = useSearchParams();
@@ -72,6 +77,8 @@ export const ProductInfo: FC<ProductInfoProps> = ({
 
   const handleClick = () => mutate({ JWT, productId: productId!, quantity });
 
+  const handleDelete = () => deleteProduct({ JWT, id: productId! });
+
   return (
     <StyledProductInfo $gap="2.4rem" $justifyContent="space-around">
       <Info $gap=".8rem">
@@ -79,9 +86,8 @@ export const ProductInfo: FC<ProductInfoProps> = ({
           <HeaderUppercaseBold>{title}</HeaderUppercaseBold>
 
           {role === "user" ? <AddToWishlistButton /> : null}
-          {role === "admin" ? <span>delete</span> : null}
-          {role === "seller" ? (
-            <DeleteButton handleDelete={() => null} size="small" />
+          {isSellingProduct ? (
+            <DeleteButton handleDelete={handleDelete} size="small" />
           ) : null}
         </HeaderHolder>
 
