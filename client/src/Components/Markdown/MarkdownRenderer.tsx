@@ -1,6 +1,6 @@
 import { FC } from "react";
 import styled from "styled-components";
-import { BlankCard } from "../Util/BlankCard";
+import { BlankCard } from "../../Util/BlankCard";
 import ReactMarkdown from "react-markdown";
 
 interface MarkdownRendererProps {

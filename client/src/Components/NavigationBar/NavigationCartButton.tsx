@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
-import { ButtonWithNotifcations } from "../ButtonWithNotifcations";
+import { ButtonWithNotifcations } from "../Button/ButtonWithNotifcations";
 import { HiOutlineShoppingCart } from "react-icons/hi";
 import { useCartItemsCount } from "../../hooks/cart/useCartItemsCount";
 

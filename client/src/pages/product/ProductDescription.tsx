@@ -1,5 +1,5 @@
 import { FC, useEffect, useState } from "react";
-import { MarkdownRenderer } from "../../Components/MarkdownRenderer";
+import { MarkdownRenderer } from "../../Components/Markdown/MarkdownRenderer";
 
 interface MarkdownTestProps {
   markdownSrc: string;

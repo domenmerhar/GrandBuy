@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { ButtonWithNotifcations } from "../ButtonWithNotifcations";
+import { ButtonWithNotifcations } from "../Button/ButtonWithNotifcations";
 import { HiOutlineBell, HiOutlineMenu, HiOutlineX } from "react-icons/hi";
 import { NavLink } from "react-router-dom";
 import { useNotficationCount } from "../../hooks/notification/useNotficationCount";

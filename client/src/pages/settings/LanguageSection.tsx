@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { LanguageButton } from "../../Components/LanguageButton";
+import { LanguageButton } from "../../Components/Button/LanguageButton";
 import { HeaderUppercaseBold } from "../../Util/HeaderUppercaseBold";
 import { SettingsForm } from "./SettingsForm";
 

@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { Row } from "../Util/Row";
-import { LanguageButton } from "./LanguageButton";
-import { ThemeButton } from "./ThemeButton";
+import { LanguageButton } from "./Button/LanguageButton";
+import { ThemeButton } from "./Button/ThemeButton";
 
 const StyledThemeLanguageRow = styled(Row)`
   position: fixed;

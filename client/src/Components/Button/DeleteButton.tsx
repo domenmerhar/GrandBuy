@@ -1,5 +1,5 @@
 import { HiOutlineTrash } from "react-icons/hi";
-import { SquareButton } from "../Util/SquareButton";
+import { SquareButton } from "../../Util/SquareButton";
 import { FC } from "react";
 
 interface DeleteButtonProps {

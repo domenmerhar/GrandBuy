@@ -1,6 +1,6 @@
-import { IconNav } from "../Util/IconNav";
+import { IconNav } from "../../Util/IconNav";
 import { HiOutlineMoon, HiOutlineSun } from "react-icons/hi";
-import { useDarkMode } from "../contexts/DarkModeContext";
+import { useDarkMode } from "../../contexts/DarkModeContext";
 
 export const ThemeButton = () => {
   const { darkMode, toggleDarkMode } = useDarkMode();

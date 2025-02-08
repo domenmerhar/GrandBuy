@@ -1,6 +1,6 @@
-import { useLanguage } from "../Util/LanguageContext";
-import { SwitchButtons } from "../Util/SwitchButtons";
-import { languages } from "../Util/types";
+import { useLanguage } from "../../Util/LanguageContext";
+import { SwitchButtons } from "../../Util/SwitchButtons";
+import { languages } from "../../Util/types";
 
 export const LanguageButton = () => {
   const { currentLanguage, setCurrentLanguage } = useLanguage();

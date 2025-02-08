@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { StyledSidebar } from "../../Util/StyledSidebar";
 import { ProductInfo } from "../../Components/ProductInfo";
-import { ButtonWithNotifcations } from "../../Components/ButtonWithNotifcations";
+import { ButtonWithNotifcations } from "../../Components/Button/ButtonWithNotifcations";
 import { HiPencil } from "react-icons/hi";
 import { Modal } from "../../Util/Modal";
 import { useSearchParams } from "react-router-dom";

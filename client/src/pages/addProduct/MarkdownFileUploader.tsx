@@ -1,6 +1,6 @@
 import { FC, useState } from "react";
 import styled from "styled-components";
-import { MarkdownRenderer } from "../../Components/MarkdownRenderer";
+import { MarkdownRenderer } from "../../Components/Markdown/MarkdownRenderer";
 import { Row } from "../../Util/Row";
 
 const FilePickerContainer = styled.div`

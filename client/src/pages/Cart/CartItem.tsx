@@ -10,7 +10,7 @@ import { useDeleteCartItem } from "../../hooks/cart/useDeleteCartItem";
 import { Link, useSearchParams } from "react-router-dom";
 import { CartItemButton } from "./CartItemButton";
 import { useUpdateCartItemQuantity } from "../../hooks/cart/useUpdateCartItemQuantity";
-import { DeleteButton } from "../../Components/DeleteButton";
+import { DeleteButton } from "../../Components/Button/DeleteButton";
 
 const Image = styled.img`
   width: 14rem;

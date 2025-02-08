@@ -12,6 +12,7 @@ import { useAddProductToCard } from "../hooks/cart/useAddProductToCard";
 import { useParams, useSearchParams } from "react-router-dom";
 import { useAuthContext } from "../contexts/AuthContext";
 import { useMe } from "../hooks/useMe";
+import { DeleteButton } from "./Button/DeleteButton";
 
 const StyledProductInfo = styled(Column)`
   min-width: 25rem;
@@ -78,6 +79,10 @@ export const ProductInfo: FC<ProductInfoProps> = ({
           <HeaderUppercaseBold>{title}</HeaderUppercaseBold>
 
           {role === "user" ? <AddToWishlistButton /> : null}
+          {role === "admin" ? <span>delete</span> : null}
+          {role === "seller" ? (
+            <DeleteButton handleDelete={() => null} size="small" />
+          ) : null}
         </HeaderHolder>
 
         <ProductInfoParagraph title="Price" value={price} />

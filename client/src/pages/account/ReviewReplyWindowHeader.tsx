@@ -1,5 +1,5 @@
 import { HiDotsVertical } from "react-icons/hi";
-import { ButtonWithNotifcations } from "../../Components/ButtonWithNotifcations";
+import { ButtonWithNotifcations } from "../../Components/Button/ButtonWithNotifcations";
 import { CardWithHeader } from "../../Util/CardWithHeader";
 import { Row } from "../../Util/Row";
 import styled from "styled-components";

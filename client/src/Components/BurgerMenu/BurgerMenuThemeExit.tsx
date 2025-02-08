@@ -3,7 +3,7 @@ import { useLogout } from "../../hooks/useLogout";
 import { useAuthContext } from "../../contexts/AuthContext";
 import { HiArrowRightStartOnRectangle } from "react-icons/hi2";
 import { IconNav } from "../../Util/IconNav";
-import { ThemeButton } from "../ThemeButton";
+import { ThemeButton } from "../Button/ThemeButton";
 
 const ThemeExitHolder = styled.div`
   margin-top: auto;

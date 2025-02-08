@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { Row } from "../../Util/Row";
 import { Link } from "react-router-dom";
 import { FC } from "react";
-import { ButtonWithNotifcations } from "../../Components/ButtonWithNotifcations";
+import { ButtonWithNotifcations } from "../../Components/Button/ButtonWithNotifcations";
 import { HiDotsVertical, HiOutlineCheck } from "react-icons/hi";
 import ExpandingList from "../../Components/ExpandingList";
 import { HiArrowUturnLeft } from "react-icons/hi2";

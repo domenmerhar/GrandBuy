@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { Logo } from "../../Util/Logo";
-import { ButtonWithNotifcations } from "../ButtonWithNotifcations";
+import { ButtonWithNotifcations } from "../Button/ButtonWithNotifcations";
 import { useState } from "react";
 import { SearchBar } from "../../Util/SearchBar";
 import { BurgerMenu } from "../BurgerMenu/BurgerMenu";
