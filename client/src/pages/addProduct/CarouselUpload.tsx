@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { FilePicker } from "../../Components/FilePicker";
+import { FilePicker } from "../../Components/Files/FilePicker";
 import { ImageCarousel } from "../product/ImageCarousel";
 import { Column } from "../../Util/Column";
 import { FC } from "react";
