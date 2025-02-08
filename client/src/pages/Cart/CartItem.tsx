@@ -2,8 +2,6 @@ import styled from "styled-components";
 import { Row } from "../../Util/Row";
 import { FC, useEffect, useState } from "react";
 import { Column } from "../../Util/Column";
-import { SquareButton } from "../../Util/SquareButton";
-import { HiOutlineTrash } from "react-icons/hi";
 import { StepperRaw } from "../../Util/StepperRaw";
 import { useAuthContext } from "../../contexts/AuthContext";
 import { useIncrementCartItem } from "../../hooks/cart/useIncrementCartItem";
@@ -12,6 +10,7 @@ import { useDeleteCartItem } from "../../hooks/cart/useDeleteCartItem";
 import { Link, useSearchParams } from "react-router-dom";
 import { CartItemButton } from "./CartItemButton";
 import { useUpdateCartItemQuantity } from "../../hooks/cart/useUpdateCartItemQuantity";
+import { DeleteButton } from "../../Components/DeleteButton";
 
 const Image = styled.img`
   width: 14rem;
@@ -116,9 +115,7 @@ export const CartItem: FC<CartItemProps> = ({
       </ProductInfoHolder>
 
       <ButtonHolder $alignItems="flex-end" $justifyContent="space-around">
-        <SquareButton $color="red" $size="small">
-          <HiOutlineTrash onClick={handleDelete} />
-        </SquareButton>
+        <DeleteButton handleDelete={handleDelete} size="small" />
 
         <StepperRaw
           color="orange"
