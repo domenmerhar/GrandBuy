@@ -1,6 +1,6 @@
 import { FC, ReactNode } from "react";
 import { Navigate } from "react-router-dom";
-import { useMe } from "../hooks/useMe";
+import { useMe } from "../../hooks/useMe";
 type UserRole = "admin" | "user" | "seller" | "";
 
 interface RouteProtectorProps {

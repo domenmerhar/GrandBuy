@@ -1,12 +1,11 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
-import { ScrollToTop } from "./Components/ScrollToTop";
+import { ScrollToTop } from "./Components/Router/ScrollToTop";
 import { NavigationBar } from "./Components/NavigationBar/NavigationBar";
 import { MainPage } from "./pages/main/MainPage";
 import { SearchPage } from "./pages/search/SearchPage";
 import { ProductPage } from "./pages/product/ProductPage";
 import { AccountPage } from "./pages/account/AccountPage";
 import { ReviewReplyWindow } from "./pages/account/ReviewReplyWindow";
-import { RouteProtector } from "./Components/RouteProtector";
 import { WishlistPage } from "./pages/wishlist/WishlistPage";
 import { CartPage } from "./pages/Cart/CartPage";
 import { RefundPage } from "./pages/refund/RefundPage";
@@ -25,6 +24,7 @@ import { RefundDashboardPage } from "./pages/dashboard/refund/RefundDashboardPag
 import { SettingsPage } from "./pages/settings/SettingsPage";
 import { CouponPage } from "./pages/dashboard/coupon/CouponPage";
 import { SellerProducts } from "./pages/account/SellerProducts";
+import { RouteProtector } from "./Components/Router/RouteProtector";
 
 export const AppRouter = () => {
   return (
