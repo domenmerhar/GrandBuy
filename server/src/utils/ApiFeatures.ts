@@ -1,4 +1,4 @@
-import { Query } from "mongoose";
+import { Aggregate, Query } from "mongoose";
 
 interface QueryString {
   page?: string;
@@ -10,12 +10,14 @@ interface QueryString {
 
 class APIFeatures<T> {
   constructor(
-    public query: Query<T[], T>,
+    public query: Query<T[], T> | Aggregate<T[]>,
     private queryString: QueryString,
     private additionalExcludedFields: string[] = []
   ) {}
 
   filter() {
+    if (this.query instanceof Aggregate) return this;
+
     const queryObj = { ...this.queryString };
     const excludedFields = [
       "page",
@@ -46,6 +48,8 @@ class APIFeatures<T> {
   }
 
   limitFields() {
+    if (this.query instanceof Aggregate) return this;
+
     if (this.queryString.fields) {
       const fields = this.queryString.fields.replace(/,/g, " ");
       this.query = this.query.select(fields);
