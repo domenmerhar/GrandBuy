@@ -11,7 +11,13 @@ interface ICartItem extends Document {
   quantity: number;
   createdAt: Date;
   discount: number;
-  status: "pending" | "cancelled" | "shipped" | "delivered" | "refunded";
+  status:
+    | "pending"
+    | "cancelled"
+    | "shipped"
+    | "delivered"
+    | "refunded"
+    | "pending-refund";
   ordered: boolean;
 }
 
@@ -56,10 +62,18 @@ const CartItemSchema = new Schema<ICartItem>({
     default: 0,
   },
 
+  //TODO: Implement pending refund
   status: {
     type: String,
     enum: {
-      values: ["pending", "cancelled", "shipped", "delivered", "refunded"],
+      values: [
+        "pending",
+        "cancelled",
+        "shipped",
+        "delivered",
+        "refunded",
+        "pending-refund",
+      ],
       message: "Please provide a valid status.",
     },
 
