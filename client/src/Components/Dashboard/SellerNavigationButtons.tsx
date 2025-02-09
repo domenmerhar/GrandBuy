@@ -16,13 +16,13 @@ export const SellerNavigationButtons = () => {
         Reviews
       </NavigationTextButton>
 
-      <NavigationTextButton to="orders?sort=newest&filter=all" variant="dark">
+      <NavigationTextButton to="orders?sort=oldest&filter=all" variant="dark">
         <BiPackage size={24} />
         Orders
       </NavigationTextButton>
 
       <NavigationTextButton
-        to="refund?sort=newest"
+        to="refund?sort=newest&filter=all"
         iconColoring="stroke"
         variant="dark"
       >
