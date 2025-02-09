@@ -41,15 +41,15 @@ export const Table: FC<TableProps> & {
 } = ({ headers, children }) => {
   return (
     <StyledTable>
-      <tbody>
+      <thead>
         <Header>
           {headers.map((header) => (
             <Th key={header}>{header}</Th>
           ))}
         </Header>
-      </tbody>
+      </thead>
 
-      {children}
+      <tbody>{children}</tbody>
     </StyledTable>
   );
 };
