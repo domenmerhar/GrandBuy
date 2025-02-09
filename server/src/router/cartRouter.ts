@@ -8,6 +8,7 @@ import {
   getCartItems,
   getCartItemsSummary,
   getRecentRevenueForSeller,
+  getSellerOrderedItems,
   getSellerRecent5,
   incrementCartItem,
   redeemCouponOnCartItems,
@@ -115,6 +116,8 @@ cartRouter.route("/apply-coupon/:couponCode").patch(
   redeemCouponOnCartItems
 );
 
+cartRouter.route("/seller").get(restrictTo("seller"), getSellerOrderedItems);
+
 cartRouter.route("/seller/revenue/:days").get(
   validate([
     body("days")
@@ -130,6 +133,16 @@ cartRouter.route("/seller/revenue/:days").get(
 
 cartRouter
   .route("/seller/recent-5")
-  .get(restrictTo("seller"), getSellerRecent5);
+  .get(
+    validate([
+      param("status")
+        .isIn(["all", "pending", "shipped", "cancelled", "delivered"])
+        .withMessage(
+          "Status must be either pending, shipped, cancelled or delivered."
+        ),
+    ]),
+    restrictTo("seller"),
+    getSellerRecent5
+  );
 
 export default cartRouter;
