@@ -3,18 +3,17 @@ import { Button } from "../../../Util/Button";
 import { Badge } from "../../../Util/Badge";
 import { Modal } from "../../../Util/Modal";
 import { useSearchParams } from "react-router-dom";
-import { FC } from "react";
-import { IOrderTable, OrderStatus } from "../../../Util/types";
+import { ISellerOrder, OrderStatus } from "../../../Util/types";
+import { useGetSellerOrderedItems } from "../../../hooks/order/useGetSellerOrderedItems";
+import { SpinnerInBox } from "../../../Components/SpinnerInBox";
+import { ErrorBox } from "../../../Components/ErrorBox";
 
-const headers = ["Username", "Quantity", "Product", "Status", ""];
+const headers = ["Product", "Quantity", "Total", "Status", ""];
 
-interface OrdersTableProps {
-  data: IOrderTable[];
-}
-
-export const OrdersTable: FC<OrdersTableProps> = ({ data }) => {
+export const OrdersTable = () => {
   const { setIsOpen } = Modal.useModalContext();
   const [, setSearchParams] = useSearchParams();
+  const { data, isLoading, error } = useGetSellerOrderedItems();
 
   const handleClick = (orderId: string) => () => {
     setSearchParams((searchParams) => {
@@ -29,7 +28,7 @@ export const OrdersTable: FC<OrdersTableProps> = ({ data }) => {
     switch (status) {
       case "shipped":
         return (
-          <Badge $color="green" $size="small">
+          <Badge $color="yellow" $size="small">
             Shipped
           </Badge>
         );
@@ -41,34 +40,53 @@ export const OrdersTable: FC<OrdersTableProps> = ({ data }) => {
           </Badge>
         );
 
+      case "delivered":
+        return (
+          <Badge $color="green" $size="small">
+            Delivered
+          </Badge>
+        );
+
       case "pending":
         return "Pending";
     }
   };
 
+  if (isLoading) return <SpinnerInBox fullPage={false} />;
+  if (error) return <ErrorBox fullPage={false} />;
+
   return (
     <Table headers={headers}>
-      {data.map(({ username, orderID, quantity, product, status }) => (
-        <Table.Row key={orderID}>
-          <td>{username}</td>
-          <td>{quantity}</td>
-          <td>{product}</td>
-          <td>{renderBadge(status)}</td>
+      {data?.data?.map(
+        ({
+          _id,
+          product: { name },
+          quantity,
+          status,
+          price,
+          discount,
+        }: ISellerOrder) => (
+          <Table.Row key={_id}>
+            <td>{name}</td>
+            <td>{quantity}</td>
+            <td>{(quantity * price * (100 - discount)) / 100}</td>
+            <td>{renderBadge(status)}</td>
 
-          <td>
-            {status === "pending" ? (
-              <Button
-                $color="orange"
-                $shape="oval"
-                $size="small"
-                onClick={handleClick(orderID)}
-              >
-                Respond
-              </Button>
-            ) : null}
-          </td>
-        </Table.Row>
-      ))}
+            <td>
+              {status === "pending" ? (
+                <Button
+                  $color="orange"
+                  $shape="oval"
+                  $size="small"
+                  onClick={handleClick(_id)}
+                >
+                  Respond
+                </Button>
+              ) : null}
+            </td>
+          </Table.Row>
+        )
+      )}
     </Table>
   );
 };
