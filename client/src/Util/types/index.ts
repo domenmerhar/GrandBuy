@@ -27,14 +27,6 @@ export type BadgeColor = "orange" | "red" | "green" | "yellow";
 
 export type OrderStatus = "pending" | "cancelled" | "shipped" | "delivered";
 
-export interface IOrderTable {
-  username: string;
-  orderID: string;
-  quantity: number;
-  product: string;
-  status: OrderStatus;
-}
-
 export interface IProductShort {
   _id: string;
   name: string;
@@ -246,4 +238,18 @@ export interface ICoupon {
   discount: number;
   expireAt: string;
   createdBy: string;
+}
+
+export interface ISellerOrder {
+  _id: string;
+  product: {
+    _id: string;
+    name: string;
+  };
+  price: number;
+  shipping: number;
+  totalPrice: number;
+  quantity: number;
+  discount: number;
+  status: "pending" | "shipped" | "delivered" | "cancelled"; // Add other possible statuses if needed
 }
