@@ -5,8 +5,11 @@ import { Row } from "../../../Util/Row";
 import { BiPackage } from "react-icons/bi";
 import { Modal } from "../../../Util/Modal";
 import { OrdersTable } from "./OrdersTable";
-import { IOrderTable } from "../../../Util/types";
 import { OrderRespondModal } from "./OrderRespondModal";
+import { useGetSellerOrderedItems } from "../../../hooks/order/useGetSellerOrderedItems";
+import { usePendingOrders } from "../../../hooks/order/usePendingOrders";
+
+const itemsPerPage = import.meta.env.VITE_SELLER_ORDERS_PER_PAGE;
 
 const filterOptions = [
   { value: "all", name: "All" },
@@ -21,31 +24,14 @@ const selectOptions = [
   { value: "oldest", name: "Sort by age (oldest)" },
 ];
 
-const tableData: IOrderTable[] = [
-  {
-    orderID: "1",
-    username: "User 1",
-    product: "Product 1",
-    quantity: 1,
-    status: "pending",
-  },
-  {
-    orderID: "2",
-    username: "User 2",
-    product: "Product 2",
-    quantity: 2,
-    status: "shipped",
-  },
-  {
-    orderID: "3",
-    username: "User 3",
-    product: "Product 3",
-    quantity: 3,
-    status: "cancelled",
-  },
-];
-
 export const OrdersDashboardPage = () => {
+  const { data } = useGetSellerOrderedItems();
+  const { data: dataPendingOrders } = usePendingOrders();
+
+  const pendingOrders = dataPendingOrders?.totalCount || "N/A";
+
+  const max = Math.ceil((data?.totalCount || 1) / itemsPerPage);
+
   return (
     <>
       <FilterSortHeader
@@ -58,17 +44,17 @@ export const OrdersDashboardPage = () => {
         <OverviewCard
           icon={<BiPackage />}
           title="Pending orders"
-          content="234"
+          content={pendingOrders}
         />
       </Row>
 
       <Modal>
-        <OrdersTable data={tableData} />
+        <OrdersTable />
 
         <OrderRespondModal />
       </Modal>
 
-      <Stepper searchParamName="page" />
+      <Stepper searchParamName="page" max={max} />
     </>
   );
 };
