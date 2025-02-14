@@ -1,5 +1,6 @@
-import React, { createContext, FC, useState } from "react";
+import React, { createContext, FC } from "react";
 import { languages } from "./types";
+import { useLocalStorage } from "../hooks/useLocalStorage";
 
 interface LanguageContextType {
   currentLanguage: languages;
@@ -13,7 +14,10 @@ interface LanguageProviderProps {
 const LanguageContext = createContext<LanguageContextType | null>(null);
 
 export const LanguageProvider: FC<LanguageProviderProps> = ({ children }) => {
-  const [currentLanguage, setCurrentLanguage] = useState<languages>("sl");
+  const [currentLanguage, setCurrentLanguage] = useLocalStorage(
+    "sl",
+    "language"
+  );
 
   return (
     <LanguageContext.Provider value={{ currentLanguage, setCurrentLanguage }}>
