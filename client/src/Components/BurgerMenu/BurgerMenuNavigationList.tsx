@@ -9,8 +9,11 @@ import { HiArrowUturnLeft, HiOutlineCog8Tooth } from "react-icons/hi2";
 import { BiPackage } from "react-icons/bi";
 import { Column } from "../../Util/Column";
 import { useMe } from "../../hooks/useMe";
+import { useTranslation } from "react-i18next";
 
 export const BurgerMenuNavigationList = () => {
+  const { t } = useTranslation();
+
   const { data } = useMe();
 
   const userId = data?.data?._id;
@@ -23,38 +26,38 @@ export const BurgerMenuNavigationList = () => {
       {role !== "admin" ? (
         <NavigationTextButton to={navigateTo}>
           <HiOutlineUser size={24} />
-          Account
+          {t("account")}
         </NavigationTextButton>
       ) : null}
 
       {role === "user" ? (
         <NavigationTextButton to="wishlist">
           <HiOutlineClipboardList size={24} />
-          Wishlist
+          {t("wishlist")}
         </NavigationTextButton>
       ) : null}
 
       {role === "user" ? (
         <NavigationTextButton to="orders" iconColoring="fill">
           <BiPackage size={24} />
-          Orders
+          {t("orders")}
         </NavigationTextButton>
       ) : null}
 
       <NavigationTextButton to="history">
         <HiOutlineClock size={24} />
-        History
+        {t("history")}
       </NavigationTextButton>
 
       <NavigationTextButton to="settings">
         <HiOutlineCog8Tooth size={24} />
-        Settings
+        {t("settings")}
       </NavigationTextButton>
 
       {["admin", "seller"].includes(role) && (
         <NavigationTextButton to="dashboard">
           <HiOutlinePresentationChartBar size={24} />
-          Dashboard
+          {t("dashboard")}
         </NavigationTextButton>
       )}
 
@@ -64,7 +67,7 @@ export const BurgerMenuNavigationList = () => {
           iconColoring="stroke"
         >
           <HiArrowUturnLeft size={24} />
-          Refund
+          {t("refund")}
         </NavigationTextButton>
       ) : null}
     </Column>
