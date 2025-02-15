@@ -15,6 +15,7 @@ import { useMe } from "../hooks/useMe";
 import { DeleteButton } from "./Button/DeleteButton";
 import { useIsSellingProduct } from "../hooks/products/useIsSellingProduct";
 import { useDeleteProduct } from "../hooks/products/useDeleteProduct";
+import { useTranslation } from "react-i18next";
 
 const StyledProductInfo = styled(Column)`
   min-width: 25rem;
@@ -60,6 +61,8 @@ export const ProductInfo: FC<ProductInfoProps> = ({
   uploaded,
   discount,
 }) => {
+  const { t } = useTranslation();
+
   const { data } = useMe();
   const { JWT } = useAuthContext();
 
@@ -91,12 +94,15 @@ export const ProductInfo: FC<ProductInfoProps> = ({
           ) : null}
         </HeaderHolder>
 
-        <ProductInfoParagraph title="Price" value={price} />
-        <ProductInfoParagraph title="Shipping" value={shipping} />
-        <ProductInfoParagraph title="Average Rating" value={averageRating} />
-        <ProductInfoParagraph title="Units sold" value={unitsSold} />
-        <ProductInfoParagraph title="Created by" value={createdBy} />
-        <ProductInfoParagraph title="Uploaded" value={uploaded} />
+        <ProductInfoParagraph title={t("price")} value={price} />
+        <ProductInfoParagraph title={t("shipping")} value={shipping} />
+        <ProductInfoParagraph
+          title={t("averageRating")}
+          value={averageRating}
+        />
+        <ProductInfoParagraph title={t("unitsSold")} value={unitsSold} />
+        <ProductInfoParagraph title={t("createdBy")} value={createdBy} />
+        <ProductInfoParagraph title={t("uploaded")} value={uploaded} />
         {discount ? <StyledDiscount>-{discount}%</StyledDiscount> : null}
       </Info>
 
@@ -111,11 +117,11 @@ export const ProductInfo: FC<ProductInfoProps> = ({
               $size="medium"
               onClick={handleClick}
             >
-              Add to Cart
+              {t("addToCart")}
             </Button>
 
             <Button $color="gray" $shape="oval" $size="medium">
-              Buy now
+              {t("buyNow")}
             </Button>
           </Column>
         </>
