@@ -3,15 +3,18 @@ import { Header } from "../../../Util/Header";
 import { Row } from "../../../Util/Row";
 import { Select } from "../../../Util/Select";
 import { SquareButton } from "../../../Util/SquareButton";
-
-const selectOptions = [
-  { value: "newest", name: "Sort by age (newest)" },
-  { value: "oldest", name: "Sort by age (oldest)" },
-  { value: "highest", name: "Sort by highest discount" },
-  { value: "lowest", name: "Sort by lowest discount" },
-];
+import { useTranslation } from "react-i18next";
 
 export const CouponPageHeader = () => {
+  const { t } = useTranslation();
+
+  const selectOptions = [
+    { value: "newest", name: t("sortByDateNewest") },
+    { value: "oldest", name: t("sortByDateOldest") },
+    { value: "highest", name: t("sortByDiscountHighest") },
+    { value: "lowest", name: t("sortByDiscountLowest") },
+  ];
+
   return (
     <>
       <Row
@@ -20,7 +23,7 @@ export const CouponPageHeader = () => {
         $alignItems="center"
       >
         <Header as="h1" $color="orange" $size="medium">
-          Coupons
+          {t("coupons")}
         </Header>
 
         <Row $gap="1.6rem" $alignItems="center" $flexWrap="wrap">
