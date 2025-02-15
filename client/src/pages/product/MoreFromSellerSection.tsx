@@ -5,10 +5,15 @@ import HorizontalProducts from "../main/HorizontalProducts";
 import { SpinnerInBox } from "../../Components/SpinnerInBox";
 import { ErrorBox } from "../../Components/ErrorBox";
 import { getSellerProducts } from "../../api/product/getSellerProducts";
-
-const sellerId = "66dd4bf8240a800b87c13da2";
+import { useTranslation } from "react-i18next";
+import { useProduct } from "./useProduct";
 
 export const MoreFromSellerSection = () => {
+  const { t } = useTranslation();
+
+  const { data: dataProduct } = useProduct();
+  const sellerId = dataProduct?.data?.product?.user?._id || "";
+
   const { data, isLoading, error } = useQuery({
     queryKey: ["seller-products", sellerId, 1],
     queryFn: () => getSellerProducts(sellerId, 1),
@@ -20,7 +25,7 @@ export const MoreFromSellerSection = () => {
   return (
     <Column $gap="8px">
       <Header $size="small" $color="orange">
-        More from seller
+        {t("moreFromSeller")}
       </Header>
 
       <HorizontalProducts products={data.data.products} />
