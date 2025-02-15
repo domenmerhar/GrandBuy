@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { CardFilterGrid } from "../../Util/CardFilterGrid";
 import { Content } from "../../Util/Content";
 import { ProductFilter } from "../../Util/ProductFilter";
@@ -10,6 +11,8 @@ import { Orders } from "./Orders";
 const itemsPerPage = import.meta.env.VITE_ORDERS_PER_PAGE;
 
 export const OrdersPage = () => {
+  const { t } = useTranslation();
+
   const { data } = useGetUserOrdersCount();
 
   const itemCount = data?.data?.ordersCount || 0;
@@ -18,7 +21,7 @@ export const OrdersPage = () => {
   return (
     <Content>
       <CardFilterGrid>
-        <ProductsCard title="Orders" itemCount={itemCount}>
+        <ProductsCard title={t("orders")} itemCount={itemCount}>
           <Orders />
         </ProductsCard>
 
