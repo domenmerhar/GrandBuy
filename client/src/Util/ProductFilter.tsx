@@ -4,6 +4,7 @@ import { CheckboxWithText } from "../pages/search/CheckboxWithText";
 import { SliderFilter } from "../pages/search/SliderFilter";
 import { RatingInteractive } from "../pages/search/RatingInteractive";
 import { FC } from "react";
+import { useTranslation } from "react-i18next";
 
 const ContentHolder = styled.div`
   display: flex;
@@ -27,32 +28,34 @@ export const ProductFilter: FC<ProductFilterProps> = ({
   rating,
   price,
 }) => {
+  const { t } = useTranslation();
+
   return (
     <ContentHolder>
       {freeShipping ? (
         <>
-          <HeaderUppercaseBold>Delivery</HeaderUppercaseBold>
+          <HeaderUppercaseBold>{t("delivery")}</HeaderUppercaseBold>
           <CheckboxWithText id="free-shipping" label="Free Shipping" />
         </>
       ) : null}
 
       {sale ? (
         <>
-          <HeaderUppercaseBold>Discount</HeaderUppercaseBold>
+          <HeaderUppercaseBold>{t("discount")}</HeaderUppercaseBold>
           <CheckboxWithText id="sale" label="Sale" />
         </>
       ) : null}
 
       {rating ? (
         <>
-          <HeaderUppercaseBold>Rating</HeaderUppercaseBold>
+          <HeaderUppercaseBold>{t("rating")}</HeaderUppercaseBold>
           <RatingInteractive />
         </>
       ) : null}
 
       {price ? (
         <>
-          <HeaderUppercaseBold>Price</HeaderUppercaseBold>
+          <HeaderUppercaseBold>{t("price")}</HeaderUppercaseBold>
           <SliderFilter />
         </>
       ) : null}
