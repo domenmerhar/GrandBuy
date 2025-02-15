@@ -2,19 +2,21 @@ import { useMutation } from "@tanstack/react-query";
 import { signup } from "../api/auth/signup";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 export const useSignup = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
 
   const { mutate } = useMutation({
     mutationFn: signup,
     onMutate: () => {
-      toast.loading("Creating account...", { id: "signup" });
+      toast.loading(t("creatingAccount"), { id: "signup" });
     },
 
     onSuccess: (data) => {
       if (data?.status !== "success") {
-        toast.error("Something went wrong", {
+        toast.error(t("somethingWentWrong"), {
           id: "signup",
         });
         return;
@@ -30,7 +32,7 @@ export const useSignup = () => {
         /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/
       )[0];
 
-      toast.success("Created account", { id: "signup" });
+      toast.success(t("createdAccount"), { id: "signup" });
       navigate(`/signup/confirm/${extractedEmail}`);
     },
   });
