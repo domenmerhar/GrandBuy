@@ -2,8 +2,10 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import { removeFromWishlist } from "../../api/wishlist/removeFromWishlist";
 import { useMe } from "../useMe";
+import { useTranslation } from "react-i18next";
 
 export const useRemoveFromWishlist = (productId: string) => {
+  const { t } = useTranslation();
   const { data } = useMe();
   const client = useQueryClient();
 
@@ -13,11 +15,11 @@ export const useRemoveFromWishlist = (productId: string) => {
     mutationFn: removeFromWishlist,
 
     onMutate: () => {
-      toast.loading("Removing from wishlist...", { id: "add-to-wishlist" });
+      toast.loading(t("removingFromWishlist"), { id: "add-to-wishlist" });
     },
 
     onSettled: () => {
-      toast.success("Removed from wishlist", { id: "add-to-wishlist" });
+      toast.success(t("removedFromWishlist"), { id: "add-to-wishlist" });
 
       client.invalidateQueries({
         queryKey: ["wishlistItem", userId, productId],
