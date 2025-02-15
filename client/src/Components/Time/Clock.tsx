@@ -1,4 +1,5 @@
 import { FC } from "react";
+import { useTranslation } from "react-i18next";
 import styled from "styled-components";
 
 interface ClockProps {
@@ -47,19 +48,21 @@ const ClockText = styled.span<ClockTextProps>`
 `;
 
 export const Clock: FC<ClockProps> = ({ days, hours, minutes, seconds }) => {
+  const { t } = useTranslation();
+
   return (
     <StyledClock>
-      <Span>The promotion ends in: </Span>
+      <Span>{t("thePromotionEndsIn")}</Span>
       <Timer>
         <ClockTextHolder>
           <ClockText $color="white">{String(days).padStart(2, "0")}</ClockText>
-          <Span>Days</Span>
+          <Span>{t("days")}</Span>
         </ClockTextHolder>
         <ClockText $color="orange">:</ClockText>
 
         <ClockTextHolder>
           <ClockText $color="white">{String(hours).padStart(2, "0")}</ClockText>
-          <Span>Hours</Span>
+          <Span>{t("hours")}</Span>
         </ClockTextHolder>
         <ClockText $color="orange">:</ClockText>
 
@@ -67,7 +70,7 @@ export const Clock: FC<ClockProps> = ({ days, hours, minutes, seconds }) => {
           <ClockText $color="white">
             {String(minutes).padStart(2, "0")}
           </ClockText>
-          <Span>Minutes</Span>
+          <Span>{t("minutes")}</Span>
         </ClockTextHolder>
         <ClockText $color="orange">:</ClockText>
 
@@ -75,7 +78,7 @@ export const Clock: FC<ClockProps> = ({ days, hours, minutes, seconds }) => {
           <ClockText $color="white">
             {String(seconds).padStart(2, "0")}
           </ClockText>
-          <Span>Seconds</Span>
+          <Span>{t("seconds")}</Span>
         </ClockTextHolder>
       </Timer>
     </StyledClock>
