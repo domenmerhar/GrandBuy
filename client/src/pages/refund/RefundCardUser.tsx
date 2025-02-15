@@ -4,6 +4,7 @@ import { BadgeCard } from "../../Util/BadgeCard";
 import { Row } from "../../Util/Row";
 import { FC } from "react";
 import { BadgeColor, RefundStatus } from "../../Util/types";
+import { useTranslation } from "react-i18next";
 
 const Date = styled.span`
   color: var(--gray-6);
@@ -25,6 +26,8 @@ export const RefundCardUser: FC<RefundCardUserProps> = ({
   productName,
   reason,
 }) => {
+  const { t } = useTranslation();
+
   let badgeColor: BadgeColor;
 
   switch (status) {
@@ -44,7 +47,7 @@ export const RefundCardUser: FC<RefundCardUserProps> = ({
       <Row $justifyContent="space-between" $alignItems="center">
         <Date>{date}</Date>
 
-        <Badge $color={badgeColor}>{status}</Badge>
+        <Badge $color={badgeColor}>{t(status)}</Badge>
       </Row>
 
       <BadgeCard.ItemList>
