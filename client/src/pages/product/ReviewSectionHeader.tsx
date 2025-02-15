@@ -2,18 +2,21 @@ import { Select } from "../../Util/Select";
 import { HeaderUppercaseBold } from "../../Util/HeaderUppercaseBold";
 import { Row } from "../../Util/Row";
 import { IOption } from "../../Util/types";
-
-const selectOptions: IOption[] = [
-  { name: "Most liked", value: "-likesCount" },
-  { name: "Least liked", value: "+likesCount" },
-  { name: "Most recent", value: "+createdAt" },
-  { name: "Least recent", value: "-createdAt" },
-];
+import { useTranslation } from "react-i18next";
 
 export const ReviewSectionHeader = () => {
+  const { t } = useTranslation();
+
+  const selectOptions: IOption[] = [
+    { name: t("sortByLikesHighest"), value: "-likesCount" },
+    { name: t("sortByLikesLowest"), value: "+likesCount" },
+    { name: t("sortByDateNewest"), value: "+createdAt" },
+    { name: t("sortByDateOldest"), value: "-createdAt" },
+  ];
+
   return (
     <Row $justifyContent="space-between" $flexWrap="wrap">
-      <HeaderUppercaseBold>Reviews</HeaderUppercaseBold>
+      <HeaderUppercaseBold>{t("reviews")}</HeaderUppercaseBold>
       <Select options={selectOptions} searchParam="sort" />
     </Row>
   );
