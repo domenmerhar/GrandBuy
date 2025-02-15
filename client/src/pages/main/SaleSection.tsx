@@ -7,8 +7,11 @@ import { ErrorBox } from "../../Components/ErrorBox";
 import { IProductShort } from "../../Util/types/index";
 import { toApiFilesPath } from "../../functions/toApiFilesPath";
 import { ProductGrid } from "../../Util/ProductGrid";
+import { useTranslation } from "react-i18next";
 
 export const SaleSection = () => {
+  const { t } = useTranslation();
+
   const { data, isLoading, error } = useQuery({
     queryKey: ["products-sale"],
     queryFn: () =>
@@ -26,7 +29,7 @@ export const SaleSection = () => {
   return (
     <>
       <Header $color="orange" $size="medium" id="sale">
-        Summer Sale
+        {t("summerSale")}
       </Header>
       <ProductGrid>
         {data?.data?.products?.map(
