@@ -7,6 +7,7 @@ import { CarouselUpload } from "./CarouselUpload";
 import { MarkdownFileUploader } from "./MarkdownFileUploader";
 import styled from "styled-components";
 import { Button } from "../../Util/Button";
+import { useTranslation } from "react-i18next";
 
 const CarouselCardRow = styled(Row)`
   margin-bottom: 6.4rem;
@@ -23,6 +24,7 @@ const AddProductPageContent = styled(Content)`
 `;
 
 export const AddProductPage = () => {
+  const { t } = useTranslation();
   const [selectedImages, setSelectedImages] = useState<string[]>([]);
 
   return (
@@ -40,7 +42,7 @@ export const AddProductPage = () => {
 
       <MarkdownFileUploader />
       <CreateButton $shape="oval" $color="orange" $size="large">
-        Create
+        {t("create")}
       </CreateButton>
     </AddProductPageContent>
   );
