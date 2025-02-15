@@ -1,27 +1,29 @@
+import { useTranslation } from "react-i18next";
 import { FilterSortHeader } from "../../../Util/FilterSortHeader";
 import { Modal } from "../../../Util/Modal";
 import { Stepper } from "../../../Util/Stepper";
 import { IOption } from "../../../Util/types";
 import { DashboardRefunds } from "./DashboardRefunds";
 
-const filterOptions: IOption[] = [
-  { value: "all", name: "All" },
-  { value: "pending", name: "Pending" },
-  { value: "rejected", name: "Rejected" },
-  { value: "approved", name: "Approved" },
-];
-
-const selectOptions: IOption[] = [
-  { value: "newest", name: "Sort by age (newest)" },
-  { value: "oldest", name: "Sort by age (oldest)" },
-  { value: "all", name: "All" },
-];
-
 export const RefundDashboardPage = () => {
+  const { t } = useTranslation();
+
+  const filterOptions: IOption[] = [
+    { value: "all", name: t("all") },
+    { value: "pending", name: t("pending") },
+    { value: "rejected", name: t("rejected") },
+    { value: "approved", name: t("approved") },
+  ];
+
+  const selectOptions: IOption[] = [
+    { value: "newest", name: t("sortByDateNewest") },
+    { value: "oldest", name: t("sortByDateOldest") },
+  ];
+
   return (
     <>
       <FilterSortHeader
-        headerText="Refunds"
+        headerText={t("refunds")}
         filterOptions={filterOptions}
         selectOptions={selectOptions}
       />
