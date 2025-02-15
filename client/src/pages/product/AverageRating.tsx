@@ -2,6 +2,7 @@ import { Column } from "../../Util/Column";
 import { RatingDisplay } from "../../Components/RatingDisplay";
 import styled from "styled-components";
 import { FC } from "react";
+import { useTranslation } from "react-i18next";
 
 const P = styled.p`
   font-size: 1.4rem;
@@ -15,10 +16,11 @@ interface AverageRatingProps {
 }
 
 export const AverageRating: FC<AverageRatingProps> = ({ rating }) => {
+  const { t } = useTranslation();
   return (
     <Column>
       <RatingDisplay rating={rating} />
-      <P>Average rating</P>
+      <P>{t("averageRating")}</P>
     </Column>
   );
 };
