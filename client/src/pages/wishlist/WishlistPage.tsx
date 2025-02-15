@@ -6,8 +6,11 @@ import { ProductFilter } from "../../Util/ProductFilter";
 import { ProductsCard } from "../../Util/ProductsCard";
 import { useWishlistItems } from "../../hooks/wishlist/useWishlistItems";
 import { WishlistItems } from "./WishlistItems";
+import { useTranslation } from "react-i18next";
 
 export const WishlistPage = () => {
+  const { t } = useTranslation();
+
   const { data } = useWishlistItems();
 
   const itemCount = data?.totalItems || 0;
@@ -18,7 +21,7 @@ export const WishlistPage = () => {
   return (
     <Content>
       <CardFilterGrid>
-        <ProductsCard title="Wishlist" itemCount={itemCount}>
+        <ProductsCard title={t("wishlist")} itemCount={itemCount}>
           <WishlistItems />
         </ProductsCard>
 
