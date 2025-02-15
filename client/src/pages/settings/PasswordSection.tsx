@@ -6,8 +6,11 @@ import { SettingsForm } from "./SettingsForm";
 import toast from "react-hot-toast";
 import { useChangePassword } from "../../hooks/useChangePassword";
 import { useAuthContext } from "../../contexts/AuthContext";
+import { useTranslation } from "react-i18next";
 
 export const PasswordSection = () => {
+  const { t } = useTranslation();
+
   const { JWT } = useAuthContext();
   const { mutate } = useChangePassword();
   const passwordRef = useRef<HTMLInputElement>(null);
@@ -31,11 +34,11 @@ export const PasswordSection = () => {
 
   return (
     <SettingsForm onSubmit={handleSubmit}>
-      <HeaderUppercaseBold as="h2">Password</HeaderUppercaseBold>
+      <HeaderUppercaseBold as="h2">{t("password")}</HeaderUppercaseBold>
 
       <InputWithLabel
         id="password"
-        title="Password"
+        title={t("password")}
         type="password"
         placeholder="********"
         ref={passwordRef}
@@ -43,14 +46,14 @@ export const PasswordSection = () => {
 
       <InputWithLabel
         id="confirm-password"
-        title="Confirm Password"
+        title={t("confirmPassword")}
         type="password"
         placeholder="********"
         ref={confirmPasswordRef}
       />
 
       <Button $color="orange" $shape="rectangle" $size="medium">
-        Change Password
+        {t("changePassword")}
       </Button>
     </SettingsForm>
   );
