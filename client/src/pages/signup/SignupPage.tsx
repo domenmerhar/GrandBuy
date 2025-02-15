@@ -6,6 +6,7 @@ import { InputWithLabel } from "../../Util/InputWithLabel";
 import { AuthContainer } from "../../Util/AuthContainer";
 import { useSignup } from "../../hooks/useSignup";
 import toast from "react-hot-toast";
+import { useTranslation } from "react-i18next";
 
 const Form = styled.form`
   display: flex;
@@ -38,6 +39,7 @@ const P = styled.p`
 `;
 
 export const SignupPage = () => {
+  const { t } = useTranslation();
   const { mutate } = useSignup();
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -65,36 +67,36 @@ export const SignupPage = () => {
 
         <InputWithLabel
           id="email"
-          placeholder="Email"
+          placeholder={t("email")}
           type="text"
-          title="Email"
+          title={t("email")}
         />
         <InputWithLabel
           id="username"
-          placeholder="Username"
+          placeholder={t("username")}
           type="text"
-          title="Username"
+          title={t("username")}
         />
         <InputWithLabel
           id="password"
-          placeholder="Password"
+          placeholder={t("password")}
           type="password"
-          title="Password"
+          title={t("password")}
         />
         <InputWithLabel
           id="confirmPassword"
-          placeholder="Confirm Password"
+          placeholder={t("confirmPassword")}
           type="password"
-          title="Confirm Password"
+          title={t("confirmPassword")}
         />
 
         <Button $color="orange" $shape="oval" $size="medium">
-          Sign Up
+          {t("signup")}
         </Button>
         <P>
-          Already a member?{" "}
+          {t("alreadyAMember")}
           <StyledLink $fontSize="1.4rem" to="/login">
-            Login
+            {t("login")}
           </StyledLink>
         </P>
       </Form>
