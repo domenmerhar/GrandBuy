@@ -3,6 +3,7 @@ import { BlankCard } from "../../Util/BlankCard";
 import { Input } from "../../Util/Input";
 import { useAuthContext } from "../../contexts/AuthContext";
 import { useApplyCoupon } from "../../hooks/cart/useApplyCoupon";
+import { useTranslation } from "react-i18next";
 
 const InputHolder = styled(BlankCard)`
   display: flex;
@@ -10,13 +11,15 @@ const InputHolder = styled(BlankCard)`
 `;
 
 export const CouponInput = () => {
+  const { t } = useTranslation();
+
   const { JWT } = useAuthContext();
   const { mutate } = useApplyCoupon();
 
   return (
     <InputHolder>
       <Input
-        placeholder="Coupon Code"
+        placeholder={t("couponCode")}
         onBlur={(e) => {
           console.log(e.target.value);
           if (!e.target.value) return;
