@@ -1,24 +1,28 @@
 import styled from "styled-components";
 import { Select } from "../../Util/Select";
 import { useSearchParams } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const SelectHolder = styled.div`
   display: flex;
   justify-content: flex-end;
 `;
 
-const options = [
-  { name: "Sort by age (newest)", value: "-createdAt" },
-  { name: "Sort by age (oldest)", value: "+createdAt" },
-];
-
-const optionsAdditional = [
-  { name: "Sort by likes (highest)", value: "-likes" },
-  { name: "Sort by likes (lowest)", value: "+likes" },
-];
-
 export const ReviewReplyWindowSelect = () => {
+  const { t } = useTranslation();
+
   const [searchParams] = useSearchParams();
+
+  const options = [
+    { name: t("sortByDateNewest"), value: "-createdAt" },
+    { name: t("sortByDateOldest"), value: "+createdAt" },
+  ];
+
+  const optionsAdditional = [
+    { name: t("sortByLikesHighest"), value: "-likes" },
+    { name: t("sortByLikesLowest"), value: "+likes" },
+  ];
+
   return (
     <SelectHolder>
       <Select
