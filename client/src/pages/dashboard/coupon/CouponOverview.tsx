@@ -1,11 +1,14 @@
 import { Row } from "../../../Util/Row";
 import { OverviewCard } from "../../../Components/OverviewCard";
+import { useTranslation } from "react-i18next";
 
 export const CouponOverview = () => {
+  const { t } = useTranslation();
+
   return (
     <Row $gap="1.6rem" $flexWrap="wrap">
       <OverviewCard
-        title="Total Coupons"
+        title={t("totalCoupons")}
         content="123"
         icon={
           <svg
@@ -28,7 +31,7 @@ export const CouponOverview = () => {
       />
 
       <OverviewCard
-        title="Highest Discount"
+        title={t("highestDiscount")}
         content="20%"
         icon={
           <svg
