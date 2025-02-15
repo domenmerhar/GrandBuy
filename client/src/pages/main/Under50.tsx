@@ -6,8 +6,11 @@ import { CardMultipleItems } from "./CardMultipleItems";
 import { IProductShort } from "../../Util/types/index";
 import { toPrice } from "../../functions/toPrice";
 import { toApiFilesPath } from "../../functions/toApiFilesPath";
+import { useTranslation } from "react-i18next";
 
 export const Under50 = () => {
+  const { t } = useTranslation();
+
   const { data, isLoading, error } = useQuery({
     queryKey: ["products-under-x"],
     queryFn: () =>
@@ -25,7 +28,7 @@ export const Under50 = () => {
   if (data?.status === "fail") return null;
 
   return (
-    <CardMultipleItems title="Under $50">
+    <CardMultipleItems title={t("under50")}>
       {data?.data?.products?.map(
         ({ _id, coverImage, discount, name, totalPrice }: IProductShort) => (
           <CardMultipleItems.Product
