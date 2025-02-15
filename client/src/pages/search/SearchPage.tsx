@@ -4,17 +4,20 @@ import { SearchSidebar } from "./SearchSidebar";
 import { ContentWithSidebar } from "../../Util/ContentWithSidebar";
 import { SidebarLayout } from "../../Util/SidebarLayout";
 import { SearchResults } from "./SearchResults";
-
-const selectOptions: IOption[] = [
-  { name: "Sort by most orders", value: "-orders" },
-  { name: "Sort by least orders", value: "orders" },
-  { name: "Sort by most expensive", value: "-totalPrice" },
-  { name: "Sort by cheapest", value: "+totalPrice" },
-  { name: "Sort by date (youngest)", value: "-createdAt" },
-  { name: "Sort by date (oldest)", value: "+createdAt" },
-];
+import { useTranslation } from "react-i18next";
 
 export const SearchPage = () => {
+  const { t } = useTranslation();
+
+  const selectOptions: IOption[] = [
+    { name: t("sortByOrdersMost"), value: "-orders" },
+    { name: t("sortByOrdersLeast"), value: "orders" },
+    { name: t("sortByPriceHighest"), value: "-totalPrice" },
+    { name: t("sortByPriceLowest"), value: "+totalPrice" },
+    { name: t("sortByDateNewest"), value: "-createdAt" },
+    { name: t("sortByDateOldest"), value: "+createdAt" },
+  ];
+
   return (
     <SidebarLayout>
       <SearchSidebar />
