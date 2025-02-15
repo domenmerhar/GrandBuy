@@ -1,4 +1,5 @@
 import { useRef } from "react";
+import { useTranslation } from "react-i18next";
 import { HiOutlineSearch } from "react-icons/hi";
 import { useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
@@ -55,6 +56,8 @@ const IconHolder = styled.button`
 `;
 
 export const SearchBar = () => {
+  const { t } = useTranslation();
+
   const navigate = useNavigate();
   const inputRef = useRef<HTMLInputElement>(null);
   const { search } = useLocation();
@@ -69,7 +72,7 @@ export const SearchBar = () => {
 
   return (
     <StyledSearchBar onSubmit={handleSubmit}>
-      <Input type="text" placeholder="Magnifying glass" ref={inputRef} />
+      <Input type="text" placeholder={t("searchPlaceholder")} ref={inputRef} />
 
       <IconHolder>
         <HiOutlineSearch size={24} />
