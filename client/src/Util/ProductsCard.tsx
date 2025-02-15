@@ -3,6 +3,7 @@ import { BlankCard } from "./BlankCard";
 import { Column } from "./Column";
 import { HeaderUppercaseBold } from "./HeaderUppercaseBold";
 import { Row } from "./Row";
+import { useTranslation } from "react-i18next";
 
 interface ProductsCardProps {
   title: string;
@@ -15,12 +16,14 @@ export const ProductsCard: FC<ProductsCardProps> = ({
   itemCount,
   children,
 }) => {
+  const { t } = useTranslation();
+
   return (
     <BlankCard>
       <Column $gap="1.6rem">
         <Row $justifyContent="space-between">
           <HeaderUppercaseBold>{title}</HeaderUppercaseBold>
-          Items({itemCount})
+          {t("items")} ({itemCount})
         </Row>
         {children}
       </Column>
