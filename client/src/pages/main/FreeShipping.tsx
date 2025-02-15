@@ -6,8 +6,11 @@ import { ErrorBox } from "../../Components/ErrorBox";
 import { toApiFilesPath } from "../../functions/toApiFilesPath";
 import { toPrice } from "../../functions/toPrice";
 import { IProductShort } from "../../Util/types";
+import { useTranslation } from "react-i18next";
 
 export const FreeShipping = () => {
+  const { t } = useTranslation();
+
   const { data, error, isLoading } = useQuery({
     queryKey: ["products-free-shipping"],
     queryFn: () =>
@@ -24,7 +27,7 @@ export const FreeShipping = () => {
   if (data?.status === "fail") return null;
 
   return (
-    <CardMultipleItems title="Free Shipping">
+    <CardMultipleItems title={t("freeShipping")}>
       {data?.data?.products?.map(
         ({ _id, coverImage, discount, name, totalPrice }: IProductShort) => (
           <CardMultipleItems.Product
