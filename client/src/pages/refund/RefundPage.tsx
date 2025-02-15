@@ -10,18 +10,7 @@ import { InfiniteProducts } from "../../Components/InfiniteProducts";
 import { useMe } from "../../hooks/useMe";
 import { RefundCardUser } from "./RefundCardUser";
 import { toDate } from "../../functions/toDate";
-
-const selectOptions: IOption[] = [
-  { value: "oldest", name: "Sort by age (oldest)" },
-  { value: "newest", name: "Sort by age (newest)" },
-];
-
-const filterOptions: IOption[] = [
-  { value: "all", name: "All" },
-  { value: "pending", name: "Pending" },
-  { value: "approved", name: "Approved" },
-  { value: "rejected", name: "Rejected" },
-];
+import { useTranslation } from "react-i18next";
 
 const Grid = styled.div`
   display: grid;
@@ -33,6 +22,8 @@ const Grid = styled.div`
 `;
 
 export const RefundPage = () => {
+  const { t } = useTranslation();
+
   const [searchParams] = useSearchParams();
   const { JWT } = useAuthContext();
   const { data: dataUser } = useMe();
@@ -56,10 +47,22 @@ export const RefundPage = () => {
     },
   });
 
+  const selectOptions: IOption[] = [
+    { value: "oldest", name: t("sortByDateOldest") },
+    { value: "newest", name: t("sortByDateNewest") },
+  ];
+
+  const filterOptions: IOption[] = [
+    { value: "all", name: t("all") },
+    { value: "pending", name: t("pending") },
+    { value: "approved", name: t("approved") },
+    { value: "rejected", name: t("rejected") },
+  ];
+
   return (
     <Content>
       <FilterSortHeader
-        headerText="Refund requests"
+        headerText={t("refundRequests")}
         filterOptions={filterOptions}
         selectOptions={selectOptions}
       />
