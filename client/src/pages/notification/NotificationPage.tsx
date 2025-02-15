@@ -12,6 +12,7 @@ import { toDate } from "../../functions/toDate";
 import { useEffect } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { useMe } from "../../hooks/useMe";
+import { useTranslation } from "react-i18next";
 
 const Grid = styled.div`
   display: grid;
@@ -23,6 +24,8 @@ const Grid = styled.div`
 `;
 
 export const NotificationPage = () => {
+  const { t } = useTranslation();
+
   const { JWT } = useAuthContext();
   const { data: dataUser } = useMe();
   const [searchParams] = useSearchParams();
@@ -68,13 +71,13 @@ export const NotificationPage = () => {
       <FilterSortHeader
         headerText="Notifications"
         filterOptions={[
-          { value: "all", name: "All" },
-          { value: "message", name: "Message" },
-          { value: "warning", name: "Warning" },
+          { value: "all", name: t("all") },
+          { value: "message", name: t("message") },
+          { value: "warning", name: t("warning") },
         ]}
         selectOptions={[
-          { name: "Sort by age (newest)", value: "-createdAt" },
-          { name: "Sort by age (oldest)", value: "+createdAt" },
+          { name: t("sortByDateNewest"), value: "-createdAt" },
+          { name: t("sortByDateOldest"), value: "+createdAt" },
         ]}
       />
 
@@ -84,7 +87,7 @@ export const NotificationPage = () => {
         renderFn={(page: NotificationResponse) =>
           page?.data?.notifications.map(({ _id, createdAt, message, type }) => (
             <NotificationCard key={_id} date={toDate(createdAt)} type={type}>
-              {message}
+              {t(message)}
             </NotificationCard>
           ))
         }
