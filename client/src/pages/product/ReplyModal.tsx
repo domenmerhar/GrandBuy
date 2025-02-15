@@ -1,7 +1,9 @@
+import { useTranslation } from "react-i18next";
 import { Modal } from "../../Util/Modal";
 import { useSearchParams } from "react-router-dom";
 
 export const ReplyModal = () => {
+  const { t } = useTranslation();
   const [, setSearchParams] = useSearchParams();
 
   const handleReplyClose = () => {
@@ -13,7 +15,7 @@ export const ReplyModal = () => {
 
   return (
     <Modal.Window
-      title="Reply"
+      title={t("reply")}
       onCancelReject={handleReplyClose}
       onBackdropClick={handleReplyClose}
     >
