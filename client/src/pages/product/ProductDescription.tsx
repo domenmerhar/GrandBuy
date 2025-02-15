@@ -1,11 +1,13 @@
 import { FC, useEffect, useState } from "react";
 import { MarkdownRenderer } from "../../Components/Markdown/MarkdownRenderer";
+import { useTranslation } from "react-i18next";
 
 interface MarkdownTestProps {
   markdownSrc: string;
 }
 
 export const ProductDescription: FC<MarkdownTestProps> = ({ markdownSrc }) => {
+  const { t } = useTranslation();
   const [markdownContent, setMarkdownContent] = useState<string>("");
 
   useEffect(() => {
@@ -20,7 +22,7 @@ export const ProductDescription: FC<MarkdownTestProps> = ({ markdownSrc }) => {
 
   return (
     <MarkdownRenderer>
-      {markdownContent || "Description is loading..."}
+      {markdownContent || t("descriptionIsLoading")}
     </MarkdownRenderer>
   );
 };
