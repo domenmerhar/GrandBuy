@@ -4,6 +4,7 @@ import { CardWithHeader } from "../../Util/CardWithHeader";
 import { Row } from "../../Util/Row";
 import styled from "styled-components";
 import { useSearchParams } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const StyledNavLink = styled.button`
   text-decoration: none;
@@ -23,6 +24,8 @@ const ButtonHolder = styled.div`
 `;
 
 export const ReviewReplyWindowHeader = () => {
+  const { t } = useTranslation();
+
   const [searchParams, setSearchParams] = useSearchParams();
   const location = searchParams.get("location");
 
@@ -42,13 +45,13 @@ export const ReviewReplyWindowHeader = () => {
             location === "reviews" || location === null ? "active" : ""
           }
         >
-          Reviews
+          {t("reviews")}
         </StyledNavLink>
         <StyledNavLink
           onClick={handleLocation("replies")}
           className={location === "replies" ? "active" : ""}
         >
-          Replies
+          {t("replies")}
         </StyledNavLink>
 
         <ButtonHolder>
