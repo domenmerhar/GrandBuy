@@ -20,8 +20,8 @@ const filterOptions = [
 ];
 
 const selectOptions = [
-  { value: "newest", name: "Sort by age (newest)" },
   { value: "oldest", name: "Sort by age (oldest)" },
+  { value: "newest", name: "Sort by age (newest)" },
 ];
 
 export const OrdersDashboardPage = () => {
