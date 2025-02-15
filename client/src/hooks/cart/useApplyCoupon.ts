@@ -1,22 +1,24 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { applyCoupon } from "../../api/cart/applyCoupon";
 import toast from "react-hot-toast";
+import { useTranslation } from "react-i18next";
 
 export const useApplyCoupon = () => {
+  const { t } = useTranslation();
   const client = useQueryClient();
 
   return useMutation({
     mutationFn: applyCoupon,
 
     onMutate: () => {
-      toast.loading("Applying coupon...", { id: "apply-coupon" });
+      toast.loading(t("applyingCoupon"), { id: "apply-coupon" });
     },
 
     onSuccess: (data) => {
       if (data.status !== "success" || data?.errors?.length > 0)
-        return toast.error("Failed to apply coupon", { id: "apply-coupon" });
+        return toast.error(t("failedToApplyCoupon"), { id: "apply-coupon" });
 
-      toast.success("Applied coupon", { id: "apply-coupon" });
+      toast.success(t("appliedCoupon"), { id: "apply-coupon" });
 
       client.invalidateQueries({
         predicate: (query) =>
