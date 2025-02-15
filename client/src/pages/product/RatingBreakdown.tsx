@@ -4,8 +4,10 @@ import { AverageRating } from "./AverageRating";
 import { SpinnerInBox } from "../../Components/SpinnerInBox";
 import { ErrorBox } from "../../Components/ErrorBox";
 import { useReviewStats } from "./useReviewStats";
+import { useTranslation } from "react-i18next";
 
 export const RatingBreakdown = () => {
+  const { t } = useTranslation();
   const { isLoading, error, averageRating, ratingBreakdowns } =
     useReviewStats();
 
@@ -23,7 +25,7 @@ export const RatingBreakdown = () => {
           value={ratingBreakdown.percentage}
           max={100}
         >
-          {`${ratingBreakdown.rating} stars ${ratingBreakdown.percentage}%`}
+          {`${ratingBreakdown.rating} ${t("stars")} ${ratingBreakdown.percentage}%`}
         </ProgressWithLabel>
       ))}
     </Column>
