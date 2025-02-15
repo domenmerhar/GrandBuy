@@ -3,20 +3,23 @@ import { Select } from "../../Util/Select";
 import { Filter } from "../../Util/Filter";
 import { IOption } from "../../Util/types";
 import { Header } from "../../Util/Header";
-
-const selectOptions: IOption[] = [
-  { value: "oldest", name: "Sort by age (oldest)" },
-  { value: "newest", name: "Sort by age (newest)" },
-];
-
-const filterOptions: IOption[] = [
-  { value: "all", name: "All" },
-  { value: "pending", name: "Pending" },
-  { value: "approved", name: "Approved" },
-  { value: "rejected", name: "Rejected" },
-];
+import { useTranslation } from "react-i18next";
 
 export const RefundPageHeader = () => {
+  const { t } = useTranslation();
+
+  const selectOptions: IOption[] = [
+    { value: "oldest", name: t("sortByDateOldest") },
+    { value: "newest", name: t("sortByDateNewest") },
+  ];
+
+  const filterOptions: IOption[] = [
+    { value: "all", name: t("all") },
+    { value: "pending", name: t("pending") },
+    { value: "approved", name: t("approved") },
+    { value: "rejected", name: t("rejected") },
+  ];
+
   return (
     <Row
       $justifyContent="space-between"
@@ -25,7 +28,7 @@ export const RefundPageHeader = () => {
       $gap="2rem"
     >
       <Header as="h2" $size="medium" $color="orange">
-        Refund requests
+        {t("refundRequests")}
       </Header>
 
       <Row $gap="12px" $alignItems="center">
