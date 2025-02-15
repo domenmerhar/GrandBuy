@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { Header } from "../Util/Header";
 import { Button } from "../Util/Button";
 import { Countdown } from "./Time/Countdown";
+import { useTranslation } from "react-i18next";
 
 const StyledHero = styled.div`
   position: relative;
@@ -63,15 +64,16 @@ const ShopButton = styled(Button)`
 `;
 
 export const Hero = () => {
+  const { t } = useTranslation();
   return (
     <StyledHero>
       <ContentHolder>
         <Header $color="white" $size="large" as="h1">
-          Save up to 70%
+          {t("saveUpTo")} 70%
         </Header>
 
         <Header $color="orange" $size="small">
-          Grand Fall Sale
+          {t("grandFallSale")}
         </Header>
 
         <Countdown />
@@ -84,7 +86,7 @@ export const Hero = () => {
             $shape="oval"
             $size="large"
           >
-            Shop Now
+            {t("shopNow")}
           </ShopButton>
 
           {/* <Button $color="gray" $shape="oval" $size="medium">
