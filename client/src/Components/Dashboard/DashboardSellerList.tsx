@@ -4,6 +4,7 @@ import { Button } from "../../Util/Button";
 import { SellerNavigationButtons } from "./SellerNavigationButtons";
 import { Modal } from "../../Util/Modal";
 import { AddProductModal } from "./AddProductModal";
+import { useTranslation } from "react-i18next";
 
 const AddProductButton = styled(Button)`
   align-self: center;
@@ -11,6 +12,7 @@ const AddProductButton = styled(Button)`
 `;
 
 export const DashboardSellerList = () => {
+  const { t } = useTranslation();
   const { setIsOpen } = Modal.useModalContext();
 
   const handleClick = () => setIsOpen(true);
@@ -25,7 +27,7 @@ export const DashboardSellerList = () => {
         $size="medium"
         onClick={handleClick}
       >
-        Add Product
+        {t("addProduct")}
       </AddProductButton>
 
       <AddProductModal />
