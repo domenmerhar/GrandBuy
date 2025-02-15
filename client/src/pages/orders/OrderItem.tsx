@@ -10,6 +10,7 @@ import { useConfirmOrder } from "../../hooks/order/useConfirmOrderDelivery";
 import { useAuthContext } from "../../contexts/AuthContext";
 import { ItemStatus } from "../../Util/types";
 import { useRequestRefund } from "../../hooks/refund/useRequestRefund";
+import { useTranslation } from "react-i18next";
 
 const StyledOrderItem = styled(Row)`
   & div:nth-child(3) {
@@ -71,6 +72,8 @@ export const OrderItem: FC<OrderItemProps> = ({
   delivered,
   status,
 }) => {
+  const { t } = useTranslation();
+
   const { JWT } = useAuthContext();
   const { mutate: confirmOrder } = useConfirmOrder();
   const { mutate: requestRefund } = useRequestRefund();
@@ -90,8 +93,12 @@ export const OrderItem: FC<OrderItemProps> = ({
         <ProductInfoHolder>
           <Product>{name}</Product>
 
-          <Price>Total price: {price}</Price>
-          <Quantity>Quantity: {quantity}</Quantity>
+          <Price>
+            {t("totalPrice")}: {price}
+          </Price>
+          <Quantity>
+            {t("quantity")}: {quantity}
+          </Quantity>
         </ProductInfoHolder>
 
         {delivered && status === "refunded" ? null : (
@@ -109,12 +116,12 @@ export const OrderItem: FC<OrderItemProps> = ({
             {!delivered ? (
               <ExpandingList.Li onClick={handleConfirmOrder}>
                 <HiOutlineCheck />
-                Confirm order delivery
+                {t("confirmOrderDelivery")}
               </ExpandingList.Li>
             ) : status !== "refunded" ? (
               <ExpandingList.Li onClick={handleRequestRefund}>
                 <HiArrowUturnLeft />
-                Refund item
+                {t("refundItem")}
               </ExpandingList.Li>
             ) : null}
           </ExpandingList.Ul>
