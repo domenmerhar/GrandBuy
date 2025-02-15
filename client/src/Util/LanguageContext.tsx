@@ -1,10 +1,11 @@
-import React, { createContext, FC } from "react";
+import React, { createContext, FC, useEffect } from "react";
 import { languages } from "./types";
 import { useLocalStorage } from "../hooks/useLocalStorage";
+import i18n from "./localization/i18n";
 
 interface LanguageContextType {
   currentLanguage: languages;
-  setCurrentLanguage: React.Dispatch<React.SetStateAction<languages>>;
+  setCurrentLanguage: (language: "en" | "sl") => void;
 }
 
 interface LanguageProviderProps {
@@ -14,10 +15,17 @@ interface LanguageProviderProps {
 const LanguageContext = createContext<LanguageContextType | null>(null);
 
 export const LanguageProvider: FC<LanguageProviderProps> = ({ children }) => {
-  const [currentLanguage, setCurrentLanguage] = useLocalStorage(
+  const [currentLanguage, setCurrentLanguageState] = useLocalStorage(
     "sl",
     "language"
   );
+
+  const setCurrentLanguage = (language: "en" | "sl") => {
+    i18n.changeLanguage(language);
+    setCurrentLanguageState(language);
+  };
+
+  console.log("i18n", i18n.language);
 
   return (
     <LanguageContext.Provider value={{ currentLanguage, setCurrentLanguage }}>
@@ -28,6 +36,7 @@ export const LanguageProvider: FC<LanguageProviderProps> = ({ children }) => {
 
 export const useLanguage = () => {
   const context = React.useContext(LanguageContext);
+
   if (!context) {
     throw new Error("useLanguage must be used within a LanguageProvider");
   }
