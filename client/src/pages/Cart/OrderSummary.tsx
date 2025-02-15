@@ -5,6 +5,7 @@ import { SummaryRow } from "./SummaryRow";
 import { useGetCartItemsSummary } from "../../hooks/cart/useGetCartItemsSummary";
 import { toPrice } from "../../functions/toPrice";
 import { SpinnerInBox } from "../../Components/SpinnerInBox";
+import { useTranslation } from "react-i18next";
 
 const StyledOrderSummary = styled(BlankCard)`
   display: flex;
@@ -17,6 +18,8 @@ const Hr = styled.hr`
 `;
 
 export const OrderSummary = () => {
+  const { t } = useTranslation();
+
   const { data, isLoading } = useGetCartItemsSummary();
 
   const items = data?.data?.items || 0;
@@ -33,13 +36,13 @@ export const OrderSummary = () => {
 
   return (
     <StyledOrderSummary>
-      <HeaderUppercaseBold>Summary</HeaderUppercaseBold>
+      <HeaderUppercaseBold>{t("summary")}</HeaderUppercaseBold>
 
-      <SummaryRow name="Items" price={toPrice(items, "USD")} />
-      <SummaryRow name="Shipping" price={toPrice(shipping, "USD")} />
-      <SummaryRow name="Coupons" price={toPrice(discount, "USD")} />
+      <SummaryRow name={t("items")} price={toPrice(items, "USD")} />
+      <SummaryRow name={t("shipping")} price={toPrice(shipping, "USD")} />
+      <SummaryRow name={t("coupons")} price={toPrice(discount, "USD")} />
       <Hr />
-      <SummaryRow name="Total" price={toPrice(total, "USD")} />
+      <SummaryRow name={t("total")} price={toPrice(total, "USD")} />
     </StyledOrderSummary>
   );
 };
