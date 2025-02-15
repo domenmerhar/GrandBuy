@@ -2,12 +2,14 @@ import { Button } from "../../Util/Button";
 import { Modal } from "../../Util/Modal";
 import styled from "styled-components";
 import { AddReviewModal } from "./AddReviewModal";
+import { useTranslation } from "react-i18next";
 
 const PostReviewButton = styled(Button)`
   align-self: flex-end;
 `;
 
 export const AddReviewButton = () => {
+  const { t } = useTranslation();
   const { setIsOpen } = Modal.useModalContext();
 
   const handleClick = () => {
@@ -21,7 +23,7 @@ export const AddReviewButton = () => {
         $size="large"
         onClick={handleClick}
       >
-        Add review
+        {t("addReview")}
       </PostReviewButton>
 
       <AddReviewModal />
