@@ -12,10 +12,13 @@ import { useSearchParams } from "react-router-dom";
 import toast from "react-hot-toast";
 import { useAddOrder } from "../../hooks/order/useAddOrder";
 import { useAuthContext } from "../../contexts/AuthContext";
+import { useTranslation } from "react-i18next";
 
 const itemsPerPage = import.meta.env.VITE_PRODUCTS_PER_STEPPER;
 
 export const CartPage = () => {
+  const { t } = useTranslation();
+
   const { data, isLoading, isError } = useCartItemsCount();
   const { JWT } = useAuthContext();
   const [searchParams] = useSearchParams();
@@ -29,7 +32,7 @@ export const CartPage = () => {
     const cartItems = searchParams.get("products")?.split(",");
 
     if (!cartItems?.length)
-      return toast.error("Please add items to cart first", { id: "add-order" });
+      return toast.error("Please add items to cart", { id: "add-order" });
 
     mutate({ JWT, cartItems });
   };
@@ -37,7 +40,7 @@ export const CartPage = () => {
   return (
     <Content>
       <CardFilterGrid>
-        <ProductsCard title="Shopping Cart" itemCount={itemCount}>
+        <ProductsCard title={t("shoppingCart")} itemCount={itemCount}>
           <CartItems />
         </ProductsCard>
 
@@ -52,7 +55,7 @@ export const CartPage = () => {
             $size="medium"
             onClick={handleOrder}
           >
-            Order
+            {t("order")}
           </Button>
         </Column>
 
