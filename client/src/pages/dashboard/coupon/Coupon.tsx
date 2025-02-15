@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { BadgeCard } from "../../../Util/BadgeCard";
 import { Column } from "../../../Util/Column";
 import { FC } from "react";
+import { useTranslation } from "react-i18next";
 
 const GrayedText = styled.span`
   color: var(--gray-7);
@@ -34,24 +35,26 @@ export const Coupon: FC<Coupon> = ({
   validUntil,
   affectedItems,
 }) => {
+  const { t } = useTranslation();
+
   return (
     <BadgeCard>
       <Column $alignItems="flex-start" $gap="2px">
         <p>
-          <GrayedText>Code:</GrayedText> {code}
+          <GrayedText>{t("coupon")}:</GrayedText> {code}
         </p>
 
         <p>
-          <GrayedText>Discount</GrayedText>: {discount}%
+          <GrayedText>{t("discount")}:</GrayedText> {discount}%
         </p>
 
         <p>
-          <GrayedText>Valid until:</GrayedText> {validUntil}
+          <GrayedText>{t("validUntil")}:</GrayedText> {validUntil}
         </p>
       </Column>
 
       <Column $gap="4px">
-        <AffectedItems>Affected Items:</AffectedItems>
+        <AffectedItems>{t("affectedItems")}:</AffectedItems>
         <BadgeCard.ItemList>
           {affectedItems.map((item, i) => (
             <Li key={i}>{item}</Li>
