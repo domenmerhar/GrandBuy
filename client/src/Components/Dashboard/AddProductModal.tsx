@@ -8,6 +8,7 @@ import { useJWT } from "../../hooks/useJWT";
 import { useAddProduct } from "../../hooks/products/useAddProduct";
 import { FilePickerDisplay } from "../Files/FilePickerDIsplay";
 import toast from "react-hot-toast";
+import { useTranslation } from "react-i18next";
 
 const Content = styled(Column)`
   & label {
@@ -16,6 +17,8 @@ const Content = styled(Column)`
 `;
 
 export const AddProductModal = () => {
+  const { t } = useTranslation();
+
   const { JWT } = useJWT();
   const { mutate: addProduct } = useAddProduct();
 
@@ -62,8 +65,8 @@ export const AddProductModal = () => {
       <Content $gap="1.2rem" as="form" onSubmit={handleSubmit}>
         <InputWithLabel
           id="product-name"
-          placeholder="guitar"
-          title="Product name"
+          placeholder="radio"
+          title={t("productName")}
           type="text"
           ref={productRef}
         />
@@ -71,7 +74,7 @@ export const AddProductModal = () => {
         <InputWithLabel
           id="price"
           placeholder="10.99"
-          title="Price"
+          title={t("price")}
           type="number"
           ref={priceRef}
         />
@@ -79,7 +82,7 @@ export const AddProductModal = () => {
         <InputWithLabel
           id="shipping"
           placeholder="2.99"
-          title="Shipping"
+          title={t("shipping")}
           type="number"
           ref={shippingRef}
         />
@@ -87,13 +90,13 @@ export const AddProductModal = () => {
         <InputWithLabel
           id="discount"
           placeholder="0"
-          title="Discount"
+          title={t("discount")}
           type="number"
           ref={discountRef}
         />
 
         <FilePickerDisplay
-          label="Product cover"
+          label={t("productCover")}
           id="product-cover"
           selectedImages={selectedCover}
           setSelectedImages={setSelectedCover}
@@ -101,7 +104,7 @@ export const AddProductModal = () => {
         />
 
         <FilePickerDisplay
-          label="Product images"
+          label={t("productImages")}
           id="product-images"
           selectedImages={selectedImages}
           setSelectedImages={setSelectedImages}
@@ -109,7 +112,7 @@ export const AddProductModal = () => {
         />
 
         <FilePicker
-          label="Product description (.md)"
+          label={t("productDescriptionMd")}
           id="product-description"
           accept=".md, text/markdown"
           setSelectedFiles={setSelectedDescription}
