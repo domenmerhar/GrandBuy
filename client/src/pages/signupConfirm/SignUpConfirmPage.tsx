@@ -7,6 +7,7 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import { useConfirmEmail } from "../../hooks/auth/useConfirmEmail";
 import { useParams } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const Form = styled.form`
   display: flex;
@@ -37,9 +38,11 @@ const P = styled.p`
 `;
 
 export const SignupConfirmPage = () => {
+  const { t } = useTranslation();
+  const { email } = useParams<{ email: string }>();
+
   const [code, setCode] = useState<string>("");
   const { mutate } = useConfirmEmail();
-  const { email } = useParams<{ email: string }>();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCode(e.target.value.slice(0, 9));
@@ -60,7 +63,7 @@ export const SignupConfirmPage = () => {
     <AuthContainer>
       <Form onSubmit={handleSubmit}>
         <Logo $color="orange" />
-        <P>Please enter the verification code sent to your email address.</P>
+        <P>{t("pleaseEnterVerificationCode")}</P>
 
         <NakedInput
           placeholder="12345678"
@@ -74,7 +77,7 @@ export const SignupConfirmPage = () => {
         />
 
         <Button $color="orange" $shape="oval" $size="medium">
-          Confirm
+          {t("confirm")}
         </Button>
       </Form>
     </AuthContainer>
