@@ -10,8 +10,11 @@ import { SettingsForm } from "./SettingsForm";
 import { useUpdateMe } from "../../hooks/useUpdateMe";
 import toast from "react-hot-toast";
 import { useAuthContext } from "../../contexts/AuthContext";
+import { useTranslation } from "react-i18next";
 
 export const AccountSection = () => {
+  const { t } = useTranslation();
+
   const { data }: { data: { data: UserSettings } } = useMe();
   const { JWT } = useAuthContext();
   const { mutate } = useUpdateMe();
@@ -52,12 +55,12 @@ export const AccountSection = () => {
 
   return (
     <SettingsForm onSubmit={handleSubmit}>
-      <HeaderUppercaseBold as="h2">Account info</HeaderUppercaseBold>
+      <HeaderUppercaseBold as="h2">{t("accountInfo")}</HeaderUppercaseBold>
       <Row $gap="8px">
         <Column $gap="4px">
           <InputWithLabel
             id="first-name"
-            title="First Name"
+            title={t("firstName")}
             type="text"
             placeholder={data?.data?.firstName}
             ref={firstNameRef}
@@ -67,7 +70,7 @@ export const AccountSection = () => {
         <Column $gap="4px">
           <InputWithLabel
             id="last-name"
-            title="Last Name"
+            title={t("lastName")}
             type="text"
             placeholder={data?.data?.lastName}
             ref={lastNameRef}
@@ -77,7 +80,7 @@ export const AccountSection = () => {
 
       <InputWithLabel
         id="street"
-        title="Street Address"
+        title={t("streetAddress")}
         type="text"
         placeholder={data?.data?.street}
         ref={streetRef}
@@ -85,7 +88,7 @@ export const AccountSection = () => {
 
       <InputWithLabel
         id="city"
-        title="City"
+        title={t("city")}
         type="text"
         placeholder={data?.data?.city}
         ref={cityRef}
@@ -93,7 +96,7 @@ export const AccountSection = () => {
 
       <InputWithLabel
         id="zip"
-        title="Zip or Postal Code"
+        title={t("zipOrPostalCode")}
         type="text"
         placeholder={data?.data?.zipCode}
         ref={zipRef}
@@ -101,7 +104,7 @@ export const AccountSection = () => {
 
       <InputWithLabel
         id="country"
-        title="Country"
+        title={t("country")}
         type="text"
         placeholder={data?.data?.country}
         ref={countryRef}
@@ -109,14 +112,14 @@ export const AccountSection = () => {
 
       <InputWithLabel
         id="phone"
-        title="Phone Number"
+        title={t("phoneNumber")}
         type="text"
         placeholder={data?.data?.phoneNumber}
         ref={phoneNumberRef}
       />
 
       <Button $color="orange" $shape="rectangle" $size="medium">
-        Save Changes
+        {t("saveChanges")}
       </Button>
     </SettingsForm>
   );
