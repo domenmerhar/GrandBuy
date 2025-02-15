@@ -2,8 +2,10 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { updateMe } from "../api/user/updateMe";
 import toast from "react-hot-toast";
 import { useMe } from "./useMe";
+import { useTranslation } from "react-i18next";
 
 export const useUpdateMe = () => {
+  const { t } = useTranslation();
   const queryClient = useQueryClient();
   const { data: userData } = useMe();
 
@@ -12,7 +14,7 @@ export const useUpdateMe = () => {
   const { mutate } = useMutation({
     mutationFn: updateMe,
     onMutate: () => {
-      toast.loading("Updating...", { id: "updateMe" });
+      toast.loading(t("updating"), { id: "updateMe" });
     },
 
     onSuccess: (data) => {
@@ -21,7 +23,7 @@ export const useUpdateMe = () => {
         return toast.error(data.errors[0].msg, { id: "updateMe" });
 
       queryClient.invalidateQueries({ queryKey: ["user-settings", userId] });
-      toast.success("Updated data", { id: "updateMe" });
+      toast.success(t("updatedData"), { id: "updateMe" });
     },
   });
 
