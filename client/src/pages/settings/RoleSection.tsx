@@ -8,11 +8,15 @@ import { useMe } from "../../hooks/useMe";
 import { UserSettings } from "../../Util/types";
 import { useRequestSeller } from "../../hooks/useRequestSeller";
 import { useAuthContext } from "../../contexts/AuthContext";
+import { useTranslation } from "react-i18next";
 
 export const RoleSection = () => {
-  const { JWT } = useAuthContext();
+  const { t } = useTranslation();
+
   const { setIsOpen } = Modal.useModalContext();
   const { data }: { data: { data: UserSettings } } = useMe();
+
+  const { JWT } = useAuthContext();
   const { mutate } = useRequestSeller();
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -25,23 +29,23 @@ export const RoleSection = () => {
   return (
     <>
       <SettingsForm onSubmit={handleSubmit}>
-        <HeaderUppercaseBold as="h2">Role</HeaderUppercaseBold>
+        <HeaderUppercaseBold as="h2">{t("role")}</HeaderUppercaseBold>
 
         <InputWithLabel
           id="role"
-          title="Role"
+          title={t("role")}
           type="text"
           placeholder={data?.data?.role}
           disabled={true}
         />
 
         <Button $color="orange" $shape="rectangle" $size="medium">
-          Request Seller
+          {t("requestSeller")}
         </Button>
       </SettingsForm>
 
-      <Modal.Window title="Request Seller" onSubmitApprove={handleModal}>
-        Are you sure? You won't be able to revert this decision.
+      <Modal.Window title={t("requestSeller")} onSubmitApprove={handleModal}>
+        {t("areYouSureYouWontBeAbleToRevertThisDecision")}
       </Modal.Window>
     </>
   );
