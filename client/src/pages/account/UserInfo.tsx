@@ -5,8 +5,10 @@ import { UserImageBig } from "../../Util/UserImageBig";
 import { SpinnerInBox } from "../../Components/SpinnerInBox";
 import { ErrorBox } from "../../Components/ErrorBox";
 import { useUser } from "../../hooks/useUser";
+import { useTranslation } from "react-i18next";
 
 export const UserInfo = () => {
+  const { t } = useTranslation();
   const { data, error, isLoading } = useUser();
 
   if (isLoading) return <SpinnerInBox size="large" />;
@@ -24,7 +26,7 @@ export const UserInfo = () => {
         <Header $color="orange" $size="small" as="h1">
           {data?.data?.username}
         </Header>
-        {data?.data?.banned ? <Badge $color="red">Banned</Badge> : null}
+        {data?.data?.banned ? <Badge $color="red">{t("banned")}</Badge> : null}
       </Row>
     </>
   );
