@@ -9,6 +9,7 @@ import { ReviewAction } from "../../../Util/ReviewAction";
 import { Modal } from "../../../Util/Modal";
 import { ReplyModal } from "../../product/ReplyModal";
 import { useSearchParams } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const Img = styled.img``;
 
@@ -24,6 +25,8 @@ const P = styled.p`
 const userId = "id1278203";
 
 export const ReviewCardDashboard = () => {
+  const { t } = useTranslation();
+
   const { setIsOpen } = Modal.useModalContext();
   const [, setSearchParams] = useSearchParams();
 
@@ -48,7 +51,7 @@ export const ReviewCardDashboard = () => {
             </Row>
 
             <RatingDisplay rating={4.5} showTooltip={false} size={24} />
-            <Date>Posted: 29. 12. 2024</Date>
+            <Date>{t("posted")}: 29. 12. 2024</Date>
             <P>
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae,
               ut. Voluptatibus reiciendis expedita odio, consequatur debitis
@@ -69,7 +72,7 @@ export const ReviewCardDashboard = () => {
                 onClick={handleReply}
               >
                 <HiArrowUturnLeft size={22} />
-                <span>Reply</span>
+                <span>{t("reply")}</span>
               </ReviewAction>
             </Row>
           </Column>
