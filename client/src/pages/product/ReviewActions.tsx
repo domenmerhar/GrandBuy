@@ -7,6 +7,7 @@ import { Modal } from "../../Util/Modal";
 import { useSearchParams } from "react-router-dom";
 import { ReviewAction } from "../../Util/ReviewAction";
 import { useMe } from "../../hooks/useMe";
+import { useTranslation } from "react-i18next";
 
 const ReviewActionsRow = styled(Row)`
   font-size: 1.4rem;
@@ -26,6 +27,7 @@ export const ReviewActions: FC<ReviewActionsProps> = ({
   setShowReplies,
   likeCount,
 }) => {
+  const { t } = useTranslation();
   const { data } = useMe();
   const role = data?.data?.role;
   const id: string = "id1278203";
@@ -70,7 +72,7 @@ export const ReviewActions: FC<ReviewActionsProps> = ({
         onClick={handleShowReplies}
       >
         {showReplies ? <HiChevronUp size={22} /> : <HiChevronDown size={22} />}
-        <span>Show Replies</span>
+        <span>{t("showReplies")}</span>
       </ReviewAction>
     </ReviewActionsRow>
   );
