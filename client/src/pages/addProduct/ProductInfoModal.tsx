@@ -3,6 +3,7 @@ import { Column } from "../../Util/Column";
 import { Modal } from "../../Util/Modal";
 import { InputWithLabel } from "../../Util/InputWithLabel";
 import { useProductInfoModal } from "./ProductInfoModal.hooks";
+import { useTranslation } from "react-i18next";
 
 const Content = styled(Column)`
   & label {
@@ -11,6 +12,7 @@ const Content = styled(Column)`
 `;
 
 export const ProductInfoModal = () => {
+  const { t } = useTranslation();
   const { saveToSearchParams, titleRef, priceRef, shippingRef } =
     useProductInfoModal();
 
@@ -23,8 +25,8 @@ export const ProductInfoModal = () => {
       <Content $gap="1.2rem">
         <InputWithLabel
           id="title"
-          placeholder="guitar"
-          title="Product name"
+          placeholder="radio"
+          title={t("productName")}
           type="text"
           ref={titleRef}
         />
@@ -32,7 +34,7 @@ export const ProductInfoModal = () => {
         <InputWithLabel
           id="price"
           placeholder="10.99"
-          title="Price"
+          title={t("price")}
           type="number"
           ref={priceRef}
         />
@@ -40,7 +42,7 @@ export const ProductInfoModal = () => {
         <InputWithLabel
           id="shipping"
           placeholder="2.99"
-          title="Shipping"
+          title={t("shipping")}
           type="number"
           ref={shippingRef}
         />
