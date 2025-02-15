@@ -8,6 +8,7 @@ import { toDate } from "../../functions/toDate";
 import { Badge } from "../../Util/Badge";
 import styled from "styled-components";
 import { Column } from "../../Util/Column";
+import { useTranslation } from "react-i18next";
 
 const UppercaseBold = styled.span`
   text-transform: uppercase;
@@ -29,6 +30,8 @@ export const Order: FC<IOrder> = ({
   totalPrice,
   createdAt,
 }) => {
+  const { t } = useTranslation();
+
   let color: BadgeColor;
 
   switch (status) {
@@ -51,20 +54,20 @@ export const Order: FC<IOrder> = ({
       <RowInfo $justifyContent="space-between" $alignItems="center">
         <Row $alignItems="center" $gap="3.2rem">
           <Column>
-            <UppercaseBold>Est. Delivery</UppercaseBold>
+            <UppercaseBold>{t("estimatedDelivery")}</UppercaseBold>
             {toDate(estimatedDelivery)}
           </Column>
 
           {deliveredAt ? (
             <Column>
-              <UppercaseBold>Delivered</UppercaseBold>
+              <UppercaseBold>{t("delivered")}</UppercaseBold>
               {toDate(deliveredAt)}
             </Column>
           ) : null}
         </Row>
 
         <Badge $color={color} $size="medium">
-          {status}
+          {t(status)}
         </Badge>
       </RowInfo>
 
@@ -95,12 +98,12 @@ export const Order: FC<IOrder> = ({
 
       <RowInfo $justifyContent="space-between" $alignItems="center">
         <Column>
-          <UppercaseBold>Ordered</UppercaseBold>
+          <UppercaseBold>{t("ordered")}</UppercaseBold>
           {toDate(createdAt)}
         </Column>
 
         <Column>
-          <UppercaseBold>Total</UppercaseBold>
+          <UppercaseBold>{t("total")}</UppercaseBold>
           {toPrice(totalPrice, "USD")}
         </Column>
       </RowInfo>
