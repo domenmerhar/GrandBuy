@@ -1,8 +1,10 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import { decrementCartItem } from "../../api/cart/decrementCartItem";
+import { useTranslation } from "react-i18next";
 
 export const useDecrementCartItem = () => {
+  const { t } = useTranslation();
   const client = useQueryClient();
 
   return useMutation({
@@ -10,7 +12,7 @@ export const useDecrementCartItem = () => {
 
     onSuccess: (data) => {
       if (data.status !== "success" || data?.errors?.length > 0)
-        return toast.error("Failed to decrement quantity", {
+        return toast.error(t("somethingWentWrong"), {
           id: "decrement-cart-item",
         });
 
