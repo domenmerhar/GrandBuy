@@ -7,6 +7,8 @@ import Product from "../models/productModel";
 import couponModel from "../models/couponModel";
 import { mapProductIds } from "../utils/mapProductIds";
 import mongoose from "mongoose";
+import orderModel from "../models/orderModel";
+import cartItemModel from "../models/cartItemModel";
 
 const sellerChangeOrderStatus = async (
   orderId: string,
@@ -296,16 +298,46 @@ export const deleteCartItem = catchAsync(
 
 export const shipOrder = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    const orderedCartItem = await sellerChangeOrderStatus(
-      req.params.id,
-      res.locals.user._id,
-      "shipped"
+    const cartItemId = req.params.id;
+    const sellerId = res.locals.user._id;
+
+    const sellerItems = await cartItemModel
+      .find({ user: sellerId })
+      .select("_id");
+    const sellerProductIds = sellerItems.map((item) => item._id.toString());
+
+    const order = await orderModel.findOne({
+      "products._id": cartItemId,
+      paid: true,
+    });
+
+    if (!order)
+      return next(new AppError("Item not found in a paid order", 404));
+
+    const itemToShip = order.products.find(
+      ({ _id, product }) =>
+        _id.toString() === cartItemId &&
+        sellerProductIds.includes(product.toString())
     );
+
+    if (!itemToShip) return next(new AppError("Item not found", 404));
+    itemToShip.status = "shipped";
+
+    console.log(itemToShip);
+
+    const allShipped = order.products.every(
+      ({ status }) => status === "shipped"
+    );
+    if (allShipped) order.status = "shipped";
+
+    //await order.save();
 
     res.status(200).json({
       status: "success",
       data: {
-        orderedCartItem,
+        order,
+        itemToShip,
+        // orderedCartItem,
       },
     });
   }
@@ -542,6 +574,125 @@ export const getSellerRecent5 = catchAsync(
       data: {
         cartItems,
       },
+    });
+  }
+);
+
+export const getSellerOrderedItems = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const userId = res.locals.user._id;
+
+    const sortStr = String(req.query.sort);
+    const sortField = sortStr.replace(/[+-]/, "") || "createdAt";
+    const sortOrder = sortStr[0] === "+" ? 1 : -1;
+
+    const filterStr = String(req.query.filter);
+    const filterObj =
+      filterStr === "all" || filterStr === "undefined"
+        ? null
+        : { status: filterStr };
+
+    const limit = req.query.limit ? +req.query.limit : 10;
+    const page = req.query.page ? +req.query.page : 1;
+
+    const skip = (page - 1) * limit;
+
+    console.log(skip);
+
+    const totalCount = await CartItem.aggregate([
+      {
+        $lookup: {
+          from: "products",
+          localField: "product",
+          foreignField: "_id",
+          as: "product",
+        },
+      },
+      { $unwind: "$product" },
+      {
+        $lookup: {
+          from: "orders",
+          localField: "_id",
+          foreignField: "products._id",
+          as: "order",
+        },
+      },
+      { $unwind: { path: "$order", preserveNullAndEmptyArrays: true } },
+      {
+        $match: {
+          "product.user": userId,
+          ...filterObj,
+          "order.paid": true,
+        },
+      },
+      { $sort: { [sortField]: sortOrder } },
+      {
+        $project: {
+          _id: 1,
+          price: 1,
+          quantity: 1,
+          discount: 1,
+          shipping: 1,
+          status: 1,
+          totalPrice: 1,
+        },
+      },
+      {
+        $count: "totalCount",
+      },
+    ]);
+
+    const cartItems = await CartItem.aggregate([
+      {
+        $lookup: {
+          from: "products",
+          localField: "product",
+          foreignField: "_id",
+          as: "product",
+        },
+      },
+      { $unwind: "$product" },
+      {
+        $lookup: {
+          from: "orders",
+          localField: "_id",
+          foreignField: "products._id",
+          as: "order",
+        },
+      },
+      { $unwind: { path: "$order", preserveNullAndEmptyArrays: true } },
+      {
+        $match: {
+          "product.user": userId,
+          ...filterObj,
+          "order.paid": true,
+        },
+      },
+      { $sort: { [sortField]: sortOrder } },
+      {
+        $project: {
+          _id: 1,
+          price: 1,
+          quantity: 1,
+          discount: 1,
+          shipping: 1,
+          status: 1,
+          totalPrice: 1,
+
+          "cartItem._id": 1,
+
+          "product._id": 1,
+          "product.name": 1,
+        },
+      },
+    ])
+      .skip(skip)
+      .limit(limit);
+
+    res.status(200).json({
+      success: true,
+      totalCount: totalCount[0]?.totalCount || 0,
+      data: cartItems,
     });
   }
 );
