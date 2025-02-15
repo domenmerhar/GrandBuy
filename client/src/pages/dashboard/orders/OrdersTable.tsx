@@ -7,10 +7,12 @@ import { ISellerOrder, OrderStatus } from "../../../Util/types";
 import { useGetSellerOrderedItems } from "../../../hooks/order/useGetSellerOrderedItems";
 import { SpinnerInBox } from "../../../Components/SpinnerInBox";
 import { ErrorBox } from "../../../Components/ErrorBox";
-
-const headers = ["Product", "Quantity", "Total", "Status", ""];
+import { useTranslation } from "react-i18next";
 
 export const OrdersTable = () => {
+  const { t } = useTranslation();
+  const headers = [t("products"), t("quantity"), t("total"), t("status"), ""];
+
   const { setIsOpen } = Modal.useModalContext();
   const [, setSearchParams] = useSearchParams();
   const { data, isLoading, error } = useGetSellerOrderedItems();
@@ -29,26 +31,26 @@ export const OrdersTable = () => {
       case "shipped":
         return (
           <Badge $color="yellow" $size="small">
-            Shipped
+            {t(status)}
           </Badge>
         );
 
       case "cancelled":
         return (
           <Badge $color="red" $size="small">
-            Cancelled
+            {t(status)}
           </Badge>
         );
 
       case "delivered":
         return (
           <Badge $color="green" $size="small">
-            Delivered
+            {t(status)}
           </Badge>
         );
 
       case "pending":
-        return "Pending";
+        return t(status);
     }
   };
 
