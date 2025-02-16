@@ -39,7 +39,7 @@ export const AccountSection = () => {
       !countryRef.current?.value &&
       !phoneNumberRef.current?.value
     )
-      return toast.error("Please fill in at least one field");
+      return toast.error(t("pleaseFillInAtLeastOneField"));
 
     mutate({
       JWT,
