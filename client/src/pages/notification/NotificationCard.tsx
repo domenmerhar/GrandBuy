@@ -1,6 +1,7 @@
 import { FC } from "react";
 import { BadgeCard } from "../../Util/BadgeCard";
 import { NotificationType } from "../../Util/types";
+import { useTranslation } from "react-i18next";
 
 interface NotificationCardProps {
   date: string;
@@ -13,12 +14,13 @@ export const NotificationCard: FC<NotificationCardProps> = ({
   type,
   children,
 }) => {
+  const { t } = useTranslation();
   const color = type === "message" ? "green" : "red";
 
   return (
     <BadgeCard>
       <BadgeCard.Badge date={date} $color={color}>
-        {type}
+        {t(type)}
       </BadgeCard.Badge>
 
       <BadgeCard.P>{children}</BadgeCard.P>
