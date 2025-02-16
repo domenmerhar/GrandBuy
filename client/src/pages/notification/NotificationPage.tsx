@@ -69,7 +69,7 @@ export const NotificationPage = () => {
   return (
     <Content>
       <FilterSortHeader
-        headerText="Notifications"
+        headerText={t("notifications")}
         filterOptions={[
           { value: "all", name: t("all") },
           { value: "message", name: t("message") },
