@@ -35,14 +35,14 @@ export const ProductFilter: FC<ProductFilterProps> = ({
       {freeShipping ? (
         <>
           <HeaderUppercaseBold>{t("delivery")}</HeaderUppercaseBold>
-          <CheckboxWithText id="free-shipping" label="Free Shipping" />
+          <CheckboxWithText id="free-shipping" label={t("freeShipping")} />
         </>
       ) : null}
 
       {sale ? (
         <>
           <HeaderUppercaseBold>{t("discount")}</HeaderUppercaseBold>
-          <CheckboxWithText id="sale" label="Sale" />
+          <CheckboxWithText id="sale" label={t("sale")} />
         </>
       ) : null}
 
