@@ -94,7 +94,7 @@ export const SignupPage = () => {
           {t("signup")}
         </Button>
         <P>
-          {t("alreadyAMember")}
+          {t("alreadyAMember")}{" "}
           <StyledLink $fontSize="1.4rem" to="/login">
             {t("login")}
           </StyledLink>
