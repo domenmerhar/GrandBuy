@@ -11,7 +11,7 @@ import { useTranslation } from "react-i18next";
 
 export const OrdersTable = () => {
   const { t } = useTranslation();
-  const headers = [t("products"), t("quantity"), t("total"), t("status"), ""];
+  const headers = [t("product"), t("quantity"), t("total"), t("status"), ""];
 
   const { setIsOpen } = Modal.useModalContext();
   const [, setSearchParams] = useSearchParams();
