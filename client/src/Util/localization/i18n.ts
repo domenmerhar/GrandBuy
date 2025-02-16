@@ -22,6 +22,7 @@ const resources = {
       sortByLikesLowest: "Sort by likes (lowest)",
 
       sortByOrdersMost: "Sort by orders (most)",
+
       sortByOrdersLeast: "Sort by orders (least)",
 
       sortByPriceHighest: "Sort by price (highest)",
@@ -170,6 +171,7 @@ const resources = {
       quantity: "Quantity",
       status: "Status",
       respond: "Respond",
+      pendingOrders: "Pending Orders",
 
       // Dashboard coupon page
       totalCoupons: "Total Coupons",
@@ -426,9 +428,10 @@ const resources = {
       quantity: "Količina",
       status: "Status",
       respond: "Odgovori",
+      pendingOrders: "Nedoločena naročila",
 
       // Dashboard coupon page
-      totalCoupons: "Skupaj kuponov",
+      totalCoupons: "Št. kuponov",
       highestDiscount: "Največji popust",
       code: "Koda",
       validUntil: "Veljavno do",
