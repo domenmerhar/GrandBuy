@@ -82,7 +82,7 @@ export const OrdersTable = () => {
                   $size="small"
                   onClick={handleClick(_id)}
                 >
-                  Respond
+                  {t("respond")}
                 </Button>
               ) : null}
             </td>
