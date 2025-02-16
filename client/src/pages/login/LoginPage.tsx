@@ -58,7 +58,7 @@ export const LoginPage = () => {
 
       setJWT(data?.token);
 
-      toast.success(t("loggedIn"), toastOptions);
+      toast.success(t("loggedInSuccessfully"), toastOptions);
 
       navigate("/");
     },
