@@ -1,4 +1,4 @@
-import React, { createContext, FC, useEffect } from "react";
+import React, { createContext, FC } from "react";
 import { languages } from "./types";
 import { useLocalStorage } from "../hooks/useLocalStorage";
 import i18n from "./localization/i18n";
@@ -24,8 +24,6 @@ export const LanguageProvider: FC<LanguageProviderProps> = ({ children }) => {
     i18n.changeLanguage(language);
     setCurrentLanguageState(language);
   };
-
-  console.log("i18n", i18n.language);
 
   return (
     <LanguageContext.Provider value={{ currentLanguage, setCurrentLanguage }}>
