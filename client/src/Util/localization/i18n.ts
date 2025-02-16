@@ -179,6 +179,7 @@ const resources = {
       code: "Code",
       validUntil: "Valid Until",
       affectedItems: "Affected Items",
+      coupon: "Coupon",
 
       // Toast
       pleaseEnterAllFields: "Please enter all fields.",
@@ -436,6 +437,7 @@ const resources = {
       code: "Koda",
       validUntil: "Veljavno do",
       affectedItems: "Vplivani izdelki",
+      coupon: "Kupon",
 
       // Toast
       pleaseEnterAllFields: "Prosim izpolnite vsa polja.",
