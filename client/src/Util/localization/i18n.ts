@@ -101,6 +101,9 @@ const resources = {
       stars: "stars",
       showReplies: "Show Replies",
       moreFromSeller: "More from seller",
+      addToCart: "Add to Cart",
+      addReview: "Add Review",
+      reply: "Reply",
 
       // Orders page
       estimatedDelivery: "Estimated Delivery",
@@ -161,7 +164,6 @@ const resources = {
 
       // Dashboard reviews page
       posted: "Posted",
-      reply: "Reply",
 
       // Dashboard orders page
       product: "Product",
@@ -311,7 +313,7 @@ const resources = {
       hours: "ur",
       minutes: "minut",
       seconds: "sekund",
-      shopNow: "Nakupuj zdaj",
+      shopNow: "Naročite zdaj",
 
       // Main page
       summerSale: "Poletna razprodaja",
@@ -336,7 +338,7 @@ const resources = {
 
       // Account user page
       reviews: "Ocene",
-      replies: "Odzivi",
+      replies: "Odgovori",
 
       // Search page
       delivery: "Dostava",
@@ -347,7 +349,7 @@ const resources = {
 
       // Product page
       averageRating: "Povprečna ocena",
-      unitsSold: "Prodane enote",
+      unitsSold: "Prodano",
       createdBy: "Ustvaril",
       uploaded: "Naloženo",
       buyNow: "Kupi zdaj",
@@ -355,6 +357,9 @@ const resources = {
       stars: "zvezdice",
       showReplies: "Pokaži odgovore",
       moreFromSeller: "Več od tega prodajalca",
+      addToCart: "V košarico",
+      addReview: "Dodaj oceno",
+      reply: "Odgovori",
 
       // Orders page
       estimatedDelivery: "Predvidena dostava",
@@ -415,7 +420,6 @@ const resources = {
 
       // Dashboard reviews page
       posted: "Objavljeno",
-      reply: "Odgovori",
 
       // Dashboard orders page
       product: "Izdelek",
