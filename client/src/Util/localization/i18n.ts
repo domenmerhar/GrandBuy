@@ -305,7 +305,7 @@ const resources = {
       confirm: "Potrdi",
 
       // Login Page
-      searchPlaceholder: "Iščite izdelke...",
+      searchPlaceholder: "Iskanje izdelkov ...",
 
       // Hero
       saveUpTo: "Prihranite do",
@@ -315,7 +315,7 @@ const resources = {
       hours: "ur",
       minutes: "minut",
       seconds: "sekund",
-      shopNow: "Naročite zdaj",
+      shopNow: "Kupujte zdaj",
 
       // Main page
       summerSale: "Poletna razprodaja",
@@ -438,7 +438,7 @@ const resources = {
       affectedItems: "Vplivani izdelki",
 
       // Toast
-      pleaseEnterAllFields: "Prosimo, izpolnite vsa polja.",
+      pleaseEnterAllFields: "Prosim izpolnite vsa polja.",
       somethingWentWrong: "Prišlo je do napake.",
 
       changingPassword: "Menjava gesla ...",
@@ -459,21 +459,21 @@ const resources = {
       couldntConfirmEmail: "E-pošte ni bilo mogoče potrditi, poskusite znova.",
       couldntSignUp: "Registracija ni uspela, poskusite znova.",
 
-      addingToCart: "Dodajanje v košarico...",
+      addingToCart: "Dodajanje v košarico ...",
       failedToAddToCart: "Neuspešno dodajanje v košarico",
       addedToCart: "Dodano v košarico",
 
-      applyingCoupon: "Uveljavljanje kupona...",
+      applyingCoupon: "Uveljavljanje kupona ...",
       appliedCoupon: "Kupon uveljavljen",
       failedToApplyCoupon: "Neuspešna uveljava kupona",
 
-      deletingCartItem: "Brisanje izdelka...",
+      deletingCartItem: "Odstranjeveanje izdelka ...",
       deletedCartItem: "Izdelek odstranjen iz košarice",
       failedToDeleteCartItem: "Neuspešno brisanje izdelka iz košarice",
 
       failedToIncrementQuantity: "Neuspešno povečanje količine",
 
-      updatingQuantity: "Posodabljanje količine...",
+      updatingQuantity: "Posodabljanje količine ...",
       failedToUpdateQuantity: "Neuspešna posodobitev količine",
       updatedQuantity: "Količina posodobljena",
 
@@ -488,14 +488,14 @@ const resources = {
       failedToRequestRefund: "Neuspešna zahteva za vračilo",
       refundRequested: "Zahteva za vračilo poslana",
 
-      addingToWishlist: "Dodajanje na seznam želja...",
+      addingToWishlist: "Dodajanje na seznam želja ...",
       addedToWishlist: "Dodano na seznam želja",
       failedToAddToWishlist: "Neuspešno dodajanje na seznam želja",
 
-      removingFromWishlist: "Odstranjevanje s seznama želja...",
+      removingFromWishlist: "Odstranjevanje s seznama želja ...",
       removedFromWishlist: "Odstranjeno s seznama želja",
 
-      pleaseAddItemsToCart: "Prosimo, dodajte izdelke v košarico",
+      pleaseAddItemsToCart: "Prosim dodajte izdelke v košarico",
 
       invalidUsernameOrPassword: "Neveljavno uporabniško ime ali geslo",
       loggingIn: "Prijavljanje...",
@@ -503,11 +503,11 @@ const resources = {
 
       pleaseFillInAtLeastOneField: "Izpolnite vsaj eno polje",
       passwordsDontMatch: "Gesli se ne ujemata",
-      pleaseFillInAllFields: "Prosimo, izpolnite vsa polja",
+      pleaseFillInAllFields: "Prosim izpolnite vsa polja",
 
-      pleaseEnterACode: "Prosimo, vnesite kodo",
+      pleaseEnterACode: "Prosim vnesite kodo",
 
-      pleaseTryAgainLater: "Prosimo, poskusite znova kasneje",
+      pleaseTryAgainLater: "Prosim poskusite znova kasneje",
 
       banned: "Izključen",
       create: "Ustvari",
