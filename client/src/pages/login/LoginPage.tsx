@@ -10,6 +10,7 @@ import { login } from "../../api/auth/login";
 import { useMutation } from "@tanstack/react-query";
 import { useAuthContext } from "../../contexts/AuthContext";
 import toast from "react-hot-toast";
+import { useTranslation } from "react-i18next";
 
 const Form = styled.form`
   display: flex;
@@ -42,6 +43,8 @@ const toastOptions = {
 };
 
 export const LoginPage = () => {
+  const { t } = useTranslation();
+
   const { setJWT } = useAuthContext();
   const [isError, setError] = useState<boolean>(false);
 
@@ -49,13 +52,13 @@ export const LoginPage = () => {
     mutationFn: login,
     onSuccess: (data) => {
       if (data.status === "fail" || data?.errors?.length > 0) {
-        toast.error("Invalid username or password", toastOptions);
+        toast.error(t("invalidUsernameOrPassword"), toastOptions);
         return setError(true);
       }
 
       setJWT(data?.token);
 
-      toast.success("Logged in successfully", toastOptions);
+      toast.success(t("loggedIn"), toastOptions);
 
       navigate("/");
     },
@@ -67,7 +70,7 @@ export const LoginPage = () => {
   const navigate = useNavigate();
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    toast.loading("Logging in...", toastOptions);
+    toast.loading(t("loggingIn"), toastOptions);
     mutate({
       email: String(usernameRef.current?.value),
       password: String(passwordRef.current?.value),
@@ -81,33 +84,33 @@ export const LoginPage = () => {
 
         <InputWithLabel
           id="email"
-          placeholder="Email"
+          placeholder={t("email")}
           type="text"
-          title="Email"
+          title={t("email")}
           ref={usernameRef}
           error={isError}
         />
 
         <InputWithLabel
           id="password"
-          placeholder="Password"
+          placeholder={t("password")}
           type="password"
-          title="Password"
+          title={t("password")}
           ref={passwordRef}
           error={isError}
         />
 
         <StyledLink $fontSize="1.4rem" to="/forgot-password">
-          Forgot password?
+          {t("forgotPassword")}
         </StyledLink>
 
         <Button $color="orange" $shape="oval" $size="medium">
-          Login
+          {t("login")}
         </Button>
         <P>
-          Not a member?{" "}
+          {t("notAMember")}{" "}
           <StyledLink $fontSize="1.4rem" to="/signup">
-            Sign up
+            {t("signUp")}
           </StyledLink>
         </P>
       </Form>
