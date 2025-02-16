@@ -198,6 +198,7 @@ export const createCartItem = catchAsync(
       res.locals.newItem = await item.save();
     } else {
       const product = await Product.findById(productId);
+      if (!product) return next(new AppError("Product not found", 404));
 
       res.locals.newItem = await CartItem.create({
         product: productId,
@@ -301,43 +302,38 @@ export const shipOrder = catchAsync(
     const cartItemId = req.params.id;
     const sellerId = res.locals.user._id;
 
-    const sellerItems = await cartItemModel
-      .find({ user: sellerId })
-      .select("_id");
-    const sellerProductIds = sellerItems.map((item) => item._id.toString());
-
     const order = await orderModel.findOne({
       "products._id": cartItemId,
       paid: true,
     });
+    if (!order) return next(new AppError("Item not found", 404));
 
-    if (!order)
-      return next(new AppError("Item not found in a paid order", 404));
+    console.log(order);
 
     const itemToShip = order.products.find(
-      ({ _id, product }) =>
-        _id.toString() === cartItemId &&
-        sellerProductIds.includes(product.toString())
+      ({ _id }) => _id.toString() === cartItemId
     );
-
     if (!itemToShip) return next(new AppError("Item not found", 404));
-    itemToShip.status = "shipped";
 
-    console.log(itemToShip);
+    const product = await Product.findOne({
+      _id: itemToShip!.product,
+      user: sellerId,
+    });
+    if (!product) return next(new AppError("Item not found", 404));
+
+    itemToShip.status = "shipped";
 
     const allShipped = order.products.every(
       ({ status }) => status === "shipped"
     );
     if (allShipped) order.status = "shipped";
 
-    //await order.save();
+    await order.save();
 
     res.status(200).json({
       status: "success",
       data: {
-        order,
         itemToShip,
-        // orderedCartItem,
       },
     });
   }
