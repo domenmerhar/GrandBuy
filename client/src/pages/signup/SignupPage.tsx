@@ -52,10 +52,10 @@ export const SignupPage = () => {
       .value;
 
     if (!email || !username || !password || !confirmPassword)
-      return toast.error("Please fill in all fields.", { id: "signup" });
+      return toast.error(t("pleaseFillInAllFields"), { id: "signup" });
 
     if (password !== confirmPassword)
-      return toast.error("Passwords don't match.", { id: "signup" });
+      return toast.error(t("passwordsDontMatch"), { id: "signup" });
 
     mutate({ email, username, password, confirmPassword });
   };
