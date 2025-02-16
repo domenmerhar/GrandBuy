@@ -84,7 +84,7 @@ const resources = {
       reviews: "Reviews",
       replies: "Replies",
 
-      //Search page
+      // Search page
       delivery: "Delivery",
       discount: "Discount",
       sale: "Sale",
@@ -159,7 +159,7 @@ const resources = {
       productDescriptionMd: "Product Description (.md)",
       noFilesSelected: "No files selected",
 
-      // Dashboard reviews ppage
+      // Dashboard reviews page
       posted: "Posted",
       reply: "Reply",
 
@@ -257,16 +257,269 @@ const resources = {
     },
   },
   sl: {
-    translation: {},
+    translation: {
+      // Burger menu
+      hello: "Zdravo",
+      account: "Račun",
+      wishlist: "Seznam želja",
+      orders: "Naročila",
+      history: "Zgodovina",
+      settings: "Nastavitve",
+      refund: "Vračilo",
+      dashboard: "Nadzorna plošča",
+
+      // Sort
+      sortByDateNewest: "Razvrsti po datumu (najnovejše)",
+      sortByDateOldest: "Razvrsti po datumu (najstarejše)",
+
+      sortByLikesHighest: "Razvrsti po všečkih (največ)",
+      sortByLikesLowest: "Razvrsti po všečkih (najmanj)",
+
+      sortByOrdersMost: "Razvrsti po naročilih (največ)",
+      sortByOrdersLeast: "Razvrsti po naročilih (najmanj)",
+
+      sortByPriceHighest: "Razvrsti po ceni (najvišja)",
+      sortByPriceLowest: "Razvrsti po ceni (najnižja)",
+
+      sortByDiscountHighest: "Razvrsti po popustu (največji)",
+      sortByDiscountLowest: "Razvrsti po popustu (najmanjši)",
+
+      // Login Page
+      email: "E-pošta",
+      password: "Geslo",
+      forgotPassword: "Ste pozabili geslo?",
+      notAMember: "Niste član?",
+      signUp: "Registracija",
+      login: "Prijava",
+
+      // Signup Page
+      username: "Uporabniško ime",
+      confirmPassword: "Potrdite geslo",
+      alreadyAMember: "Ste že član?",
+      pleaseEnterVerificationCode:
+        "Vnesite potrditveno kodo, poslano na vaš e-poštni naslov.",
+      confirm: "Potrdi",
+
+      // Login Page
+      searchPlaceholder: "Iščite izdelke...",
+
+      // Hero
+      saveUpTo: "Prihranite do",
+      grandFallSale: "Velika jesenska razprodaja",
+      thePromotionEndsIn: "Promocija se konča čez:",
+      days: "dni",
+      hours: "ur",
+      minutes: "minut",
+      seconds: "sekund",
+      shopNow: "Nakupuj zdaj",
+
+      // Main page
+      summerSale: "Poletna razprodaja",
+      designedForYou: "Oblikovano za vas",
+      under50: "Pod 50$",
+      freeShipping: "Brezplačna dostava",
+
+      // Notifications page
+      all: "Vse",
+      message: "Sporočilo",
+      warning: "Opozorilo",
+
+      // Shopping cart
+      shoppingCart: "Nakupovalna košarica",
+      items: "Izdelki",
+      summary: "Povzetek",
+      shipping: "Dostava",
+      coupons: "Kuponi",
+      total: "Skupaj",
+      couponCode: "Koda kupona",
+      order: "Naročilo",
+
+      // Account user page
+      reviews: "Ocene",
+      replies: "Odzivi",
+
+      // Search page
+      delivery: "Dostava",
+      discount: "Popust",
+      sale: "Razprodaja",
+      rating: "Ocena",
+      price: "Cena",
+
+      // Product page
+      averageRating: "Povprečna ocena",
+      unitsSold: "Prodane enote",
+      createdBy: "Ustvaril",
+      uploaded: "Naloženo",
+      buyNow: "Kupi zdaj",
+      descriptionIsLoading: "Opis se nalaga ...",
+      stars: "zvezdice",
+      showReplies: "Pokaži odgovore",
+      moreFromSeller: "Več od tega prodajalca",
+
+      // Orders page
+      estimatedDelivery: "Predvidena dostava",
+      ordered: "Naročeno",
+      shipped: "Poslano",
+      delivered: "Dostavljeno",
+      pending: "V obdelavi",
+      cancelled: "Preklicano",
+      totalPrice: "Skupna cena",
+      confirmOrderDelivery: "Potrdi dostavo naročila",
+      refundItem: "Vračilo izdelka",
+
+      // History page
+      recentHistory: "Nedavna zgodovina",
+
+      // Settings page
+      accountInfo: "Podatki o računu",
+      firstName: "Ime",
+      lastName: "Priimek",
+      streetAddress: "Ulica",
+      city: "Mesto",
+      zipOrPostalCode: "Poštna številka",
+      country: "Država",
+      phoneNumber: "Telefonska številka",
+      saveChanges: "Shrani spremembe",
+      changePassword: "Spremeni geslo",
+      role: "Vloga",
+      requestSeller: "Zahtevaj status prodajalca",
+      areYouSureYouWontBeAbleToRevertThisDecision:
+        "Ste prepričani? Tega ne boste mogli razveljaviti.",
+      language: "Jezik",
+
+      // Refund page
+      refundRequests: "Zahtevki za vračilo",
+      approved: "Odobreno",
+      rejected: "Zavrnjeno",
+
+      // Dashboard page
+      overview: "Pregled",
+      refunds: "Vračila",
+      addProduct: "Dodaj izdelek",
+      bans: "Prepovedi",
+      admins: "Skrbniki",
+      notifications: "Obvestila",
+      requests: "Zahteve",
+      reports: "Poročila",
+
+      // Modal
+      cancel: "Prekliči",
+      submit: "Potrdi",
+
+      // Add product modal
+      productName: "Ime izdelka",
+      productCover: "Naslovna slika izdelka",
+      productImages: "Slike izdelka",
+      productDescriptionMd: "Opis izdelka (.md)",
+      noFilesSelected: "Ni izbranih datotek",
+
+      // Dashboard reviews page
+      posted: "Objavljeno",
+      reply: "Odgovori",
+
+      // Dashboard orders page
+      product: "Izdelek",
+      quantity: "Količina",
+      status: "Status",
+      respond: "Odgovori",
+
+      // Dashboard coupon page
+      totalCoupons: "Skupaj kuponov",
+      highestDiscount: "Največji popust",
+      code: "Koda",
+      validUntil: "Veljavno do",
+      affectedItems: "Vplivani izdelki",
+
+      // Toast
+      pleaseEnterAllFields: "Prosimo, izpolnite vsa polja.",
+      somethingWentWrong: "Prišlo je do napake.",
+
+      changingPassword: "Menjava gesla ...",
+      passwordChanged: "Spremenjeno geslo",
+
+      loggingOut: "Odjavljanje...",
+      loggedOut: "Odjavljeni",
+
+      sendingRequest: "Pošiljanje zahteve ...",
+      requestSent: "Poslana zahteva",
+
+      creatingAccount: "Ustvarjanje računa...",
+      createdAccount: "Ustvarjen račun",
+
+      updating: "Posodabljanje...",
+      updatedData: "Posodobljeni podatki",
+
+      couldntConfirmEmail: "E-pošte ni bilo mogoče potrditi, poskusite znova.",
+      couldntSignUp: "Registracija ni uspela, poskusite znova.",
+
+      addingToCart: "Dodajanje v košarico...",
+      failedToAddToCart: "Neuspešno dodajanje v košarico",
+      addedToCart: "Dodano v košarico",
+
+      applyingCoupon: "Uveljavljanje kupona...",
+      appliedCoupon: "Kupon uveljavljen",
+      failedToApplyCoupon: "Neuspešna uveljava kupona",
+
+      deletingCartItem: "Brisanje izdelka...",
+      deletedCartItem: "Izdelek odstranjen iz košarice",
+      failedToDeleteCartItem: "Neuspešno brisanje izdelka iz košarice",
+
+      failedToIncrementQuantity: "Neuspešno povečanje količine",
+
+      updatingQuantity: "Posodabljanje količine...",
+      failedToUpdateQuantity: "Neuspešna posodobitev količine",
+      updatedQuantity: "Količina posodobljena",
+
+      failedToConfirmDelivery: "Neuspešna potrditev dostave",
+      deliveryConfirmed: "Dostava potrjena",
+
+      failedToCreateProduct: "Neuspešno ustvarjanje izdelka",
+
+      productDeleted: "Izdelek izbrisan",
+      failedToDeleteProduct: "Neuspešno brisanje izdelka",
+
+      failedToRequestRefund: "Neuspešna zahteva za vračilo",
+      refundRequested: "Zahteva za vračilo poslana",
+
+      addingToWishlist: "Dodajanje na seznam želja...",
+      addedToWishlist: "Dodano na seznam želja",
+      failedToAddToWishlist: "Neuspešno dodajanje na seznam želja",
+
+      removingFromWishlist: "Odstranjevanje s seznama želja...",
+      removedFromWishlist: "Odstranjeno s seznama želja",
+
+      pleaseAddItemsToCart: "Prosimo, dodajte izdelke v košarico",
+
+      invalidUsernameOrPassword: "Neveljavno uporabniško ime ali geslo",
+      loggingIn: "Prijavljanje...",
+      loggedInSuccessfully: "Prijava uspešna",
+
+      pleaseFillInAtLeastOneField: "Izpolnite vsaj eno polje",
+      passwordsDontMatch: "Gesli se ne ujemata",
+      pleaseFillInAllFields: "Prosimo, izpolnite vsa polja",
+
+      pleaseEnterACode: "Prosimo, vnesite kodo",
+
+      pleaseTryAgainLater: "Prosimo, poskusite znova kasneje",
+
+      banned: "Izključen",
+      create: "Ustvari",
+
+      respondToRequest: "Odgovori na zahtevo",
+      response: "Odgovor",
+      writeYourResponseHere: "Napišite svoj odgovor tukaj",
+    },
   },
 };
+
+const lng = JSON.parse(localStorage.getItem("language") || "en");
 
 i18n
   .use(initReactI18next) // passes i18n down to react-i18next
   .init({
     resources,
     fallbackLng: "en",
-    lng: "en", // language to use, more information here: https://www.i18next.com/overview/configuration-options#languages-namespaces-resources
+    lng, // language to use, more information here: https://www.i18next.com/overview/configuration-options#languages-namespaces-resources
     // you can use the i18n.changeLanguage function to change the language manually: https://www.i18next.com/overview/api#changelanguage
     // if you're using a language detector, do not define the lng option
 
