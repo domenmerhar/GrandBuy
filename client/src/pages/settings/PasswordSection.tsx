@@ -20,10 +20,12 @@ export const PasswordSection = () => {
     e.preventDefault();
 
     if (!passwordRef.current?.value || !confirmPasswordRef.current?.value)
-      return toast.error("Please fill in all fields", { id: "changePassword" });
+      return toast.error(t("pleaseEnterAllFields"), {
+        id: "changePassword",
+      });
 
     if (passwordRef.current.value !== confirmPasswordRef.current.value)
-      return toast.error("Passwords do not match", { id: "changePassword" });
+      return toast.error(t("passwordsDontMatch"), { id: "changePassword" });
 
     mutate({
       JWT,
