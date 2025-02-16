@@ -60,7 +60,7 @@ export const ReviewActions: FC<ReviewActionsProps> = ({
             onClick={handleReply}
           >
             <HiArrowUturnLeft size={22} />
-            <span>Reply</span>
+            <span>{t("reply")}</span>
           </ReviewAction>
         </>
       ) : null}
