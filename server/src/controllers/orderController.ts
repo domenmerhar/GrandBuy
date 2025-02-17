@@ -5,7 +5,6 @@ import APIFeatures from "../utils/ApiFeatures";
 import Order from "../models/orderModel";
 import CartItem from "../models/cartItemModel";
 import cartItemModel from "../models/cartItemModel";
-import userModel from "../models/userModel";
 import { stripe } from "../utils/stripe";
 import mongoose from "mongoose";
 
@@ -137,8 +136,6 @@ export const confirmDelivery = catchAsync(
       user: res.locals.user._id,
       status: { $in: ["pending", "shipped"] },
     });
-
-    console.log({ order });
 
     if (!order) return next(new AppError("Order not found.", 404));
 
