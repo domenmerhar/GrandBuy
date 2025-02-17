@@ -6,7 +6,7 @@ import AppError from "../utils/AppError";
 import Refund from "../models/refundModel";
 import APIFeatures from "../utils/ApiFeatures";
 import notificationModel from "../models/notificationModel";
-import mongoose, { ObjectId } from "mongoose";
+import { ObjectId } from "mongoose";
 
 const refundPeriodDays = parseInt(process.env.REFUND_PERIOD_DAYS || "60", 10); // Default to 60 days
 const refundPeriod = refundPeriodDays * 24 * 60 * 60 * 1000; // Convert days to milliseconds
@@ -48,11 +48,11 @@ export const requestRefund = catchAsync(
       seller: (cartItem.product as unknown as { user: ObjectId }).user,
     });
 
-    cartItem.status = "pending";
+    cartItem.status = "pending-refund";
     await cartItem.save();
 
     order.products.forEach((product) => {
-      if (product?._id?.toString() === id) product.status = "pending";
+      if (product?._id?.toString() === id) product.status = "pending-refund";
     });
 
     await order.save();
@@ -105,7 +105,7 @@ export const cancelRefund = catchAsync(
       {
         user: userId,
         _id: id,
-        status: "pending",
+        status: "pending-refund",
       },
       { status: "cancelled" },
       { new: true }
@@ -139,7 +139,7 @@ export const respondToRefund = catchAsync(
       {
         _id: id,
         seller: userId,
-        status: "pending",
+        status: "pending-refund",
       },
       {
         status,
