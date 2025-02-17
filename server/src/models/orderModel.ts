@@ -7,11 +7,19 @@ const dateInFuture = (val: Date) => {
 interface Order {
   user: Types.ObjectId;
   products: {
+    _id: Types.ObjectId;
+    product: Types.ObjectId;
     name: string;
     image: string;
     totalPrice: number;
     quantity: number;
-    status: ["pending", "cancelled", "shipped", "delivered", "refunded"];
+    status:
+      | "pending"
+      | "cancelled"
+      | "shipped"
+      | "delivered"
+      | "refunded"
+      | "pending-refund";
   }[];
   totalPrice: number;
   status: "pending" | "cancelled" | "shipped" | "delivered";
@@ -28,6 +36,7 @@ const orderSchema = new Schema<Order>({
     required: [true, "Please provide a user ID."],
   },
 
+  //TODO: change products to populate
   products: [
     {
       _id: {
@@ -66,7 +75,14 @@ const orderSchema = new Schema<Order>({
       status: {
         type: String,
         enum: {
-          values: ["pending", "cancelled", "shipped", "delivered", "refunded"],
+          values: [
+            "pending",
+            "cancelled",
+            "shipped",
+            "delivered",
+            "refunded",
+            "pending-refund",
+          ],
           message: "Please provide a valid status.",
         },
 
