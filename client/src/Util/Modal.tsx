@@ -5,27 +5,26 @@ import { Button } from "./Button";
 import { Column } from "./Column";
 import { Backdrop } from "./Backdrop";
 import { createPortal } from "react-dom";
+import { ButtonColor } from "./types";
 
+interface ModalButtonProps {
+  text: string;
+  color: ButtonColor;
+  onClick: (e?: React.MouseEvent<HTMLButtonElement, MouseEvent>) => unknown;
+}
 interface ModalProps {
   title?: string;
   children?: string | ReactNode | ReactNode[];
-  type?: "submitApprove" | "cancelReject";
 
-  onSubmitApprove?: (
-    e?: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => unknown;
+  negativeButton?: ModalButtonProps;
+  positiveButton?: ModalButtonProps;
 
-  onCancelReject?: (
-    e?: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => unknown;
-
-  onBackdropClick?: (
-    e?: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => unknown;
+  onClose?: () => unknown;
 }
 
 const StyledModal = styled.div`
   position: fixed;
+  display: relative;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -62,8 +61,10 @@ const Header = styled.div`
   border-radius: 10px 10px 0 0;
   overflow: hidden;
   min-height: 4.8rem;
+  display: flex;
+  justify-content: space-between;
 
-  padding: 0.8rem 1.2rem;
+  padding: 0.8rem 1.6rem;
 `;
 
 const Title = styled.h1`
@@ -121,70 +122,89 @@ const ButtonsRow = styled(Row)`
   margin-top: auto;
 `;
 
+const CloseButton = styled.button`
+  background: transparent;
+  border: none;
+  color: var(--gray-1);
+  font-weight: 800;
+  font-size: 2.4rem;
+  text-transform: uppercase;
+
+  transition: all 200ms;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+`;
+
 const Window: FC<ModalProps> = ({
   title,
-  type = "submitApprove",
   children,
-  onCancelReject,
-  onSubmitApprove,
-  onBackdropClick,
+
+  negativeButton,
+  positiveButton,
+
+  onClose,
 }) => {
   const { isOpen, setIsOpen } = useModalContext();
 
-  const handleCancelReject = (
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => {
-    if (onCancelReject) onCancelReject(e);
-    setIsOpen(false);
-  };
-
-  const handleSubmitApprove = (
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => {
-    if (onSubmitApprove) onSubmitApprove(e);
-
-    setIsOpen(false);
-  };
-
-  const handleBackdropClick = () => {
-    if (onBackdropClick) onBackdropClick();
+  const closeAfterCallback = (callback?: () => unknown) => () => {
+    if (callback) callback();
     setIsOpen(false);
   };
 
   if (!isOpen) return null;
+
+  const negativeButtonColor = negativeButton?.color;
+  const negativeButtonText = negativeButton?.text;
+  const onNegativeClick = negativeButton?.onClick;
+  const negativeButtonExists =
+    negativeButtonColor && negativeButtonText && onNegativeClick;
+
+  const positiveButtonColor = positiveButton?.color;
+  const positiveButtonText = positiveButton?.text;
+  const onPositiveClick = positiveButton?.onClick;
+  const positiveButtonExists =
+    positiveButtonColor && positiveButtonText && onPositiveClick;
 
   return createPortal(
     <>
       <StyledModal>
         <Header>
           <Title>{title}</Title>
+          <CloseButton onClick={closeAfterCallback(onClose)}>x</CloseButton>
         </Header>
 
         <MainColumn>
           <Content>{children}</Content>
+          {positiveButtonExists || negativeButtonExists ? (
+            <ButtonsRow $gap="1.2rem" $alignItems="center">
+              {negativeButtonExists ? (
+                <Button
+                  $color={negativeButtonColor}
+                  $shape="oval"
+                  $size="medium"
+                  onClick={closeAfterCallback(onNegativeClick)}
+                >
+                  {negativeButtonText}
+                </Button>
+              ) : null}
 
-          <ButtonsRow $gap="1.2rem" $alignItems="center">
-            <Button
-              $color={type === "submitApprove" ? "gray" : "red"}
-              $shape="oval"
-              $size="medium"
-              onClick={handleCancelReject}
-            >
-              Cancel
-            </Button>
-
-            <Button
-              $color={type === "submitApprove" ? "orange" : "gray"}
-              $shape="oval"
-              $size="medium"
-              onClick={handleSubmitApprove}
-            >
-              Submit
-            </Button>
-          </ButtonsRow>
+              {positiveButtonExists ? (
+                <Button
+                  $color={positiveButtonColor}
+                  $shape="oval"
+                  $size="medium"
+                  onClick={closeAfterCallback(onPositiveClick)}
+                >
+                  {positiveButtonText}
+                </Button>
+              ) : null}
+            </ButtonsRow>
+          ) : null}
         </MainColumn>
       </StyledModal>
-      <Backdrop onClick={handleBackdropClick} />
+      <Backdrop onClick={closeAfterCallback(close)} />
     </>,
     document.getElementById("modal") as HTMLElement
   );
