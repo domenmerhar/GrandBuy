@@ -19,8 +19,12 @@ export const ProductInfoModal = () => {
   return (
     <Modal.Window
       title="Edit Product"
-      onBackdropClick={saveToSearchParams}
-      onSubmitApprove={saveToSearchParams}
+      onClose={saveToSearchParams}
+      positiveButton={{
+        color: "green",
+        text: t("update"),
+        onClick: saveToSearchParams,
+      }}
     >
       <Content $gap="1.2rem">
         <InputWithLabel
