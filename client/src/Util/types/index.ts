@@ -25,6 +25,8 @@ export interface BadgeProps {
 
 export type BadgeColor = "orange" | "red" | "green" | "yellow";
 
+export type ButtonColor = "orange" | "gray" | "red" | "green";
+
 export type OrderStatus = "pending" | "cancelled" | "shipped" | "delivered";
 
 export interface IProductShort {
