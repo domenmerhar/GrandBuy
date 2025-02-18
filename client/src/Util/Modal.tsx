@@ -204,7 +204,7 @@ const Window: FC<ModalProps> = ({
           ) : null}
         </MainColumn>
       </StyledModal>
-      <Backdrop onClick={closeAfterCallback(close)} />
+      <Backdrop onClick={closeAfterCallback(onClose)} />
     </>,
     document.getElementById("modal") as HTMLElement
   );
