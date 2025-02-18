@@ -1,8 +1,9 @@
 import styled from "styled-components";
+import { ButtonColor } from "./types";
 
 interface ButtonProps {
   $shape: "rectangle" | "oval";
-  $color: "orange" | "gray" | "red" | "green";
+  $color: ButtonColor;
   $size: "large" | "medium" | "small";
 }
 
