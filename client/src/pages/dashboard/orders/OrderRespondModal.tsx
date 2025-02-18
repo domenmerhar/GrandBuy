@@ -1,7 +1,9 @@
 import { useSearchParams } from "react-router-dom";
 import { Modal } from "../../../Util/Modal";
+import { useTranslation } from "react-i18next";
 
 export const OrderRespondModal = () => {
+  const { t } = useTranslation();
   const [, setSearchParams] = useSearchParams();
 
   const handleModalExit = () =>
@@ -12,16 +14,20 @@ export const OrderRespondModal = () => {
 
   return (
     <Modal.Window
-      title="Respond"
-      type="cancelReject"
-      onBackdropClick={handleModalExit}
-      onCancelReject={handleModalExit}
-      onSubmitApprove={handleModalExit}
+      title={t("respond")}
+      negativeButton={{
+        text: t("cancel"),
+        color: "red",
+        onClick: handleModalExit,
+      }}
+      onClose={handleModalExit}
+      positiveButton={{
+        text: t("approve"),
+        color: "green",
+        onClick: handleModalExit,
+      }}
     >
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae,
-      eligendi aut. Perspiciatis rerum dolorem repellendus aut, illo magnam ipsa
-      quia voluptatum iste neque necessitatibus, labore fugit provident ut
-      quibusdam laborum?
+      {t("orderDecisionPrompt")}
     </Modal.Window>
   );
 };
