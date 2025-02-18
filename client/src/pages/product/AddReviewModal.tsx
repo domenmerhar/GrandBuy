@@ -4,8 +4,10 @@ import { RatingInteractive } from "../search/RatingInteractive";
 import { useSearchParams } from "react-router-dom";
 import { useRef } from "react";
 import { TextareaWithLabel } from "../../Components/TextareaWithLabel";
+import { useTranslation } from "react-i18next";
 
 export const AddReviewModal = () => {
+  const { t } = useTranslation();
   const { setIsOpen } = Modal.useModalContext();
   const [, setSearchParams] = useSearchParams();
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
@@ -23,10 +25,18 @@ export const AddReviewModal = () => {
 
   return (
     <Modal.Window
-      title="Post review"
-      onBackdropClick={removeRatingParam}
-      onCancelReject={removeRatingParam}
-      onSubmitApprove={handleSubmit}
+      title={t("addReview")}
+      onClose={removeRatingParam}
+      negativeButton={{
+        text: t("cancel"),
+        color: "red",
+        onClick: removeRatingParam,
+      }}
+      positiveButton={{
+        text: t("submit"),
+        color: "green",
+        onClick: handleSubmit,
+      }}
     >
       <Column $gap="8px" as="form">
         <RatingInteractive size={28} fontSize="1.6rem" />
