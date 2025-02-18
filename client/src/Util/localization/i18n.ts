@@ -105,6 +105,7 @@ const resources = {
       addToCart: "Add to Cart",
       addReview: "Add Review",
       reply: "Reply",
+      update: "Update",
 
       // Orders page
       estimatedDelivery: "Estimated Delivery",
@@ -155,6 +156,7 @@ const resources = {
       // Modal
       cancel: "Cancel",
       submit: "Submit",
+      reject: "Reject",
 
       // Add product modal
       productName: "Product Name",
@@ -172,6 +174,7 @@ const resources = {
       status: "Status",
       respond: "Respond",
       pendingOrders: "Pending Orders",
+      orderDecisionPrompt: "Please select select the order decision.",
 
       // Dashboard coupon page
       totalCoupons: "Total Coupons",
@@ -363,6 +366,7 @@ const resources = {
       addToCart: "V košarico",
       addReview: "Dodaj oceno",
       reply: "Odgovori",
+      update: "Posodobi",
 
       // Orders page
       estimatedDelivery: "Predvidena dostava",
@@ -413,6 +417,7 @@ const resources = {
       // Modal
       cancel: "Prekliči",
       submit: "Potrdi",
+      reject: "Zavrni",
 
       // Add product modal
       productName: "Ime izdelka",
