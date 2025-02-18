@@ -16,7 +16,7 @@ export const ReplyModal = () => {
   return (
     <Modal.Window
       title={t("reply")}
-      onClose={handleReplyClose}
+      // onClose={handleReplyClose}
       negativeButton={{
         text: t("cancel"),
         color: "red",
