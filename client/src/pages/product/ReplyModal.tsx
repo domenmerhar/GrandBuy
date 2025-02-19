@@ -16,12 +16,15 @@ export const ReplyModal = () => {
   return (
     <Modal.Window
       title={t("reply")}
-      // onClose={handleReplyClose}
-      negativeButton={{
-        text: t("cancel"),
-        color: "red",
-        onClick: handleReplyClose,
-      }}
+      onClose={handleReplyClose}
+      buttons={[
+        {
+          key: "cancel",
+          text: t("cancel"),
+          color: "red",
+          onClick: handleReplyClose,
+        },
+      ]}
     >
       Lorem ipsum dolor sit amet consectetur, adipisicing elit. Expedita
       possimus nesciunt eveniet at vitae officiis, illum architecto animi atque
