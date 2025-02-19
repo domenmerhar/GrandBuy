@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { useShipOrder } from "../../../hooks/order/useShipOrder";
 import { useJWT } from "../../../hooks/useJWT";
 import toast from "react-hot-toast";
+import { useCancelOrder } from "../../../hooks/order/useCancelOrder";
 
 export const OrderRespondModal = () => {
   const { t } = useTranslation();
@@ -13,6 +14,7 @@ export const OrderRespondModal = () => {
 
   const { JWT } = useJWT();
   const { mutate: shipOrder } = useShipOrder();
+  const { mutate: cancelOrder } = useCancelOrder();
 
   const handleModalExit = () =>
     setSearchParams((searchParams) => {
@@ -20,12 +22,20 @@ export const OrderRespondModal = () => {
       return searchParams;
     });
 
-  const handleShip = () => {
+  const handleOrderAction = (callback: () => unknown) => () => {
     if (!orderId || !JWT)
       return toast.error(t("somethingWentWrong"), { id: "handle-order" });
 
-    shipOrder({ orderId, JWT });
+    callback();
   };
+
+  const handleShip = handleOrderAction(() =>
+    shipOrder({ orderId: orderId!, JWT })
+  );
+
+  const handleCancel = handleOrderAction(() =>
+    cancelOrder({ orderId: orderId!, JWT })
+  );
 
   return (
     <Modal.Window
@@ -35,7 +45,7 @@ export const OrderRespondModal = () => {
           key: "cancel",
           text: t("cancel"),
           color: "red",
-          onClick: handleModalExit,
+          onClick: handleCancel,
         },
 
         {
