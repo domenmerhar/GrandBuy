@@ -63,11 +63,14 @@ export const AddProductModal = () => {
   return (
     <Modal.Window
       title="Add Product"
-      positiveButton={{
-        text: t("submit"),
-        color: "green",
-        onClick: handleSubmit,
-      }}
+      buttons={[
+        {
+          key: "submit",
+          text: t("submit"),
+          color: "green",
+          onClick: handleSubmit,
+        },
+      ]}
     >
       <Content $gap="1.2rem" as="form" onSubmit={handleSubmit}>
         <InputWithLabel
