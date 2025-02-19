@@ -8,6 +8,7 @@ import { createPortal } from "react-dom";
 import { ButtonColor } from "./types";
 
 interface ModalButtonProps {
+  key: string;
   text: string;
   color: ButtonColor;
   onClick: (e?: React.MouseEvent<HTMLButtonElement, MouseEvent>) => unknown;
@@ -15,9 +16,7 @@ interface ModalButtonProps {
 interface ModalProps {
   title?: string;
   children?: string | ReactNode | ReactNode[];
-
-  negativeButton?: ModalButtonProps;
-  positiveButton?: ModalButtonProps;
+  buttons?: ModalButtonProps[];
 
   onClose?: () => unknown;
 }
@@ -114,11 +113,12 @@ const useModalContext = () => {
 };
 
 const MainColumn = styled(Column)`
-  flex: 0.9;
+  flex: 1;
   overflow-y: auto;
 `;
 
 const ButtonsRow = styled(Row)`
+  margin: 0.8rem 1.2rem;
   margin-top: auto;
 `;
 
@@ -141,9 +141,7 @@ const Window: FC<ModalProps> = ({
   title,
   children,
 
-  negativeButton,
-  positiveButton,
-
+  buttons,
   onClose,
 }) => {
   const { isOpen, setIsOpen } = useModalContext();
@@ -155,18 +153,6 @@ const Window: FC<ModalProps> = ({
 
   if (!isOpen) return null;
 
-  const negativeButtonColor = negativeButton?.color;
-  const negativeButtonText = negativeButton?.text;
-  const onNegativeClick = negativeButton?.onClick;
-  const negativeButtonExists =
-    negativeButtonColor && negativeButtonText && onNegativeClick;
-
-  const positiveButtonColor = positiveButton?.color;
-  const positiveButtonText = positiveButton?.text;
-  const onPositiveClick = positiveButton?.onClick;
-  const positiveButtonExists =
-    positiveButtonColor && positiveButtonText && onPositiveClick;
-
   return createPortal(
     <>
       <StyledModal>
@@ -177,29 +163,19 @@ const Window: FC<ModalProps> = ({
 
         <MainColumn>
           <Content>{children}</Content>
-          {positiveButtonExists || negativeButtonExists ? (
+          {buttons?.length ? (
             <ButtonsRow $gap="1.2rem" $alignItems="center">
-              {negativeButtonExists ? (
+              {buttons.map(({ key, text, color, onClick }) => (
                 <Button
-                  $color={negativeButtonColor}
+                  key={key}
+                  $color={color}
                   $shape="oval"
                   $size="medium"
-                  onClick={closeAfterCallback(onNegativeClick)}
+                  onClick={closeAfterCallback(onClick)}
                 >
-                  {negativeButtonText}
+                  {text}
                 </Button>
-              ) : null}
-
-              {positiveButtonExists ? (
-                <Button
-                  $color={positiveButtonColor}
-                  $shape="oval"
-                  $size="medium"
-                  onClick={closeAfterCallback(onPositiveClick)}
-                >
-                  {positiveButtonText}
-                </Button>
-              ) : null}
+              ))}
             </ButtonsRow>
           ) : null}
         </MainColumn>
