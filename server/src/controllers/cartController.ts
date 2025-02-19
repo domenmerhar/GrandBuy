@@ -8,7 +8,7 @@ import couponModel from "../models/couponModel";
 import { mapProductIds } from "../utils/mapProductIds";
 import mongoose from "mongoose";
 import orderModel from "../models/orderModel";
-import cartItemModel from "../models/cartItemModel";
+import notificationModel from "../models/notificationModel";
 
 const sellerChangeOrderStatus = async (
   orderId: string,
@@ -308,12 +308,11 @@ export const shipOrder = catchAsync(
     });
     if (!order) return next(new AppError("Item not found", 404));
 
-    console.log(order);
-
     const itemToShip = order.products.find(
       ({ _id }) => _id.toString() === cartItemId
     );
-    if (!itemToShip) return next(new AppError("Item not found", 404));
+    if (!itemToShip || itemToShip.status !== "pending")
+      return next(new AppError("Item not found", 404));
 
     const product = await Product.findOne({
       _id: itemToShip!.product,
@@ -324,16 +323,40 @@ export const shipOrder = catchAsync(
     itemToShip.status = "shipped";
 
     const allShipped = order.products.every(
-      ({ status }) => status === "shipped"
+      ({ status }) => status === "shipped" || "cancelled"
     );
-    if (allShipped) order.status = "shipped";
+    if (allShipped) {
+      order.status = "shipped";
+      await notificationModel.create({
+        type: "message",
+        user: order.user,
+        message: `${order.id} order has been shipped.`,
+        createdBy: sellerId,
+      });
+    }
 
     await order.save();
+
+    await CartItem.findOneAndUpdate(
+      {
+        _id: cartItemId,
+      },
+      {
+        status: "shipped",
+      }
+    );
+
+    await notificationModel.create({
+      type: "message",
+      user: order.user,
+      message: `${itemToShip.name} has been shipped.`,
+      createdBy: sellerId,
+    });
 
     res.status(200).json({
       status: "success",
       data: {
-        itemToShip,
+        shippedItem: itemToShip,
       },
     });
   }
@@ -341,16 +364,65 @@ export const shipOrder = catchAsync(
 
 export const cancelOrder = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    const orderedCartItem = await sellerChangeOrderStatus(
-      req.params.id,
-      res.locals.user._id,
-      "cancelled"
+    const cartItemId = req.params.id;
+    const sellerId = res.locals.user._id;
+
+    const order = await orderModel.findOne({
+      "products._id": cartItemId,
+      paid: true,
+    });
+    if (!order) return next(new AppError("Item not found", 404));
+
+    const itemToCancel = order.products.find(
+      ({ _id }) => _id.toString() === cartItemId
     );
+    if (!itemToCancel || itemToCancel.status !== "pending")
+      return next(new AppError("Item not found", 404));
+
+    const product = await Product.findOne({
+      _id: itemToCancel!.product,
+      user: sellerId,
+    });
+    if (!product) return next(new AppError("Item not found", 404));
+
+    itemToCancel.status = "cancelled";
+
+    const allShipped = order.products.every(
+      ({ status }) => status === "shipped" || "cancelled"
+    );
+    if (allShipped) {
+      order.status = "shipped";
+      await notificationModel.create({
+        type: "message",
+        user: order.user,
+        message: `${order.id} order has been shipped.`,
+        createdBy: sellerId,
+      });
+    }
+
+    await order.save();
+
+    await CartItem.findOneAndUpdate(
+      {
+        _id: cartItemId,
+      },
+      {
+        status: "cancelled",
+      }
+    );
+
+    await notificationModel.create({
+      type: "warning",
+      user: order.user,
+      message: `${itemToCancel.name} has been cancelled.`,
+      createdBy: sellerId,
+    });
 
     res.status(200).json({
       status: "success",
       data: {
-        orderedCartItem,
+        order,
+        cancelledItem: itemToCancel,
       },
     });
   }
