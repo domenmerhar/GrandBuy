@@ -15,8 +15,9 @@ interface Coordinates {
   y: number;
 }
 
-interface ChildrenProps {
+interface ExpandingListProps {
   children: React.ReactNode[] | React.ReactNode;
+  start?: "left" | "right";
 }
 
 interface ButtonProps {
@@ -29,11 +30,15 @@ interface ContextType {
   position: Coordinates;
   setPosition: React.Dispatch<React.SetStateAction<Coordinates>>;
   close: () => void;
+  start?: "left" | "right";
 }
 
 const expandingListContext = createContext<ContextType>({} as ContextType);
 
-export const ExpandingList = ({ children }: ChildrenProps) => {
+export const ExpandingList = ({
+  children,
+  start = "left",
+}: ExpandingListProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [position, setPosition] = useState<Coordinates>({ x: 0, y: 0 });
 
@@ -49,7 +54,7 @@ export const ExpandingList = ({ children }: ChildrenProps) => {
 
   return (
     <expandingListContext.Provider
-      value={{ isOpen, setIsOpen, position, setPosition, close }}
+      value={{ isOpen, setIsOpen, position, setPosition, close, start }}
     >
       {children}
     </expandingListContext.Provider>
@@ -65,7 +70,7 @@ const Div = styled.div<Coordinates>`
 `;
 
 const Button: React.FC<ButtonProps> = ({ children }) => {
-  const { setIsOpen, setPosition } = useContext(expandingListContext);
+  const { setIsOpen, setPosition, start } = useContext(expandingListContext);
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     const rect = (e.target as Element)
@@ -73,7 +78,7 @@ const Button: React.FC<ButtonProps> = ({ children }) => {
       .getBoundingClientRect();
 
     setPosition({
-      x: rect.x + rect.width / 2,
+      x: start === "left" ? rect.x + rect.width / 2 : rect.x - rect.width * 4,
       y: rect.y + rect.height / 2,
     });
 
