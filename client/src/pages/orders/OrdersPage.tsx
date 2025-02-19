@@ -1,14 +1,24 @@
 import { useTranslation } from "react-i18next";
-import { CardFilterGrid } from "../../Util/CardFilterGrid";
 import { Content } from "../../Util/Content";
-import { ProductFilter } from "../../Util/ProductFilter";
 import { ProductsCard } from "../../Util/ProductsCard";
 import { Stepper } from "../../Util/Stepper";
-import { StyledSidebar } from "../../Util/StyledSidebar";
 import { useGetUserOrdersCount } from "../../hooks/order/useGetUserOrdersCount";
 import { Orders } from "./Orders";
+import styled from "styled-components";
 
 const itemsPerPage = import.meta.env.VITE_ORDERS_PER_PAGE;
+
+const StyledOrdersPage = styled(Content)`
+  min-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 3.2rem;
+
+  & > :last-child {
+    margin-top: auto;
+  }
+`;
 
 export const OrdersPage = () => {
   const { t } = useTranslation();
@@ -19,17 +29,12 @@ export const OrdersPage = () => {
   const max = itemCount ? Math.ceil(itemCount / itemsPerPage) : 1;
 
   return (
-    <Content>
-      <CardFilterGrid>
-        <ProductsCard title={t("orders")} itemCount={itemCount}>
-          <Orders />
-        </ProductsCard>
+    <StyledOrdersPage>
+      <ProductsCard title={t("orders")} itemCount={itemCount}>
+        <Orders />
+      </ProductsCard>
 
-        <StyledSidebar $position="sticky" $width="auto" $height="80vh">
-          <ProductFilter freeShipping price sale />
-        </StyledSidebar>
-        <Stepper searchParamName="page" max={max} />
-      </CardFilterGrid>
-    </Content>
+      <Stepper searchParamName="page" max={max} />
+    </StyledOrdersPage>
   );
 };
