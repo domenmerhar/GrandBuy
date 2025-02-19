@@ -11,6 +11,7 @@ import { useAuthContext } from "../../contexts/AuthContext";
 import { ItemStatus } from "../../Util/types";
 import { useRequestRefund } from "../../hooks/refund/useRequestRefund";
 import { useTranslation } from "react-i18next";
+import { Badge } from "../../Util/Badge";
 
 const StyledOrderItem = styled(Row)`
   & div:nth-child(3) {
@@ -45,6 +46,10 @@ const Price = styled.p`
   font-size: 1.6rem;
   font-weight: 600;
   color: var(--gray-8);
+`;
+
+const StatusButtonHolder = styled(Row)`
+  margin-left: auto;
 `;
 
 const Quantity = styled.p``;
@@ -84,7 +89,7 @@ export const OrderItem: FC<OrderItemProps> = ({
   const handleRequestRefund = () => requestRefund({ JWT, cartItemId, reason });
 
   return (
-    <ExpandingList>
+    <ExpandingList start="right">
       <StyledOrderItem $gap="2rem" $alignItems="flex-start">
         <Link to={`/product/${productId}?quantity=1&page=1&sort=-likesCount`}>
           <Image src={image} />
@@ -101,15 +106,23 @@ export const OrderItem: FC<OrderItemProps> = ({
           </Quantity>
         </ProductInfoHolder>
 
-        {delivered && status === "refunded" ? null : (
-          <ExpandingList.Button>
-            <ButtonWithNotifcations>
-              <HiDotsVertical />
-            </ButtonWithNotifcations>
-          </ExpandingList.Button>
-        )}
+        <StatusButtonHolder $gap=".8rem" $alignItems="center">
+          {status === "cancelled" ? (
+            <Badge $color="red" $size="medium">
+              {t(status)}
+            </Badge>
+          ) : null}
 
-        {`refund status: ${status}`}
+          {!delivered || ["refunded", "cancelled"].includes(status) ? null : (
+            <ExpandingList.Button>
+              <ButtonWithNotifcations>
+                <HiDotsVertical />
+              </ButtonWithNotifcations>
+            </ExpandingList.Button>
+          )}
+        </StatusButtonHolder>
+
+        {status}
 
         <ExpandingList.List>
           <ExpandingList.Ul>
