@@ -339,7 +339,7 @@ const resources = {
 
       // Shopping cart
       shoppingCart: "Nakupovalna košarica",
-      items: "Izdelki",
+      items: "Enote",
       summary: "Povzetek",
       shipping: "Dostava",
       coupons: "Kuponi",
@@ -378,7 +378,7 @@ const resources = {
       ordered: "Naročeno",
       shipped: "Poslano",
       delivered: "Dostavljeno",
-      pending: "V obdelavi",
+      pending: "Nedoločeno",
       cancelled: "Preklicano",
       totalPrice: "Skupna cena",
       confirmOrderDelivery: "Potrdi dostavo naročila",
