@@ -20,11 +20,14 @@ export const ProductInfoModal = () => {
     <Modal.Window
       title="Edit Product"
       onClose={saveToSearchParams}
-      positiveButton={{
-        color: "green",
-        text: t("update"),
-        onClick: saveToSearchParams,
-      }}
+      buttons={[
+        {
+          key: "cancel",
+          color: "red",
+          text: t("cancel"),
+          onClick: saveToSearchParams,
+        },
+      ]}
     >
       <Content $gap="1.2rem">
         <InputWithLabel
