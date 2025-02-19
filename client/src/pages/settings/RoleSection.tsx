@@ -46,11 +46,14 @@ export const RoleSection = () => {
 
       <Modal.Window
         title={t("requestSeller")}
-        positiveButton={{
-          text: t("submit"),
-          color: "green",
-          onClick: handleModal,
-        }}
+        buttons={[
+          {
+            key: "submit",
+            text: t("submit"),
+            color: "green",
+            onClick: handleModal,
+          },
+        ]}
       >
         {t("areYouSureYouWontBeAbleToRevertThisDecision")}
       </Modal.Window>
