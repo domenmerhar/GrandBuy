@@ -16,7 +16,7 @@ export const usePendingOrders = () => {
         JWT,
         page: 1,
         sort: "-createdAt",
-        filter: "all",
+        filter: "pending",
       }),
   });
 };
