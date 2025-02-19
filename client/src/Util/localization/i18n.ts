@@ -265,6 +265,8 @@ const resources = {
 
       failedToShipOrder: "Failed to ship order",
       orderShipped: "Order shipped",
+
+      orderCancelled: "Order has been cancelled.",
     },
   },
   sl: {
@@ -528,6 +530,8 @@ const resources = {
 
       failedToShipOrder: "Naročilo ni bilo poslano",
       orderShipped: "Naročilo poslano",
+
+      orderCancelled: "Naročilo je bilo preklicano.",
     },
   },
 };
