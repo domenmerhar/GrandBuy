@@ -262,6 +262,9 @@ const resources = {
       respondToRequest: "Respond to request",
       response: "Response",
       writeYourResponseHere: "Write your response here",
+
+      failedToShipOrder: "Failed to ship order",
+      orderShipped: "Order shipped",
     },
   },
   sl: {
@@ -522,6 +525,9 @@ const resources = {
       respondToRequest: "Odgovori na zahtevo",
       response: "Odgovor",
       writeYourResponseHere: "Napišite svoj odgovor tukaj",
+
+      failedToShipOrder: "Naročilo ni bilo poslano",
+      orderShipped: "Naročilo poslano",
     },
   },
 };
