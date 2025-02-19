@@ -15,17 +15,21 @@ export const OrderRespondModal = () => {
   return (
     <Modal.Window
       title={t("respond")}
-      negativeButton={{
-        text: t("cancel"),
-        color: "red",
-        onClick: handleModalExit,
-      }}
+      buttons={[
+        {
+          key: "cancel",
+          text: t("cancel"),
+          color: "red",
+          onClick: handleModalExit,
+        },
+        {
+          key: "approve",
+          text: t("approve"),
+          color: "green",
+          onClick: handleModalExit,
+        },
+      ]}
       onClose={handleModalExit}
-      positiveButton={{
-        text: t("approve"),
-        color: "green",
-        onClick: handleModalExit,
-      }}
     >
       {t("orderDecisionPrompt")}
     </Modal.Window>
