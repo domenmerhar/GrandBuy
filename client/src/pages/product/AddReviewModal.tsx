@@ -27,16 +27,20 @@ export const AddReviewModal = () => {
     <Modal.Window
       title={t("addReview")}
       onClose={removeRatingParam}
-      negativeButton={{
-        text: t("cancel"),
-        color: "red",
-        onClick: removeRatingParam,
-      }}
-      positiveButton={{
-        text: t("submit"),
-        color: "green",
-        onClick: handleSubmit,
-      }}
+      buttons={[
+        {
+          key: "cancel",
+          text: t("cancel"),
+          color: "red",
+          onClick: removeRatingParam,
+        },
+        {
+          key: "submit",
+          text: t("submit"),
+          color: "green",
+          onClick: handleSubmit,
+        },
+      ]}
     >
       <Column $gap="8px" as="form">
         <RatingInteractive size={28} fontSize="1.6rem" />
