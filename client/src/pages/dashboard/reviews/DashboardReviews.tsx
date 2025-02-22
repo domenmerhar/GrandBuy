@@ -3,6 +3,9 @@ import { useGetSellerReviews } from "../../../hooks/repliesReviews/useGetSellerR
 import { Modal } from "../../../Util/Modal";
 import { ReviewProduct } from "../../../Util/types";
 import { ReviewCardDashboard } from "./ReviewCardDashboard";
+import { SpinnerInBox } from "../../../Components/SpinnerInBox";
+import { ErrorBox } from "../../../Components/ErrorBox";
+import { ReplyModal } from "../../product/ReplyModal";
 
 const DashboardGrid = styled.div`
   display: grid;
@@ -14,11 +17,11 @@ export const DashboardReviews = () => {
   const { data, isLoading, error } = useGetSellerReviews();
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <SpinnerInBox fullPage={false} />;
   }
 
   if (error) {
-    return <div>Error: {error.message}</div>;
+    return <ErrorBox fullPage={false} />;
   }
 
   return (
@@ -36,18 +39,23 @@ export const DashboardReviews = () => {
           }: ReviewProduct) => (
             <ReviewCardDashboard
               key={_id}
+              productId={productDetails?._id}
+              reviewId={_id}
               date={lastChange}
               likes={likes.length}
               productImage={productDetails?.coverImage}
               productName={productDetails?.name}
               rating={rating}
               review={review}
+              userId={userDetails?._id}
               userImage={userDetails?.image}
               username={userDetails?.username}
             />
           )
         )}
       </DashboardGrid>
+
+      <ReplyModal />
     </Modal>
   );
 };
