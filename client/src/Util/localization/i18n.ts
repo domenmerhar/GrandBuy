@@ -83,6 +83,7 @@ const resources = {
 
       // Account user page
       reviews: "Reviews",
+      review: "Review",
       replies: "Replies",
 
       // Search page
@@ -267,6 +268,8 @@ const resources = {
       orderShipped: "Order shipped",
 
       orderCancelled: "Order has been cancelled.",
+
+      replySent: "Reply sent",
     },
   },
   sl: {
@@ -349,6 +352,7 @@ const resources = {
 
       // Account user page
       reviews: "Ocene",
+      review: "Odgovor",
       replies: "Odgovori",
 
       // Search page
@@ -532,6 +536,8 @@ const resources = {
       orderShipped: "Naročilo poslano",
 
       orderCancelled: "Naročilo je bilo preklicano.",
+
+      replySent: "Poslan odgovor",
     },
   },
 };
