@@ -13,13 +13,13 @@ export const Button = styled.button<ButtonProps>`
     "background-image: linear-gradient(120deg, var(--orange-6), var(--orange-5));"}
 
   ${({ $color }) => $color === "red" && "background-color: var(--red);"}
-  ${({ $color }) => $color === "green" && "background-color: var(--green);"}
+  ${({ $color }) => $color === "green" && "background-color: var(--green-6);"}
 
   color: ${({ $color }) =>
     $color === "orange"
       ? `var(--gray-light-0); body.dark-mode & {
     color: var(--gray-8); }`
-      : $color === "red"
+      : $color === "red" || $color === "green"
         ? "var(--gray-light-2);"
         : "var(--gray-light-7);"};
 
