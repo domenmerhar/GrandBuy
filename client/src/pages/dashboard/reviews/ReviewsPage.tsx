@@ -11,9 +11,9 @@ export const ReviewsPage = () => {
   const { data: reviewResponse } = useGetSellerReviewCount();
   const { data: averageRatingResponse } = useGetSellerAverageRating();
 
-  const reviewsCount = reviewResponse?.data?.totalCount || 0;
+  const reviewsCount = reviewResponse?.data?.totalCount || "N/A";
   const averageRating =
-    Number(averageRatingResponse?.data?.averageRating?.toFixed(1)) || 0;
+    Number(averageRatingResponse?.data?.averageRating?.toFixed(1)) || "N/A";
 
   const max = Math.ceil(reviewsCount / itemPerPage);
 
