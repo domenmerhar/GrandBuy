@@ -10,8 +10,15 @@ import { Modal } from "../../../Util/Modal";
 import { ReplyModal } from "../../product/ReplyModal";
 import { useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { useMe } from "../../../hooks/useMe";
+import { FC } from "react";
+import { toApiFilesPath } from "../../../functions/toApiFilesPath";
+import { toDate } from "../../../functions/toDate";
 
-const Img = styled.img``;
+const Img = styled.img`
+  color: transparent;
+  width: 12.8rem;
+`;
 
 const Date = styled.p`
   color: var(--gray-6);
@@ -22,10 +29,31 @@ const P = styled.p`
   max-width: 30ch;
 `;
 
-const userId = "id1278203";
+interface ReviewCardDashboardProps {
+  productImage: string;
+  productName: string;
+  userImage: string;
+  username: string;
+  rating: number;
+  date: string;
+  review: string;
+  likes: number;
+}
 
-export const ReviewCardDashboard = () => {
+export const ReviewCardDashboard: FC<ReviewCardDashboardProps> = ({
+  productImage,
+  productName,
+  userImage,
+  username,
+  rating,
+  date,
+  review,
+  likes,
+}) => {
   const { t } = useTranslation();
+  const { data } = useMe();
+
+  const userId = data?.data?.user?._id;
 
   const { setIsOpen } = Modal.useModalContext();
   const [, setSearchParams] = useSearchParams();
@@ -42,27 +70,24 @@ export const ReviewCardDashboard = () => {
     <>
       <BlankCard>
         <Row $gap="8px" $alignItems="center">
-          <Img src="https://via.placeholder.com/150" alt="review" />
+          <Img src={toApiFilesPath(productImage)} alt={productName} />
 
           <Column $gap="6px">
             <Row $gap="4px" $alignItems="center">
-              <UserIcon src="https://via.placeholder.com/150" alt="review" />
-              John Doe
+              <UserIcon src={toApiFilesPath(userImage)} alt={username} />
+              {username}
             </Row>
 
-            <RatingDisplay rating={4.5} showTooltip={false} size={24} />
-            <Date>{t("posted")}: 29. 12. 2024</Date>
-            <P>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae,
-              ut. Voluptatibus reiciendis expedita odio, consequatur debitis
-              beatae doloribus assumenda deserunt at, tempora eos laboriosam
-              maiores asperiores eius amet sit corrupti?
-            </P>
+            <RatingDisplay rating={rating} showTooltip={false} size={24} />
+            <Date>
+              {t("posted")}: {toDate(date)}
+            </Date>
+            <P>{review}</P>
 
             <Row $gap="1.6rem">
               <ReviewAction $gap="4px" $alignItems="center">
                 <HiOutlineHandThumbUp size={24} />
-                <span>444</span>
+                <span>{likes}</span>
               </ReviewAction>
 
               <ReviewAction
