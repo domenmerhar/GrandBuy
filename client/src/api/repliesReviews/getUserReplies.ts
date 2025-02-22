@@ -15,10 +15,6 @@ export const getUserReplies = async ({
     toApiPath(`reply/user/${userId}?page=${page}&limit=${limit}&sort=${sort}`)
   );
 
-  console.log(
-    toApiPath(`reply/user/${userId}?page=${page}&limit=${limit}&sort=${sort}`)
-  );
-
   const data = await response.json();
 
   const nextItem = data.data.replies.length === limit ? page + 1 : null;
