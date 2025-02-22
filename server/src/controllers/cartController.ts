@@ -665,8 +665,6 @@ export const getSellerOrderedItems = catchAsync(
 
     const skip = (page - 1) * limit;
 
-    console.log(skip);
-
     const totalCount = await CartItem.aggregate([
       {
         $lookup: {
