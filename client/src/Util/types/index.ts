@@ -49,6 +49,24 @@ export interface Review {
   likesCount: number;
 }
 
+export interface ReviewProduct {
+  _id: string;
+  userDetails: {
+    username: string;
+    image: string;
+  };
+  product: string;
+  rating: number;
+  review: string;
+  likes: string[];
+  lastChange: string;
+  createdAt?: string;
+  productDetails: {
+    coverImage: string;
+    name: string;
+  };
+}
+
 export interface Reply {
   _id: string;
   user: string;
@@ -253,5 +271,5 @@ export interface ISellerOrder {
   totalPrice: number;
   quantity: number;
   discount: number;
-  status: "pending" | "shipped" | "delivered" | "cancelled"; // Add other possible statuses if needed
+  status: "pending" | "shipped" | "delivered" | "cancelled";
 }
