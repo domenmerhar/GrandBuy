@@ -6,8 +6,8 @@ import { FC } from "react";
 import { useTranslation } from "react-i18next";
 
 interface ReviewsPageOverviewCardsProps {
-  reviewsCount: number;
-  averageRating: number;
+  reviewsCount: number | "N/A";
+  averageRating: number | "N/A";
 }
 
 export const ReviewsPageOverviewCards: FC<ReviewsPageOverviewCardsProps> = ({
