@@ -5,11 +5,13 @@ import {
   deleteReview,
   deleteReviewUser,
   dislikeReview,
+  getAverageRatingSeller,
   getMyReviews,
   getProductReviews,
   getProductReviewStats,
   getRecent5,
   getRecentReviewsForSeller,
+  getSellerReviews,
   getUserReviews,
   likeReview,
   updateReview,
@@ -82,6 +84,14 @@ reviewRouter
   );
 
 reviewRouter.route("/me").get(protect, getMyReviews);
+
+reviewRouter
+  .route("/seller")
+  .get(protect, restrictTo("seller"), getSellerReviews);
+
+reviewRouter
+  .route("/seller/average-rating")
+  .get(protect, restrictTo("seller"), getAverageRatingSeller);
 
 reviewRouter
   .route("/:id")
