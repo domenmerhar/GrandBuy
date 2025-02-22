@@ -7,13 +7,12 @@ import { RatingDisplay } from "../../../Components/RatingDisplay";
 import { HiArrowUturnLeft, HiOutlineHandThumbUp } from "react-icons/hi2";
 import { ReviewAction } from "../../../Util/ReviewAction";
 import { Modal } from "../../../Util/Modal";
-import { ReplyModal } from "../../product/ReplyModal";
 import { useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { useMe } from "../../../hooks/useMe";
 import { FC } from "react";
 import { toApiFilesPath } from "../../../functions/toApiFilesPath";
 import { toDate } from "../../../functions/toDate";
+import { Link } from "react-router-dom";
 
 const Img = styled.img`
   color: transparent;
@@ -29,9 +28,21 @@ const P = styled.p`
   max-width: 30ch;
 `;
 
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: inherit;
+
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
 interface ReviewCardDashboardProps {
+  reviewId: string;
+  productId: string;
   productImage: string;
   productName: string;
+  userId: string;
   userImage: string;
   username: string;
   rating: number;
@@ -41,8 +52,11 @@ interface ReviewCardDashboardProps {
 }
 
 export const ReviewCardDashboard: FC<ReviewCardDashboardProps> = ({
+  reviewId,
+  productId,
   productImage,
   productName,
+  userId,
   userImage,
   username,
   rating,
@@ -51,16 +65,13 @@ export const ReviewCardDashboard: FC<ReviewCardDashboardProps> = ({
   likes,
 }) => {
   const { t } = useTranslation();
-  const { data } = useMe();
-
-  const userId = data?.data?.user?._id;
 
   const { setIsOpen } = Modal.useModalContext();
   const [, setSearchParams] = useSearchParams();
 
   const handleReply = () => {
     setSearchParams((searchParams) => {
-      searchParams.set("reply", userId);
+      searchParams.set("reply", reviewId);
       return searchParams;
     });
     setIsOpen(true);
@@ -70,13 +81,23 @@ export const ReviewCardDashboard: FC<ReviewCardDashboardProps> = ({
     <>
       <BlankCard>
         <Row $gap="8px" $alignItems="center">
-          <Img src={toApiFilesPath(productImage)} alt={productName} />
+          <StyledLink
+            to={`/product/${productId}`}
+            style={{ textDecoration: "none" }}
+          >
+            <Img src={toApiFilesPath(productImage)} alt={productName} />
+          </StyledLink>
 
           <Column $gap="6px">
-            <Row $gap="4px" $alignItems="center">
-              <UserIcon src={toApiFilesPath(userImage)} alt={username} />
-              {username}
-            </Row>
+            <StyledLink
+              to={`/account/user/${userId}`}
+              style={{ textDecoration: "none" }}
+            >
+              <Row $gap="4px" $alignItems="center">
+                <UserIcon src={toApiFilesPath(userImage)} alt={username} />
+                {username}
+              </Row>
+            </StyledLink>
 
             <RatingDisplay rating={rating} showTooltip={false} size={24} />
             <Date>
@@ -103,7 +124,6 @@ export const ReviewCardDashboard: FC<ReviewCardDashboardProps> = ({
           </Column>
         </Row>
       </BlankCard>
-      <ReplyModal />
     </>
   );
 };
