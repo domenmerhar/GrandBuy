@@ -20,16 +20,22 @@ interface TextAreaWithLabelProps {
   id: string;
   label: string;
   placeholder?: string;
+  maxLength?: number;
 }
 
 export const TextareaWithLabel = forwardRef<
   HTMLTextAreaElement,
   TextAreaWithLabelProps
->(({ id, label, placeholder = "" }, ref) => {
+>(({ id, label, placeholder = "", maxLength = 500 }, ref) => {
   return (
     <>
       <TextareaLabel htmlFor={id}>{label}</TextareaLabel>
-      <Textarea id={id} placeholder={placeholder} ref={ref} />
+      <Textarea
+        id={id}
+        placeholder={placeholder}
+        ref={ref}
+        maxLength={maxLength}
+      />
     </>
   );
 });
