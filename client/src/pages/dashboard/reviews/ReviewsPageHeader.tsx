@@ -9,16 +9,12 @@ export const ReviewsPageHeader = () => {
 
   const selectOptions: IOption[] = [
     {
-      value: "all",
-      name: t("all"),
+      value: "newest",
+      name: t("sortByDateNewest"),
     },
     {
       value: "oldest",
       name: t("sortByDateOldest"),
-    },
-    {
-      value: "newest",
-      name: t("sortByDateNewest"),
     },
   ];
 
