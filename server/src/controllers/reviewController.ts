@@ -11,6 +11,112 @@ import Notification from "../models/notificationModel";
 import Cart from "../models/cartItemModel";
 import { mapProductIds } from "../utils/mapProductIds";
 
+export const getAverageRatingSeller = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const sellerId = res.locals.user._id;
+
+    const products = await Product.find({ user: sellerId });
+
+    if (!products || products.length === 0) {
+      return res.status(200).json({
+        message: "No products found for this seller.",
+        averageRating: 0,
+      });
+    }
+
+    let totalRating = 0;
+    let productCount = 0;
+
+    for (const product of products) {
+      const result = await Review.aggregate([
+        {
+          $match: {
+            product: product._id,
+          },
+        },
+        {
+          $group: {
+            _id: "$product",
+            averageRating: { $avg: "$rating" },
+          },
+        },
+      ]);
+
+      if (result.length > 0) {
+        totalRating += result[0].averageRating;
+        productCount++;
+      }
+    }
+
+    const overallAverageRating =
+      productCount > 0 ? totalRating / productCount : 0;
+
+    res.status(200).json({
+      status: "success",
+      data: {
+        averageRating: overallAverageRating,
+      },
+    });
+  }
+);
+
+export const getSellerReviews = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const sellerId = res.locals.user._id;
+
+    if (!mongoose.Types.ObjectId.isValid(sellerId)) {
+      return next(new AppError("Invalid Seller ID", 400));
+    }
+
+    const page = req.query.page ? +req.query.page : 1;
+    const limit = req.query.limit ? +req.query.limit : 10;
+    const skip = (page - 1) * limit;
+
+    const reviews = await Review.aggregate([
+      {
+        $lookup: {
+          from: "products",
+          localField: "product",
+          foreignField: "_id",
+          as: "productDetails",
+        },
+      },
+      { $unwind: "$productDetails" },
+      {
+        $match: {
+          "productDetails.user": new mongoose.Types.ObjectId(sellerId),
+        },
+      },
+      {
+        $group: {
+          _id: null,
+          totalCount: { $sum: 1 },
+          data: { $push: "$$ROOT" },
+        },
+      },
+      {
+        $project: {
+          _id: 0,
+          totalCount: 1,
+          data: { $slice: ["$data", skip, limit] },
+        },
+      },
+    ]);
+
+    if (!reviews.length || !reviews[0].data.length) {
+      return next(new AppError("No reviews found", 404));
+    }
+
+    res.status(200).json({
+      status: "success",
+      data: {
+        totalCount: reviews[0].totalCount,
+        reviews: reviews[0].data,
+      },
+    });
+  }
+);
+
 export const getProductReviews = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const { productId } = req.params;
