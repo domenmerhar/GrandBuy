@@ -52,6 +52,7 @@ export interface Review {
 export interface ReviewProduct {
   _id: string;
   userDetails: {
+    _id: string;
     username: string;
     image: string;
   };
@@ -62,6 +63,7 @@ export interface ReviewProduct {
   lastChange: string;
   createdAt?: string;
   productDetails: {
+    _id: string;
     coverImage: string;
     name: string;
   };
