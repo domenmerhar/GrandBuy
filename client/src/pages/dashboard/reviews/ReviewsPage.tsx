@@ -5,6 +5,8 @@ import { DashboardReviews } from "./DashboardReviews";
 import useGetSellerReviewCount from "../../../hooks/repliesReviews/useGetSellerReviewCount";
 import useGetSellerAverageRating from "../../../hooks/repliesReviews/useGetSellerAverageRating";
 
+const itemPerPage = Number(import.meta.env.VITE_PRODUCTS_PER_STEPPER);
+
 export const ReviewsPage = () => {
   const { data: reviewResponse } = useGetSellerReviewCount();
   const { data: averageRatingResponse } = useGetSellerAverageRating();
@@ -12,6 +14,8 @@ export const ReviewsPage = () => {
   const reviewsCount = reviewResponse?.data?.totalCount || 0;
   const averageRating =
     Number(averageRatingResponse?.data?.averageRating?.toFixed(1)) || 0;
+
+  const max = Math.ceil(reviewsCount / itemPerPage);
 
   return (
     <>
@@ -23,7 +27,7 @@ export const ReviewsPage = () => {
       />
       <DashboardReviews />
 
-      <Stepper searchParamName="page" />
+      <Stepper searchParamName="page" max={max} />
     </>
   );
 };
