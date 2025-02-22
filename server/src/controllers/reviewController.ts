@@ -68,6 +68,10 @@ export const getSellerReviews = catchAsync(
       return next(new AppError("Invalid Seller ID", 400));
     }
 
+    const sortStr = String(req.query.sort);
+    const sortField = sortStr.replace(/[-+]/, "") || "createdAt";
+    const sortOrder = sortStr[0] === "-" ? -1 : 1;
+
     const page = req.query.page ? +req.query.page : 1;
     const limit = req.query.limit ? +req.query.limit : 10;
     const skip = (page - 1) * limit;
@@ -88,22 +92,60 @@ export const getSellerReviews = catchAsync(
         },
       },
       {
-        $group: {
-          _id: null,
-          totalCount: { $sum: 1 },
-          data: { $push: "$$ROOT" },
+        $lookup: {
+          from: "users",
+          localField: "user",
+          foreignField: "_id",
+          as: "userDetails",
+        },
+      },
+      {
+        $unwind: {
+          path: "$userDetails",
+          preserveNullAndEmptyArrays: true,
+        },
+      },
+      {
+        $facet: {
+          metadata: [{ $count: "total" }, { $addFields: { page: page } }],
+          data: [
+            { $sort: { [sortField]: sortOrder } },
+            { $skip: skip },
+            { $limit: limit },
+            {
+              $lookup: {
+                from: "users",
+                localField: "user",
+                foreignField: "_id",
+                as: "user",
+                pipeline: [
+                  {
+                    $project: {
+                      username: 1,
+                      _id: 0,
+                    },
+                  },
+                ],
+              },
+            },
+            {
+              $unwind: {
+                path: "$user",
+                preserveNullAndEmptyArrays: true,
+              },
+            },
+          ],
         },
       },
       {
         $project: {
-          _id: 0,
-          totalCount: 1,
-          data: { $slice: ["$data", skip, limit] },
+          totalCount: { $arrayElemAt: ["$metadata.total", 0] },
+          reviews: "$data",
         },
       },
     ]);
 
-    if (!reviews.length || !reviews[0].data.length) {
+    if (!reviews.length || !reviews[0].reviews.length) {
       return next(new AppError("No reviews found", 404));
     }
 
@@ -111,7 +153,7 @@ export const getSellerReviews = catchAsync(
       status: "success",
       data: {
         totalCount: reviews[0].totalCount,
-        reviews: reviews[0].data,
+        reviews: reviews[0].reviews,
       },
     });
   }
