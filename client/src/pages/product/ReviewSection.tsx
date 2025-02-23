@@ -43,29 +43,25 @@ export const ReviewSection = () => {
       : null;
 
   return (
-    <Modal>
-      <StyledReviewSection>
-        <ReviewSectionHeader />
+    <StyledReviewSection>
+      <ReviewSectionHeader />
 
-        <RatingReviewHolder $gap="3.2rem">
-          <RatingBreakdown />
+      <RatingReviewHolder $gap="3.2rem">
+        <RatingBreakdown />
 
-          <Modal>
-            <Reviews />
+        <Modal>
+          <Reviews />
 
-            <ReplyModal />
-          </Modal>
-        </RatingReviewHolder>
+          <ReplyModal />
+        </Modal>
+      </RatingReviewHolder>
 
+      <Modal>
         <ButtonsHolder $alignItems="center" $gap="1.2rem">
-          {max ? (
-            <Stepper searchParamName="page" max={Number(max)} />
-          ) : (
-            <Stepper searchParamName="page" />
-          )}
+          <Stepper searchParamName="page" max={Number(max) || 1} />
           {role === "user" ? <AddReviewButton /> : null}
         </ButtonsHolder>
-      </StyledReviewSection>
-    </Modal>
+      </Modal>
+    </StyledReviewSection>
   );
 };
