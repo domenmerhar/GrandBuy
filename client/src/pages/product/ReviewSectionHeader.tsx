@@ -10,8 +10,8 @@ export const ReviewSectionHeader = () => {
   const selectOptions: IOption[] = [
     { name: t("sortByLikesHighest"), value: "-likesCount" },
     { name: t("sortByLikesLowest"), value: "+likesCount" },
-    { name: t("sortByDateNewest"), value: "+createdAt" },
-    { name: t("sortByDateOldest"), value: "-createdAt" },
+    { name: t("sortByDateNewest"), value: "-createdAt" },
+    { name: t("sortByDateOldest"), value: "+createdAt" },
   ];
 
   return (
