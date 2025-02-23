@@ -8,6 +8,8 @@ import { useSearchParams } from "react-router-dom";
 import { ReviewAction } from "../../Util/ReviewAction";
 import { useMe } from "../../hooks/useMe";
 import { useTranslation } from "react-i18next";
+import useLikeReview from "../../hooks/repliesReviews/useLikeReview";
+import { useJWT } from "../../hooks/useJWT";
 
 const ReviewActionsRow = styled(Row)`
   font-size: 1.4rem;
@@ -35,6 +37,13 @@ export const ReviewActions: FC<ReviewActionsProps> = ({
 
   const { setIsOpen } = Modal.useModalContext();
   const [, setSearchParams] = useSearchParams();
+  const { JWT } = useJWT();
+
+  const { mutate: likeReview } = useLikeReview();
+
+  const handleLikeReview = () => {
+    likeReview({ reviewId, JWT });
+  };
 
   const handleShowReplies = () => {
     setShowReplies((prev: boolean) => !prev);
@@ -49,7 +58,12 @@ export const ReviewActions: FC<ReviewActionsProps> = ({
     <ReviewActionsRow $alignItems="center" $gap="1.6rem">
       {["user", "seller"].includes(role) ? (
         <>
-          <ReviewAction $gap="4px" $alignItems="center" as="button">
+          <ReviewAction
+            $gap="4px"
+            $alignItems="center"
+            as="button"
+            onClick={handleLikeReview}
+          >
             <HiOutlineHandThumbUp size={24} />
             <span>{likeCount}</span>
           </ReviewAction>
