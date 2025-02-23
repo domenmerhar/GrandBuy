@@ -5,11 +5,20 @@ import { UsernameIcon } from "./UsernameIcon";
 import { ReviewActions } from "./ReviewActions";
 import { FC, useState } from "react";
 import { Replies } from "./Replies";
+import { toDate } from "../../functions/toDate";
 
-const ReviewContent = styled.p``;
+const ReviewContent = styled.p`
+  max-width: 75ch;
+`;
+
+const Date = styled.span`
+  font-size: 1.4rem;
+  color: var(--gray-6);
+`;
 
 interface ReviewProps {
   id: string;
+  date: string;
   userImage: string;
   username: string;
   rating: number;
@@ -18,6 +27,7 @@ interface ReviewProps {
 }
 
 export const Review: FC<ReviewProps> = ({
+  date,
   userImage,
   username,
   rating,
@@ -31,6 +41,7 @@ export const Review: FC<ReviewProps> = ({
     <>
       <Column $gap="4px">
         <UsernameIcon username={username} icon={userImage} />
+        {date ? <Date>{toDate(date)}</Date> : null}
 
         <RatingDisplay rating={rating} size={16} showTooltip={false} />
 
