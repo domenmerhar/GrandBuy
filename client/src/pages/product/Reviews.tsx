@@ -7,6 +7,7 @@ import { useReviews } from "./useReviews";
 
 const StyledReviews = styled(Column)`
   overflow-y: auto;
+  flex: 1;
 `;
 
 export const Reviews = () => {
