@@ -37,6 +37,7 @@ export const Review: FC<ReviewProps> = ({
         <ReviewContent>{content}</ReviewContent>
 
         <ReviewActions
+          reviewId={id}
           showReplies={showReplies}
           setShowReplies={setShowReplies}
           likeCount={likeCount}
