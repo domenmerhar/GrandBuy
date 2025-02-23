@@ -18,7 +18,9 @@ export default () => {
 
       toast.success(t("replySent"), { id: "reply" });
       client.invalidateQueries({
-        predicate: (query) => String(query.queryKey[0]).includes("replies"),
+        predicate: (query) =>
+          String(query.queryKey[0]).includes("replies") &&
+          String(query.queryKey[1]) === data?.data?.reply?.review,
       });
     },
   });
