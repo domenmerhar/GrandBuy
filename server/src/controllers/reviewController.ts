@@ -300,14 +300,11 @@ export const createReview = catchAsync(
     }
 
     const cartItemIds = cartItems.map((item) => item._id.toString());
-    console.log({ cartItemIds });
 
     let productFound = false;
     orders.forEach((order) => {
       order.products.forEach((product) => {
         if (productFound) return;
-
-        console.log(product._id, cartItems);
         if (cartItemIds.includes(product._id.toString())) productFound = true;
       });
 
