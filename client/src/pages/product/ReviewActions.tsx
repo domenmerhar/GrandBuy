@@ -17,12 +17,14 @@ const ReviewActionsRow = styled(Row)`
 `;
 
 interface ReviewActionsProps {
+  reviewId: string;
   showReplies: boolean;
   setShowReplies: React.Dispatch<React.SetStateAction<boolean>>;
   likeCount: number;
 }
 
 export const ReviewActions: FC<ReviewActionsProps> = ({
+  reviewId,
   showReplies,
   setShowReplies,
   likeCount,
@@ -30,7 +32,6 @@ export const ReviewActions: FC<ReviewActionsProps> = ({
   const { t } = useTranslation();
   const { data } = useMe();
   const role = data?.data?.role;
-  const id: string = "id1278203";
 
   const { setIsOpen } = Modal.useModalContext();
   const [, setSearchParams] = useSearchParams();
@@ -40,7 +41,7 @@ export const ReviewActions: FC<ReviewActionsProps> = ({
   };
 
   const handleReply = () => {
-    setSearchParams({ reply: id });
+    setSearchParams({ reply: reviewId });
     setIsOpen(true);
   };
 
