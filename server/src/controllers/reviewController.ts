@@ -279,23 +279,44 @@ export const createReview = catchAsync(
     const { productId } = req.params;
     const userId = res.locals.user._id;
 
-    const cartItem = await Cart.findOne({
+    const cartItems = await Cart.find({
       product: productId,
       user: userId,
       ordered: true,
-    });
+    })
+      .sort({ createdAt: -1 })
+      .select("_id");
 
-    if (!cartItem)
+    if (!cartItems.length)
       return next(new AppError("You haven't bought this product", 400));
 
-    const order = await Order.findOne({
+    const orders = await Order.find({
       user: userId,
       status: "delivered",
-      products: { $in: cartItem._id },
+    }).sort({ createdAt: -1 });
+
+    if (!orders.length) {
+      return next(new AppError("You haven't bought this product", 400));
+    }
+
+    const cartItemIds = cartItems.map((item) => item._id.toString());
+    console.log({ cartItemIds });
+
+    let productFound = false;
+    orders.forEach((order) => {
+      order.products.forEach((product) => {
+        if (productFound) return;
+
+        console.log(product._id, cartItems);
+        if (cartItemIds.includes(product._id.toString())) productFound = true;
+      });
+
+      if (productFound) return;
     });
 
-    if (!order)
+    if (!productFound) {
       return next(new AppError("You haven't bought this product", 400));
+    }
 
     const product = await Product.findOne({ _id: productId });
     if (!product) return next(new AppError("Product not found", 404));
