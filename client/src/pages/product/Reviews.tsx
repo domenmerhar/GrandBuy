@@ -25,14 +25,17 @@ export const Reviews = () => {
           review,
           rating,
           likesCount,
+          createdAt,
         }: {
           _id: string;
           user: { _id: string; username: string; image?: string };
           review: string;
           rating: number;
           likesCount: number;
+          createdAt: string;
         }) => (
           <Review
+            date={createdAt}
             key={_id}
             id={_id}
             content={review}
