@@ -63,12 +63,7 @@ export const AddReviewModal = () => {
       <Column $gap="8px" as="form">
         <RatingInteractive size={28} fontSize="1.6rem" />
 
-        <TextareaWithLabel
-          id="content"
-          label="Content"
-          ref={textAreaRef}
-          placeholder="Beautiful product. I love it!"
-        />
+        <TextareaWithLabel id="content" label={t("review")} ref={textAreaRef} />
       </Column>
     </Modal.Window>
   );
