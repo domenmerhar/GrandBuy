@@ -16,11 +16,11 @@ export default () => {
           id: "reply",
         });
 
-      console.log(data);
-
       toast.success(t("replySent"), { id: "review" });
       client.invalidateQueries({
-        predicate: (query) => String(query.queryKey[0]).includes("reviews"),
+        predicate: (query) =>
+          String(query.queryKey[0]).includes("reviews") &&
+          String(query.queryKey[1]) === data?.data?.product,
       });
     },
   });
