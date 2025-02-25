@@ -22,11 +22,14 @@ export const OrderRespondModal = () => {
       return searchParams;
     });
 
+  const { closeModal } = Modal.useModalContext();
+
   const handleOrderAction = (callback: () => unknown) => () => {
     if (!orderId || !JWT)
       return toast.error(t("somethingWentWrong"), { id: "handle-order" });
 
     callback();
+    closeModal();
   };
 
   const handleShip = handleOrderAction(() =>

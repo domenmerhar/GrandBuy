@@ -13,6 +13,7 @@ export const ReplyModal = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const { mutate: createReply } = useCreateReply();
   const { JWT } = useJWT();
+  const { closeModal } = Modal.useModalContext();
 
   const reviewId = searchParams.get("reply")!;
 
@@ -23,12 +24,18 @@ export const ReplyModal = () => {
     });
   };
 
+  const handleCancel = () => {
+    removeParam();
+    closeModal();
+  };
+
   const handleReply = () => {
     removeParam();
     if (!reviewRef.current?.value)
       return toast.error(t("pleaseEnterAllFields"), { id: "reply" });
 
     createReply({ JWT, reviewId, reply: reviewRef.current.value });
+    closeModal();
   };
 
   const reviewRef = useRef<HTMLTextAreaElement>(null);
@@ -42,7 +49,7 @@ export const ReplyModal = () => {
           key: "cancel",
           text: t("cancel"),
           color: "red",
-          onClick: removeParam,
+          onClick: handleCancel,
         },
         {
           key: "reply",

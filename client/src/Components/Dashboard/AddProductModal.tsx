@@ -21,6 +21,7 @@ export const AddProductModal = () => {
 
   const { JWT } = useJWT();
   const { mutate: addProduct } = useAddProduct();
+  const { closeModal } = Modal.useModalContext();
 
   const [selectedImages, setSelectedImages] = useState<File[]>([]);
   const [selectedDescription, setSelectedDescription] = useState<File[]>([]);
@@ -58,6 +59,8 @@ export const AddProductModal = () => {
       description: selectedDescription[0],
       coverImage: selectedCover[0],
     });
+
+    closeModal();
   };
 
   return (

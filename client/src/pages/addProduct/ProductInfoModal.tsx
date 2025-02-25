@@ -16,6 +16,13 @@ export const ProductInfoModal = () => {
   const { saveToSearchParams, titleRef, priceRef, shippingRef } =
     useProductInfoModal();
 
+  const { closeModal } = Modal.useModalContext();
+
+  const handleCancel = () => {
+    saveToSearchParams();
+    closeModal();
+  };
+
   return (
     <Modal.Window
       title="Edit Product"
@@ -25,7 +32,7 @@ export const ProductInfoModal = () => {
           key: "cancel",
           color: "red",
           text: t("cancel"),
-          onClick: saveToSearchParams,
+          onClick: handleCancel,
         },
       ]}
     >

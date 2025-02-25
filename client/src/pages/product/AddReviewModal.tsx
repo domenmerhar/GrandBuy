@@ -16,10 +16,22 @@ export const AddReviewModal = () => {
   const { JWT } = useJWT();
   const { mutate: createReview } = useCreateReviewOnProduct();
   const { productId } = useParams();
+  const { closeModal } = Modal.useModalContext();
 
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
   const rating = Number(searchParams.get("rating"));
+
+  const removeRatingParam = () =>
+    setSearchParams((searchParams) => {
+      searchParams.delete("rating");
+      return searchParams;
+    });
+
+  const handleCancel = () => {
+    removeRatingParam();
+    close();
+  };
 
   const handleSubmit = () => {
     removeRatingParam();
@@ -33,13 +45,9 @@ export const AddReviewModal = () => {
       productId: String(productId),
       review: String(textAreaRef.current?.value),
     });
-  };
 
-  const removeRatingParam = () =>
-    setSearchParams((searchParams) => {
-      searchParams.delete("rating");
-      return searchParams;
-    });
+    closeModal();
+  };
 
   return (
     <Modal.Window
@@ -50,7 +58,7 @@ export const AddReviewModal = () => {
           key: "cancel",
           text: t("cancel"),
           color: "red",
-          onClick: removeRatingParam,
+          onClick: handleCancel,
         },
         {
           key: "submit",
