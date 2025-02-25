@@ -70,6 +70,8 @@ const resources = {
       all: "All",
       message: "Message",
       warning: "Warning",
+      "has been shipped.": "has been shipped.",
+      "order has been shipped.": "order has been shipped.",
 
       // Shopping cart
       shoppingCart: "Shopping Cart",
@@ -117,6 +119,7 @@ const resources = {
       cancelled: "Cancelled",
       totalPrice: "Total Price",
       confirmOrderDelivery: "Confirm Order Delivery",
+      confirmItemDelivery: "Confirm Item Delivery",
       refundItem: "Refund Item",
 
       // History page
@@ -153,6 +156,7 @@ const resources = {
       notifications: "Notifications",
       requests: "Requests",
       reports: "Reports",
+      ship: "Ship",
 
       // Modal
       cancel: "Cancel",
@@ -339,6 +343,8 @@ const resources = {
       all: "Vse",
       message: "Sporočilo",
       warning: "Opozorilo",
+      "has been shipped.": "izdelek je bil poslan.",
+      "order has been shipped.": "naročilo je bilo poslano.",
 
       // Shopping cart
       shoppingCart: "Nakupovalna košarica",
@@ -386,6 +392,7 @@ const resources = {
       cancelled: "Preklicano",
       totalPrice: "Skupna cena",
       confirmOrderDelivery: "Potrdi dostavo naročila",
+      confirmItemDelivery: "Potrdi dostavo izdelka",
       refundItem: "Vračilo izdelka",
 
       // History page
@@ -422,6 +429,7 @@ const resources = {
       notifications: "Obvestila",
       requests: "Zahteve",
       reports: "Poročila",
+      ship: "Pošlji",
 
       // Modal
       cancel: "Prekliči",
@@ -444,6 +452,7 @@ const resources = {
       status: "Status",
       respond: "Odgovori",
       pendingOrders: "Nedoločena naročila",
+      orderDecisionPrompt: "Prosim izberite odločitev o naročilu.",
 
       // Dashboard coupon page
       totalCoupons: "Št. kuponov",
@@ -542,7 +551,8 @@ const resources = {
   },
 };
 
-const lng = JSON.parse(localStorage.getItem("language") || "en");
+const localStorageLng = localStorage.getItem("language");
+const lng = localStorageLng ? JSON.parse(localStorageLng) : "en";
 
 i18n
   .use(initReactI18next) // passes i18n down to react-i18next
