@@ -1,9 +1,9 @@
 import { useParams } from "react-router-dom";
-import { getSellerProducts } from "../../api/product/getSellerProducts";
 import { useInfinite } from "../../hooks/useInfinite";
 import { InfiniteProducts } from "../../Components/InfiniteProducts";
 import { renderProduct } from "../../Util/renderProduct";
 import { ProductGrid } from "../../Util/ProductGrid";
+import { getSellerProducts } from "../../api/product/getSellerProducts";
 
 export const SellerProducts = () => {
   const { userId } = useParams();
