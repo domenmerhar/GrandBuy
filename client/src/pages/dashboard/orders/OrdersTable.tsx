@@ -8,6 +8,7 @@ import { useGetSellerOrderedItems } from "../../../hooks/order/useGetSellerOrder
 import { SpinnerInBox } from "../../../Components/SpinnerInBox";
 import { ErrorBox } from "../../../Components/ErrorBox";
 import { useTranslation } from "react-i18next";
+import { toPrice } from "../../../functions/toPrice";
 
 export const OrdersTable = () => {
   const { t } = useTranslation();
@@ -71,7 +72,9 @@ export const OrdersTable = () => {
           <Table.Row key={_id}>
             <td>{name}</td>
             <td>{quantity}</td>
-            <td>{(quantity * price * (100 - discount)) / 100}</td>
+            <td>
+              {toPrice((quantity * price * (100 - discount)) / 100, "USD")}
+            </td>
             <td>{renderBadge(status)}</td>
 
             <td>
