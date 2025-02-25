@@ -5,6 +5,7 @@ import { Stepper } from "../../Util/Stepper";
 import { useGetUserOrdersCount } from "../../hooks/order/useGetUserOrdersCount";
 import { Orders } from "./Orders";
 import styled from "styled-components";
+import { Modal } from "../../Util/Modal";
 
 const itemsPerPage = import.meta.env.VITE_ORDERS_PER_PAGE;
 
@@ -30,9 +31,18 @@ export const OrdersPage = () => {
 
   return (
     <StyledOrdersPage>
-      <ProductsCard title={t("orders")} itemCount={itemCount}>
-        <Orders />
-      </ProductsCard>
+      <Modal>
+        <ProductsCard title={t("orders")} itemCount={itemCount}>
+          <Orders />
+        </ProductsCard>
+
+        <Modal.Window>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus
+          beatae harum veritatis alias perspiciatis, culpa saepe totam aperiam
+          quibusdam ipsam optio qui vero corrupti ipsum magnam officiis
+          incidunt. Fugit, eum.
+        </Modal.Window>
+      </Modal>
 
       <Stepper searchParamName="page" max={max} />
     </StyledOrdersPage>
