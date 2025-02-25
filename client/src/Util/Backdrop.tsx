@@ -7,5 +7,5 @@ export const Backdrop = styled.div`
   width: 100vw;
   top: 0;
   left: 0;
-  z-index: 0;
+  z-index: 3;
 `;
