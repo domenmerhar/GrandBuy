@@ -45,11 +45,11 @@ couponRouter
         .notEmpty()
         .withMessage("Please provide a discount."),
 
-      body("expireAt")
-        .isDate()
-        .withMessage("Please provide a valid expireAt.")
-        .notEmpty()
-        .withMessage("Please provide a expireAt."),
+      // body("expireAt")
+      //   .isDate()
+      //   .withMessage("Please provide a valid expireAt.")
+      //   .notEmpty()
+      //   .withMessage("Please provide a expireAt."),
     ]),
 
     restrictTo("seller"),

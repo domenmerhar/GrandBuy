@@ -9,6 +9,7 @@ import {
   getHighestDiscount,
   getProduct,
   getProducts,
+  getSellerProductList,
   getSellerProducts,
   updateProduct,
   uploadProductFiles,
@@ -82,6 +83,18 @@ productRouter.route("/seller/:sellerId").get(
   ]),
 
   getSellerProducts
+);
+
+productRouter.route("/seller/:sellerId/list").get(
+  validate([
+    param("sellerId")
+      .isMongoId()
+      .withMessage("Please proivde a valid seller ID")
+      .notEmpty()
+      .withMessage("Please provide a seller ID."),
+  ]),
+
+  getSellerProductList
 );
 
 productRouter.route("/:productId").get(
