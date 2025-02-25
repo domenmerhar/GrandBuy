@@ -255,7 +255,7 @@ export type SortDiscount = "+discount" | "-discount";
 
 export interface ICoupon {
   _id: string;
-  products: string[];
+  products: { _id: string; name: string }[];
   code: string;
   discount: number;
   expireAt: string;
