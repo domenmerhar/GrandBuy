@@ -10,7 +10,7 @@ export const usePendingOrders = () => {
   const sellerId = data?.data?._id;
 
   return useQuery({
-    queryKey: ["seller-orders", sellerId, 1, "-createdAt", "all"],
+    queryKey: ["seller-orders", sellerId, 1, "-createdAt", "pending"],
     queryFn: () =>
       getSellerOrderedItems({
         JWT,
