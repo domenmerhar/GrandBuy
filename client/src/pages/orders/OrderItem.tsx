@@ -2,16 +2,15 @@ import styled from "styled-components";
 import { Row } from "../../Util/Row";
 import { Link } from "react-router-dom";
 import { FC } from "react";
-import { ButtonWithNotifcations } from "../../Components/Button/ButtonWithNotifcations";
-import { HiDotsVertical, HiOutlineCheck } from "react-icons/hi";
 import ExpandingList from "../../Components/ExpandingList";
 import { HiArrowUturnLeft } from "react-icons/hi2";
-import { useConfirmOrder } from "../../hooks/order/useConfirmOrderDelivery";
 import { useAuthContext } from "../../contexts/AuthContext";
 import { ItemStatus } from "../../Util/types";
 import { useRequestRefund } from "../../hooks/refund/useRequestRefund";
 import { useTranslation } from "react-i18next";
 import { Badge } from "../../Util/Badge";
+import ExpandingThreeDotsButton from "../../Components/ExpandingThreeDotsButton";
+import { Modal } from "../../Util/Modal";
 
 const StyledOrderItem = styled(Row)`
   & div:nth-child(3) {
@@ -63,83 +62,69 @@ interface OrderItemProps {
   productId: string;
   quantity: number;
   status: ItemStatus;
-  delivered?: boolean;
 }
 
 export const OrderItem: FC<OrderItemProps> = ({
-  orderId,
   cartItemId,
   image,
   name,
   price,
   productId,
   quantity,
-  delivered,
   status,
 }) => {
   const { t } = useTranslation();
+  const { setIsOpen } = Modal.useModalContext();
 
   const { JWT } = useAuthContext();
-  const { mutate: confirmOrder } = useConfirmOrder();
   const { mutate: requestRefund } = useRequestRefund();
 
   const reason = "test";
 
-  const handleConfirmOrder = () => confirmOrder({ JWT, orderId });
-  const handleRequestRefund = () => requestRefund({ JWT, cartItemId, reason });
+  //const handleRequestRefund = () => requestRefund({ JWT, cartItemId, reason });
+  const handleRequestRefund = () => setIsOpen(true);
 
   return (
-    <ExpandingList start="right">
-      <StyledOrderItem $gap="2rem" $alignItems="flex-start">
-        <Link to={`/product/${productId}?quantity=1&page=1&sort=-likesCount`}>
-          <Image src={image} />
-        </Link>
+    <StyledOrderItem $gap="2rem" $alignItems="flex-start">
+      <Link to={`/product/${productId}?quantity=1&page=1&sort=-likesCount`}>
+        <Image src={image} />
+      </Link>
 
-        <ProductInfoHolder>
-          <Product>{name}</Product>
+      <ProductInfoHolder>
+        <Product>{name}</Product>
 
-          <Price>
-            {t("totalPrice")}: {price}
-          </Price>
-          <Quantity>
-            {t("quantity")}: {quantity}
-          </Quantity>
-        </ProductInfoHolder>
+        <Price>
+          {t("totalPrice")}: {price}
+        </Price>
+        <Quantity>
+          {t("quantity")}: {quantity}
+        </Quantity>
+      </ProductInfoHolder>
 
-        <StatusButtonHolder $gap=".8rem" $alignItems="center">
-          {status === "cancelled" ? (
-            <Badge $color="red" $size="medium">
-              {t(status)}
-            </Badge>
-          ) : null}
+      <StatusButtonHolder $gap=".8rem" $alignItems="center">
+        {status === "cancelled" ? (
+          <Badge $color="red" $size="medium">
+            {t(status)}
+          </Badge>
+        ) : null}
+      </StatusButtonHolder>
 
-          {!delivered || ["refunded", "cancelled"].includes(status) ? null : (
-            <ExpandingList.Button>
-              <ButtonWithNotifcations>
-                <HiDotsVertical />
-              </ButtonWithNotifcations>
-            </ExpandingList.Button>
-          )}
-        </StatusButtonHolder>
+      {status}
 
-        {status}
+      {status === "delivered" ? (
+        <ExpandingList start="right">
+          <ExpandingThreeDotsButton />
 
-        <ExpandingList.List>
-          <ExpandingList.Ul>
-            {!delivered ? (
-              <ExpandingList.Li onClick={handleConfirmOrder}>
-                <HiOutlineCheck />
-                {t("confirmOrderDelivery")}
-              </ExpandingList.Li>
-            ) : status !== "refunded" ? (
+          <ExpandingList.List>
+            <ExpandingList.Ul>
               <ExpandingList.Li onClick={handleRequestRefund}>
                 <HiArrowUturnLeft />
                 {t("refundItem")}
               </ExpandingList.Li>
-            ) : null}
-          </ExpandingList.Ul>
-        </ExpandingList.List>
-      </StyledOrderItem>
-    </ExpandingList>
+            </ExpandingList.Ul>
+          </ExpandingList.List>
+        </ExpandingList>
+      ) : null}
+    </StyledOrderItem>
   );
 };
