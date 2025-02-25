@@ -18,13 +18,17 @@ export const RoleSection = () => {
 
   const { JWT } = useAuthContext();
   const { mutate } = useRequestSeller();
+  const { closeModal } = Modal.useModalContext();
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsOpen(true);
   };
 
-  const handleModal = () => mutate(JWT);
+  const handleModal = () => {
+    mutate(JWT);
+    closeModal();
+  };
 
   return (
     <>
