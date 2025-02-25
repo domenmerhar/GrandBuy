@@ -9,6 +9,11 @@ import { Badge } from "../../Util/Badge";
 import styled from "styled-components";
 import { Column } from "../../Util/Column";
 import { useTranslation } from "react-i18next";
+import { useConfirmOrder } from "../../hooks/order/useConfirmOrderDelivery";
+import ExpandingList from "../../Components/ExpandingList";
+import { HiOutlineCheck } from "react-icons/hi";
+import { useJWT } from "../../hooks/useJWT";
+import ExpandingThreeDotsButton from "../../Components/ExpandingThreeDotsButton";
 
 const UppercaseBold = styled.span`
   text-transform: uppercase;
@@ -32,6 +37,11 @@ export const Order: FC<IOrder> = ({
 }) => {
   const { t } = useTranslation();
 
+  const { JWT } = useJWT();
+
+  const { mutate: confirmOrder } = useConfirmOrder();
+  const handleConfirmOrder = () => confirmOrder({ JWT, orderId: _id });
+
   let color: BadgeColor;
 
   switch (status) {
@@ -52,23 +62,40 @@ export const Order: FC<IOrder> = ({
   return (
     <>
       <RowInfo $justifyContent="space-between" $alignItems="center">
-        <Row $alignItems="center" $gap="3.2rem">
-          <Column>
-            <UppercaseBold>{t("estimatedDelivery")}</UppercaseBold>
-            {toDate(estimatedDelivery)}
-          </Column>
+        <Column>
+          <UppercaseBold>{t("estimatedDelivery")}</UppercaseBold>
+          {toDate(estimatedDelivery)}
+        </Column>
 
+        <Row $alignItems="center" $gap="1.6rem">
           {deliveredAt ? (
             <Column>
               <UppercaseBold>{t("delivered")}</UppercaseBold>
               {toDate(deliveredAt)}
             </Column>
           ) : null}
-        </Row>
 
-        <Badge $color={color} $size="medium">
-          {t(status)}
-        </Badge>
+          {status === "shipped" ? (
+            <ExpandingList start="right">
+              <ExpandingThreeDotsButton />
+
+              <ExpandingList.List>
+                <ExpandingList.Ul>
+                  <ExpandingList.Li onClick={handleConfirmOrder}>
+                    <HiOutlineCheck />
+                    {t("confirmOrderDelivery")}
+                  </ExpandingList.Li>
+                </ExpandingList.Ul>
+              </ExpandingList.List>
+            </ExpandingList>
+          ) : null}
+
+          {status !== "delivered" ? (
+            <Badge $color={color} $size="medium">
+              {t(status)}
+            </Badge>
+          ) : null}
+        </Row>
       </RowInfo>
 
       {products.map(
@@ -91,7 +118,6 @@ export const Order: FC<IOrder> = ({
             quantity={quantity}
             price={toPrice(totalPrice, "USD")}
             status={status}
-            delivered={status === "delivered"}
           />
         )
       )}
