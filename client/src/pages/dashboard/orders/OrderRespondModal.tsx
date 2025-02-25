@@ -49,8 +49,8 @@ export const OrderRespondModal = () => {
         },
 
         {
-          key: "approve",
-          text: t("approve"),
+          key: "ship",
+          text: t("ship"),
           color: "green",
           onClick: handleShip,
         },
