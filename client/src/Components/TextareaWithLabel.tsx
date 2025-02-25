@@ -1,4 +1,4 @@
-import { forwardRef } from "react";
+import { ComponentProps, forwardRef } from "react";
 import styled from "styled-components";
 import { Label } from "../Util/Label";
 
@@ -16,17 +16,15 @@ const Textarea = styled.textarea`
   max-height: 80%;
 `;
 
-interface TextAreaWithLabelProps {
+interface TextAreaWithLabelProps extends ComponentProps<typeof Textarea> {
   id: string;
   label: string;
-  placeholder?: string;
-  maxLength?: number;
 }
 
 export const TextareaWithLabel = forwardRef<
   HTMLTextAreaElement,
   TextAreaWithLabelProps
->(({ id, label, placeholder = "", maxLength = 500 }, ref) => {
+>(({ id, label, placeholder = "", maxLength = 500, ...rest }, ref) => {
   return (
     <>
       <TextareaLabel htmlFor={id}>{label}</TextareaLabel>
@@ -35,6 +33,7 @@ export const TextareaWithLabel = forwardRef<
         placeholder={placeholder}
         ref={ref}
         maxLength={maxLength}
+        {...rest}
       />
     </>
   );
