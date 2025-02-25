@@ -4,9 +4,9 @@ import { useQuery } from "@tanstack/react-query";
 import HorizontalProducts from "../main/HorizontalProducts";
 import { SpinnerInBox } from "../../Components/SpinnerInBox";
 import { ErrorBox } from "../../Components/ErrorBox";
-import { getSellerProducts } from "../../api/product/getSellerProducts";
 import { useTranslation } from "react-i18next";
 import { useProduct } from "./useProduct";
+import { getSellerProducts } from "../../api/product/getSellerProducts";
 
 export const MoreFromSellerSection = () => {
   const { t } = useTranslation();
