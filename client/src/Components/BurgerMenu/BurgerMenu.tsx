@@ -15,6 +15,7 @@ const StyledBurgerMenu = styled.aside`
   top: 75px;
   width: 30rem;
   padding: 2.4rem;
+  z-index: 4;
 
   display: flex;
   gap: 3.2rem;
