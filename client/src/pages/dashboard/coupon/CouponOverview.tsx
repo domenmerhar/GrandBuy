@@ -1,15 +1,24 @@
 import { Row } from "../../../Util/Row";
 import { OverviewCard } from "../../../Components/OverviewCard";
 import { useTranslation } from "react-i18next";
+import useGetSellerCouponHighestDiscount from "../../../hooks/coupon/useGetSellerCouponHighestDiscount";
+import useGetSellerCouponsCount from "../../../hooks/coupon/useGetSellerCouponsCount";
 
 export const CouponOverview = () => {
   const { t } = useTranslation();
+
+  const { data: highestDiscountResponse } = useGetSellerCouponHighestDiscount();
+  const { data: couponCountResponse } = useGetSellerCouponsCount();
+
+  const highestDiscount =
+    highestDiscountResponse?.data?.highestDiscount[0]?.discount || "N/A";
+  const couponsCount = couponCountResponse?.data?.couponsLength || "N/A";
 
   return (
     <Row $gap="1.6rem" $flexWrap="wrap">
       <OverviewCard
         title={t("totalCoupons")}
-        content="123"
+        content={couponsCount}
         icon={
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -32,7 +41,9 @@ export const CouponOverview = () => {
 
       <OverviewCard
         title={t("highestDiscount")}
-        content="20%"
+        content={
+          highestDiscount === "N/A" ? highestDiscount : `${highestDiscount}%`
+        }
         icon={
           <svg
             xmlns="http://www.w3.org/2000/svg"
