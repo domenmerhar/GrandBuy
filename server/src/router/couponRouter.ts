@@ -7,7 +7,9 @@ import {
   expireSellerCoupon,
   getCoupon,
   getCouponSeller,
+  getSellerCouponHighestDiscount,
   getSellerCoupons,
+  getSellerCouponsCount,
   updateCoupon,
   updateSellerCoupon,
 } from "../controllers/couponController";
@@ -54,6 +56,14 @@ couponRouter
     createSellerCoupon
   )
   .get(restrictTo("seller"), getSellerCoupons);
+
+couponRouter
+  .route("/seller/count")
+  .get(restrictTo("seller"), getSellerCouponsCount);
+
+couponRouter
+  .route("/seller/highest-discount")
+  .get(restrictTo("seller"), getSellerCouponHighestDiscount);
 
 couponRouter
   .route("/seller/:id")
