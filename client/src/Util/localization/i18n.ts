@@ -188,6 +188,7 @@ const resources = {
       validUntil: "Valid Until",
       affectedItems: "Affected Items",
       coupon: "Coupon",
+      addCoupon: "Add Coupon",
 
       // Toast
       pleaseEnterAllFields: "Please enter all fields.",
@@ -274,6 +275,10 @@ const resources = {
       orderCancelled: "Order has been cancelled.",
 
       replySent: "Reply sent",
+
+      invalidData: "Invalid data",
+
+      couponCreated: "Coupon created",
     },
   },
   sl: {
@@ -461,6 +466,7 @@ const resources = {
       validUntil: "Veljavno do",
       affectedItems: "Vplivani izdelki",
       coupon: "Kupon",
+      addCoupon: "Dodaj kupon",
 
       // Toast
       pleaseEnterAllFields: "Prosim izpolnite vsa polja.",
@@ -547,6 +553,10 @@ const resources = {
       orderCancelled: "Naročilo je bilo preklicano.",
 
       replySent: "Poslan odgovor",
+
+      invalidData: "Neveljavni podatki",
+
+      couponCreated: "Ustvarjen kupon",
     },
   },
 };
