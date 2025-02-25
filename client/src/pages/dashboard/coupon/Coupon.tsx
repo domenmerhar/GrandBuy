@@ -26,7 +26,7 @@ interface Coupon {
   code: string;
   discount: number;
   validUntil: string;
-  affectedItems: string[];
+  affectedItems: { _id: string; name: string }[];
 }
 
 export const Coupon: FC<Coupon> = ({
@@ -56,8 +56,8 @@ export const Coupon: FC<Coupon> = ({
       <Column $gap="4px">
         <AffectedItems>{t("affectedItems")}:</AffectedItems>
         <BadgeCard.ItemList>
-          {affectedItems.map((item, i) => (
-            <Li key={i}>{item}</Li>
+          {affectedItems.map(({ _id, name }: { _id: string; name: string }) => (
+            <Li key={_id}>{name}</Li>
           ))}
         </BadgeCard.ItemList>
       </Column>
