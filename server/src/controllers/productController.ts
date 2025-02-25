@@ -111,7 +111,7 @@ export const createProduct = catchAsync(
       name,
       coverImage: res.locals.coverImage,
       images: res.locals.productImages,
-      price,
+      price: price.toFixed(2),
       shipping,
       description: res.locals.descripiton,
       user: user,
@@ -306,6 +306,28 @@ export const getSellerProducts = catchAsync(
     res
       .status(200)
       .json({ status: "success", length: products.length, data: { products } });
+  }
+);
+
+export const getSellerProductList = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const { sellerId } = req.params;
+
+    const features = new APIFeatures(
+      Product.find({
+        user: sellerId,
+        isSelling: { $ne: false },
+      })
+        .select("name _id")
+        .sort({ name: 1 }),
+      req.query
+    );
+
+    const products = await features.paginate().query;
+
+    if (!products.length) return next(new AppError("No products found.", 404));
+
+    res.status(200).json({ status: "success", data: { products } });
   }
 );
 

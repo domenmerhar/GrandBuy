@@ -78,8 +78,6 @@ export const addOrder = catchAsync(
       },
     ]);
 
-    console.log({ products });
-
     if (products.length !== cartItems.length)
       return next(new AppError("Please provide valid cart items.", 400));
 
