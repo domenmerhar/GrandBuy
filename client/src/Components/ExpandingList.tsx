@@ -63,7 +63,7 @@ export const ExpandingList = ({
 
 const Div = styled.div<Coordinates>`
   position: fixed;
-  z-index: 1000;
+  z-index: 2;
 
   left: ${(props) => `${props.x}px`};
   top: ${(props) => `${props.y}px`};
