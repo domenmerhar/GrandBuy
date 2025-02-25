@@ -1,15 +1,12 @@
-import { forwardRef } from "react";
+import { ComponentProps, forwardRef } from "react";
 import styled from "styled-components";
 import { Input } from "./Input";
 
-interface InputWithLabelProps {
+type InputProps = ComponentProps<typeof Input>;
+
+interface InputWithLabelProps extends InputProps {
   id: string;
-  placeholder?: string;
-  type: string;
   title: string;
-  disabled?: boolean;
-  min?: number;
-  max?: number;
   error?: boolean;
 }
 
@@ -19,23 +16,11 @@ const Label = styled.label`
 `;
 
 export const InputWithLabel = forwardRef<HTMLInputElement, InputWithLabelProps>(
-  (
-    { id, placeholder, type, title, disabled, min = 0, max, error = false },
-    ref
-  ) => {
+  ({ id, title, error = false, ...rest }, ref) => {
     return (
       <>
         <Label htmlFor={id}>{title}</Label>
-        <Input
-          type={type}
-          placeholder={placeholder}
-          id={id}
-          disabled={disabled || false}
-          min={min}
-          max={max}
-          ref={ref}
-          $error={error}
-        />
+        <Input id={id} ref={ref} $error={error} {...rest} />
       </>
     );
   }
