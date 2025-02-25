@@ -85,11 +85,30 @@ export const NotificationPage = () => {
         container={Grid}
         {...data}
         renderFn={(page: NotificationResponse) =>
-          page?.data?.notifications.map(({ _id, createdAt, message, type }) => (
-            <NotificationCard key={_id} date={toDate(createdAt)} type={type}>
-              {t(message)}
-            </NotificationCard>
-          ))
+          page?.data?.notifications.map(({ _id, createdAt, message, type }) => {
+            if (
+              message.endsWith("has been shipped.") ||
+              message.endsWith("order has been shipped.")
+            ) {
+              const messageArr = message.split(" ");
+              const sliceIndex =
+                messageArr.indexOf("order") !== -1
+                  ? messageArr.indexOf("order")
+                  : messageArr.indexOf("has");
+
+              if (sliceIndex !== -1) {
+                const toTranslate = messageArr.slice(sliceIndex).join(" ");
+
+                message = `${messageArr.slice(0, sliceIndex).join(" ")} ${t(toTranslate)}`;
+              }
+            }
+
+            return (
+              <NotificationCard key={_id} date={toDate(createdAt)} type={type}>
+                {message}
+              </NotificationCard>
+            );
+          })
         }
       />
     </Content>
