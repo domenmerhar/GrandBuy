@@ -149,6 +149,35 @@ export const getSellerCoupons = catchAsync(
   }
 );
 
+export const getSellerCouponsCount = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const sellerId = res.locals.user._id;
+
+    const couponsLength = await Coupon.find({
+      createdBy: sellerId,
+    }).countDocuments();
+
+    res.status(200).json({ status: "success", data: { couponsLength } });
+  }
+);
+
+export const getSellerCouponHighestDiscount = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const sellerId = res.locals.user._id;
+
+    const highestDiscount = await Coupon.find({
+      createdBy: sellerId,
+    })
+      .sort({ discount: -1 })
+      .limit(1)
+      .select("discount -_id");
+
+    if (!highestDiscount) return next(new AppError("No coupons found.", 404));
+
+    res.status(200).json({ status: "success", data: { highestDiscount } });
+  }
+);
+
 export const expireSellerCoupon = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const { id } = req.params;
