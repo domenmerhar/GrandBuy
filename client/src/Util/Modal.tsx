@@ -85,6 +85,7 @@ const Content = styled.div`
 const ModalContext = createContext<{
   isOpen: boolean;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  closeModal: () => void;
 } | null>(null);
 
 interface ModalComponent extends FC<{ children: ReactNode }> {
@@ -94,9 +95,10 @@ interface ModalComponent extends FC<{ children: ReactNode }> {
 
 const Modal: ModalComponent = ({ children }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const closeModal = () => setIsOpen(false);
 
   return (
-    <ModalContext.Provider value={{ isOpen, setIsOpen }}>
+    <ModalContext.Provider value={{ isOpen, setIsOpen, closeModal }}>
       {children}
     </ModalContext.Provider>
   );
@@ -171,7 +173,7 @@ const Window: FC<ModalProps> = ({
                   $color={color}
                   $shape="oval"
                   $size="medium"
-                  onClick={closeAfterCallback(onClick)}
+                  onClick={onClick}
                 >
                   {text}
                 </Button>
