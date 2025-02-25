@@ -10,7 +10,7 @@ export const useGetUserOrdersCount = () => {
   const userId = data?.data?._id;
 
   return useQuery({
-    queryKey: ["orders", userId],
+    queryKey: ["seller-orders", userId],
     queryFn: () => getUserOrdersCount({ JWT }),
   });
 };
