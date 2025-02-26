@@ -191,6 +191,7 @@ const resources = {
       addCoupon: "Add Coupon",
       edit: "Edit",
       delete: "Delete",
+      expire: "Expire",
 
       // Toast
       pleaseEnterAllFields: "Please enter all fields.",
@@ -471,6 +472,7 @@ const resources = {
       addCoupon: "Dodaj kupon",
       edit: "Uredi",
       delete: "Izbriši",
+      expire: "Poteči",
 
       // Toast
       pleaseEnterAllFields: "Prosim izpolnite vsa polja.",
