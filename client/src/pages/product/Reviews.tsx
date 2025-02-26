@@ -4,6 +4,7 @@ import { Review } from "./Review";
 import { SpinnerInBox } from "../../Components/SpinnerInBox";
 import { ErrorBox } from "../../Components/ErrorBox";
 import { useReviews } from "./useReviews";
+import { toApiFilesPath } from "../../functions/toApiFilesPath";
 
 const StyledReviews = styled(Column)`
   overflow-y: auto;
@@ -42,7 +43,7 @@ export const Reviews = () => {
             likeCount={likesCount}
             rating={rating}
             username={user?.username}
-            userImage={user?.image || "https://placehold.jp/150x150.png"}
+            userImage={toApiFilesPath(user?.image)}
           />
         )
       )}

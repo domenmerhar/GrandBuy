@@ -7,6 +7,7 @@ import { toDate } from "../../functions/toDate";
 import { InfiniteProducts } from "../../Components/InfiniteProducts";
 import styled from "styled-components";
 import { useUser } from "../../hooks/useUser";
+import { toApiFilesPath } from "../../functions/toApiFilesPath";
 
 const Grid = styled.div`
   display: grid;
@@ -43,7 +44,7 @@ export const UserReplies = () => {
         key={_id}
         content={reply}
         date={toDate(createdAt)}
-        profileImage={dataUser?.data?.image || ""}
+        profileImage={toApiFilesPath(dataUser?.data?.image)}
         username={dataUser?.data?.username}
       />
     ));

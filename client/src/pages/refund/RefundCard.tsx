@@ -1,10 +1,11 @@
+import { toApiFilesPath } from "../../functions/toApiFilesPath";
 import { BadgeCard } from "../../Util/BadgeCard";
 
 export const RefundCard = () => {
   return (
     <BadgeCard>
       <BadgeCard.Header
-        imageLink="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSA4_6SCuZdyzZD0pgNR1ncralqCAz_8w8R_g&s"
+        imageLink={toApiFilesPath("")}
         badgeText="Pending"
         username="John Doe"
         date="22. 5. 2025"

@@ -42,9 +42,7 @@ export const UserReviews = () => {
         key={_id}
         content={review}
         date={toDate(createdAt)}
-        profileImage={
-          dataUser?.data?.image ? toApiFilesPath(dataUser?.data?.image) : ""
-        }
+        profileImage={toApiFilesPath(dataUser?.data?.image)}
         username={dataUser?.data?.username}
       />
     ));
