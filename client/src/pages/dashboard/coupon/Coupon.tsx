@@ -1,9 +1,15 @@
 import styled from "styled-components";
 import { BadgeCard } from "../../../Util/BadgeCard";
 import { Column } from "../../../Util/Column";
-import { FC, useState } from "react";
+import React, { FC, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { HiChevronDown } from "react-icons/hi";
+import { HiChevronDown, HiPencil, HiTrash } from "react-icons/hi";
+import ExpandingList from "../../../Components/ExpandingList";
+import ExpandingThreeDotsButton from "../../../Components/ExpandingThreeDotsButton";
+import { Row } from "../../../Util/Row";
+import { CouponProps } from "../../../Util/types";
+import { Modal } from "../../../Util/Modal";
+import { useSearchParams } from "react-router-dom";
 
 const GrayedText = styled.span`
   color: var(--gray-7);
@@ -34,69 +40,112 @@ const Li = styled.li`
   margin-left: 8px;
 `;
 
-interface Coupon {
+interface Coupon extends CouponProps {
+  couponId: string;
   code: string;
   discount: number;
   validUntil: string;
   affectedItems: { _id: string; name: string }[];
 }
 
-export const Coupon: FC<Coupon> = ({
-  code,
-  discount,
-  validUntil,
-  affectedItems,
-}) => {
-  const { t } = useTranslation();
-  const isShort = affectedItems.length < 10;
-  const [isOpen, setIsOpen] = useState<boolean>(isShort);
+export const Coupon: FC<Coupon> = React.memo(
+  ({
+    couponId,
+    code,
+    discount,
+    validUntil,
+    affectedItems,
 
-  return (
-    <BadgeCard>
-      <Column $alignItems="flex-start" $gap="2px">
-        <p>
-          <GrayedText>{t("coupon")}:</GrayedText> {code}
-        </p>
+    setCode,
+    setDiscount,
+    setExpireAt,
+    setProductIds,
+  }) => {
+    const { t } = useTranslation();
+    const [, setSearchParams] = useSearchParams();
+    const { setIsOpen: setIsOpenModal } = Modal.useModalContext();
 
-        <p>
-          <GrayedText>{t("discount")}:</GrayedText> {discount}%
-        </p>
+    const isShort = affectedItems.length < 10;
+    const [isOpen, setIsOpen] = useState<boolean>(isShort);
 
-        <p>
-          <GrayedText>{t("validUntil")}:</GrayedText> {validUntil}
-        </p>
-      </Column>
+    const handleEdit = () => {
+      setCode(code);
+      setDiscount(discount);
+      setExpireAt(new Date(validUntil).getTime());
+      setProductIds(affectedItems.map(({ _id }) => _id));
 
-      <Column $gap="4px">
-        <AffectedItems onClick={() => setIsOpen((prev) => !prev)}>
-          {!isShort ? (
-            <ChevronHolder $isOpen={isOpen}>
-              <HiChevronDown />
-            </ChevronHolder>
-          ) : null}
-          {t("affectedItems")}:
-        </AffectedItems>
-        {isOpen || isShort ? (
-          <BadgeCard.ItemList>
-            {affectedItems.map(
-              ({ _id, name }: { _id: string; name: string }) => (
-                <Li key={_id}>{name}</Li>
-              )
-            )}
-          </BadgeCard.ItemList>
-        ) : (
-          <>
-            <BadgeCard.ItemList>
-              {affectedItems
-                .slice(0, 5)
-                .map(({ _id, name }: { _id: string; name: string }) => (
-                  <Li key={_id}>{name}</Li>
-                ))}
-              ...
-            </BadgeCard.ItemList>
-          </>
-        )}
-      </Column>
-    </BadgeCard>
-  );
-};
+      setIsOpenModal(true);
+      setSearchParams((prev) => {
+        prev.set("coupon-id", couponId);
+        return prev;
+      });
+    };
+
+    const renderItems = (endIndex?: number) =>
+      affectedItems
+        .slice(0, endIndex)
+        .map(({ _id, name }: { _id: string; name: string }) => (
+          <Li key={_id}>{name}</Li>
+        ));
+
+    return (
+      <BadgeCard>
+        <Row $justifyContent="space-between">
+          <Column $alignItems="flex-start" $gap="2px">
+            <p>
+              <GrayedText>{t("coupon")}:</GrayedText> {code}
+            </p>
+
+            <p>
+              <GrayedText>{t("discount")}:</GrayedText> {discount}%
+            </p>
+
+            <p>
+              <GrayedText>{t("validUntil")}:</GrayedText> {validUntil}
+            </p>
+          </Column>
+
+          <ExpandingList start="right">
+            <ExpandingThreeDotsButton />
+
+            <ExpandingList.List>
+              <ExpandingList.Ul>
+                <ExpandingList.Li onClick={handleEdit}>
+                  <HiPencil />
+                  {t("edit")}
+                </ExpandingList.Li>
+
+                <ExpandingList.Li>
+                  <HiTrash />
+                  {t("delete")}
+                </ExpandingList.Li>
+              </ExpandingList.Ul>
+            </ExpandingList.List>
+          </ExpandingList>
+        </Row>
+
+        <Column $gap="4px">
+          <AffectedItems onClick={() => setIsOpen((prev) => !prev)}>
+            {!isShort ? (
+              <ChevronHolder $isOpen={isOpen}>
+                <HiChevronDown />
+              </ChevronHolder>
+            ) : null}
+            {t("affectedItems")}:
+          </AffectedItems>
+
+          {isOpen || isShort ? (
+            <BadgeCard.ItemList>{renderItems()}</BadgeCard.ItemList>
+          ) : (
+            <>
+              <BadgeCard.ItemList>
+                {renderItems(5)}
+                ...
+              </BadgeCard.ItemList>
+            </>
+          )}
+        </Column>
+      </BadgeCard>
+    );
+  }
+);
