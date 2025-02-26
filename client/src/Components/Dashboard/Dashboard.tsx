@@ -6,6 +6,7 @@ import { DashboardAdminList } from "./DashboardAdminList";
 import styled from "styled-components";
 import { DashboardSellerList } from "./DashboardSellerList";
 import { Modal } from "../../Util/Modal";
+import { useMe } from "../../hooks/useMe";
 
 const DashboardLayout = styled(SidebarLayout)`
   font-weight: 500;
@@ -17,9 +18,10 @@ const DashboardContent = styled(ContentWithSidebar)`
   gap: 3.2rem;
 `;
 
-const role = "seller";
-
 export const Dashboard = () => {
+  const { data } = useMe();
+  const role = data?.data?.role;
+
   return (
     <DashboardLayout>
       <Sidebar>
