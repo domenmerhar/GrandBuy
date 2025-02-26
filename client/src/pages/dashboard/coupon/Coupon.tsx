@@ -3,13 +3,15 @@ import { BadgeCard } from "../../../Util/BadgeCard";
 import { Column } from "../../../Util/Column";
 import React, { FC, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { HiChevronDown, HiPencil, HiTrash } from "react-icons/hi";
+import { HiChevronDown, HiOutlineClock, HiOutlinePencil } from "react-icons/hi";
 import ExpandingList from "../../../Components/ExpandingList";
 import ExpandingThreeDotsButton from "../../../Components/ExpandingThreeDotsButton";
 import { Row } from "../../../Util/Row";
 import { CouponProps } from "../../../Util/types";
 import { Modal } from "../../../Util/Modal";
 import { useSearchParams } from "react-router-dom";
+import useExpireCoupon from "../../../hooks/coupon/useExpireCoupon";
+import { useJWT } from "../../../hooks/useJWT";
 
 const GrayedText = styled.span`
   color: var(--gray-7);
@@ -65,6 +67,9 @@ export const Coupon: FC<Coupon> = React.memo(
     const [, setSearchParams] = useSearchParams();
     const { setIsOpen: setIsOpenModal } = Modal.useModalContext();
 
+    const { JWT } = useJWT();
+    const { mutate: expireCoupon } = useExpireCoupon();
+
     const isShort = affectedItems.length < 10;
     const [isOpen, setIsOpen] = useState<boolean>(isShort);
 
@@ -79,6 +84,10 @@ export const Coupon: FC<Coupon> = React.memo(
         prev.set("coupon-id", couponId);
         return prev;
       });
+    };
+
+    const handleExpireCoupon = () => {
+      expireCoupon({ JWT, couponId });
     };
 
     const renderItems = (endIndex?: number) =>
@@ -111,13 +120,13 @@ export const Coupon: FC<Coupon> = React.memo(
             <ExpandingList.List>
               <ExpandingList.Ul>
                 <ExpandingList.Li onClick={handleEdit}>
-                  <HiPencil />
+                  <HiOutlinePencil />
                   {t("edit")}
                 </ExpandingList.Li>
 
-                <ExpandingList.Li>
-                  <HiTrash />
-                  {t("delete")}
+                <ExpandingList.Li onClick={handleExpireCoupon}>
+                  <HiOutlineClock />
+                  {t("expire")}
                 </ExpandingList.Li>
               </ExpandingList.Ul>
             </ExpandingList.List>
