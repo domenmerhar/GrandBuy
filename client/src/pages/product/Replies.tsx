@@ -4,6 +4,7 @@ import { getReplies } from "../dashboard/reviews/getReplies";
 import { SpinnerInBox } from "../../Components/SpinnerInBox";
 import { ErrorBox } from "../../Components/ErrorBox";
 import { Reply } from "./Reply";
+import { toApiFilesPath } from "../../functions/toApiFilesPath";
 
 interface RepliesProps {
   id: string;
@@ -37,7 +38,7 @@ export const Replies: FC<RepliesProps> = ({ id }) => {
           <Reply
             key={_id}
             content={reply}
-            icon={user?.image}
+            icon={toApiFilesPath(user?.image)}
             username={user?.username}
           />
         )
