@@ -13,6 +13,8 @@ import { FC } from "react";
 import { toApiFilesPath } from "../../../functions/toApiFilesPath";
 import { toDate } from "../../../functions/toDate";
 import { Link } from "react-router-dom";
+import useLikeReview from "../../../hooks/repliesReviews/useLikeReview";
+import { useJWT } from "../../../hooks/useJWT";
 
 const Img = styled.img`
   color: transparent;
@@ -69,12 +71,19 @@ export const ReviewCardDashboard: FC<ReviewCardDashboardProps> = ({
   const { setIsOpen } = Modal.useModalContext();
   const [, setSearchParams] = useSearchParams();
 
+  const { JWT } = useJWT();
+  const { mutate: likeReview } = useLikeReview();
+
   const handleReply = () => {
     setSearchParams((searchParams) => {
       searchParams.set("reply", reviewId);
       return searchParams;
     });
     setIsOpen(true);
+  };
+
+  const handleLike = () => {
+    likeReview({ JWT, reviewId });
   };
 
   return (
@@ -106,7 +115,11 @@ export const ReviewCardDashboard: FC<ReviewCardDashboardProps> = ({
             <P>{review}</P>
 
             <Row $gap="1.6rem">
-              <ReviewAction $gap="4px" $alignItems="center">
+              <ReviewAction
+                $gap="4px"
+                $alignItems="center"
+                onClick={handleLike}
+              >
                 <HiOutlineHandThumbUp size={24} />
                 <span>{likes}</span>
               </ReviewAction>
