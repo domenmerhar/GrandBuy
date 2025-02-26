@@ -42,6 +42,7 @@ const Price = styled.span`
 `;
 
 const PreviousPrice = styled.span`
+  font-size: 1.4rem;
   position: absolute;
   bottom: 15px;
   right: 10px;
