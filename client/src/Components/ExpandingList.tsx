@@ -120,7 +120,7 @@ const Ul = styled.ul`
   background-color: var(--gray-1);
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05);
   border-radius: 10px;
-  width: 250px;
+  width: 25rem;
 
   & :first-child {
     border-top-left-radius: 10px;
@@ -134,7 +134,7 @@ const Ul = styled.ul`
 `;
 
 const Li = styled.li`
-  padding: 10px 20px;
+  padding: 1rem 2rem;
   color: var(--gray-8);
 
   display: flex;
@@ -146,7 +146,7 @@ const Li = styled.li`
 
   & :first-child {
     size: 2px;
-    font-size: 24px;
+    font-size: 2.4rem;
   }
 
   &:hover {
