@@ -16,13 +16,13 @@ const StyledHero = styled.div`
   align-items: center;
 
   @media (max-width: 85em) {
-    background-position: 30% -30%;
+    background-position: 30% 30%;
     background-size: 230%;
     height: 100vh;
   }
 
   @media (max-width: 60em) {
-    background-position: 40% -30%;
+    background-position: 40% 30%;
     background-size: 240%;
   }
 
