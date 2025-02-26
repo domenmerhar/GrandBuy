@@ -189,6 +189,8 @@ const resources = {
       affectedItems: "Affected Items",
       coupon: "Coupon",
       addCoupon: "Add Coupon",
+      edit: "Edit",
+      delete: "Delete",
 
       // Toast
       pleaseEnterAllFields: "Please enter all fields.",
@@ -467,6 +469,8 @@ const resources = {
       affectedItems: "Vplivani izdelki",
       coupon: "Kupon",
       addCoupon: "Dodaj kupon",
+      edit: "Uredi",
+      delete: "Izbriši",
 
       // Toast
       pleaseEnterAllFields: "Prosim izpolnite vsa polja.",
@@ -562,7 +566,7 @@ const resources = {
 };
 
 const localStorageLng = localStorage.getItem("language");
-const lng = localStorageLng ? JSON.parse(localStorageLng) : "en";
+const lng = localStorageLng ? JSON.parse(localStorageLng) : "sl";
 
 i18n
   .use(initReactI18next) // passes i18n down to react-i18next
