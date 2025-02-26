@@ -5,8 +5,19 @@ import { StyledSidebar } from "../../Util/StyledSidebar";
 import { ProductInfo } from "../../Components/ProductInfo";
 import { FC } from "react";
 
+const StyledSliderInfoRow = styled(Row)`
+  @media (max-width: 49em) {
+    flex-direction: column;
+    gap: 3.2rem;
+  }
+`;
+
 const ProductInfoHolder = styled(StyledSidebar)`
   align-self: flex-start;
+
+  @media (max-width: 49em) {
+    align-self: center;
+  }
 `;
 
 const NoImage = styled.div`
@@ -38,7 +49,7 @@ export const SliderInfoRow: FC<SliderInfoRowProps> = ({
   discount,
 }) => {
   return (
-    <Row $gap="2.8rem" $alignItems="center">
+    <StyledSliderInfoRow $gap="2.8rem" $alignItems="center">
       {images?.length > 0 ? (
         <ImageCarousel images={images} />
       ) : (
@@ -56,6 +67,6 @@ export const SliderInfoRow: FC<SliderInfoRowProps> = ({
           discount={discount}
         />
       </ProductInfoHolder>
-    </Row>
+    </StyledSliderInfoRow>
   );
 };
