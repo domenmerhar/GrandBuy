@@ -33,7 +33,7 @@ const Info = styled(Column)`
 
 const StyledDiscount = styled(Discount)`
   right: -20%;
-  top: -20%;
+  top: -12.5%;
 `;
 
 const HeaderHolder = styled(Row)`
