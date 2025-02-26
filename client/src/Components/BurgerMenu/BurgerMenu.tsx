@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 import { toApiFilesPath } from "../../functions/toApiFilesPath";
 
 const StyledBurgerMenu = styled.aside`
-  height: 93vh;
+  height: 100vh;
   background-color: var(--gray-light-9);
   position: fixed;
   right: 0;
@@ -27,6 +27,10 @@ const StyledBurgerMenu = styled.aside`
   body.dark-mode & * {
     color: var(--gray-light-2);
     stroke: var(--gray-light-2);
+  }
+
+  @media (max-width: 64em) {
+    top: 50px;
   }
 `;
 
