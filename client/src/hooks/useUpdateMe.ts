@@ -16,7 +16,6 @@ export const useUpdateMe = () => {
     },
 
     onSuccess: (data) => {
-      console.log(data);
       if (data.errors)
         return toast.error(data.errors[0].msg, { id: "updateMe" });
 

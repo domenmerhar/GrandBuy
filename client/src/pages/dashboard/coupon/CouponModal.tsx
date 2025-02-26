@@ -103,7 +103,6 @@ export default function CouponModal({
   };
 
   const validateData = (callback: () => unknown) => () => {
-    console.log("validate");
     if (
       !code?.length ||
       code.length > 20 ||

@@ -12,8 +12,6 @@ export const useSignup = () => {
     mutationFn: signup,
 
     onSuccess: (data) => {
-      console.log(data);
-
       if (data.status !== "success" || data?.errors?.length > 0)
         return toast.error(t("couldntSignUp"), {
           id: "signup",

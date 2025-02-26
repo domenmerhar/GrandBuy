@@ -11,8 +11,6 @@ export default () => {
     mutationFn: likeReview,
 
     onSuccess: (data) => {
-      console.log(data);
-
       if (data.status !== "success" || data?.errors?.length > 0)
         return toast.error(t("somethingWentWrong"), {
           id: "reply",
