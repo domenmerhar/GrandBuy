@@ -197,7 +197,7 @@ export interface CartItemInterface {
   createdAt: string;
 }
 
-export type ItemStatus = OrderStatus | "refunded";
+export type ItemStatus = OrderStatus | "refunded" | "pending-refund";
 
 export interface IOrder {
   _id: string;
