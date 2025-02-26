@@ -22,6 +22,10 @@ const StyledReviewSection = styled(BlankCard)`
 const RatingReviewHolder = styled(Row)`
   flex: 1;
   overflow: hidden;
+
+  @media (max-width: 49em) {
+    flex-direction: column;
+  }
 `;
 
 const ButtonsHolder = styled(Row)`
