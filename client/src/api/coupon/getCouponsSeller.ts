@@ -22,7 +22,7 @@ export const getCouponsSeller = async ({
   );
 
   const data = await response.json();
-  const nextItem = data.length === limit ? page + 1 : null;
+  const nextItem = data?.data?.coupons?.length === limit ? page + 1 : null;
 
   return { ...data, nextItem };
 };

@@ -16,8 +16,6 @@ export default async function createCouponSeller({
   const Authorization = `Bearer ${JWT}`;
   const body = JSON.stringify({ code, products, discount, expireAt });
 
-  console.log(body);
-
   const response = await fetch(toApiPath(`coupon/seller`), {
     method: "POST",
     headers: {
