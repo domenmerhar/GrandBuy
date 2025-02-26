@@ -102,6 +102,18 @@ ul {
 img {
   max-width: 100%;
 }
+
+@media (max-width: 64em) {
+  html {
+    font-size: 56.25%;
+  }
+}
+
+@media (max-width: 49em) {
+  html {
+    font-size: 43.725%;
+  }
+}
 `;
 
 export default GlobalStyles;
