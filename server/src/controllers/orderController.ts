@@ -145,14 +145,12 @@ export const confirmDelivery = catchAsync(
       return product;
     });
 
-    order.save();
+    await order.save();
 
     await Promise.all(
       order.products.map((product: any) => {
-        const productId = product.product;
-
         return cartItemModel.findOneAndUpdate(
-          { _id: productId },
+          { _id: product._id },
           { status: "delivered" },
           { new: true }
         );
