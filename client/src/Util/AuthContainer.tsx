@@ -11,11 +11,11 @@ const BackgroundImage = styled.div`
   width: 100vw;
   height: 100vh;
 
-  background-position: 0% 50%;
-  background-size: 130%;
+  background-position: 30% 50%;
+  background-size: 150%;
 
   @media (max-width: 79em) {
-    background-size: 160%;
+    background-size: 180%;
     background-position: 25% 50%;
   }
 
@@ -23,24 +23,36 @@ const BackgroundImage = styled.div`
     background-size: 200%;
     background-position: 30% 50%;
   }
+
+  @media (max-width: 49em) {
+    display: none;
+  }
 `;
 
 const SkewedBackground = styled.div`
   background-color: var(--gray-3);
   height: 100vh;
   width: 60vw;
-  left: -200px;
+  left: -300px;
   z-index: 1;
   position: fixed;
 
   transform: skew(-20deg);
 
-  @media (max-width: 79em) {
-    width: 65vw;
+  @media (max-width: 85em) {
+    width: 75vw;
+    left: -225px;
   }
 
   @media (max-width: 65em) {
-    width: 75vw;
+    width: 85vw;
+  }
+
+  @media (max-width: 49em) {
+    height: 100vh;
+    width: 100vw;
+    transform: skew(0deg);
+    left: 0;
   }
 `;
 
@@ -56,6 +68,10 @@ const ContentHolder = styled.div`
   z-index: 3;
 
   position: fixed;
+
+  @media (max-width: 49em) {
+    width: 100vw;
+  }
 `;
 
 export const AuthContainer: FC<AuthContainerProps> = ({ children }) => {
