@@ -8,4 +8,12 @@ export const SidebarLayout = styled.div`
   & > *:nth-child(3) {
     padding-top: 2.4rem;
   }
+
+  @media (max-width: 64em) {
+    padding-right: 3.2rem;
+  }
+
+  @media (max-width: 49em) {
+    padding-right: 0;
+  }
 `;
