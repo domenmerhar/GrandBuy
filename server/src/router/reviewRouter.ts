@@ -169,7 +169,7 @@ reviewRouter.route("/seller/:days").get(
   getRecentReviewsForSeller
 );
 
-reviewRouter.use(restrictTo("user"));
+reviewRouter.use(restrictTo("user", "seller"));
 reviewRouter.route("/:id/like").patch(
   validate([
     param("id")

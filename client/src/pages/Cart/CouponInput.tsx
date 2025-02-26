@@ -21,7 +21,6 @@ export const CouponInput = () => {
       <Input
         placeholder={t("couponCode")}
         onBlur={(e) => {
-          console.log(e.target.value);
           if (!e.target.value) return;
 
           mutate({ JWT, couponCode: e.target.value });

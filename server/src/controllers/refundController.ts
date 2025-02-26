@@ -122,8 +122,6 @@ export const cancelRefund = catchAsync(
       { new: true }
     );
 
-    console.log(carItem);
-
     res.status(200).json({ status: "success", data: refund });
   }
 );
