@@ -222,8 +222,6 @@ export const updateSellerCoupon = catchAsync(
 
     await coupon.save();
 
-    console.log(coupon);
-
     res.status(200).json({ status: "success", data: { coupon } });
   }
 );
