@@ -10,7 +10,7 @@ export const getSellerReviews = async ({
   page: number;
   sort: SortCreatedAt;
 }) => {
-  const limit = Number(import.meta.env.VITE_PRODUCTS_PER_STEPPER);
+  const limit = Number(import.meta.env.VITE_SELLER_REVIEWS_PAGE);
 
   const queryParamsStr = [
     limit && `limit=${limit}`,

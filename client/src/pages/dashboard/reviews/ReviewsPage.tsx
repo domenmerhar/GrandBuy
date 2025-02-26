@@ -5,7 +5,7 @@ import { DashboardReviews } from "./DashboardReviews";
 import useGetSellerReviewCount from "../../../hooks/repliesReviews/useGetSellerReviewCount";
 import useGetSellerAverageRating from "../../../hooks/repliesReviews/useGetSellerAverageRating";
 
-const itemPerPage = Number(import.meta.env.VITE_PRODUCTS_PER_STEPPER);
+const itemPerPage = Number(import.meta.env.VITE_SELLER_REVIEWS_PAGE);
 
 export const ReviewsPage = () => {
   const { data: reviewResponse } = useGetSellerReviewCount();
