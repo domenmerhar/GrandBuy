@@ -6,6 +6,7 @@ import { useGetUserOrdersCount } from "../../hooks/order/useGetUserOrdersCount";
 import { Orders } from "./Orders";
 import styled from "styled-components";
 import { Modal } from "../../Util/Modal";
+import { RefundModal } from "../dashboard/refund/RefundModal";
 
 const itemsPerPage = import.meta.env.VITE_ORDERS_PER_PAGE;
 
@@ -36,12 +37,7 @@ export const OrdersPage = () => {
           <Orders />
         </ProductsCard>
 
-        <Modal.Window>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus
-          beatae harum veritatis alias perspiciatis, culpa saepe totam aperiam
-          quibusdam ipsam optio qui vero corrupti ipsum magnam officiis
-          incidunt. Fugit, eum.
-        </Modal.Window>
+        <RefundModal />
       </Modal>
 
       <Stepper searchParamName="page" max={max} />
