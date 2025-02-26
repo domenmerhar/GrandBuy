@@ -11,12 +11,20 @@ const StyledSearchBar = styled.form`
   border-radius: 1.5rem;
   overflow: hidden;
   background-color: var(--gray-1);
+
+  flex: 20rem 0.5 1;
+
+  @media (max-width: 49em) {
+    flex: 1;
+    margin-right: auto;
+  }
 `;
 
 const Input = styled.input`
   border: none;
   padding: 0.5rem 1rem;
   flex: 10rem 1 1;
+  font-size: 1.6rem;
 
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
   background-color: inherit;
@@ -30,6 +38,11 @@ const Input = styled.input`
   &:focus {
     outline: none;
     background-color: var(--gray-0);
+  }
+
+  @media (max-width: 49em) {
+    font-size: 2.2rem;
+    flex: 1;
   }
 `;
 
