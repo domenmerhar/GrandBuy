@@ -5,7 +5,6 @@ import { Select } from "../../../Util/Select";
 import { SquareButton } from "../../../Util/SquareButton";
 import { useTranslation } from "react-i18next";
 import { Modal } from "../../../Util/Modal";
-import CouponModal from "./CouponModal";
 
 export const CouponPageHeader = () => {
   const { t } = useTranslation();
@@ -15,8 +14,8 @@ export const CouponPageHeader = () => {
   const selectOptions = [
     { value: "newest", name: t("sortByDateNewest") },
     { value: "oldest", name: t("sortByDateOldest") },
-    { value: "highest", name: t("sortByDiscountHighest") },
-    { value: "lowest", name: t("sortByDiscountLowest") },
+    { value: "discount-highest", name: t("sortByDiscountHighest") },
+    { value: "discount-lowest", name: t("sortByDiscountLowest") },
   ];
 
   const handleClick = () => {
@@ -41,8 +40,6 @@ export const CouponPageHeader = () => {
           </SquareButton>
         </Row>
       </Row>
-
-      <CouponModal />
     </>
   );
 };
