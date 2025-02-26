@@ -1,12 +1,10 @@
 import styled from "styled-components";
 import { Row } from "../../Util/Row";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { FC } from "react";
 import ExpandingList from "../../Components/ExpandingList";
 import { HiArrowUturnLeft } from "react-icons/hi2";
-import { useAuthContext } from "../../contexts/AuthContext";
 import { ItemStatus } from "../../Util/types";
-import { useRequestRefund } from "../../hooks/refund/useRequestRefund";
 import { useTranslation } from "react-i18next";
 import { Badge } from "../../Util/Badge";
 import ExpandingThreeDotsButton from "../../Components/ExpandingThreeDotsButton";
@@ -76,13 +74,14 @@ export const OrderItem: FC<OrderItemProps> = ({
   const { t } = useTranslation();
   const { setIsOpen } = Modal.useModalContext();
 
-  const { JWT } = useAuthContext();
-  const { mutate: requestRefund } = useRequestRefund();
-
-  const reason = "test";
-
-  //const handleRequestRefund = () => requestRefund({ JWT, cartItemId, reason });
-  const handleRequestRefund = () => setIsOpen(true);
+  const [, setSearchParams] = useSearchParams();
+  const handleRequestRefund = () => {
+    setIsOpen(true);
+    setSearchParams((prev) => {
+      prev.set("cart-item-id", cartItemId);
+      return prev;
+    });
+  };
 
   return (
     <StyledOrderItem $gap="2rem" $alignItems="flex-start">
@@ -124,6 +123,12 @@ export const OrderItem: FC<OrderItemProps> = ({
             </ExpandingList.Ul>
           </ExpandingList.List>
         </ExpandingList>
+      ) : null}
+
+      {status === "pending-refund" ? (
+        <Badge $color="yellow" $size="medium">
+          {t("pending")}
+        </Badge>
       ) : null}
     </StyledOrderItem>
   );
