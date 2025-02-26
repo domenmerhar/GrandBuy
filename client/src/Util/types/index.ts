@@ -1,3 +1,5 @@
+import { Dispatch, SetStateAction } from "react";
+
 export interface iTime {
   hoursUntilMidnight: number;
   minutesUntilMidnight: number;
@@ -274,4 +276,11 @@ export interface ISellerOrder {
   quantity: number;
   discount: number;
   status: "pending" | "shipped" | "delivered" | "cancelled";
+}
+
+export interface CouponProps {
+  setCode: Dispatch<SetStateAction<string>>;
+  setDiscount: Dispatch<SetStateAction<number | "">>;
+  setExpireAt: Dispatch<SetStateAction<number>>;
+  setProductIds: Dispatch<SetStateAction<string[]>>;
 }
