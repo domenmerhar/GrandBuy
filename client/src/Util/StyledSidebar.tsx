@@ -16,4 +16,12 @@ export const StyledSidebar = styled.aside<StyledSidebarProps>`
   padding: 2.4rem 3.2rem;
 
   ${({ $rounded }) => $rounded && "border-radius: 15px;"}
+
+  @media (max-width: 64em) {
+    max-width: 40rem;
+  }
+
+  @media (max-width: 49em) {
+    max-width: 30rem;
+  }
 `;
