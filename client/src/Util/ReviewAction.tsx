@@ -9,6 +9,7 @@ export const ReviewAction = styled(Row)<ReviewActionProps>`
   background: transparent;
   border: none;
   text-transform: uppercase;
+  cursor: pointer;
 
   transition: all 200ms;
 
