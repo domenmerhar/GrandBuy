@@ -4,6 +4,7 @@ import Coupon from "../models/couponModel";
 import AppError from "../utils/AppError";
 import CartItem from "../models/cartItemModel";
 import Product from "../models/productModel";
+import APIFeatures from "../utils/ApiFeatures";
 
 export const getCoupon = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
@@ -30,7 +31,9 @@ export const updateCoupon = catchAsync(
 
     if (!coupon) return next(new AppError("Coupon not found.", 404));
 
-    coupon.products = [...coupon.products, ...products];
+    const productSet = new Set([...coupon.products, ...products]);
+
+    coupon.products = [...productSet];
     coupon.expireAt = expireAt;
     coupon.discount = discount;
 
@@ -134,10 +137,15 @@ export const getSellerCoupons = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const sellerId = res.locals.user._id;
 
-    const coupons = await Coupon.find({ createdBy: sellerId }).populate({
-      path: "products",
-      select: "name",
-    });
+    const features = new APIFeatures(
+      Coupon.find({ createdBy: sellerId }).populate({
+        path: "products",
+        select: "name",
+      }),
+      req.query
+    );
+    const coupons = await features.sort().paginate().query;
+
     if (!coupons.length) return next(new AppError("No coupons found.", 404));
 
     res.status(200).json({ status: "success", data: { coupons } });
@@ -208,10 +216,13 @@ export const updateSellerCoupon = catchAsync(
     if (products.length !== productIds.length)
       return next(new AppError("Please enter your products", 400));
 
+    coupon.products = productIds.map((product) => product._id);
     if (coupon.expireAt) coupon.expireAt = expireAt;
     if (coupon.discount) coupon.discount = discount;
 
     await coupon.save();
+
+    console.log(coupon);
 
     res.status(200).json({ status: "success", data: { coupon } });
   }
