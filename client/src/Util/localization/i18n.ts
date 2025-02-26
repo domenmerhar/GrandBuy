@@ -141,6 +141,8 @@ const resources = {
       areYouSureYouWontBeAbleToRevertThisDecision:
         "Are you sure? You won't be able to revert this decision.",
       language: "Language",
+      updateImage: "Update Image",
+      profileImage: "Profile Image",
 
       // Refund page
       refundRequests: "Refund Requests",
@@ -422,6 +424,8 @@ const resources = {
       areYouSureYouWontBeAbleToRevertThisDecision:
         "Ste prepričani? Tega ne boste mogli razveljaviti.",
       language: "Jezik",
+      updateImage: "Posodobi sliko",
+      profileImage: "Profilna slika",
 
       // Refund page
       refundRequests: "Zahtevki za vračilo",
