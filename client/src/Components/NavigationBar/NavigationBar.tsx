@@ -32,8 +32,13 @@ const NavigationHolder = styled.div`
   max-width: 1440px;
   padding: 0.5rem 3.2rem;
 
-  & > *:nth-child(2) {
-    flex: 20rem 0.5 1;
+  @media (max-width: 49em) {
+    & > :first-child {
+      display: none;
+    }
+
+    padding: 0.5rem 0.8rem;
+    gap: 1.6rem;
   }
 `;
 
@@ -41,6 +46,10 @@ const ButtonHolder = styled.div`
   display: flex;
   gap: 3.2rem;
   justify-content: space-between;
+
+  @media (max-width: 49em) {
+    gap: 1.6rem;
+  }
 `;
 
 const NavLinkHolder = styled(NavLink)`
