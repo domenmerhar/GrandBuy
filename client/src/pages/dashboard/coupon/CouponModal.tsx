@@ -3,11 +3,14 @@ import { Modal } from "../../../Util/Modal";
 import { InputWithLabel } from "../../../Util/InputWithLabel";
 import { Column } from "../../../Util/Column";
 import styled from "styled-components";
-import { useState } from "react";
+import { Dispatch, SetStateAction } from "react";
 import CouponModalProducts from "./CouponModalProducts";
 import toast from "react-hot-toast";
 import useCreateCouponSeller from "../../../hooks/coupon/useCreateCouponSeller";
 import { useJWT } from "../../../hooks/useJWT";
+import oneWeekInFuture from "../../../functions/oneWeekInFuture";
+import { useSearchParams } from "react-router-dom";
+import useUpdateCouponSeller from "../../../hooks/coupon/useUpdateCouponSeller";
 
 const InputHolder = styled(Column)`
   & input {
@@ -19,8 +22,6 @@ const InputHolder = styled(Column)`
   }
 `;
 
-const oneWeekInFuture = () => Date.now() + 7 * 24 * 60 * 60 * 1000;
-
 const formatDate = (timestamp: number): string => {
   const date = new Date(timestamp);
   const year = date.getFullYear();
@@ -29,16 +30,43 @@ const formatDate = (timestamp: number): string => {
   return `${year}-${month}-${day}`;
 };
 
-export default function CouponModal() {
+interface CouponModalProps {
+  code: string;
+  setCode: Dispatch<SetStateAction<string>>;
+
+  discount: number | "" | undefined;
+  setDiscount: Dispatch<SetStateAction<number | "">>;
+
+  expireAt: number;
+  setExpireAt: Dispatch<SetStateAction<number>>;
+
+  productIds: string[];
+  setProductIds: Dispatch<SetStateAction<string[]>>;
+}
+
+export default function CouponModal({
+  code,
+  setCode,
+
+  discount,
+  setDiscount,
+
+  expireAt,
+  setExpireAt,
+
+  productIds,
+  setProductIds,
+}: CouponModalProps) {
   const { t } = useTranslation();
-  const { closeModal } = Modal.useModalContext();
-  const { mutate: createCoupon } = useCreateCouponSeller();
   const { JWT } = useJWT();
 
-  const [code, setCode] = useState<string>("");
-  const [discount, setDiscount] = useState<number | "">();
-  const [expireAt, setExpireAt] = useState<number>(oneWeekInFuture());
-  const [productIds, setProductIds] = useState<string[]>([]);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const { closeModal } = Modal.useModalContext();
+
+  const { mutate: createCoupon } = useCreateCouponSeller();
+  const { mutate: updateCoupon } = useUpdateCouponSeller();
+
+  const couponId = searchParams.get("coupon-id");
 
   const handleChangeCode = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.value.length > 20) return;
@@ -65,10 +93,17 @@ export default function CouponModal() {
     setDiscount("");
     setExpireAt(oneWeekInFuture());
     setProductIds([]);
+
+    setSearchParams((prev) => {
+      prev.delete("coupon-id");
+      return prev;
+    });
+
     closeModal();
   };
 
-  const handleCreate = () => {
+  const validateData = (callback: () => unknown) => () => {
+    console.log("validate");
     if (
       !code?.length ||
       code.length > 20 ||
@@ -80,21 +115,34 @@ export default function CouponModal() {
     )
       return toast.error(t("invalidData"), { id: "coupon" });
 
+    callback();
+    handleClose();
+  };
+
+  const handleCreate = validateData(() => {
     createCoupon({
       JWT,
       code,
-      discount,
+      discount: Number(discount)!,
       expireAt: new Date(expireAt),
       products: productIds,
     });
-    t("couponCreated");
+  });
 
-    handleClose();
-  };
+  const handleEdit = validateData(() => {
+    updateCoupon({
+      JWT,
+      couponId: couponId!,
+      discount: Number(discount)!,
+      expireAt: new Date(expireAt),
+      products: productIds,
+    });
+  });
 
   return (
     <Modal.Window
       title={t("addCoupon")}
+      onClose={handleClose}
       buttons={[
         {
           key: "cancel",
@@ -105,8 +153,8 @@ export default function CouponModal() {
         {
           key: "create",
           color: "green",
-          text: t("create"),
-          onClick: handleCreate,
+          text: couponId ? t("edit") : t("create"),
+          onClick: couponId ? handleEdit : handleCreate,
         },
       ]}
     >
@@ -119,7 +167,7 @@ export default function CouponModal() {
           placeholder="ABCD"
           onChange={handleChangeCode}
           value={code}
-          error={Boolean(code && code.length < 4)}
+          error={Boolean(code && code.length > 20)}
         />
 
         <InputWithLabel
