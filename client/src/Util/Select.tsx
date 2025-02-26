@@ -14,6 +14,7 @@ const StyledSelect = styled.select`
   border: none;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
   border-radius: 12px;
+  font-size: 1.6rem;
 `;
 
 const Option = styled.option``;
