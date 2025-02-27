@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import catchAsync from "../utils/catchAsync";
-import cartItemModel from "../models/cartItemModel";
+import CartItem from "../models/cartItemModel";
 import orderModel from "../models/orderModel";
 import AppError from "../utils/AppError";
 import Refund from "../models/refundModel";
@@ -17,12 +17,11 @@ export const requestRefund = catchAsync(
     const userId = res.locals.user._id;
     const { reason } = req.body;
 
-    const cartItem = await cartItemModel
-      .findOne({
-        _id: id,
-        user: userId,
-        status: "delivered",
-      })
+    const cartItem = await CartItem.findOne({
+      _id: id,
+      user: userId,
+      status: "delivered",
+    })
       .populate({ path: "product", select: "user" })
       .select("_id product");
 
@@ -96,6 +95,7 @@ export const getRefund = catchAsync(
   }
 );
 
+// TODO: change status in order
 export const cancelRefund = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const { id } = req.params;
@@ -105,14 +105,14 @@ export const cancelRefund = catchAsync(
       {
         user: userId,
         _id: id,
-        status: "pending-refund",
+        status: "pending",
       },
       { status: "cancelled" },
       { new: true }
     );
     if (!refund) return next(new AppError("No refund found with that ID", 404));
 
-    const carItem = await cartItemModel.findOneAndUpdate(
+    const carItem = await CartItem.findOneAndUpdate(
       {
         _id: refund.cartItemId,
       },
@@ -133,36 +133,49 @@ export const respondToRefund = catchAsync(
     const userId = res.locals.user._id;
     const { status, resolvedMessage } = req.body;
 
-    const refund = await Refund.findOneAndUpdate(
-      {
-        _id: id,
-        seller: userId,
-        status: "pending-refund",
-      },
-      {
-        status,
-        resolvedMessage,
-        resolvedAt: Date.now(),
-      },
-      { new: true }
-    );
+    const refund = await Refund.findOne({
+      _id: id,
+      seller: userId,
+      status: "pending",
+    });
+
     if (!refund) return next(new AppError("No refund found with that ID", 404));
 
-    let cartItem;
-    cartItem = await cartItemModel.findOneAndUpdate(
-      {
-        _id: refund.cartItemId,
-      },
-      { status: status === "approved" ? "refunded" : "delivered" },
-      { new: true }
-    );
+    const order = await orderModel
+      .findOne({
+        user: refund.user,
+        products: { $elemMatch: { _id: refund.cartItemId } },
+      })
+      .select("createdAt products");
+
+    if (!order) return next(new AppError("No refund found with that ID", 404));
+
+    const productIdString = refund.cartItemId.toString();
+    order.products.forEach((product) => {
+      if (product?._id?.toString() === productIdString)
+        product.status = status === "approved" ? "refunded" : "delivered";
+    });
+
+    refund.status = status;
+
+    const cartItem = await CartItem.findOne({
+      _id: refund.cartItemId,
+    });
+
+    if (!cartItem)
+      return next(new AppError("No refund found with that ID", 404));
+
+    cartItem.status = status === "approved" ? "refunded" : "delivered";
 
     await notificationModel.create({
       user: refund.user,
       createdBy: userId,
-      type: "message",
-      message: `Your refund request has been ${status}`,
+      type: status === "approved" ? "message" : "warning",
+      message: `Your refund request has been ${status} on product ${cartItem.name}. Reason: ${resolvedMessage}`,
     });
+
+    await refund.save();
+    await order.save();
 
     res.status(200).json({
       status: "success",
@@ -177,7 +190,9 @@ export const getSellerRefunds = catchAsync(
     const refunds = await new APIFeatures(
       Refund.find({
         seller: userId,
-      }),
+      })
+        .populate({ path: "cartItemId", select: "name quantity" })
+        .populate({ path: "user", select: "username _id image" }),
       req.query
     )
       .sort()
