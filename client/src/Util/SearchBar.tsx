@@ -6,7 +6,6 @@ import styled from "styled-components";
 
 const StyledSearchBar = styled.form`
   display: flex;
-  align-items: center;
 
   border-radius: 1.5rem;
   overflow: hidden;
