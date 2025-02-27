@@ -284,3 +284,27 @@ export interface CouponProps {
   setExpireAt: Dispatch<SetStateAction<number>>;
   setProductIds: Dispatch<SetStateAction<string[]>>;
 }
+
+interface RefundCartItem {
+  _id: string;
+  user: {
+    _id: string;
+    email: string;
+  };
+  name: string;
+  quantity: number;
+}
+
+export interface RefundItem {
+  _id: string;
+  cartItemId: RefundCartItem;
+  reason: string;
+  status: string;
+  user: {
+    _id: string;
+    username: string;
+    image: string;
+  };
+  seller: string;
+  createdAt: string;
+}
