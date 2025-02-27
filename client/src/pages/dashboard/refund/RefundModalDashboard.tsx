@@ -11,33 +11,54 @@ import { useRespondToRefund } from "../../../hooks/refund/useRespondToRefund";
 export const RefundModalDashboard = () => {
   const { t } = useTranslation();
   const [searchParams, setSearchParams] = useSearchParams();
+  const { closeModal } = Modal.useModalContext();
 
   const { JWT } = useJWT();
-  const refundId = searchParams.get("refund-id");
+  const refundId = searchParams.get("refund-id")!;
   const messageRef = useRef<HTMLTextAreaElement>(null);
 
   const { mutate: respondToRefund } = useRespondToRefund();
 
   const handleClose = () => {
     setSearchParams((prev) => {
-      prev.delete("review-id");
+      prev.delete("refund-id");
       return prev;
     });
+
+    closeModal();
   };
 
-  const handleRequestRefund = () => {
-    if (
-      !messageRef.current?.value ||
-      messageRef.current?.value.length < 1 ||
-      messageRef.current?.value.length > 255 ||
-      !refundId
-    )
-      return toast.error(t("invalidData"), { id: "request-refund" });
+  const handleAction = (callback: () => unknown) =>
+    function () {
+      if (
+        !messageRef.current?.value.length ||
+        messageRef.current?.value.length < 1 ||
+        messageRef.current?.value.length > 255 ||
+        !refundId
+      )
+        return toast.error(t("invalidData"), { id: "request-refund" });
 
-    respondToRefund({ JWT, refundId, reason: messageRef.current.value });
+      callback();
+      handleClose();
+    };
 
-    handleClose();
-  };
+  const handleCancelRefund = handleAction(() =>
+    respondToRefund({
+      JWT,
+      refundId,
+      status: "rejected",
+      resolvedMessage: messageRef!.current!.value,
+    })
+  );
+
+  const handleSubmitRefund = handleAction(() =>
+    respondToRefund({
+      JWT,
+      refundId,
+      status: "approved",
+      resolvedMessage: messageRef!.current!.value,
+    })
+  );
 
   return (
     <Modal.Window
@@ -48,20 +69,20 @@ export const RefundModalDashboard = () => {
           key: "cancel",
           text: t("cancel"),
           color: "red",
-          onClick: handleClose,
+          onClick: handleCancelRefund,
         },
         {
           key: "submit",
           text: t("submit"),
           color: "green",
-          onClick: handleRequestRefund,
+          onClick: handleSubmitRefund,
         },
       ]}
     >
       <Column $gap="8px">
         <TextareaWithLabel
           label={t("message")}
-          id="response"
+          id="message"
           ref={messageRef}
           minLength={1}
           maxLength={255}
