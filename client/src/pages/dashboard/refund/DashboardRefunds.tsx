@@ -3,9 +3,9 @@ import { SpinnerInBox } from "../../../Components/SpinnerInBox";
 import useGetSellerRefunds from "../../../hooks/refund/useGetSellerRefunds";
 import { Modal } from "../../../Util/Modal";
 import RefundCard from "../../refund/RefundCard";
-import { RefundModal } from "./RefundModal";
 import { RefundItem } from "../../../Util/types/index";
 import styled from "styled-components";
+import { RefundModalDashboard } from "./RefundModalDashboard";
 
 const RefundGrid = styled.div`
   display: grid;
@@ -28,6 +28,7 @@ export const DashboardRefunds = () => {
         ({ _id, createdAt, reason, cartItemId, status, user }: RefundItem) => (
           <RefundCard
             key={_id}
+            reviewId={_id}
             date={createdAt}
             productName={cartItemId?.name}
             productQuantity={cartItemId?.quantity}
@@ -39,7 +40,7 @@ export const DashboardRefunds = () => {
           />
         )
       )}
-      <RefundModal />
+      <RefundModalDashboard />
     </RefundGrid>
   );
 };
