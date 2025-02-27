@@ -5,6 +5,7 @@ import { Row } from "./Row";
 import { Badge } from "./Badge";
 import React, { FC } from "react";
 import { BadgeProps } from "./types";
+import { Link } from "react-router-dom";
 
 const ProfileImage = styled.img`
   width: 48px;
@@ -49,6 +50,7 @@ interface HeaderProps {
   username: string;
   badgeText: string;
   date: string;
+  userId: string;
 }
 
 interface RefundBadgeProps {
@@ -73,14 +75,22 @@ BadgeCard.ItemList = ItemList;
 
 BadgeCard.P = P;
 
-BadgeCard.Header = ({ imageLink, username, badgeText, date }) => {
+const UserLink = styled(Link)`
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+`;
+
+BadgeCard.Header = ({ imageLink, username, badgeText, date, userId }) => {
   return (
     <Column $gap="8px">
       <Row $justifyContent="space-between" $alignItems="center">
-        <Row $gap="12px" $alignItems="center">
-          <ProfileImage src={imageLink} />
-          <User>{username}</User>
-        </Row>
+        <UserLink to={`/account/user/${userId}`}>
+          <Row $gap="12px" $alignItems="center">
+            <ProfileImage src={imageLink} />
+            <User>{username}</User>
+          </Row>
+        </UserLink>
 
         <Badge $color="yellow">{badgeText}</Badge>
       </Row>
