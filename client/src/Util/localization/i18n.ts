@@ -72,6 +72,7 @@ const resources = {
       warning: "Warning",
       "has been shipped.": "has been shipped.",
       "order has been shipped.": "order has been shipped.",
+      orderHasBeenPaid: "Order has been paid.",
 
       // Shopping cart
       shoppingCart: "Shopping Cart",
@@ -355,6 +356,7 @@ const resources = {
       warning: "Opozorilo",
       "has been shipped.": "izdelek je bil poslan.",
       "order has been shipped.": "naročilo je bilo poslano.",
+      orderHasBeenPaid: "Naročilo je bilo plačano.",
 
       // Shopping cart
       shoppingCart: "Nakupovalna košarica",
