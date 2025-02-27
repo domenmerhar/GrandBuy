@@ -87,6 +87,10 @@ export const NotificationPage = () => {
         renderFn={(page: NotificationResponse) =>
           page?.data?.notifications.map(({ _id, createdAt, message, type }) => {
             if (
+              message.toLowerCase().replace(".", "") === "order has been paid"
+            )
+              message = t("orderHasBeenPaid");
+            else if (
               message.endsWith("has been shipped.") ||
               message.endsWith("order has been shipped.")
             ) {
