@@ -21,7 +21,7 @@ export default function useGetSellerRefunds() {
     searchParams.get("sort") === "oldest" ? "+createdAt" : "-createdAt";
 
   return useQuery({
-    queryKey: ["", userId, page, status, sort],
+    queryKey: ["seller-refunds", userId, page, status, sort],
     queryFn: () => getSellerRefunds({ JWT, page, status, sort }),
   });
 }
