@@ -6,7 +6,7 @@ import { useGetUserOrdersCount } from "../../hooks/order/useGetUserOrdersCount";
 import { Orders } from "./Orders";
 import styled from "styled-components";
 import { Modal } from "../../Util/Modal";
-import { RefundModal } from "../dashboard/refund/RefundModal";
+import { RefundModal } from "../refund/RefundModal";
 
 const itemsPerPage = import.meta.env.VITE_ORDERS_PER_PAGE;
 
