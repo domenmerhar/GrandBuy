@@ -19,7 +19,8 @@ const GrayedText = styled.span`
 
 const ChevronHolder = styled.span<{ $isOpen: boolean }>`
   transition: all 200ms;
-  transform: ${({ $isOpen }) => ($isOpen ? "rotate(180deg)" : "rotate(0deg)")};
+  transform: ${({ $isOpen }) =>
+    $isOpen ? "rotate(180deg)" : "rotate(0deg) translateY(15%)"};
 
   &:hover {
     cursor: pointer;
