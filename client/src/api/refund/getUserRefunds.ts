@@ -16,7 +16,7 @@ export const getUserRefunds = async ({
 
   const res = await fetch(
     toApiPath(
-      `refund/my?page=${page}&limit=${limit}&sort=${sort}${status && `&status=${status}`}`
+      `refund/my?page=${page}&limit=${limit}&sort=${sort}${status ? `&status=${status}` : ""}`
     ),
     {
       method: "GET",
