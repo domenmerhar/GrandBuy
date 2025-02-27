@@ -2,25 +2,25 @@ import { useTranslation } from "react-i18next";
 import { TextareaWithLabel } from "../../../Components/TextareaWithLabel";
 import { Column } from "../../../Util/Column";
 import { Modal } from "../../../Util/Modal";
-import { useRequestRefund } from "../../../hooks/refund/useRequestRefund";
 import { useSearchParams } from "react-router-dom";
 import { useJWT } from "../../../hooks/useJWT";
 import { useRef } from "react";
 import toast from "react-hot-toast";
+import { useRespondToRefund } from "../../../hooks/refund/useRespondToRefund";
 
-export const RefundModal = () => {
+export const RefundModalDashboard = () => {
   const { t } = useTranslation();
   const [searchParams, setSearchParams] = useSearchParams();
 
   const { JWT } = useJWT();
-  const cartItemId = searchParams.get("cart-item-id");
+  const refundId = searchParams.get("refund-id");
   const messageRef = useRef<HTMLTextAreaElement>(null);
 
-  const { mutate: requestRefund } = useRequestRefund();
+  const { mutate: respondToRefund } = useRespondToRefund();
 
   const handleClose = () => {
     setSearchParams((prev) => {
-      prev.delete("cart-item-id");
+      prev.delete("review-id");
       return prev;
     });
   };
@@ -30,11 +30,11 @@ export const RefundModal = () => {
       !messageRef.current?.value ||
       messageRef.current?.value.length < 1 ||
       messageRef.current?.value.length > 255 ||
-      !cartItemId
+      !refundId
     )
       return toast.error(t("invalidData"), { id: "request-refund" });
 
-    requestRefund({ JWT, cartItemId, reason: messageRef.current.value });
+    respondToRefund({ JWT, refundId, reason: messageRef.current.value });
 
     handleClose();
   };
@@ -51,8 +51,8 @@ export const RefundModal = () => {
           onClick: handleClose,
         },
         {
-          key: "refund",
-          text: t("refund"),
+          key: "submit",
+          text: t("submit"),
           color: "green",
           onClick: handleRequestRefund,
         },
