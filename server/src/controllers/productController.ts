@@ -10,7 +10,6 @@ import {
 } from "./fileController";
 import User from "../models/userModel";
 import { UploadedFile } from "express-fileupload";
-import path from "path";
 
 const checkForUniqueName = async (name: string, userId: string) => {
   const productCheck = await Product.findOne({
@@ -111,7 +110,7 @@ export const createProduct = catchAsync(
       name,
       coverImage: res.locals.coverImage,
       images: res.locals.productImages,
-      price: price.toFixed(2),
+      price: Number(price).toFixed(2),
       shipping,
       description: res.locals.descripiton,
       user: user,
