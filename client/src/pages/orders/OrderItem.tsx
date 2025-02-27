@@ -108,7 +108,10 @@ export const OrderItem: FC<OrderItemProps> = ({
         ) : null}
       </StatusButtonHolder>
 
-      {status}
+      {status === "pending-refund" ? (
+        <Badge $color="yellow">{t("pendingRefund")}</Badge>
+      ) : null}
+      {status === "refunded" ? <Badge $color="green">{t(status)}</Badge> : null}
 
       {status === "delivered" ? (
         <ExpandingList start="right">
