@@ -16,7 +16,7 @@ export const getSellerRefunds = async ({
 
   const res = await fetch(
     toApiPath(
-      `refund/seller?page=${page}&limit=${limit}&sort=${sort}${status && `&status=${status}`}`
+      `refund/seller?page=${page}&limit=${limit}&sort=${sort}${status ? `&status=${status}` : ""}`
     ),
     {
       method: "GET",
