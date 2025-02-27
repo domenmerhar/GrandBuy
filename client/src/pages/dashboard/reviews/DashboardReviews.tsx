@@ -9,8 +9,8 @@ import { ReplyModal } from "../../product/ReplyModal";
 
 const DashboardGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(40rem, max-content));
-  gap: 1.6rem;
+  grid-template-columns: repeat(auto-fit, minmax(40rem, 1fr));
+  gap: 3.2rem;
 `;
 
 export const DashboardReviews = () => {

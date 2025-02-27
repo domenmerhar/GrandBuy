@@ -17,7 +17,7 @@ import React from "react";
 
 const Grid = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(25ch, 35ch));
+  grid-template-columns: repeat(auto-fill, minmax(25ch, 1fr));
   justify-content: space-between;
   gap: 3.2rem;
 `;
