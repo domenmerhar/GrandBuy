@@ -87,56 +87,52 @@ export const ReviewCardDashboard: FC<ReviewCardDashboardProps> = ({
   };
 
   return (
-    <>
-      <BlankCard>
-        <Row $gap="8px" $alignItems="center">
+    <BlankCard>
+      <Row $gap="8px" $alignItems="center">
+        <StyledLink
+          to={`/product/${productId}`}
+          style={{ textDecoration: "none" }}
+        >
+          <Img src={toApiFilesPath(productImage)} alt={productName} />
+        </StyledLink>
+
+        <Column $gap="1.6rem">
           <StyledLink
-            to={`/product/${productId}`}
+            to={`/account/user/${userId}`}
             style={{ textDecoration: "none" }}
           >
-            <Img src={toApiFilesPath(productImage)} alt={productName} />
+            <Row $gap="4px" $alignItems="center">
+              <UserIcon src={toApiFilesPath(userImage)} alt={username} />
+              {username}
+            </Row>
           </StyledLink>
 
-          <Column $gap="6px">
-            <StyledLink
-              to={`/account/user/${userId}`}
-              style={{ textDecoration: "none" }}
-            >
-              <Row $gap="4px" $alignItems="center">
-                <UserIcon src={toApiFilesPath(userImage)} alt={username} />
-                {username}
-              </Row>
-            </StyledLink>
-
+          <div>
             <RatingDisplay rating={rating} showTooltip={false} size={24} />
             <Date>
               {t("posted")}: {toDate(date)}
             </Date>
-            <P>{review}</P>
+          </div>
+          <P>{review}</P>
 
-            <Row $gap="1.6rem">
-              <ReviewAction
-                $gap="4px"
-                $alignItems="center"
-                onClick={handleLike}
-              >
-                <HiOutlineHandThumbUp size={24} />
-                <span>{likes}</span>
-              </ReviewAction>
+          <Row $gap="1.6rem">
+            <ReviewAction $gap="4px" $alignItems="center" onClick={handleLike}>
+              <HiOutlineHandThumbUp size={24} />
+              <span>{likes}</span>
+            </ReviewAction>
 
-              <ReviewAction
-                $gap="4px"
-                $alignItems="center"
-                as="button"
-                onClick={handleReply}
-              >
-                <HiArrowUturnLeft size={22} />
-                <span>{t("reply")}</span>
-              </ReviewAction>
-            </Row>
-          </Column>
-        </Row>
-      </BlankCard>
-    </>
+            <ReviewAction
+              $gap="4px"
+              $alignItems="center"
+              as="button"
+              onClick={handleReply}
+            >
+              <HiArrowUturnLeft size={22} />
+              <span>{t("reply")}</span>
+            </ReviewAction>
+          </Row>
+        </Column>
+      </Row>
+    </BlankCard>
   );
 };
