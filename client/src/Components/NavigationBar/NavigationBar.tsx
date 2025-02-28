@@ -81,8 +81,22 @@ export const NavigationBar = () => {
 
           <SearchBar />
 
-          <ButtonHolder>
+          {/* <ButtonHolder>
             {["admin", "user", "seller"].includes(role) ? (
+              <NotficationCartButtons
+                isOpen={isOpen}
+                menuHandler={menuHandler}
+              />
+            ) : (
+              <NavLink to="/login" onClick={handleLogout}>
+                <ButtonWithNotifcations>
+                  <HiArrowRightEndOnRectangle size={44} />
+                </ButtonWithNotifcations>
+              </NavLink>
+            )} */}
+
+          <ButtonHolder>
+            {["user", "seller"].includes(role) ? (
               <NotficationCartButtons
                 isOpen={isOpen}
                 menuHandler={menuHandler}

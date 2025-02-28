@@ -54,11 +54,11 @@ export const ReviewReplyWindowHeader = () => {
           {t("replies")}
         </StyledNavLink>
 
-        <ButtonHolder>
+        {/* <ButtonHolder>
           <ButtonWithNotifcations>
             <HiDotsVertical />
           </ButtonWithNotifcations>
-        </ButtonHolder>
+        </ButtonHolder> */}
       </Row>
     </CardWithHeader.Header>
   );

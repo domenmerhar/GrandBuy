@@ -54,7 +54,14 @@ export const BurgerMenuNavigationList = () => {
         {t("settings")}
       </NavigationTextButton>
 
-      {["admin", "seller"].includes(role) && (
+      {/* {["admin", "seller"].includes(role) && (
+        <NavigationTextButton to="dashboard">
+          <HiOutlinePresentationChartBar size={24} />
+          {t("dashboard")}
+        </NavigationTextButton>
+      )} */}
+
+      {["seller"].includes(role) && (
         <NavigationTextButton to="dashboard">
           <HiOutlinePresentationChartBar size={24} />
           {t("dashboard")}
