@@ -208,9 +208,9 @@ export const updateProduct = catchAsync(
       }
     }
 
-    product.name = name;
-    product.price = price;
-    product.shipping = shipping;
+    if (name) product.name = name;
+    if (price) product.price = price;
+    if (shipping) product.shipping = shipping;
     product.save();
 
     await product.getOrdersAndAverageRating();
