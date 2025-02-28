@@ -1,6 +1,11 @@
 import styled from "styled-components";
 import { Content } from "../../Util/Content";
-import { IOption, IRefundPage, RefundUser } from "../../Util/types";
+import {
+  IOption,
+  IRefundPage,
+  RefundStatus,
+  RefundUser,
+} from "../../Util/types";
 import { FilterSortHeader } from "../../Util/FilterSortHeader";
 import { useInfinite } from "../../hooks/useInfinite";
 import { getUserRefunds } from "../../api/refund/getUserRefunds";
@@ -30,7 +35,10 @@ export const RefundPage = () => {
 
   const userId = dataUser?.data?._id;
 
-  const filter = searchParams.get("filter") || "all";
+  const filter =
+    searchParams.get("filter") !== "all"
+      ? (searchParams.get("filter") as RefundStatus)
+      : undefined;
   const sort =
     searchParams.get("sort") === "youngest" ? "+createdAt" : "-createdAt";
 
@@ -43,6 +51,7 @@ export const RefundPage = () => {
         JWT,
         page: Number(pageParam),
         sort,
+        status: filter,
       });
     },
   });
@@ -71,7 +80,7 @@ export const RefundPage = () => {
         {...data}
         container={Grid}
         renderFn={(page: IRefundPage) =>
-          page.data.refunds.map(
+          page?.data?.refunds.map(
             ({ _id, createdAt, reason, cartItemId, status }: RefundUser) => (
               <RefundCardUser
                 key={_id}
