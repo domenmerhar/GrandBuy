@@ -1,14 +1,14 @@
 import styled from "styled-components";
 import { Column } from "../../Util/Column";
-import { InputWithLabel } from "../../Util/InputWithLabel";
 import { Modal } from "../../Util/Modal";
 import { useRef, useState } from "react";
-import { FilePicker } from "../Files/FilePicker";
 import { useJWT } from "../../hooks/useJWT";
 import { useAddProduct } from "../../hooks/products/useAddProduct";
-import { FilePickerDisplay } from "../Files/FilePickerDIsplay";
 import toast from "react-hot-toast";
 import { useTranslation } from "react-i18next";
+import EditAddProductInputs, {
+  EditAddProductInputsHandle,
+} from "./EditAddProductInputs";
 
 const Content = styled(Column)`
   & label {
@@ -27,16 +27,19 @@ export const AddProductModal = () => {
   const [selectedDescription, setSelectedDescription] = useState<File[]>([]);
   const [selectedCover, setSelectedCover] = useState<File[]>([]);
 
-  const productRef = useRef<HTMLInputElement>(null);
-  const priceRef = useRef<HTMLInputElement>(null);
-  const shippingRef = useRef<HTMLInputElement>(null);
-  const discountRef = useRef<HTMLInputElement>(null);
+  const editAddProductInputsRef = useRef<EditAddProductInputsHandle>(null);
 
   const handleSubmit = () => {
-    const name = productRef.current?.value;
-    const discount = Number(discountRef.current?.value);
-    const price = Number(priceRef.current?.value);
-    const shipping = Number(shippingRef.current?.value);
+    const name = editAddProductInputsRef.current?.productRef.current?.value;
+    const discount = Number(
+      editAddProductInputsRef.current?.discountRef.current?.value
+    );
+    const price = Number(
+      editAddProductInputsRef.current?.priceRef.current?.value
+    );
+    const shipping = Number(
+      editAddProductInputsRef.current?.shippingRef.current?.value
+    );
 
     if (
       !name ||
@@ -46,15 +49,18 @@ export const AddProductModal = () => {
       !selectedImages.length ||
       !selectedDescription.length ||
       !selectedCover.length
-    )
-      return toast.error("Please enter all fields.", { id: "add-product" });
+    ) {
+      return toast.error("Please enter all fields.", {
+        id: "add-product",
+      });
+    }
 
     addProduct({
       JWT,
-      name: productRef.current?.value,
-      discount: Number(discountRef.current?.value),
-      price: Number(priceRef.current?.value),
-      shipping: Number(shippingRef.current?.value),
+      name: name,
+      discount: discount,
+      price: price,
+      shipping: shipping,
       images: selectedImages,
       description: selectedDescription[0],
       coverImage: selectedCover[0],
@@ -75,60 +81,14 @@ export const AddProductModal = () => {
         },
       ]}
     >
-      <Content $gap="1.2rem" as="form" onSubmit={handleSubmit}>
-        <InputWithLabel
-          id="product-name"
-          placeholder="radio"
-          title={t("productName")}
-          type="text"
-          ref={productRef}
-        />
-
-        <InputWithLabel
-          id="price"
-          placeholder="10.99"
-          title={t("price")}
-          type="number"
-          ref={priceRef}
-        />
-
-        <InputWithLabel
-          id="shipping"
-          placeholder="2.99"
-          title={t("shipping")}
-          type="number"
-          ref={shippingRef}
-        />
-
-        <InputWithLabel
-          id="discount"
-          placeholder="0"
-          title={t("discount")}
-          type="number"
-          ref={discountRef}
-        />
-
-        <FilePickerDisplay
-          label={t("productCover")}
-          id="product-cover"
-          selectedImages={selectedCover}
-          setSelectedImages={setSelectedCover}
-          multiple={false}
-        />
-
-        <FilePickerDisplay
-          label={t("productImages")}
-          id="product-images"
+      <Content $gap="1.2rem">
+        <EditAddProductInputs
+          ref={editAddProductInputsRef}
+          selectedCover={selectedCover}
+          setSelectedCover={setSelectedCover}
           selectedImages={selectedImages}
           setSelectedImages={setSelectedImages}
-          multiple
-        />
-
-        <FilePicker
-          label={t("productDescriptionMd")}
-          id="product-description"
-          accept=".md, text/markdown"
-          setSelectedFiles={setSelectedDescription}
+          setSelectedDescription={setSelectedDescription}
         />
       </Content>
     </Modal.Window>
