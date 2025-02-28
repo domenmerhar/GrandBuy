@@ -54,6 +54,9 @@ const UserText = styled.p`
   font-weight: 600;
   text-transform: capitalize;
   font-size: 3.6rem;
+  max-width: 100%;
+  text-overflow: ellipsis;
+  overflow: hidden;
 `;
 
 interface BurgerMenuProps {

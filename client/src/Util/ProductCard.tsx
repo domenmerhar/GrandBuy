@@ -59,14 +59,14 @@ const Image = styled.img`
 `;
 
 const Title = styled.h3`
-  width: 100%;
+  max-width: 100%;
   font-weight: 500;
   font-size: 1.6rem;
   height: 1.2em;
   text-transform: capitalize;
-  text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 const Price = styled.p`
