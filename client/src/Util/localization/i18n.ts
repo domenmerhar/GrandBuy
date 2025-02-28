@@ -47,6 +47,10 @@ const resources = {
         "Please enter the verification code sent to your email.",
       confirm: "Confirm",
 
+      // Forgot Password Page
+      pleaseEnterEmail: "Please enter your email.",
+      verificationCode: "Verification Code",
+
       // Navbar
       searchPlaceholder: "Search for products...",
 
@@ -122,6 +126,7 @@ const resources = {
       confirmOrderDelivery: "Confirm Order Delivery",
       confirmItemDelivery: "Confirm Item Delivery",
       refundItem: "Refund Item",
+      pendingRefund: "Pending Refund",
 
       // History page
       recentHistory: "Recent History",
@@ -331,6 +336,10 @@ const resources = {
         "Vnesite potrditveno kodo, poslano na vaš e-poštni naslov.",
       confirm: "Potrdi",
 
+      // Forgot Password Page
+      pleaseEnterEmail: "Vnesite svoj e-poštni naslov.",
+      verificationCode: "Potrditvena koda",
+
       // Login Page
       searchPlaceholder: "Iskanje izdelkov ...",
 
@@ -406,6 +415,7 @@ const resources = {
       confirmOrderDelivery: "Potrdi dostavo naročila",
       confirmItemDelivery: "Potrdi dostavo izdelka",
       refundItem: "Vračilo izdelka",
+      pendingRefund: "Nedoločeno vračilo",
 
       // History page
       recentHistory: "Nedavna zgodovina",
