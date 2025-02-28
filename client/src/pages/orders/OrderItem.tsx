@@ -106,12 +106,14 @@ export const OrderItem: FC<OrderItemProps> = ({
             {t(status)}
           </Badge>
         ) : null}
-      </StatusButtonHolder>
 
-      {status === "pending-refund" ? (
-        <Badge $color="yellow">{t("pendingRefund")}</Badge>
-      ) : null}
-      {status === "refunded" ? <Badge $color="green">{t(status)}</Badge> : null}
+        {status === "pending-refund" ? (
+          <Badge $color="yellow">{t("pendingRefund")}</Badge>
+        ) : null}
+        {status === "refunded" ? (
+          <Badge $color="green">{t(status)}</Badge>
+        ) : null}
+      </StatusButtonHolder>
 
       {status === "delivered" ? (
         <ExpandingList start="right">
@@ -126,12 +128,6 @@ export const OrderItem: FC<OrderItemProps> = ({
             </ExpandingList.Ul>
           </ExpandingList.List>
         </ExpandingList>
-      ) : null}
-
-      {status === "pending-refund" ? (
-        <Badge $color="yellow" $size="medium">
-          {t("pending")}
-        </Badge>
       ) : null}
     </StyledOrderItem>
   );
