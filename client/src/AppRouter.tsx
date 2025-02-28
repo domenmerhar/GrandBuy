@@ -25,6 +25,8 @@ import { SettingsPage } from "./pages/settings/SettingsPage";
 import { CouponPage } from "./pages/dashboard/coupon/CouponPage";
 import { SellerProducts } from "./pages/account/SellerProducts";
 import { RouteProtector } from "./Components/Router/RouteProtector";
+import ForgotPasswordPage from "./pages/ForgotPassword/ForgotPasswordPage";
+import { ConfirmForgotPasswordPage } from "./pages/ConfirmForgotPassword/ConfirmForgotPassword";
 
 export const AppRouter = () => {
   return (
@@ -177,6 +179,11 @@ export const AppRouter = () => {
 
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/signup/confirm/:email" element={<SignupConfirmPage />} />
+        <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+        <Route
+          path="/forgot-password/confirm/:email"
+          element={<ConfirmForgotPasswordPage />}
+        />
         <Route path="/login" element={<LoginPage />} />
 
         <Route path="*" element={<h1>404 Not Found</h1>} />
