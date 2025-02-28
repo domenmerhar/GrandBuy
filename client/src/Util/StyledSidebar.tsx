@@ -22,6 +22,6 @@ export const StyledSidebar = styled.aside<StyledSidebarProps>`
   }
 
   @media (max-width: 49em) {
-    max-width: 30rem;
+    max-width: 22rem;
   }
 `;
