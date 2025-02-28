@@ -11,6 +11,8 @@ import { toDate } from "../../functions/toDate";
 import { toApiFilesPath } from "../../functions/toApiFilesPath";
 import { ErrorBox } from "../../Components/ErrorBox";
 import { ProductPageInfiniteProducts } from "./ProductPageInfiniteProducts";
+import { Modal } from "../../Util/Modal";
+import EditProductModal from "./EditProductModal";
 
 interface IProductDetails {
   isSelling: boolean;
@@ -59,7 +61,7 @@ export const ProductPage = () => {
   const imagesPath = images.map((image) => toApiFilesPath(image));
 
   return (
-    <>
+    <Modal>
       <Content>
         <Column $gap="6.4rem">
           <SliderInfoRow
@@ -79,6 +81,8 @@ export const ProductPage = () => {
           <ProductPageInfiniteProducts />
         </Column>
       </Content>
-    </>
+
+      <EditProductModal />
+    </Modal>
   );
 };
