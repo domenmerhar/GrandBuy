@@ -54,7 +54,7 @@ export const SignupConfirmPage = () => {
     const verificationCode = (e?.currentTarget.elements[0] as HTMLInputElement)
       ?.value;
     if (!verificationCode)
-      return toast.error("Please enter a code.", { id: "confirmEmail" });
+      return toast.error(t("pleaseEnterAllFields"), { id: "confirmEmail" });
 
     mutate({ email: email!, verificationCode });
   };
