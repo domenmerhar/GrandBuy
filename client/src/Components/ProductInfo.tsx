@@ -12,10 +12,14 @@ import { useAddProductToCard } from "../hooks/cart/useAddProductToCard";
 import { useParams, useSearchParams } from "react-router-dom";
 import { useAuthContext } from "../contexts/AuthContext";
 import { useMe } from "../hooks/useMe";
-import { DeleteButton } from "./Button/DeleteButton";
 import { useIsSellingProduct } from "../hooks/products/useIsSellingProduct";
 import { useDeleteProduct } from "../hooks/products/useDeleteProduct";
 import { useTranslation } from "react-i18next";
+import ExpandingList from "./ExpandingList";
+import ExpandingThreeDotsButton from "./ExpandingThreeDotsButton";
+import { HiOutlineTrash } from "react-icons/hi";
+import { HiOutlinePencilSquare } from "react-icons/hi2";
+import { Modal } from "../Util/Modal";
 
 const StyledProductInfo = styled(Column)`
   min-width: 25rem;
@@ -63,23 +67,25 @@ export const ProductInfo: FC<ProductInfoProps> = ({
 }) => {
   const { t } = useTranslation();
 
-  const { data } = useMe();
   const { JWT } = useAuthContext();
+  const { data } = useMe();
+  const role = data?.data?.role;
 
   const { mutate: deleteProduct } = useDeleteProduct();
   const isSellingProduct = useIsSellingProduct();
 
-  const role = data?.data?.role;
-
   const [searchParams] = useSearchParams();
+  const quantity = Number(searchParams.get("quantity")) || 1;
+
   const { productId } = useParams<{ productId: string }>();
 
   const { mutate } = useAddProductToCard();
 
-  const quantity = Number(searchParams.get("quantity")) || 1;
+  const { setIsOpen } = Modal.useModalContext();
 
   const handleClick = () => mutate({ JWT, productId: productId!, quantity });
 
+  const handleEdit = () => setIsOpen(true);
   const handleDelete = () => deleteProduct({ JWT, id: productId! });
 
   return (
@@ -90,7 +96,22 @@ export const ProductInfo: FC<ProductInfoProps> = ({
 
           {role === "user" ? <AddToWishlistButton /> : null}
           {isSellingProduct ? (
-            <DeleteButton handleDelete={handleDelete} size="small" />
+            <ExpandingList start="right">
+              <ExpandingThreeDotsButton />
+
+              <ExpandingList.List>
+                <ExpandingList.Ul>
+                  <ExpandingList.Li onClick={handleEdit}>
+                    <HiOutlinePencilSquare />
+                    {t("edit")}
+                  </ExpandingList.Li>
+                  <ExpandingList.Li onClick={handleDelete}>
+                    <HiOutlineTrash />
+                    {t("delete")}
+                  </ExpandingList.Li>
+                </ExpandingList.Ul>
+              </ExpandingList.List>
+            </ExpandingList>
           ) : null}
         </HeaderHolder>
 
