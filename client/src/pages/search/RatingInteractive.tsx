@@ -1,6 +1,7 @@
 import { FC } from "react";
 import { useSearchParams } from "react-router-dom";
 import { Rating } from "react-simple-star-rating";
+import styled from "styled-components";
 
 const tooltipArray = [
   "0.5+",
@@ -33,6 +34,13 @@ interface RatingInteractiveProps {
   fontSize?: string;
 }
 
+const StyledRatingInteractive = styled.div`
+  & svg {
+    width: 3.2rem;
+    height: 3.2rem;
+  }
+`;
+
 export const RatingInteractive: FC<RatingInteractiveProps> = ({
   size = 32,
   fontSize = "1.8rem",
@@ -47,25 +55,29 @@ export const RatingInteractive: FC<RatingInteractiveProps> = ({
   };
 
   return (
-    <Rating
-      onClick={handleRating}
-      size={size}
-      transition
-      allowFraction
-      showTooltip
-      tooltipArray={tooltipArray}
-      tooltipDefaultText="0+"
-      fillColorArray={fillColorArray}
-      tooltipStyle={{
-        backgroundColor: "transparent",
-        color: "var(--gray-8)",
-        fontWeight: "500",
-        fontSize,
-        marginLeft: 0,
-      }}
-      initialValue={
-        searchParams.get("rating") ? parseFloat(searchParams.get("rating")!) : 0
-      }
-    />
+    <StyledRatingInteractive>
+      <Rating
+        onClick={handleRating}
+        size={size}
+        transition
+        allowFraction
+        showTooltip
+        tooltipArray={tooltipArray}
+        tooltipDefaultText="0+"
+        fillColorArray={fillColorArray}
+        tooltipStyle={{
+          backgroundColor: "transparent",
+          color: "var(--gray-8)",
+          fontWeight: "500",
+          fontSize,
+          marginLeft: 0,
+        }}
+        initialValue={
+          searchParams.get("rating")
+            ? parseFloat(searchParams.get("rating")!)
+            : 0
+        }
+      />
+    </StyledRatingInteractive>
   );
 };
