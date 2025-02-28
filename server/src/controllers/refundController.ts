@@ -158,14 +158,18 @@ export const respondToRefund = catchAsync(
 
     refund.status = status;
 
-    const cartItem = await CartItem.findOne({
-      _id: refund.cartItemId,
-    });
+    const cartItem = await CartItem.findOneAndUpdate(
+      {
+        _id: refund.cartItemId,
+      },
+      {
+        status: status === "approved" ? "refunded" : "delivered",
+      },
+      { new: true }
+    );
 
     if (!cartItem)
       return next(new AppError("No refund found with that ID", 404));
-
-    cartItem.status = status === "approved" ? "refunded" : "delivered";
 
     await notificationModel.create({
       user: refund.user,
