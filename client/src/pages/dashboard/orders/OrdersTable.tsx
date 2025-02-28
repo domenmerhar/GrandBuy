@@ -27,7 +27,7 @@ export const OrdersTable = () => {
     setIsOpen(true);
   };
 
-  const renderBadge = (status: OrderStatus) => {
+  const renderBadge = (status: OrderStatus | "pending-refund") => {
     switch (status) {
       case "shipped":
         return (
@@ -50,7 +50,15 @@ export const OrdersTable = () => {
           </Badge>
         );
 
-      case "pending":
+      case "pending-refund":
+        return (
+          <Badge $color="yellow" $size="small">
+            {t("pendingRefund")}
+          </Badge>
+        );
+        break;
+
+      default:
         return t(status);
     }
   };
