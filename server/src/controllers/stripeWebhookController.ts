@@ -4,6 +4,7 @@ import { stripe } from "../utils/stripe";
 import Order from "../models/orderModel";
 import Cart from "../models/cartItemModel";
 import Product from "../models/productModel";
+import Notification from "../models/notificationModel";
 
 export const stripeWebhookListener = catchAsync(
   async (request: Request, response: Response, next: NextFunction) => {
@@ -53,6 +54,12 @@ const handleCheckoutSessionCompleted = async (event: any) => {
       )
     )
   );
+
+  await Notification.create({
+    user: order.user,
+    type: "message",
+    message: "Order has been paid",
+  });
 
   return { success: true };
 };
