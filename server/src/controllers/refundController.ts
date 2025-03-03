@@ -73,7 +73,8 @@ export const getMyRefunds = catchAsync(
     )
       .sort()
       .filter()
-      .paginate().query;
+      .paginate()
+      .limitFields().query;
     if (!refunds.length) return next(new AppError("No refunds found", 404));
 
     res
@@ -201,7 +202,8 @@ export const getSellerRefunds = catchAsync(
     )
       .sort()
       .filter()
-      .paginate().query;
+      .paginate()
+      .limitFields().query;
     if (!refunds.length) return next(new AppError("No refunds found", 404));
 
     res
