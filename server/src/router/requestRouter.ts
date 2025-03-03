@@ -21,7 +21,6 @@ requestRouter
   .route("/")
   .post(restrictTo("user"), createRequest)
   .get(
-    protect,
     restrictTo("admin"),
     restrictPrivileges("request"),
     getAll(requestModel)
@@ -53,40 +52,10 @@ requestRouter.use(
   restrictPrivileges("request")
 );
 
-requestRouter.route("/accept/:id").patch(
-  validate([
-    param("id")
-      .isMongoId()
-      .withMessage("Please provide a valid ID.")
-      .notEmpty()
-      .withMessage("Please provide an ID."),
-  ]),
+requestRouter.route("/accept/:id").patch(acceptRequest);
 
-  acceptRequest
-);
+requestRouter.route("/reject/:id").patch(rejectRequest);
 
-requestRouter.route("/reject/:id").patch(
-  validate([
-    param("id")
-      .isMongoId()
-      .withMessage("Please provide a valid ID.")
-      .notEmpty()
-      .withMessage("Please provide an ID."),
-  ]),
-
-  rejectRequest
-);
-
-requestRouter.route("/:id").get(
-  validate([
-    param("id")
-      .isMongoId()
-      .withMessage("Please provide a valid ID.")
-      .notEmpty()
-      .withMessage("Please provide an ID."),
-  ]),
-
-  getRequest
-);
+requestRouter.route("/:id").get(getRequest);
 
 export default requestRouter;
