@@ -1,5 +1,6 @@
 node_modules
 config.env
+client/docs
 server/public
 server/dist
 
