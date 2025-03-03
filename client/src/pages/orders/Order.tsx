@@ -29,7 +29,7 @@ const RowInfo = styled(Row)`
 /**
  * Komponenta za prikaz naročila.
  *
- * @component
+ * @function
  * @param {Object} props - Lastnosti komponente.
  * @param {string} props._id - ID naročila.
  * @param {string} props.estimatedDelivery - Ocenjeni datum dostave.

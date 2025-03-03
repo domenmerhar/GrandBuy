@@ -12,7 +12,7 @@ interface NotificationCardProps {
 /**
  * Komponenta za prikaz obvestil.
  *
- * @component
+ * @function
  * @param {Object} props - Lastnosti komponente.
  * @param {string} props.date - Datum obvestila.
  * @param {NotificationType} props.type - Vrsta obvestila (message ali alert).

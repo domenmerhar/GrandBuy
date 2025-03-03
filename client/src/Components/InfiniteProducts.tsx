@@ -15,7 +15,7 @@ interface InfiniteProductsProps {
 /**
  * InfiniteProducts komponenta za prikaz neskončnega seznama izdelkov.
  *
- * @component
+ * @function
  * @param {object} props - Lastnosti komponente.
  * @param {unknown} props.data - Podatki za prikaz.
  * @param {boolean} props.isLoading - Ali se podatki nalagajo.

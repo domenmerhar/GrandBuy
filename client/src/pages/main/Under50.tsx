@@ -11,7 +11,7 @@ import { useTranslation } from "react-i18next";
 /**
  * Komponenta za prikaz izdelkov pod 50€.
  *
- * @component
+ * @function
  * @returns {JSX.Element} JSX element, ki predstavlja izdelke pod 50€.
  *
  * @example
@@ -30,7 +30,6 @@ export const Under50 = () => {
         page: 1,
         to: 50,
         sort: "-totalPrice",
-        limit: 2,
       }),
   });
 

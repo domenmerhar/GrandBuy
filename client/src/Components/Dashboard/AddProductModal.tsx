@@ -19,7 +19,7 @@ const Content = styled(Column)`
 /**
  * AddProductModal komponenta za prikaz modalnega okna za dodajanje izdelka.
  *
- * @component
+ * @function
  * @returns {JSX.Element} - JSX element modalnega okna za dodajanje izdelka.
  *
  * @example

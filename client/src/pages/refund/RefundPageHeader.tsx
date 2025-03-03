@@ -8,7 +8,7 @@ import { useTranslation } from "react-i18next";
 /**
  * Komponenta za prikaz glave strani z zahtevami za vračilo.
  *
- * @component
+ * @function
  * @returns {JSX.Element} JSX element, ki predstavlja glavo strani z zahtevami za vračilo.
  *
  * @example

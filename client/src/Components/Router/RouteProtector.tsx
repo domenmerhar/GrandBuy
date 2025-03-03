@@ -11,7 +11,7 @@ interface RouteProtectorProps {
 /**
  * RouteProtector komponenta za zaščito poti na podlagi uporabniške vloge.
  *
- * @component
+ * @function
  * @param {object} props - Lastnosti komponente.
  * @param {UserRole[]} props.allowedRoles - Niz dovoljenih uporabniških vlog.
  * @param {ReactNode | ReactNode[]} [props.children] - Vsebina, ki se prikaže, če je uporabnik dovoljen.

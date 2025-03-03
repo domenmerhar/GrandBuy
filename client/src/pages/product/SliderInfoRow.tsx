@@ -40,7 +40,7 @@ interface SliderInfoRowProps {
 /**
  * Komponenta za prikaz informacij o izdelku v kombinaciji z drsnikom slik.
  *
- * @component
+ * @function
  * @param {Object} props - Lastnosti komponente.
  * @param {string[]} props.images - Seznam URL-jev slik za prikaz.
  * @param {string} props.title - Naslov izdelka.

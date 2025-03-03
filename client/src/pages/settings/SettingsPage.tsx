@@ -11,7 +11,7 @@ import UserImageWithModal from "./UserImageWithModal";
 /**
  * Komponenta za prikaz strani z nastavitvami.
  *
- * @component
+ * @function
  * @returns {JSX.Element} JSX element, ki predstavlja stran z nastavitvami.
  *
  * @example

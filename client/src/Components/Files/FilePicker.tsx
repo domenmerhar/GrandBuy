@@ -17,7 +17,7 @@ interface ImagePickerProps {
 /**
  * FilePicker komponenta za izbiro datotek.
  *
- * @component
+ * @function
  * @param {object} props - Lastnosti komponente.
  * @param {React.Dispatch<React.SetStateAction<File[]>>} props.setSelectedFiles - Funkcija za nastavitev izbranih datotek.
  * @param {string} props.label - Oznaka vnosnega polja.

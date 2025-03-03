@@ -11,7 +11,7 @@ import { useTranslation } from "react-i18next";
 /**
  * Komponenta za prikaz sekcije za spremembo gesla.
  *
- * @component
+ * @function
  * @returns {JSX.Element} JSX element, ki predstavlja sekcijo za spremembo gesla.
  *
  * @example

@@ -8,7 +8,7 @@ interface ReviewActionProps {
 /**
  * Komponenta za prikaz akcij za preglede.
  *
- * @component
+ * @function
  * @param {Object} props - Lastnosti komponente.
  * @param {boolean} [props.$active] - Ali je akcija aktivna.
  * @returns {JSX.Element} JSX element, ki predstavlja akcijo za pregled.

@@ -22,7 +22,7 @@ const Option = styled.option``;
 /**
  * Komponenta za prikaz izbire.
  *
- * @component
+ * @function
  * @param {Object} props - Lastnosti komponente.
  * @param {IOption[]} props.options - Seznam možnosti za izbiro.
  * @param {string} [props.searchParam] - Iskalni parameter (privzeto "sort").

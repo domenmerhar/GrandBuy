@@ -10,7 +10,7 @@ interface ButtonProps {
 /**
  * Komponenta za prikaz gumba.
  *
- * @component
+ * @function
  * @param {Object} props - Lastnosti komponente.
  * @param {"rectangle" | "oval"} props.$shape - Oblika gumba (pravokotna ali ovalna).
  * @param {"orange" | "red" | "green"} props.$color - Barva gumba.

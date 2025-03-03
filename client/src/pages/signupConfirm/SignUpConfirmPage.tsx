@@ -40,7 +40,7 @@ const P = styled.p`
 /**
  * Komponenta za prikaz strani za potrditev prijave.
  *
- * @component
+ * @function
  * @returns {JSX.Element} JSX element, ki predstavlja stran za potrditev prijave.
  *
  * @example

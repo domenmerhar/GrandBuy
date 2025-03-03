@@ -7,7 +7,7 @@ import { useTranslation } from "react-i18next";
 /**
  * Komponenta za prikaz glave strani z ocenami.
  *
- * @component
+ * @function
  * @returns {JSX.Element} JSX element, ki predstavlja glavo strani z ocenami.
  *
  * @example

@@ -77,7 +77,7 @@ const ContentHolder = styled.div`
 /**
  * Komponenta za prikaz avtentikacijskega vsebnika.
  *
- * @component
+ * @function
  * @param {Object} props - Lastnosti komponente.
  * @param {React.ReactNode | React.ReactNode[]} props.children - Otroški elementi.
  * @returns {JSX.Element} JSX element, ki predstavlja avtentikacijski vsebnik.

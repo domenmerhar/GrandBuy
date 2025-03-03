@@ -36,7 +36,7 @@ interface IProductDetails {
 /**
  * Komponenta za prikaz strani izdelka.
  *
- * @component
+ * @function
  * @returns {JSX.Element} JSX element, ki predstavlja stran izdelka.
  *
  * @example

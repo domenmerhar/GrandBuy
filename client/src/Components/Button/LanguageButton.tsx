@@ -5,7 +5,7 @@ import { languages } from "../../Util/types";
 /**
  * LanguageButton komponenta za izbiro jezika aplikacije.
  *
- * @component
+ * @function
  * @returns {JSX.Element} - JSX element gumba za izbiro jezika.
  *
  * @example

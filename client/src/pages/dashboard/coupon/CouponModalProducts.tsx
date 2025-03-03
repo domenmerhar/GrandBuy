@@ -18,7 +18,7 @@ interface CouponModalProductsProps {
 /**
  * Komponenta za upravljanje izdelkov v modalnem oknu za kupon.
  *
- * @component
+ * @function
  * @param {Object} props - Lastnosti komponente.
  * @param {string[]} props.productIds - Seznam ID-jev izdelkov, na katere kupon vpliva.
  * @param {Function} props.setProductIds - Funkcija za nastavitev ID-jev izdelkov, na katere kupon vpliva.

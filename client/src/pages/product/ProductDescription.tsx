@@ -9,7 +9,7 @@ interface MarkdownTestProps {
 /**
  * Komponenta za prikaz opisa izdelka v Markdown formatu.
  *
- * @component
+ * @function
  * @param {Object} props - Lastnosti komponente.
  * @param {string} props.markdownSrc - URL vira za Markdown vsebino.
  * @returns {JSX.Element} JSX element, ki predstavlja opis izdelka v Markdown formatu.

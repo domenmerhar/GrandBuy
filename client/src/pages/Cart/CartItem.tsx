@@ -52,7 +52,7 @@ interface CartItemProps {
 /**
  * Komponenta za prikazovanje posameznega artikla v košarici.
  *
- * @component
+ * @function
  * @param {Object} props - Lastnosti komponente.
  * @param {string} props.cartItemId - ID artikla v košarici.
  * @param {string} props.productId - ID izdelka.

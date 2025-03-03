@@ -52,7 +52,7 @@ const PreviousPrice = styled.span`
 /**
  * Komponenta za prikaz več izdelkov na kartici.
  *
- * @component
+ * @function
  * @param {Object} props - Lastnosti komponente.
  * @param {ReactNode[]} props.children - Otroški elementi (komponente izdelkov).
  * @param {string} props.title - Naslov kartice.

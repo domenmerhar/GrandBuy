@@ -35,7 +35,7 @@ const ButtonsHolder = styled(Row)`
 /**
  * Komponenta za prikaz sekcije mnenj.
  *
- * @component
+ * @function
  * @returns {JSX.Element} JSX element, ki predstavlja sekcijo mnenj.
  *
  * @example

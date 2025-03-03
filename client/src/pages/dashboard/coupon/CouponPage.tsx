@@ -9,7 +9,7 @@ import oneWeekInFuture from "../../../functions/oneWeekInFuture";
 /**
  * Komponenta za prikaz strani s kuponi.
  *
- * @component
+ * @function
  * @returns {JSX.Element} JSX element, ki predstavlja stran s kuponi.
  *
  * @example

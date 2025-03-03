@@ -27,7 +27,7 @@ const P = styled.p`
 /**
  * Komponenta za stran z obrazcem za pozabljeno geslo.
  *
- * @component
+ * @function
  * @returns {JSX.Element} JSX element, ki predstavlja stran z obrazcem za pozabljeno geslo.
  *
  * @example

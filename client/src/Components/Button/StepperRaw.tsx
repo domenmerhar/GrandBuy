@@ -65,7 +65,7 @@ interface StepperRawProps {
 /**
  * StepperRaw komponenta za prikaz številčnega stepperja.
  *
- * @component
+ * @function
  * @param {object} props - Lastnosti komponente.
  * @param {number} props.currentStep - Trenutna vrednost stepperja.
  * @param {function} props.handlePreviousPage - Funkcija za obravnavo klika na gumb za prejšnjo stran.

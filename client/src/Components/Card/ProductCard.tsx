@@ -85,7 +85,7 @@ const PriceButtonHolder = styled.div`
 /**
  * ProductCard komponenta za prikaz kartice izdelka.
  *
- * @component
+ * @function
  * @param {object} props - Lastnosti komponente.
  * @param {string} props.id - ID izdelka.
  * @param {string} props.title - Naslov izdelka.

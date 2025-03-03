@@ -5,7 +5,7 @@ import { SaleSection } from "../main/SaleSection";
 /**
  * Komponenta za prikaz strani z mojimi izdelki.
  *
- * @component
+ * @function
  * @returns {JSX.Element} JSX element, ki predstavlja stran z mojimi izdelki.
  *
  * @example

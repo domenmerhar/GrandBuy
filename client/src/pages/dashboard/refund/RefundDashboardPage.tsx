@@ -8,7 +8,7 @@ import { DashboardRefunds } from "./DashboardRefunds";
 /**
  * Komponenta za prikaz nadzorne plošče za vračila.
  *
- * @component
+ * @function
  * @returns {JSX.Element} JSX element, ki predstavlja nadzorno ploščo za vračila.
  *
  * @example

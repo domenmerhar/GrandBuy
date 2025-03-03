@@ -25,7 +25,7 @@ interface ProductFilterProps {
 /**
  * ProductFilter komponenta za prikaz filtrov za produkte.
  *
- * @component
+ * @function
  * @param {object} props - Lastnosti komponente.
  * @param {boolean} [props.freeShipping=false] - Ali naj se prikaže filter za brezplačno dostavo.
  * @param {boolean} [props.sale=false] - Ali naj se prikaže filter za popuste.

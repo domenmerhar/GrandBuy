@@ -4,7 +4,7 @@ import { BadgeProps } from "./types";
 /**
  * Komponenta za prikaz značke.
  *
- * @component
+ * @function
  * @param {Object} props - Lastnosti komponente.
  * @param {"orange" | "red" | "green" | "yellow"} props.$color - Barva značke.
  * @param {"medium" | "small"} [props.$size="medium"] - Velikost značke.

@@ -11,7 +11,7 @@ const PostReviewButton = styled(Button)`
 /**
  * Komponenta za dodajanje gumba za oceno.
  *
- * @component
+ * @function
  * @returns {JSX.Element} JSX element, ki predstavlja gumb za dodajanje ocene.
  *
  * @example

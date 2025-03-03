@@ -8,7 +8,7 @@ interface StyledLinkProps {
 /**
  * Komponenta za prikaz oblikovane povezave.
  *
- * @component
+ * @function
  * @param {Object} props - Lastnosti komponente.
  * @param {string} props.$fontSize - Velikost pisave povezave.
  * @returns {JSX.Element} JSX element, ki predstavlja oblikovano povezavo.

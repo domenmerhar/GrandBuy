@@ -27,7 +27,7 @@ const ProductInfoHolder = styled(StyledSidebar)`
 /**
  * Komponenta za prikaz informacij o izdelku.
  *
- * @component
+ * @function
  * @returns {JSX.Element} JSX element, ki predstavlja kartico z informacijami o izdelku.
  *
  * @example

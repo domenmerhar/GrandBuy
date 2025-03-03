@@ -41,7 +41,7 @@ const P = styled.p`
 /**
  * Komponenta za prikaz strani za prijavo.
  *
- * @component
+ * @function
  * @returns {JSX.Element} JSX element, ki predstavlja stran za prijavo.
  *
  * @example

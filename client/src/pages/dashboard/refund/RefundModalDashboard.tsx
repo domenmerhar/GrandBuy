@@ -11,7 +11,7 @@ import { useRespondToRefund } from "../../../hooks/refund/useRespondToRefund";
 /**
  * Komponenta za upravljanje povračil v modalnem oknu na nadzorni plošči.
  *
- * @component
+ * @function
  * @returns {JSX.Element} JSX element, ki predstavlja modalno okno za upravljanje povračil.
  *
  * @example

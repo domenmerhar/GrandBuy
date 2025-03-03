@@ -10,7 +10,7 @@ const itemPerPage = Number(import.meta.env.VITE_SELLER_REVIEWS_PAGE);
 /**
  * Komponenta za prikaz strani z ocenami.
  *
- * @component
+ * @function
  * @returns {JSX.Element} JSX element, ki predstavlja stran z ocenami.
  *
  * @example

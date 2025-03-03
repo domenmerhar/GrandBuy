@@ -30,7 +30,7 @@ interface ErrorBoxProps {
 /**
  * ErrorBox komponenta za prikaz sporočila o napaki.
  *
- * @component
+ * @function
  * @param {object} props - Lastnosti komponente.
  * @param {boolean} [props.fullPage=true] - Ali naj se napaka prikaže na celotni strani.
  * @returns {JSX.Element} - JSX element sporočila o napaki.

@@ -7,7 +7,7 @@ interface CircleButtonProps {
 /**
  * Komponenta za prikaz okroglega gumba.
  *
- * @component
+ * @function
  * @param {Object} props - Lastnosti komponente.
  * @param {boolean} props.$active - Ali je gumb aktiven.
  * @returns {JSX.Element} JSX element, ki predstavlja okrogel gumb.

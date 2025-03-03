@@ -3,7 +3,7 @@ import styled from "styled-components";
 /**
  * Komponenta za prikaz vsebine.
  *
- * @component
+ * @function
  * @returns {JSX.Element} JSX element, ki predstavlja vsebino.
  *
  * @example

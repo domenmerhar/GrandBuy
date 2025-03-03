@@ -44,7 +44,7 @@ interface PogressWithLabelProps {
 /**
  * ProgressWithLabel komponenta za prikaz vrstice napredka z oznako.
  *
- * @component
+ * @function
  * @param {object} props - Lastnosti komponente.
  * @param {number} props.value - Trenutna vrednost napredka.
  * @param {number} props.max - Največja vrednost napredka.

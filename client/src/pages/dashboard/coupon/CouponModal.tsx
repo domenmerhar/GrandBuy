@@ -47,7 +47,7 @@ interface CouponModalProps {
 /**
  * Komponenta za upravljanje kuponov v modalnem oknu.
  *
- * @component
+ * @function
  * @param {Object} props - Lastnosti komponente.
  * @param {string} props.code - Koda kupona.
  * @param {Function} props.setCode - Funkcija za nastavitev kode kupona.

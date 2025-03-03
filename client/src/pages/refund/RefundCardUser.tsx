@@ -22,7 +22,7 @@ interface RefundCardUserProps {
 /**
  * Komponenta za prikaz kartice vračila za uporabnika.
  *
- * @component
+ * @function
  * @param {Object} props - Lastnosti komponente.
  * @param {string} props.date - Datum zahteve za vračilo.
  * @param {string} props.status - Stanje vračila.

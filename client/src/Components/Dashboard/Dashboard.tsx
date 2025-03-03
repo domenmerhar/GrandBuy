@@ -21,7 +21,7 @@ const DashboardContent = styled(ContentWithSidebar)`
 /**
  * Dashboard komponenta za prikaz nadzorne plošče.
  *
- * @component
+ * @function
  * @returns {JSX.Element} - JSX element nadzorne plošče.
  *
  * @example

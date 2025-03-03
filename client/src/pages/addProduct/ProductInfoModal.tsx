@@ -14,7 +14,7 @@ const Content = styled(Column)`
 /**
  * Komponenta za urejanje informacij o izdelku v modalnem oknu.
  *
- * @component
+ * @function
  * @returns {JSX.Element} JSX element, ki omogoča urejanje informacij o izdelku.
  *
  * @example

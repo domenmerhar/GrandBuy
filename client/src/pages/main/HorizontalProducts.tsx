@@ -21,7 +21,7 @@ interface HorizontalProductsProps {
 /**
  * Komponenta za vodoravno prikazovanje izdelkov.
  *
- * @component
+ * @function
  * @param {Object} props - Lastnosti komponente.
  * @param {IProductShort[]} props.products - Seznam izdelkov za prikaz.
  * @returns {JSX.Element} JSX element, ki predstavlja vodoravni prikaz izdelkov.

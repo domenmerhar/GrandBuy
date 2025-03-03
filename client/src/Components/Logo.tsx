@@ -29,7 +29,7 @@ const SpanLarge = styled.span`
 /**
  * Logo komponenta za prikaz logotipa aplikacije.
  *
- * @component
+ * @function
  * @param {object} props - Lastnosti komponente.
  * @param {"white" | "orange"} [props.$color] - Barva logotipa (bela ali oranžna).
  * @returns {JSX.Element} - JSX element logotipa.

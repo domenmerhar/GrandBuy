@@ -26,7 +26,7 @@ interface RefundCardProps {
 /**
  * Komponenta za prikaz kartice vračila.
  *
- * @component
+ * @function
  * @param {Object} props - Lastnosti komponente.
  * @param {string} props.reviewId - ID mnenja.
  * @param {string} props.userId - ID uporabnika.

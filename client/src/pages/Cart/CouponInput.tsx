@@ -13,7 +13,7 @@ const InputHolder = styled(BlankCard)`
 /**
  * Komponenta za vnos kupona.
  *
- * @component
+ * @function
  * @returns {JSX.Element} JSX element, ki omogoča uporabniku vnos kupona.
  *
  * @example

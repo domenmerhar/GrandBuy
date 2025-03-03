@@ -16,7 +16,7 @@ function valuetext(value: number) {
 /**
  * Komponenta za prikaz drsnega filtra.
  *
- * @component
+ * @function
  * @returns {JSX.Element} JSX element, ki predstavlja drsni filter.
  *
  * @example

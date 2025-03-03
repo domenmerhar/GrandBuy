@@ -42,7 +42,7 @@ const P = styled.p`
 /**
  * Komponenta za potrjevanje pozabljenega gesla.
  *
- * @component
+ * @function
  * @returns {JSX.Element} JSX element, ki omogoča uporabniku potrjevanje pozabljenega gesla.
  *
  * @example

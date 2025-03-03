@@ -31,7 +31,7 @@ export interface EditAddProductInputsHandle {
 /**
  * EditAddProductInputs komponenta za urejanje in dodajanje vnosnih polj za izdelek.
  *
- * @component
+ * @function
  * @param {object} props - Lastnosti komponente.
  * @param {File[]} props.selectedCover - Izbrane naslovne slike izdelka.
  * @param {Dispatch<SetStateAction<File[]>>} props.setSelectedCover - Funkcija za nastavitev izbranih naslovnih slik.

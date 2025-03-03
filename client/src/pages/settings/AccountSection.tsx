@@ -15,7 +15,7 @@ import { useTranslation } from "react-i18next";
 /**
  * Komponenta za prikaz sekcije za urejanje računa.
  *
- * @component
+ * @function
  * @returns {JSX.Element} JSX element, ki predstavlja sekcijo za urejanje računa.
  *
  * @example

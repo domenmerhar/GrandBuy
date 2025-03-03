@@ -11,7 +11,7 @@ import { TextareaWithLabel } from "../../Components/TextareaWithLabel";
 /**
  * Komponenta za prikaz modalnega okna za zahtevo za vračilo.
  *
- * @component
+ * @function
  * @returns {JSX.Element} JSX element, ki predstavlja modalno okno za zahtevo za vračilo.
  *
  * @example

@@ -7,7 +7,7 @@ import { Order } from "./Order";
 /**
  * Komponenta za prikaz naročil uporabnika.
  *
- * @component
+ * @function
  * @returns {JSX.Element} JSX element, ki predstavlja naročila uporabnika.
  *
  * @example

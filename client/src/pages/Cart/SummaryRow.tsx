@@ -14,7 +14,7 @@ interface SummaryRowProps {
 /**
  * Komponenta za prikaz vrstice povzetka naročila.
  *
- * @component
+ * @function
  * @param {Object} props - Lastnosti komponente.
  * @param {string} props.name - Ime vrstice povzetka.
  * @param {string} props.price - Cena vrstice povzetka.

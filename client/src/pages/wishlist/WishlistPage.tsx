@@ -11,7 +11,7 @@ import { useTranslation } from "react-i18next";
 /**
  * Komponenta za prikaz strani želja.
  *
- * @component
+ * @function
  * @returns {JSX.Element} JSX element, ki predstavlja stran želja.
  *
  * @example

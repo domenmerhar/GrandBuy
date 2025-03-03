@@ -26,7 +26,7 @@ const Label = styled.label`
 /**
  * Komponenta za nalaganje in prikazovanje Markdown datotek.
  *
- * @component
+ * @function
  * @returns {JSX.Element} JSX element, ki omogoča nalaganje Markdown datotek in prikaz njihove vsebine.
  *
  * @example

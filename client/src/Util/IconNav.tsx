@@ -7,7 +7,7 @@ interface IconNavProps {
 /**
  * Komponenta za prikaz navigacijskega gumba z ikono.
  *
- * @component
+ * @function
  * @param {Object} props - Lastnosti komponente.
  * @param {"fill" | "stroke"} [props.$iconColoring] - Način barvanja ikone.
  * @returns {JSX.Element} JSX element, ki predstavlja navigacijski gumb z ikono.

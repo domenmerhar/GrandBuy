@@ -10,7 +10,7 @@ interface StyledSidebarProps {
 /**
  * Komponenta za prikaz stranskega stranskega stolpca.
  *
- * @component
+ * @function
  * @param {Object} props - Lastnosti komponente.
  * @param {string} props.$position - Pozicija stranskega stolpca.
  * @param {boolean} [props.$rounded] - Ali je stranski stolpec z zaobljenimi robovi.

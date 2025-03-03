@@ -3,7 +3,7 @@ import styled from "styled-components";
 /**
  * Komponenta za prikaz mreže izdelkov.
  *
- * @component
+ * @function
  * @returns {JSX.Element} JSX element, ki predstavlja mrežo izdelkov.
  *
  * @example

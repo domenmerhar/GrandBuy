@@ -45,7 +45,7 @@ const toastOptions = {
 /**
  * Komponenta za prijavno stran.
  *
- * @component
+ * @function
  * @returns {JSX.Element} JSX element, ki predstavlja prijavno stran.
  *
  * @example

@@ -8,7 +8,7 @@ import { renderProduct } from "../../Util/renderProduct";
 /**
  * Komponenta za prikaz rezultatov iskanja izdelkov.
  *
- * @component
+ * @function
  * @returns {JSX.Element} JSX element, ki predstavlja rezultate iskanja izdelkov.
  *
  * @example

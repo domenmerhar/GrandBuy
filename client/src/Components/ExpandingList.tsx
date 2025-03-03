@@ -38,7 +38,7 @@ const expandingListContext = createContext<ContextType>({} as ContextType);
 /**
  * ExpandingList komponenta za ustvarjanje razširljivega seznama.
  *
- * @component
+ * @function
  * @param {object} props - Lastnosti komponente.
  * @param {React.ReactNode[] | React.ReactNode} props.children - Vsebina razširljivega seznama.
  * @param {"left" | "right"} [props.start="left"] - Smer odpiranja seznama (levo ali desno).
@@ -123,7 +123,7 @@ export type listClickType = () => void;
 /**
  * ExpandingList.List komponenta za prikaz razširljivega seznama.
  *
- * @component
+ * @function
  * @param {object} props - Lastnosti komponente.
  * @param {React.ReactNode} props.children - Vsebina seznama.
  * @returns {JSX.Element | null} - JSX element seznama ali null, če seznam ni odprt.
@@ -189,7 +189,7 @@ const Li = styled.li`
 /**
  * ExpandingList.Button komponenta za ustvarjanje gumba, ki odpira razširljiv seznam.
  *
- * @component
+ * @function
  * @param {object} props - Lastnosti komponente.
  * @param {React.ReactNode} props.children - Vsebina gumba.
  * @returns {JSX.Element} - JSX element gumba za odpiranje seznama.
@@ -200,7 +200,7 @@ ExpandingList.Button = Button;
 /**
  * ExpandingList.List komponenta za prikaz razširljivega seznama.
  *
- * @component
+ * @function
  * @param {object} props - Lastnosti komponente.
  * @param {React.ReactNode} props.children - Vsebina seznama.
  * @returns {JSX.Element | null} - JSX element seznama ali null, če seznam ni odprt.
@@ -211,7 +211,7 @@ ExpandingList.List = List;
 /**
  * ExpandingList.Ul komponenta za ustvarjanje neurejenega seznama znotraj razširljivega seznama.
  *
- * @component
+ * @function
  * @returns {JSX.Element} - JSX element neurejenega seznama.
  */
 
@@ -220,7 +220,7 @@ ExpandingList.Ul = Ul;
 /**
  * ExpandingList.Li komponenta za ustvarjanje elementa seznama znotraj razširljivega seznama.
  *
- * @component
+ * @function
  * @returns {JSX.Element} - JSX element elementa seznama.
  */
 

@@ -14,7 +14,7 @@ const AddProductButton = styled(Button)`
 /**
  * DashboardAdminList komponenta za prikaz navigacijskega seznama za administratorsko nadzorno ploščo.
  *
- * @component
+ * @function
  * @returns {JSX.Element} - JSX element navigacijskega seznama za administratorsko nadzorno ploščo.
  *
  * @example

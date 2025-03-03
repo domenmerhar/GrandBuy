@@ -11,7 +11,7 @@ import { getSellerProducts } from "../../api/product/getSellerProducts";
 /**
  * Komponenta za prikaz več izdelkov istega prodajalca.
  *
- * @component
+ * @function
  * @returns {JSX.Element} JSX element, ki predstavlja sekcijo z več izdelki istega prodajalca.
  *
  * @example

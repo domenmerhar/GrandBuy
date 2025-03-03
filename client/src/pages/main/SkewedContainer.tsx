@@ -23,7 +23,7 @@ const Content = styled.div`
 /**
  * Komponenta za prikaz vsebine z nagibom.
  *
- * @component
+ * @function
  * @param {Object} props - Lastnosti komponente.
  * @param {ReactNode | ReactNode[]} props.children - Otroški elementi.
  * @returns {JSX.Element} JSX element, ki predstavlja vsebino z nagibom.

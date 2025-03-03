@@ -7,7 +7,7 @@ import { useTranslation } from "react-i18next";
 /**
  * SellerNavigationButtons komponenta za prikaz navigacijskih gumbov za prodajalca.
  *
- * @component
+ * @function
  * @returns {JSX.Element} - JSX element navigacijskih gumbov za prodajalca.
  *
  * @example

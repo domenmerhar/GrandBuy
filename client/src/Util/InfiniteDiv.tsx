@@ -3,7 +3,7 @@ import styled from "styled-components";
 /**
  * Komponenta za prikaz neskončnega div elementa.
  *
- * @component
+ * @function
  * @returns {JSX.Element} JSX element, ki predstavlja neskončni div element.
  *
  * @example

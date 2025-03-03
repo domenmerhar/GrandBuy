@@ -25,7 +25,7 @@ const Grid = styled.div`
 /**
  * Komponenta za prikaz in upravljanje seznamov kuponov.
  *
- * @component
+ * @function
  * @param {Object} props - Lastnosti komponente.
  * @param {Function} props.setCode - Funkcija za nastavitev kode kupona.
  * @param {Function} props.setDiscount - Funkcija za nastavitev popusta kupona.

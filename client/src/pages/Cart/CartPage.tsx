@@ -19,7 +19,7 @@ const itemsPerPage = import.meta.env.VITE_PRODUCTS_PER_STEPPER;
 /**
  * Komponenta za prikaz strani z nakupovalno košarico.
  *
- * @component
+ * @function
  * @returns {JSX.Element} JSX element, ki predstavlja stran z nakupovalno košarico.
  *
  * @example

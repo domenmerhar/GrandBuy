@@ -15,10 +15,10 @@ interface ChangePasswordArguments {
  * @returns {Promise<any>} - Odgovor na zahtevo.
  * @async
  * @example
- * await changePassword({
- * JWT: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...',
- * password: 'NovoGeslo123',
- * confirmPassword: 'NovoGeslo123'
+ *  await changePassword({
+ *  JWT: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...',
+ *  password: 'NovoGeslo123',
+ *  confirmPassword: 'NovoGeslo123'
  * });
  */
 

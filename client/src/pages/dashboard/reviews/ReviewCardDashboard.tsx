@@ -56,7 +56,7 @@ interface ReviewCardDashboardProps {
 /**
  * Komponenta za prikaz mnenj na nadzorni plošči.
  *
- * @component
+ * @function
  * @param {Object} props - Lastnosti komponente.
  * @param {string} props.reviewId - ID mnenja.
  * @param {string} props.productId - ID izdelka.

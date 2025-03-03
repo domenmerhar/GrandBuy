@@ -15,7 +15,7 @@ const MarkdownCard = styled(BlankCard)`
 /**
  * MarkdownRenderer komponenta za prikaz Markdown vsebine.
  *
- * @component
+ * @function
  * @param {object} props - Lastnosti komponente.
  * @param {string} props.children - Markdown vsebina za prikaz.
  * @returns {JSX.Element} - JSX element za prikaz Markdown vsebine.

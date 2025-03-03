@@ -34,7 +34,7 @@ const Notification = styled.div`
 /**
  * ButtonWithNotifcations komponenta za prikaz gumba z obvestili.
  *
- * @component
+ * @function
  * @param {object} props - Lastnosti komponente.
  * @param {number} [props.notificationCount] - Število obvestil, ki jih želimo prikazati.
  * @param {React.ReactNode} props.children - Vsebina gumba.

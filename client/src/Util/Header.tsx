@@ -8,7 +8,7 @@ interface HeaderProps {
 /**
  * Komponenta za prikaz glave.
  *
- * @component
+ * @function
  * @param {Object} props - Lastnosti komponente.
  * @param {"orange" | "white"} props.$color - Barva glave.
  * @param {"large" | "medium" | "small"} props.$size - Velikost glave.

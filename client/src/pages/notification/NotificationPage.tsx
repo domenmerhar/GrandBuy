@@ -26,7 +26,7 @@ const Grid = styled.div`
 /**
  * Komponenta za prikaz strani z obvestili.
  *
- * @component
+ * @function
  * @returns {JSX.Element} JSX element, ki predstavlja stran z obvestili.
  *
  * @example

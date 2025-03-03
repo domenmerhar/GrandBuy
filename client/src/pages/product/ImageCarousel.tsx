@@ -51,7 +51,7 @@ interface ImageCarouselProps {
 /**
  * Komponenta za prikaz slik v karuselu.
  *
- * @component
+ * @function
  * @param {Object} props - Lastnosti komponente.
  * @param {string[]} props.images - Seznam URL-jev slik za prikaz.
  * @returns {JSX.Element} JSX element, ki predstavlja karusel slik.

@@ -18,7 +18,7 @@ interface AverageRatingProps {
 /**
  * Komponenta za prikaz povprečne ocene.
  *
- * @component
+ * @function
  * @param {Object} props - Lastnosti komponente.
  * @param {number} props.rating - Povprečna ocena.
  * @returns {JSX.Element} JSX element, ki predstavlja povprečno oceno.

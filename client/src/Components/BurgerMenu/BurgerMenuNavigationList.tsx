@@ -14,7 +14,7 @@ import { useTranslation } from "react-i18next";
 /**
  * BurgerMenuNavigationList komponenta za prikaz navigacijskega seznama v stranskem meniju.
  *
- * @component
+ * @function
  * @returns {JSX.Element} - JSX element navigacijskega seznama.
  *
  * @example

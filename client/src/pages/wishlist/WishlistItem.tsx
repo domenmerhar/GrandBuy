@@ -49,7 +49,7 @@ interface CartItemProps {
 /**
  * Komponenta za prikaz elementa na seznamu želja.
  *
- * @component
+ * @function
  * @param {Object} props - Lastnosti komponente.
  * @param {string} props.image - URL slike izdelka.
  * @param {string} props.name - Ime izdelka.

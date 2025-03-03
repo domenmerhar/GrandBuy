@@ -62,7 +62,7 @@ interface RefundBadgeProps {
 /**
  * BadgeCard komponenta za prikaz kartice z značko in vsebino.
  *
- * @component
+ * @function
  * @param {object} props - Lastnosti komponente.
  * @param {React.ReactNode | React.ReactNode[]} props.children - Vsebina kartice.
  * @returns {JSX.Element} - JSX element kartice z značko.
@@ -92,7 +92,7 @@ export const BadgeCard: FC<RefundCardProps> & {
 /**
  * BadgeCard.ItemList komponenta za prikaz seznama elementov v kartici.
  *
- * @component
+ * @function
  * @returns {JSX.Element} - JSX element seznama elementov.
  */
 
@@ -101,7 +101,7 @@ BadgeCard.ItemList = ItemList;
 /**
  * BadgeCard.P komponenta za prikaz odstavka besedila v kartici.
  *
- * @component
+ * @function
  * @returns {JSX.Element} - JSX element odstavka besedila.
  */
 
@@ -116,7 +116,7 @@ const UserLink = styled(Link)`
 /**
  * BadgeCard.Header komponenta za prikaz glave kartice z uporabniškimi informacijami in značko.
  *
- * @component
+ * @function
  * @param {object} props - Lastnosti komponente.
  * @param {string} props.imageLink - Povezava do slike profila uporabnika.
  * @param {string} props.username - Uporabniško ime.
@@ -156,7 +156,7 @@ BadgeCard.Header = ({
 /**
  * BadgeCard.Badge komponenta za prikaz značke z datumom.
  *
- * @component
+ * @function
  * @param {object} props - Lastnosti komponente.
  * @param {string} props.children - Besedilo značke.
  * @param {BadgeColor} props.$color - Barva značke.

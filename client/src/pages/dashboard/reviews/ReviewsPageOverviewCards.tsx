@@ -13,7 +13,7 @@ interface ReviewsPageOverviewCardsProps {
 /**
  * Komponenta za prikaz preglednih kartic strani z ocenami.
  *
- * @component
+ * @function
  * @param {Object} props - Lastnosti komponente.
  * @param {number | "N/A"} props.reviewsCount - Število ocen.
  * @param {number | "N/A"} props.averageRating - Povprečna ocena.

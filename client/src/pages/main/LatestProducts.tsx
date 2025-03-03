@@ -7,14 +7,13 @@ import HorizontalProducts from "./HorizontalProducts";
 /**
  * Komponenta za prikaz zadnjih izdelkov.
  *
- * @component
+ * @function
  * @returns {JSX.Element} JSX element, ki predstavlja zadnje izdelke.
  *
  * @example
  * // Uporaba komponente
  * <LatestProducts />
  */
-
 
 export const LatestProducts = () => {
   const { data, error, isLoading } = useQuery({

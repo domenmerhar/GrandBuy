@@ -59,7 +59,7 @@ const NavLinkHolder = styled(NavLink)`
 /**
  * NavigationBar komponenta za prikaz navigacijske vrstice.
  *
- * @component
+ * @function
  * @returns {JSX.Element} - JSX element navigacijske vrstice.
  *
  * @example

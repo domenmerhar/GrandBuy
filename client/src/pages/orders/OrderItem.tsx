@@ -65,7 +65,7 @@ interface OrderItemProps {
 /**
  * Komponenta za prikaz izdelka naročila.
  *
- * @component
+ * @function
  * @param {Object} props - Lastnosti komponente.
  * @param {string} props.orderId - ID naročila.
  * @param {string} props.cartItemId - ID izdelka v košarici.

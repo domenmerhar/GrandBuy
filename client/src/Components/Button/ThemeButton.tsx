@@ -5,7 +5,7 @@ import { useDarkMode } from "../../contexts/DarkModeContext";
 /**
  * ThemeButton komponenta za preklop med svetlo in temno temo.
  *
- * @component
+ * @function
  * @returns {JSX.Element} - JSX element gumba za preklop teme.
  *
  * @example

@@ -19,7 +19,7 @@ const queryFn =
 /**
  * Komponenta za prikaz izdelkov na strani zgodovine.
  *
- * @component
+ * @function
  * @returns {JSX.Element} JSX element, ki predstavlja izdelke na strani zgodovine.
  *
  * @example

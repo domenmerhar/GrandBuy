@@ -10,7 +10,7 @@ interface CheckboxProps {
 /**
  * CheckboxSearchParam komponenta za ustvarjanje potrditvenega polja, ki vpliva na iskalne parametre URL-ja.
  *
- * @component
+ * @function
  * @param {object} props - Lastnosti komponente.
  * @param {string} props.id - ID potrditvenega polja (uporabljen kot ključ iskalnega parametra).
  * @param {string} props.label - Oznaka potrditvenega polja.

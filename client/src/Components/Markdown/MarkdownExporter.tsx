@@ -3,7 +3,7 @@ import React, { useState } from "react";
 /**
  * MarkdownExporter komponenta za urejanje in izvoz Markdown vsebine.
  *
- * @component
+ * @function
  * @returns {JSX.Element} - JSX element za urejanje in izvoz Markdown vsebine.
  *
  * @example

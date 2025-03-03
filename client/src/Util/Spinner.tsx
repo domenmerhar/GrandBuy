@@ -7,7 +7,7 @@ interface SpinnerProps {
 /**
  * Komponenta za prikaz vrtečega se nalagalnika (spinner).
  *
- * @component
+ * @function
  * @param {Object} props - Lastnosti komponente.
  * @param {"small" | "medium" | "large"} props.$size - Velikost nalagalnika.
  * @returns {JSX.Element} JSX element, ki predstavlja vrteči se nalagalnik.

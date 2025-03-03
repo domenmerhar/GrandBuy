@@ -11,7 +11,7 @@ const DarkModeContext = createContext<DarkModeContextProps | null>(null);
 /**
  * DarkModeProvider komponenta za zagotavljanje konteksta temnega načina.
  *
- * @component
+ * @function
  * @param {object} props - Lastnosti komponente.
  * @param {ReactNode | ReactNode[]} props.children - Vsebina, ki jo ovija DarkModeProvider.
  * @returns {JSX.Element} - JSX element DarkModeProvider.

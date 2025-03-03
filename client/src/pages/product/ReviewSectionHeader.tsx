@@ -7,7 +7,7 @@ import { useTranslation } from "react-i18next";
 /**
  * Komponenta za prikaz glave sekcije mnenj.
  *
- * @component
+ * @function
  * @returns {JSX.Element} JSX element, ki predstavlja glavo sekcije mnenj.
  *
  * @example

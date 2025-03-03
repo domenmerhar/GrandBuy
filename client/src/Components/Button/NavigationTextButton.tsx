@@ -59,7 +59,7 @@ const Li = styled.li`
 /**
  * NavigationTextButton komponenta za prikaz navigacijskega gumba z besedilom.
  *
- * @component
+ * @function
  * @param {object} props - Lastnosti komponente.
  * @param {React.ReactNode[]} props.children - Vsebina gumba (besedilo in ikone).
  * @param {string} props.to - Ciljni URL, na katerega vodi gumb.

@@ -13,7 +13,7 @@ import { toPrice } from "../../../functions/toPrice";
 /**
  * Komponenta za prikaz tabele naročil.
  *
- * @component
+ * @function
  * @returns {JSX.Element} JSX element, ki predstavlja tabelo naročil.
  *
  * @example

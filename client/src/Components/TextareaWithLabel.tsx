@@ -24,13 +24,12 @@ interface TextAreaWithLabelProps extends ComponentProps<typeof Textarea> {
 /**
  * TextareaWithLabel komponenta za prikaz večvrstičnega vnosnega polja z oznako.
  *
- * @component
+ * @function
  * @param {object} props - Lastnosti komponente.
  * @param {string} props.id - ID večvrstičnega vnosnega polja.
  * @param {string} props.label - Oznaka večvrstičnega vnosnega polja.
  * @param {string} [props.placeholder=""] - Namig za uporabnika.
  * @param {number} [props.maxLength=500] - Največje število znakov.
- * @param {...ComponentProps<typeof Textarea>} rest - Dodatne lastnosti, ki se prenesejo na osnovno komponento Textarea.
  * @param {React.ForwardedRef<HTMLTextAreaElement>} ref - Referenca za večvrstično vnosno polje.
  * @returns {JSX.Element} - JSX element večvrstičnega vnosnega polja z oznako.
  *

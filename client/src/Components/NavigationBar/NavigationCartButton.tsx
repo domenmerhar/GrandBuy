@@ -11,7 +11,7 @@ const NavlinkHolder = styled(NavLink)`
 /**
  * NavigationCartButton komponenta za prikaz gumba za košarico v navigaciji.
  *
- * @component
+ * @function
  * @returns {JSX.Element} - JSX element gumba za košarico.
  *
  * @example

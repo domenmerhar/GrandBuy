@@ -8,7 +8,7 @@ import { MainPageInfiniteProducts } from "./MainPageInfiniteProducts.tsx";
 /**
  * Komponenta za prikaz glavne strani.
  *
- * @component
+ * @function
  * @returns {JSX.Element} JSX element, ki predstavlja glavno stran.
  *
  * @example

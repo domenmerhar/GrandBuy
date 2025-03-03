@@ -9,7 +9,7 @@ import { useTranslation } from "react-i18next";
 /**
  * Komponenta za prikaz sekcije "Za vas".
  *
- * @component
+ * @function
  * @returns {JSX.Element} JSX element, ki predstavlja sekcijo "Za vas".
  *
  * @example

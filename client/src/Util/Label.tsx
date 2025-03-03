@@ -3,7 +3,7 @@ import styled from "styled-components";
 /**
  * Komponenta za prikaz oznake.
  *
- * @component
+ * @function
  * @returns {JSX.Element} JSX element, ki predstavlja oznako.
  *
  * @example

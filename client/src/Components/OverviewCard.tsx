@@ -50,7 +50,7 @@ interface OverviewCardProps {
 /**
  * OverviewCard komponenta za prikaz kartice s preglednimi informacijami.
  *
- * @component
+ * @function
  * @param {object} props - Lastnosti komponente.
  * @param {React.ReactNode} props.icon - Ikona, ki se prikaže v kartici.
  * @param {string} props.title - Naslov kartice.

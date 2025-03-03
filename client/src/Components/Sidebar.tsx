@@ -24,7 +24,7 @@ const Placeholder = styled.div`
 /**
  * Sidebar komponenta za prikaz stranske vrstice.
  *
- * @component
+ * @function
  * @param {object} props - Lastnosti komponente.
  * @param {ReactNode | ReactNode[]} props.children - Vsebina stranske vrstice.
  * @returns {JSX.Element} - JSX element stranske vrstice.

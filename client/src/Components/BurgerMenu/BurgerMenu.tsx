@@ -67,7 +67,7 @@ interface BurgerMenuProps {
 /**
  * BurgerMenu komponenta za prikaz stranskega menija.
  *
- * @component
+ * @function
  * @param {object} props - Lastnosti komponente.
  * @param {boolean} props.isOpen - Ali je meni odprt.
  * @param {function} props.handleClose - Funkcija za zapiranje menija.

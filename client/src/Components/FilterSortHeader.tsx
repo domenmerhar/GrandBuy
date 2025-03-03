@@ -14,7 +14,7 @@ interface RefundPageHeaderProps {
 /**
  * FilterSortHeader komponenta za prikaz naslova strani z možnostmi filtriranja in sortiranja.
  *
- * @component
+ * @function
  * @param {object} props - Lastnosti komponente.
  * @param {string} props.headerText - Besedilo naslova strani.
  * @param {IOption[]} [props.selectOptions] - Niz možnosti za izbirni meni (sortiranje).

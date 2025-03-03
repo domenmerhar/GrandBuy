@@ -11,7 +11,7 @@ import { useTranslation } from "react-i18next";
 /**
  * Komponenta za prikaz izdelkov z brezplačno dostavo.
  *
- * @component
+ * @function
  * @returns {JSX.Element} JSX element, ki predstavlja izdelke z brezplačno dostavo.
  *
  * @example

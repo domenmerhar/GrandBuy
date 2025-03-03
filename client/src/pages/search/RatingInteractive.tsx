@@ -44,7 +44,7 @@ const StyledRatingInteractive = styled.div`
 /**
  * Komponenta za interaktivno ocenjevanje z zvezdicami.
  *
- * @component
+ * @function
  * @param {Object} props - Lastnosti komponente.
  * @param {number} [props.size=32] - Velikost zvezdic.
  * @param {string} [props.fontSize="1.8rem"] - Velikost pisave za orodna namigovanja.

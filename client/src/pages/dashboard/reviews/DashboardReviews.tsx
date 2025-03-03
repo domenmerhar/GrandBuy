@@ -16,7 +16,7 @@ const DashboardGrid = styled.div`
 /**
  * Komponenta za prikaz mnenj na nadzorni plošči.
  *
- * @component
+ * @function
  * @returns {JSX.Element} JSX element, ki predstavlja mnenja na nadzorni plošči.
  *
  * @example

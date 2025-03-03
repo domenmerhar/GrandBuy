@@ -29,7 +29,7 @@ interface ReviewProps {
 /**
  * Komponenta za prikaz mnenja.
  *
- * @component
+ * @function
  * @param {Object} props - Lastnosti komponente.
  * @param {string} props.id - ID mnenja.
  * @param {string} props.date - Datum objave mnenja.

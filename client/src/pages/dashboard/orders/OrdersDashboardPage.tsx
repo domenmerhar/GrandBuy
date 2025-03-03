@@ -15,7 +15,7 @@ const itemsPerPage = import.meta.env.VITE_SELLER_ORDERS_PER_PAGE;
 /**
  * Komponenta za prikaz nadzorne plošče naročil.
  *
- * @component
+ * @function
  * @returns {JSX.Element} JSX element, ki predstavlja nadzorno ploščo naročil.
  *
  * @example

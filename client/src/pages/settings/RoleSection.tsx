@@ -13,7 +13,7 @@ import { useTranslation } from "react-i18next";
 /**
  * Komponenta za prikaz sekcije za zahtevo za prodajalca.
  *
- * @component
+ * @function
  * @returns {JSX.Element} JSX element, ki predstavlja sekcijo za zahtevo za prodajalca.
  *
  * @example

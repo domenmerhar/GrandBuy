@@ -27,7 +27,7 @@ const StyledAddToWishlistButton = styled.button<ButtonProps>`
 /**
  * Komponenta za dodajanje izdelka na seznam želja.
  *
- * @component
+ * @function
  * @returns {JSX.Element} JSX element, ki predstavlja gumb za dodajanje izdelka na seznam želja.
  *
  * @example

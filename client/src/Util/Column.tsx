@@ -4,7 +4,7 @@ import { RowColumnProps } from "./types";
 /**
  * Komponenta za prikaz stolpca.
  *
- * @component
+ * @function
  * @param {Object} props - Lastnosti komponente.
  * @param {string} [props.$gap] - Razmik med elementi v stolpcu.
  * @param {string} [props.$justifyContent] - Poravnava vsebine v stolpcu.

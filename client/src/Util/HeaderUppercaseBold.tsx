@@ -3,7 +3,7 @@ import styled from "styled-components";
 /**
  * Komponenta za prikaz naslova z velikimi črkami in krepko pisavo.
  *
- * @component
+ * @function
  * @returns {JSX.Element} JSX element, ki predstavlja naslov z velikimi črkami in krepko pisavo.
  *
  * @example

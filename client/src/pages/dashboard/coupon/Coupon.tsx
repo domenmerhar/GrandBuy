@@ -54,7 +54,7 @@ interface Coupon extends CouponProps {
 /**
  * Komponenta za prikaz kupona.
  *
- * @component
+ * @function
  * @param {Object} props - Lastnosti komponente.
  * @param {string} props.couponId - ID kupona.
  * @param {string} props.code - Koda kupona.

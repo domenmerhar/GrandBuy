@@ -7,7 +7,7 @@ import useGetSellerCouponsCount from "../../../hooks/coupon/useGetSellerCouponsC
 /**
  * Komponenta za prikaz pregleda kuponov.
  *
- * @component
+ * @function
  * @returns {JSX.Element} JSX element, ki predstavlja pregled kuponov.
  *
  * @example

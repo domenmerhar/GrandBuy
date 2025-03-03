@@ -9,7 +9,7 @@ import { WishlistItemInterface } from "../../Util/types";
 /**
  * Komponenta za prikaz elementov na seznamu želja.
  *
- * @component
+ * @function
  * @returns {JSX.Element} JSX element, ki predstavlja elemente na seznamu želja.
  *
  * @example

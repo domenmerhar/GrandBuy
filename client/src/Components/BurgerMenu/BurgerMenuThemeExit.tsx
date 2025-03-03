@@ -17,7 +17,7 @@ const ThemeExitHolder = styled.div`
 /**
  * BurgerMenuThemeExit komponenta za prikaz gumbov za temo in izhod v stranskem meniju.
  *
- * @component
+ * @function
  * @returns {JSX.Element} - JSX element gumbov za temo in izhod.
  *
  * @example

@@ -14,7 +14,7 @@ const StyledReviews = styled(Column)`
 /**
  * Komponenta za prikaz mnenj.
  *
- * @component
+ * @function
  * @returns {JSX.Element} JSX element, ki predstavlja mnenja.
  *
  * @example

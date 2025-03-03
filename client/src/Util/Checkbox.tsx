@@ -3,7 +3,7 @@ import styled from "styled-components";
 /**
  * Komponenta za prikaz potrditvenega polja (checkbox).
  *
- * @component
+ * @function
  * @returns {JSX.Element} JSX element, ki predstavlja potrditveno polje.
  *
  * @example

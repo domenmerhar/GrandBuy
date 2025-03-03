@@ -12,7 +12,7 @@ import { useJWT } from "../../hooks/useJWT";
 /**
  * Komponenta za dodajanje mnenja v modalnem oknu.
  *
- * @component
+ * @function
  * @returns {JSX.Element} JSX element, ki predstavlja modalno okno za dodajanje mnenja.
  *
  * @example

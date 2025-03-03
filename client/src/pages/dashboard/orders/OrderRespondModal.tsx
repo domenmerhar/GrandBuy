@@ -9,7 +9,7 @@ import { useCancelOrder } from "../../../hooks/order/useCancelOrder";
 /**
  * Komponenta za odziv na naročila v modalnem oknu.
  *
- * @component
+ * @function
  * @returns {JSX.Element} JSX element, ki predstavlja modalno okno za odziv na naročila.
  *
  * @example

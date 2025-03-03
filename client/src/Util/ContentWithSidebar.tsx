@@ -3,7 +3,7 @@ import styled from "styled-components";
 /**
  * Komponenta za prikaz vsebine s stransko vrstico.
  *
- * @component
+ * @function
  * @returns {JSX.Element} JSX element, ki predstavlja vsebino s stransko vrstico.
  *
  * @example

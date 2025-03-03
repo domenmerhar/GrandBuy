@@ -14,7 +14,7 @@ interface CartItemButtonProps {
 /**
  * Komponenta za prikazovanje gumba za izdelek v košarici.
  *
- * @component
+ * @function
  * @param {Object} props - Lastnosti komponente.
  * @param {string} props.cartItemId - ID artikla v košarici.
  * @returns {JSX.Element} JSX element, ki predstavlja gumb za izdelek v košarici.

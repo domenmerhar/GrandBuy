@@ -14,7 +14,7 @@ interface ProductsCardProps {
 /**
  * ProductsCard komponenta za prikaz kartice s seznamom izdelkov.
  *
- * @component
+ * @function
  * @param {object} props - Lastnosti komponente.
  * @param {string} props.title - Naslov kartice.
  * @param {number} props.itemCount - Število elementov v seznamu.

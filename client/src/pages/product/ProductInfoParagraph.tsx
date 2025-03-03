@@ -14,7 +14,7 @@ interface ProductInfoParagraphProps {
 /**
  * Komponenta za prikaz informacij o izdelku.
  *
- * @component
+ * @function
  * @param {Object} props - Lastnosti komponente.
  * @param {string} props.title - Naslov informacije.
  * @param {string} props.value - Vrednost informacije.

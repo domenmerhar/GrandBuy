@@ -20,7 +20,7 @@ const Hr = styled.hr`
 /**
  * Komponenta za prikaz povzetka naročila.
  *
- * @component
+ * @function
  * @returns {JSX.Element} JSX element, ki predstavlja povzetek naročila.
  *
  * @example

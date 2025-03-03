@@ -7,7 +7,7 @@ import { renderProduct } from "../../Util/renderProduct";
 /**
  * Komponenta za prikaz neskončnih izdelkov na glavni strani.
  *
- * @component
+ * @function
  * @returns {JSX.Element} JSX element, ki predstavlja neskončne izdelke na glavni strani.
  *
  * @example

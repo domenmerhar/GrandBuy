@@ -14,7 +14,7 @@ interface AuthProviderProps {
 /**
  * AuthProvider komponenta za zagotavljanje konteksta avtentikacije.
  *
- * @component
+ * @function
  * @param {object} props - Lastnosti komponente.
  * @param {React.ReactNode | React.ReactNode[]} props.children - Vsebina, ki jo ovija AuthProvider.
  * @returns {JSX.Element} - JSX element AuthProvider.

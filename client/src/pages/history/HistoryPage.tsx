@@ -6,7 +6,7 @@ import { HistoryPageInfiniteProducts } from "./HistoryPageInfiniteProducts";
 /**
  * Komponenta za prikaz strani zgodovine.
  *
- * @component
+ * @function
  * @returns {JSX.Element} JSX element, ki predstavlja stran zgodovine.
  *
  * @example

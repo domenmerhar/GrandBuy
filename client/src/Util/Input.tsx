@@ -7,7 +7,7 @@ interface InputProps {
 /**
  * Komponenta za prikaz vnosa z možnostjo napake.
  *
- * @component
+ * @function
  * @param {Object} props - Lastnosti komponente.
  * @param {boolean} [props.$error] - Ali ima vnos napako.
  * @returns {JSX.Element} JSX element, ki predstavlja vnos z možnostjo napake.

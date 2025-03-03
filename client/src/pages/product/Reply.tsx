@@ -17,7 +17,7 @@ interface ReplyProps {
 /**
  * Komponenta za prikaz odgovora na mnenje.
  *
- * @component
+ * @function
  * @param {Object} props - Lastnosti komponente.
  * @param {string} props.username - Uporabniško ime avtorja odgovora.
  * @param {string} props.icon - URL ikone uporabnika.

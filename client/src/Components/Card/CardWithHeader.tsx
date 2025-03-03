@@ -30,7 +30,7 @@ interface ChildrenProps {
 /**
  * CardWithHeader komponenta za prikaz kartice z glavo in telesom.
  *
- * @component
+ * @function
  * @param {object} props - Lastnosti komponente.
  * @param {React.ReactNode[] | React.ReactNode} props.children - Vsebina kartice.
  * @returns {JSX.Element} - JSX element kartice z glavo.
@@ -53,7 +53,7 @@ export const CardWithHeader: FC<ChildrenProps> & {
 /**
  * CardWithHeader.Header komponenta za prikaz glave kartice.
  *
- * @component
+ * @function
  * @param {object} props - Lastnosti komponente.
  * @param {React.ReactNode[] | React.ReactNode} props.children - Vsebina glave kartice.
  * @returns {JSX.Element} - JSX element glave kartice.
@@ -66,7 +66,7 @@ CardWithHeader.Header = ({ children }: ChildrenProps) => {
 /**
  * CardWithHeader.Body komponenta za prikaz telesa kartice.
  *
- * @component
+ * @function
  * @param {object} props - Lastnosti komponente.
  * @param {React.ReactNode[] | React.ReactNode} props.children - Vsebina telesa kartice.
  * @returns {JSX.Element} - JSX element telesa kartice.

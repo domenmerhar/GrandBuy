@@ -17,7 +17,7 @@ const RefundGrid = styled.div`
 /**
  * Komponenta za prikaz povračil na nadzorni plošči.
  *
- * @component
+ * @function
  * @returns {JSX.Element} JSX element, ki predstavlja povračila na nadzorni plošči.
  *
  * @example

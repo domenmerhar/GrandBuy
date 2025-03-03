@@ -9,7 +9,7 @@ import { CartItem } from "./CartItem";
 /**
  * Komponenta za prikazovanje artiklov v košarici.
  *
- * @component
+ * @function
  * @returns {JSX.Element} JSX element, ki predstavlja seznam artiklov v košarici.
  *
  * @example

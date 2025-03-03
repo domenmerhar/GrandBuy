@@ -25,7 +25,7 @@ const StyledOrdersPage = styled(Content)`
 /**
  * Komponenta za prikaz strani z naročili.
  *
- * @component
+ * @function
  * @returns {JSX.Element} JSX element, ki predstavlja stran z naročili.
  *
  * @example

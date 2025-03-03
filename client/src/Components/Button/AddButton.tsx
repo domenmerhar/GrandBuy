@@ -11,7 +11,7 @@ interface AddButtonProps {
 /**
  * AddButton komponenta za dodajanje izdelka v košarico.
  *
- * @component
+ * @function
  * @param {object} props - Lastnosti komponente.
  * @param {string} props.productId - ID izdelka, ki ga želimo dodati v košarico.
  * @returns {JSX.Element} - JSX element gumba za dodajanje izdelka v košarico.

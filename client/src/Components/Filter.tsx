@@ -38,7 +38,7 @@ const Button = styled.button`
 /**
  * Filter komponenta za prikaz filtrov z gumbi.
  *
- * @component
+ * @function
  * @param {object} props - Lastnosti komponente.
  * @param {IOption[]} props.options - Niz možnosti za filtre.
  * @returns {JSX.Element} - JSX element filtrov.

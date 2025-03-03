@@ -12,7 +12,7 @@ interface StepperProps {
 /**
  * Komponenta za prikaz korakov.
  *
- * @component
+ * @function
  * @param {Object} props - Lastnosti komponente.
  * @param {string} props.searchParamName - Ime iskalnega parametra.
  * @param {"orange" | "white"} [props.color] - Barva korakov (privzeto "white").

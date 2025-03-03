@@ -27,6 +27,7 @@ const AddProductPageContent = styled(Content)`
  * AddProductPage komponenta za prikaz strani za dodajanje izdelka.
  *
  * Ta komponenta omogoča uporabniku, da naloži slike izdelka, vnese informacije o izdelku in naloži datoteko Markdown z opisom izdelka.
+ * @function
  *
  * @returns {JSX.Element} - JSX element, ki predstavlja stran za dodajanje izdelka.
  *

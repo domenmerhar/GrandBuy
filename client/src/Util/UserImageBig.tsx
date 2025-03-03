@@ -3,7 +3,7 @@ import styled from "styled-components";
 /**
  * Komponenta za prikaz velike uporabniške slike.
  *
- * @component
+ * @function
  * @returns {JSX.Element} JSX element, ki predstavlja veliko uporabniško sliko.
  *
  * @example

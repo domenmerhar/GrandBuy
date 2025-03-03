@@ -39,7 +39,7 @@ interface TableProps {
 /**
  * Table komponenta za prikaz tabele s podatki.
  *
- * @component
+ * @function
  * @param {object} props - Lastnosti komponente.
  * @param {string[]} props.headers - Niz naslovov stolpcev tabele.
  * @param {React.ReactNode | React.ReactNode[]} props.children - Vsebina vrstic tabele.
@@ -82,7 +82,7 @@ export const Table: FC<TableProps> & {
 /**
  * Table.Row komponenta za prikaz vrstice v tabeli.
  *
- * @component
+ * @function
  * @returns {JSX.Element} - JSX element vrstice tabele.
  */
 

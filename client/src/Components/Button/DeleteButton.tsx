@@ -12,7 +12,7 @@ interface DeleteButtonProps {
 /**
  * DeleteButton komponenta za prikaz gumba za brisanje.
  *
- * @component
+ * @function
  * @param {object} props - Lastnosti komponente.
  * @param {function} props.handleDelete - Funkcija, ki se izvede ob kliku na gumb za brisanje.
  * @param {"small" | "medium" | "large"} props.size - Velikost gumba.

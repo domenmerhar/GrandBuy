@@ -28,7 +28,7 @@ interface ReviewActionsProps {
 /**
  * Komponenta za prikaz dejanj za mnenje.
  *
- * @component
+ * @function
  * @param {Object} props - Lastnosti komponente.
  * @param {string} props.reviewId - ID mnenja.
  * @param {boolean} props.showReplies - Ali naj bodo odgovori prikazani.

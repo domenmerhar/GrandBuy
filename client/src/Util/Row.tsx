@@ -4,7 +4,7 @@ import { RowColumnProps } from "./types";
 /**
  * Komponenta za prikaz vrstice.
  *
- * @component
+ * @function
  * @param {Object} props - Lastnosti komponente.
  * @param {string} [props.$gap] - Razmik med elementi v vrstici.
  * @param {string} [props.$justifyContent] - Poravnava vsebine v vrstici.

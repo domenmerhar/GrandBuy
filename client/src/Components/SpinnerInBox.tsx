@@ -22,7 +22,7 @@ const StyledSpinnerInBox = styled.div<SpinnerProps>`
 /**
  * SpinnerInBox komponenta za prikaz vrtljivega indikatorja nalaganja znotraj polja.
  *
- * @component
+ * @function
  * @param {object} props - Lastnosti komponente.
  * @param {"small" | "medium" | "large"} [props.size="large"] - Velikost vrtljivega indikatorja.
  * @param {boolean} [props.isLoading=true] - Ali se podatki nalagajo.

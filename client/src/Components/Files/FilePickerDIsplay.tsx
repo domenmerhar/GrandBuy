@@ -14,7 +14,7 @@ interface ImagePickerProps {
 /**
  * FilePickerDisplay komponenta za prikaz izbranih datotek in vnosnega polja za izbiro novih datotek.
  *
- * @component
+ * @function
  * @param {object} props - Lastnosti komponente.
  * @param {string} props.label - Oznaka vnosnega polja.
  * @param {string} props.id - ID vnosnega polja.

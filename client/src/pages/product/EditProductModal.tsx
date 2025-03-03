@@ -12,7 +12,7 @@ import { useParams } from "react-router-dom";
 /**
  * Komponenta za urejanje izdelka v modalnem oknu.
  *
- * @component
+ * @function
  * @returns {JSX.Element} JSX element, ki predstavlja modalno okno za urejanje izdelka.
  *
  * @example

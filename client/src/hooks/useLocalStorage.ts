@@ -3,9 +3,9 @@ import { useState, useEffect } from "react";
 /**
  * useLocalStorage hook za uporabo lokalnega pomnilnika za shranjevanje in pridobivanje podatkov.
  *
+ * @function
  * @param {unknown} initialState - Začetna vrednost, ki se uporabi, če vrednost v lokalnem pomnilniku ne obstaja.
  * @param {string} key - Ključ, pod katerim se podatki shranjujejo v lokalni pomnilnik.
- * @returns {[unknown, function]} - Vrne polje z dvema elementoma: vrednostjo in funkcijo za nastavitev vrednosti.
  *
  * @example
  * // Uporaba hook-a

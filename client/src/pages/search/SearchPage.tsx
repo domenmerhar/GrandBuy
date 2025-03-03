@@ -9,7 +9,7 @@ import { useTranslation } from "react-i18next";
 /**
  * Komponenta za prikaz strani iskanja.
  *
- * @component
+ * @function
  * @returns {JSX.Element} JSX element, ki predstavlja stran iskanja.
  *
  * @example

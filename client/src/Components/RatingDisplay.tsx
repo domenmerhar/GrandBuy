@@ -24,7 +24,7 @@ interface RatingDisplayProps {
 /**
  * RatingDisplay komponenta za prikaz ocen z zvezdicami.
  *
- * @component
+ * @function
  * @param {object} props - Lastnosti komponente.
  * @param {number} props.rating - Ocena, ki se prikaže.
  * @param {number} [props.size=28] - Velikost zvezdic.

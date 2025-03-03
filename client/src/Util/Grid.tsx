@@ -11,7 +11,7 @@ interface GridProps {
 /**
  * Komponenta za prikaz mreže.
  *
- * @component
+ * @function
  * @param {Object} props - Lastnosti komponente.
  * @param {string} props.$minWidth - Minimalna širina stolpcev.
  * @param {string} props.$maxWidth - Maksimalna širina stolpcev.

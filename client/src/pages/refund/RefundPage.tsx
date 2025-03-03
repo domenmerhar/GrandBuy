@@ -29,7 +29,7 @@ const Grid = styled.div`
 /**
  * Komponenta za prikaz strani z zahtevami za vračilo.
  *
- * @component
+ * @function
  * @returns {JSX.Element} JSX element, ki predstavlja stran z zahtevami za vračilo.
  *
  * @example

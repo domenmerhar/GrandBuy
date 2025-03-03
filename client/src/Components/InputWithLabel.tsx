@@ -18,7 +18,8 @@ const Label = styled.label`
 /**
  * InputWithLabel komponenta za prikaz vnosnega polja z oznako.
  *
- * @component
+ * @function
+ *
  * @param {object} props - Lastnosti komponente.
  * @param {string} props.id - ID vnosnega polja.
  * @param {string} props.title - Naslov oznake vnosnega polja.

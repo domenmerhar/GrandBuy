@@ -9,7 +9,7 @@ import { Modal } from "../../../Components/Modal";
 /**
  * Komponenta za prikaz glave strani s kuponi.
  *
- * @component
+ * @function
  * @returns {JSX.Element} JSX element, ki predstavlja glavo strani s kuponi.
  *
  * @example

@@ -8,7 +8,7 @@ interface SquareButtonProps {
 /**
  * Komponenta za prikaz kvadratnega gumba.
  *
- * @component
+ * @function
  * @param {Object} props - Lastnosti komponente.
  * @param {"orange" | "red" | "white"} props.$color - Barva gumba.
  * @param {"large" | "medium" | "small"} props.$size - Velikost gumba.

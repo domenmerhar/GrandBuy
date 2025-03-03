@@ -17,7 +17,7 @@ const page = 1;
 /**
  * Komponenta za prikaz odgovorov na mnenja.
  *
- * @component
+ * @function
  * @param {Object} props - Lastnosti komponente.
  * @param {string} props.id - ID mnenja, na katero odgovarjamo.
  * @returns {JSX.Element} JSX element, ki predstavlja odgovore na mnenja.

@@ -17,7 +17,7 @@ const StyledThemeLanguageRow = styled(Row)`
 /**
  * ThemeLanguageRow komponenta za prikaz vrstice z gumbi za izbiro teme in jezika.
  *
- * @component
+ * @function
  * @returns {JSX.Element} - JSX element vrstice z gumbi za temo in jezik.
  *
  * @example

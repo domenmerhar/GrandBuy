@@ -10,7 +10,7 @@ interface NakedInputProps {
 /**
  * Komponenta za prikaz vhodnega polja brez obrobe.
  *
- * @component
+ * @function
  * @param {Object} props - Lastnosti komponente.
  * @param {string} [props.$width] - Širina vhodnega polja.
  * @param {string} [props.$height] - Višina vhodnega polja.

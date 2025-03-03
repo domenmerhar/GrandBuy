@@ -3,7 +3,7 @@ import styled from "styled-components";
 /**
  * Komponenta za prikaz stranske postavitve.
  *
- * @component
+ * @function
  * @returns {JSX.Element} JSX element, ki predstavlja stransko postavitev.
  *
  * @example

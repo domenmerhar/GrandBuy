@@ -11,7 +11,7 @@ const StyledLanguageSection = styled(SettingsForm)`
 /**
  * Komponenta za prikaz sekcije za izbiro jezika.
  *
- * @component
+ * @function
  * @returns {JSX.Element} JSX element, ki predstavlja sekcijo za izbiro jezika.
  *
  * @example

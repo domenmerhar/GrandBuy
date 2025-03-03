@@ -70,7 +70,7 @@ const IconHolder = styled.button`
 /**
  * Komponenta za iskalno vrstico.
  *
- * @component
+ * @function
  * @returns {JSX.Element} JSX element, ki predstavlja iskalno vrstico.
  *
  * @example

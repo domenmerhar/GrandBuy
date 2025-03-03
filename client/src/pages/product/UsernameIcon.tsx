@@ -10,7 +10,7 @@ interface UsernameIconProps {
 /**
  * Komponenta za prikaz uporabniškega imena in ikone.
  *
- * @component
+ * @function
  * @param {Object} props - Lastnosti komponente.
  * @param {string} props.username - Uporabniško ime.
  * @param {string} props.icon - URL ikone uporabnika.

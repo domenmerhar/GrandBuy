@@ -3,7 +3,7 @@ import styled from "styled-components";
 /**
  * Komponenta za prikaz mreže s filtri za kartice.
  *
- * @component
+ * @function
  * @returns {JSX.Element} JSX element, ki predstavlja mrežo s filtri za kartice.
  *
  * @example

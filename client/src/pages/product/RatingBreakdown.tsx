@@ -9,7 +9,7 @@ import { useTranslation } from "react-i18next";
 /**
  * Komponenta za prikaz razčlenitve ocen.
  *
- * @component
+ * @function
  * @returns {JSX.Element} JSX element, ki predstavlja razčlenitev ocen.
  *
  * @example

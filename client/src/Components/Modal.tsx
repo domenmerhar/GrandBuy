@@ -96,7 +96,7 @@ interface ModalComponent extends FC<{ children: ReactNode }> {
 /**
  * Modal komponenta za prikaz modalnega okna.
  *
- * @component
+ * @function
  * @param {object} props - Lastnosti komponente.
  * @param {ReactNode} props.children - Vsebina modalnega okna.
  * @returns {JSX.Element} - JSX element modalnega okna.
@@ -218,7 +218,7 @@ Modal.useModalContext = useModalContext;
 /**
  * Modal.Window komponenta za prikaz vsebine modalnega okna.
  *
- * @component
+ * @function
  * @param {object} props - Lastnosti komponente.
  * @param {string} [props.title] - Naslov modalnega okna.
  * @param {string | ReactNode | ReactNode[]} [props.children] - Vsebina modalnega okna.

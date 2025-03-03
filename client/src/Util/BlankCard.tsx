@@ -3,7 +3,7 @@ import styled from "styled-components";
 /**
  * Komponenta za prikaz prazne kartice.
  *
- * @component
+ * @function
  * @returns {JSX.Element} JSX element, ki predstavlja prazno kartico.
  *
  * @example

@@ -22,6 +22,7 @@ interface CarouselUploadProps {
 
 /**
  * Komponenta za nalaganje slik in prikazovanje vrtiljaka slik.
+ * @function
  * @param {CarouselUploadProps} props - Lastnosti komponente.
  * @returns {JSX.Element} JSX Element za nalaganje in prikazovanje slik.
  *

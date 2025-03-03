@@ -68,7 +68,7 @@ const ShopButton = styled(Button)`
 /**
  * Hero komponenta za prikaz herojskega odseka z naslovom, podnaslovom, odštevalnikom in gumbom.
  *
- * @component
+ * @function
  * @returns {JSX.Element} - JSX element herojskega odseka.
  *
  * @example

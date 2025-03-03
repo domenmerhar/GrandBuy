@@ -48,7 +48,7 @@ const Button = styled.button`
 /**
  * SwitchButtons komponenta za prikaz preklopnih gumbov.
  *
- * @component
+ * @function
  * @param {object} props - Lastnosti komponente.
  * @param {SwitchButtonOption[]} props.options - Niz možnosti za preklopne gumbe.
  * @param {function} [props.onClick] - Funkcija, ki se izvede ob kliku na gumb.
