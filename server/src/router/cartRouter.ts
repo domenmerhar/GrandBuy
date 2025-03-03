@@ -116,7 +116,9 @@ cartRouter.route("/apply-coupon/:couponCode").patch(
   redeemCouponOnCartItems
 );
 
-cartRouter.route("/seller").get(restrictTo("seller"), getSellerOrderedItems);
+cartRouter.use(restrictTo("seller"));
+
+cartRouter.route("/seller").get(getSellerOrderedItems);
 
 cartRouter.route("/seller/revenue/:days").get(
   validate([
@@ -127,22 +129,19 @@ cartRouter.route("/seller/revenue/:days").get(
       .withMessage("Please provide a days."),
   ]),
 
-  restrictTo("seller"),
   getRecentRevenueForSeller
 );
 
-cartRouter
-  .route("/seller/recent-5")
-  .get(
-    validate([
-      param("status")
-        .isIn(["all", "pending", "shipped", "cancelled", "delivered"])
-        .withMessage(
-          "Status must be either pending, shipped, cancelled or delivered."
-        ),
-    ]),
-    restrictTo("seller"),
-    getSellerRecent5
-  );
+cartRouter.route("/seller/recent-5").get(
+  validate([
+    param("status")
+      .isIn(["all", "pending", "shipped", "cancelled", "delivered"])
+      .withMessage(
+        "Status must be either pending, shipped, cancelled or delivered."
+      ),
+  ]),
+
+  getSellerRecent5
+);
 
 export default cartRouter;
