@@ -2,7 +2,7 @@ import React, { FC } from "react";
 import { HiChevronLeft, HiChevronRight } from "react-icons/hi";
 
 import styled from "styled-components";
-import { NakedInput } from "./NakedInput";
+import { NakedInput } from "../../Util/NakedInput";
 
 const StyledStepper = styled.div`
   display: flex;

@@ -1,6 +1,6 @@
 import { Column } from "../../Util/Column";
 import { Content } from "../../Util/Content";
-import { Modal } from "../../Util/Modal";
+import { Modal } from "../../Components/Modal";
 import { LanguageSection } from "./LanguageSection";
 import { RoleSection } from "./RoleSection";
 import { PasswordSection } from "./PasswordSection";

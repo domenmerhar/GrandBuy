@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Logo } from "../../Util/Logo";
+import { Logo } from "../../Components/Logo";
 import { Button } from "../../Util/Button";
 import { AuthContainer } from "../../Util/AuthContainer";
 import { NakedInput } from "../../Util/NakedInput";

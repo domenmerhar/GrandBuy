@@ -1,7 +1,7 @@
 import { Content } from "../../Util/Content";
 import { Stepper } from "../../Util/Stepper";
 import { CardFilterGrid } from "../../Util/CardFilterGrid";
-import { ProductsCard } from "../../Util/ProductsCard";
+import { ProductsCard } from "../../Components/Card/ProductsCard";
 import { useCartItemsCount } from "../../hooks/cart/useCartItemsCount";
 import { CartItems } from "./CartItems";
 import { Column } from "../../Util/Column";

@@ -1,7 +1,7 @@
 import { ErrorBox } from "../../../Components/ErrorBox";
 import { SpinnerInBox } from "../../../Components/SpinnerInBox";
 import useGetSellerRefunds from "../../../hooks/refund/useGetSellerRefunds";
-import { Modal } from "../../../Util/Modal";
+import { Modal } from "../../../Components/Modal";
 import RefundCard from "../../refund/RefundCard";
 import { RefundItem } from "../../../Util/types/index";
 import styled from "styled-components";

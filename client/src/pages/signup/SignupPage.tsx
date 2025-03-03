@@ -1,8 +1,8 @@
 import styled from "styled-components";
-import { Logo } from "../../Util/Logo";
+import { Logo } from "../../Components/Logo";
 import { Button } from "../../Util/Button";
 import { StyledLink } from "../../Util/Link";
-import { InputWithLabel } from "../../Util/InputWithLabel";
+import { InputWithLabel } from "../../Components/InputWithLabel";
 import { AuthContainer } from "../../Util/AuthContainer";
 import { useSignup } from "../../hooks/useSignup";
 import toast from "react-hot-toast";

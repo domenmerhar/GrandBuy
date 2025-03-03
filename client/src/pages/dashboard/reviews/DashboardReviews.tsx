@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { useGetSellerReviews } from "../../../hooks/repliesReviews/useGetSellerReviews";
-import { Modal } from "../../../Util/Modal";
+import { Modal } from "../../../Components/Modal";
 import { ReviewProduct } from "../../../Util/types";
 import { ReviewCardDashboard } from "./ReviewCardDashboard";
 import { SpinnerInBox } from "../../../Components/SpinnerInBox";

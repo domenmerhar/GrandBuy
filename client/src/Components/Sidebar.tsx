@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { FC, ReactNode } from "react";
-import { StyledSidebar } from "./StyledSidebar";
+import { StyledSidebar } from "../Util/StyledSidebar";
 
 interface SidebarProps {
   children: ReactNode | ReactNode[];

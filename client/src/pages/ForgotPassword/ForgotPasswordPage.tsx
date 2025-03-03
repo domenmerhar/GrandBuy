@@ -1,10 +1,10 @@
 import { AuthContainer } from "../../Util/AuthContainer";
-import { Logo } from "../../Util/Logo";
+import { Logo } from "../../Components/Logo";
 import { useTranslation } from "react-i18next";
 import { Button } from "../../Util/Button";
 import styled from "styled-components";
 import { Column } from "../../Util/Column";
-import { InputWithLabel } from "../../Util/InputWithLabel";
+import { InputWithLabel } from "../../Components/InputWithLabel";
 import toast from "react-hot-toast";
 import { useForgotPassword } from "../../hooks/auth/useForgotPassword";
 import { useRef } from "react";

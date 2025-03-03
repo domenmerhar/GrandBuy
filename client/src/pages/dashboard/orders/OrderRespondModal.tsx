@@ -1,5 +1,5 @@
 import { useSearchParams } from "react-router-dom";
-import { Modal } from "../../../Util/Modal";
+import { Modal } from "../../../Components/Modal";
 import { useTranslation } from "react-i18next";
 import { useShipOrder } from "../../../hooks/order/useShipOrder";
 import { useJWT } from "../../../hooks/useJWT";

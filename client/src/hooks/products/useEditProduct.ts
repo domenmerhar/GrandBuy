@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import { useTranslation } from "react-i18next";
-import { Modal } from "../../Util/Modal";
+import { Modal } from "../../Components/Modal";
 import { useParams } from "react-router-dom";
 import { updateProduct } from "../../api/product/updateProduct";
 

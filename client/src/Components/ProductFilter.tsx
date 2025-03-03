@@ -1,10 +1,10 @@
 import styled from "styled-components";
-import { HeaderUppercaseBold } from "./HeaderUppercaseBold";
+import { HeaderUppercaseBold } from "../Util/HeaderUppercaseBold";
 import { SliderFilter } from "../pages/search/SliderFilter";
 import { RatingInteractive } from "../pages/search/RatingInteractive";
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
-import { CheckboxSearchParam } from "../Components/CheckboxSearchParam";
+import { CheckboxSearchParam } from "./CheckboxSearchParam";
 
 const ContentHolder = styled.div`
   display: flex;

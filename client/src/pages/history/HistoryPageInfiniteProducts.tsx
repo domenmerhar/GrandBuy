@@ -3,7 +3,7 @@ import { useAuthContext } from "../../contexts/AuthContext";
 import { getHistory } from "../../api/getHistory";
 import { InfiniteProducts } from "../../Components/InfiniteProducts";
 import { HistoryItem, HistoryResponse } from "../../Util/types";
-import { ProductCard } from "../../Util/ProductCard";
+import { ProductCard } from "../../Components/Card/ProductCard";
 import { toApiFilesPath } from "../../functions/toApiFilesPath";
 import { ProductGrid } from "../../Util/ProductGrid";
 import { useMe } from "../../hooks/useMe";

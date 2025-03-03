@@ -1,8 +1,8 @@
-import { Header } from "./Header";
-import { Row } from "./Row";
+import { Header } from "../Util/Header";
+import { Row } from "../Util/Row";
 import { Filter } from "./Filter";
-import { IOption } from "./types";
-import { Select } from "./Select";
+import { IOption } from "../Util/types";
+import { Select } from "../Util/Select";
 import { FC } from "react";
 
 interface RefundPageHeaderProps {

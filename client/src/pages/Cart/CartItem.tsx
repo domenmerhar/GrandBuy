@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { Row } from "../../Util/Row";
 import { FC, useEffect, useState } from "react";
 import { Column } from "../../Util/Column";
-import { StepperRaw } from "../../Util/StepperRaw";
+import { StepperRaw } from "../../Components/Button/StepperRaw";
 import { useAuthContext } from "../../contexts/AuthContext";
 import { useIncrementCartItem } from "../../hooks/cart/useIncrementCartItem";
 import { useDecrementCartItem } from "../../hooks/cart/useDecrementCartItem";

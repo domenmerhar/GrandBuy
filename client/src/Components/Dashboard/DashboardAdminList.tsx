@@ -5,7 +5,7 @@ import {
   HiOutlineUserGroup,
 } from "react-icons/hi";
 import { Column } from "../../Util/Column";
-import { NavigationTextButton } from "../../Util/NavigationTextButton";
+import { NavigationTextButton } from "../Button/NavigationTextButton";
 import {
   HiOutlineExclamationTriangle,
   HiOutlineMegaphone,

@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next";
-import { Modal } from "../../../Util/Modal";
-import { InputWithLabel } from "../../../Util/InputWithLabel";
+import { Modal } from "../../../Components/Modal";
+import { InputWithLabel } from "../../../Components/InputWithLabel";
 import { Column } from "../../../Util/Column";
 import styled from "styled-components";
 import { Dispatch, SetStateAction } from "react";

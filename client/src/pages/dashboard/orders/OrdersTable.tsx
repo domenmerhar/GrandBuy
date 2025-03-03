@@ -1,7 +1,7 @@
 import { Table } from "../../../Components/Table";
 import { Button } from "../../../Util/Button";
 import { Badge } from "../../../Util/Badge";
-import { Modal } from "../../../Util/Modal";
+import { Modal } from "../../../Components/Modal";
 import { useSearchParams } from "react-router-dom";
 import { ISellerOrder, OrderStatus } from "../../../Util/types";
 import { useGetSellerOrderedItems } from "../../../hooks/order/useGetSellerOrderedItems";

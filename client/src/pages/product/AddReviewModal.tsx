@@ -1,5 +1,5 @@
 import { Column } from "../../Util/Column";
-import { Modal } from "../../Util/Modal";
+import { Modal } from "../../Components/Modal";
 import { RatingInteractive } from "../search/RatingInteractive";
 import { useParams, useSearchParams } from "react-router-dom";
 import { useRef } from "react";

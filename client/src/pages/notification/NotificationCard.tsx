@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { BadgeCard } from "../../Util/BadgeCard";
+import { BadgeCard } from "../../Components/Card/BadgeCard";
 import { NotificationType } from "../../Util/types";
 import { useTranslation } from "react-i18next";
 

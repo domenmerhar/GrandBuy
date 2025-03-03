@@ -1,11 +1,11 @@
 import { FC } from "react";
 import styled from "styled-components";
-import { AddButton } from "./AddButton";
+import { AddButton } from "../Button/AddButton";
 import { Link } from "react-router-dom";
-import { ProductCardProps } from "./types";
-import { toPrice } from "../functions/toPrice";
-import { Discount } from "./Discount";
-import { useMe } from "../hooks/useMe";
+import { ProductCardProps } from "../../Util/types";
+import { toPrice } from "../../functions/toPrice";
+import { Discount } from "../../Util/Discount";
+import { useMe } from "../../hooks/useMe";
 
 const StyledProductCard = styled.div`
   text-decoration: none;

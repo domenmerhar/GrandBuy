@@ -4,7 +4,7 @@ import {
   HiOutlinePresentationChartBar,
   HiOutlineUser,
 } from "react-icons/hi";
-import { NavigationTextButton } from "../../Util/NavigationTextButton";
+import { NavigationTextButton } from "../Button/NavigationTextButton";
 import { HiArrowUturnLeft, HiOutlineCog8Tooth } from "react-icons/hi2";
 import { BiPackage } from "react-icons/bi";
 import { Column } from "../../Util/Column";

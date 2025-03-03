@@ -1,6 +1,6 @@
 import { HiDotsVertical } from "react-icons/hi";
 import { ButtonWithNotifcations } from "../../Components/Button/ButtonWithNotifcations";
-import { CardWithHeader } from "../../Util/CardWithHeader";
+import { CardWithHeader } from "../../Components/Card/CardWithHeader";
 import { Row } from "../../Util/Row";
 import styled from "styled-components";
 import { useSearchParams } from "react-router-dom";

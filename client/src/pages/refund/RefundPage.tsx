@@ -6,7 +6,7 @@ import {
   RefundStatus,
   RefundUser,
 } from "../../Util/types";
-import { FilterSortHeader } from "../../Util/FilterSortHeader";
+import { FilterSortHeader } from "../../Components/FilterSortHeader";
 import { useInfinite } from "../../hooks/useInfinite";
 import { getUserRefunds } from "../../api/refund/getUserRefunds";
 import { useAuthContext } from "../../contexts/AuthContext";

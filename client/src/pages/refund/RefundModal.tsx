@@ -5,7 +5,7 @@ import toast from "react-hot-toast";
 import { useJWT } from "../../hooks/useJWT";
 import { useRequestRefund } from "../../hooks/refund/useRequestRefund";
 import { Column } from "../../Util/Column";
-import { Modal } from "../../Util/Modal";
+import { Modal } from "../../Components/Modal";
 import { TextareaWithLabel } from "../../Components/TextareaWithLabel";
 
 export const RefundModal = () => {

@@ -28,7 +28,7 @@ export const MoreFromSellerSection = () => {
         {t("moreFromSeller")}
       </Header>
 
-      <HorizontalProducts products={data.data.products} />
+      <HorizontalProducts products={data?.data?.products} />
     </Column>
   );
 };

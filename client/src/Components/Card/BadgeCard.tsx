@@ -1,10 +1,10 @@
 import styled from "styled-components";
-import { BlankCard } from "./BlankCard";
-import { Column } from "./Column";
-import { Row } from "./Row";
-import { Badge } from "./Badge";
+import { BlankCard } from "../../Util/BlankCard";
+import { Column } from "../../Util/Column";
+import { Row } from "../../Util/Row";
+import { Badge } from "../../Util/Badge";
 import React, { FC } from "react";
-import { BadgeColor, BadgeProps } from "./types";
+import { BadgeColor, BadgeProps } from "../../Util/types";
 import { Link } from "react-router-dom";
 
 const ProfileImage = styled.img`

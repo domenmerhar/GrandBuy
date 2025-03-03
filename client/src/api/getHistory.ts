@@ -17,7 +17,7 @@ export const getHistory = async ({
   });
 
   const data = await res.json();
-  const nextItem = data.length === limit ? page + 1 : null;
+  const nextItem = data?.length === limit ? page + 1 : null;
 
   return { ...data, nextItem };
 };

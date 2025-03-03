@@ -1,6 +1,6 @@
 import { Row } from "../../Util/Row";
 import { Select } from "../../Util/Select";
-import { Filter } from "../../Util/Filter";
+import { Filter } from "../../Components/Filter";
 import { IOption } from "../../Util/types";
 import { Header } from "../../Util/Header";
 import { useTranslation } from "react-i18next";

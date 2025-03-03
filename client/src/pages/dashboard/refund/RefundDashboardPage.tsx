@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next";
-import { FilterSortHeader } from "../../../Util/FilterSortHeader";
-import { Modal } from "../../../Util/Modal";
+import { FilterSortHeader } from "../../../Components/FilterSortHeader";
+import { Modal } from "../../../Components/Modal";
 import { Stepper } from "../../../Util/Stepper";
 import { IOption } from "../../../Util/types";
 import { DashboardRefunds } from "./DashboardRefunds";

@@ -11,7 +11,7 @@ import { toDate } from "../../functions/toDate";
 import { toApiFilesPath } from "../../functions/toApiFilesPath";
 import { ErrorBox } from "../../Components/ErrorBox";
 import { ProductPageInfiniteProducts } from "./ProductPageInfiniteProducts";
-import { Modal } from "../../Util/Modal";
+import { Modal } from "../../Components/Modal";
 import EditProductModal from "./EditProductModal";
 
 interface IProductDetails {
@@ -43,7 +43,7 @@ export const ProductPage = () => {
       </Content>
     );
 
-  if (error || !data.data) return <ErrorBox />;
+  if (error || !data?.data) return <ErrorBox />;
 
   const {
     description,
@@ -55,7 +55,7 @@ export const ProductPage = () => {
     shipping,
     user: { username },
     discount,
-  } = data.data.product as IProductDetails;
+  } = data?.data?.product as IProductDetails;
 
   const markdownPath = toApiFilesPath(description);
   const imagesPath = images.map((image) => toApiFilesPath(image));

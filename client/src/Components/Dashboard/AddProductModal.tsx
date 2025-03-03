@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { Column } from "../../Util/Column";
-import { Modal } from "../../Util/Modal";
+import { Modal } from "../Modal";
 import { useRef, useState } from "react";
 import { useJWT } from "../../hooks/useJWT";
 import { useAddProduct } from "../../hooks/products/useAddProduct";

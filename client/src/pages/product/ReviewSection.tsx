@@ -1,5 +1,5 @@
 import { BlankCard } from "../../Util/BlankCard";
-import { Modal } from "../../Util/Modal";
+import { Modal } from "../../Components/Modal";
 import { Row } from "../../Util/Row";
 import { RatingBreakdown } from "./RatingBreakdown";
 import styled from "styled-components";

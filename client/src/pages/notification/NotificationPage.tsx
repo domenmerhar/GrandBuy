@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { Content } from "../../Util/Content";
-import { FilterSortHeader } from "../../Util/FilterSortHeader";
+import { FilterSortHeader } from "../../Components/FilterSortHeader";
 import { NotificationCard } from "./NotificationCard";
 import { useInfinite } from "../../hooks/useInfinite";
 import { useSearchParams } from "react-router-dom";

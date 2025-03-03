@@ -1,6 +1,6 @@
 import { ComponentProps, forwardRef } from "react";
 import styled from "styled-components";
-import { Input } from "./Input";
+import { Input } from "../Util/Input";
 
 type InputProps = ComponentProps<typeof Input>;
 

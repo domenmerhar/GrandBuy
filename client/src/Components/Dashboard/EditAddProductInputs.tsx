@@ -1,4 +1,4 @@
-import { InputWithLabel } from "../../Util/InputWithLabel";
+import { InputWithLabel } from "../InputWithLabel";
 import { FilePickerDisplay } from "../Files/FilePickerDIsplay";
 import { FilePicker } from "../Files/FilePicker";
 import {

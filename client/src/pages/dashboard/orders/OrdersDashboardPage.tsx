@@ -1,9 +1,9 @@
-import { FilterSortHeader } from "../../../Util/FilterSortHeader";
+import { FilterSortHeader } from "../../../Components/FilterSortHeader";
 import { Stepper } from "../../../Util/Stepper";
 import { OverviewCard } from "../../../Components/OverviewCard";
 import { Row } from "../../../Util/Row";
 import { BiPackage } from "react-icons/bi";
-import { Modal } from "../../../Util/Modal";
+import { Modal } from "../../../Components/Modal";
 import { OrdersTable } from "./OrdersTable";
 import { OrderRespondModal } from "./OrderRespondModal";
 import { useGetSellerOrderedItems } from "../../../hooks/order/useGetSellerOrderedItems";

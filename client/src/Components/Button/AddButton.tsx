@@ -1,7 +1,7 @@
 import { HiPlus } from "react-icons/hi";
-import { SquareButton } from "./SquareButton";
-import { useAddProductToCard } from "../hooks/cart/useAddProductToCard";
-import { useAuthContext } from "../contexts/AuthContext";
+import { SquareButton } from "../../Util/SquareButton";
+import { useAddProductToCard } from "../../hooks/cart/useAddProductToCard";
+import { useAuthContext } from "../../contexts/AuthContext";
 import { FC } from "react";
 
 interface AddButtonProps {

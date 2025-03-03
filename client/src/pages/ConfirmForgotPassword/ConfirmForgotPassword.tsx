@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Logo } from "../../Util/Logo";
+import { Logo } from "../../Components/Logo";
 import { Button } from "../../Util/Button";
 import { AuthContainer } from "../../Util/AuthContainer";
 import { NakedInput } from "../../Util/NakedInput";
@@ -8,7 +8,7 @@ import toast from "react-hot-toast";
 import { useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useConfirmForgotPassword } from "../../hooks/auth/useConfirmForgotPassword";
-import { InputWithLabel } from "../../Util/InputWithLabel";
+import { InputWithLabel } from "../../Components/InputWithLabel";
 import { Column } from "../../Util/Column";
 
 const Form = styled.form`

@@ -4,7 +4,7 @@ import { Row } from "../../../Util/Row";
 import { Select } from "../../../Util/Select";
 import { SquareButton } from "../../../Util/SquareButton";
 import { useTranslation } from "react-i18next";
-import { Modal } from "../../../Util/Modal";
+import { Modal } from "../../../Components/Modal";
 
 export const CouponPageHeader = () => {
   const { t } = useTranslation();

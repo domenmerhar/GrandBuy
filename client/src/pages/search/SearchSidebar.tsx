@@ -1,5 +1,5 @@
-import { ProductFilter } from "../../Util/ProductFilter";
-import { Sidebar } from "../../Util/Sidebar";
+import { ProductFilter } from "../../Components/ProductFilter";
+import { Sidebar } from "../../Components/Sidebar";
 
 export const SearchSidebar = () => {
   return (

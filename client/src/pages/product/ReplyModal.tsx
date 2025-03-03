@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next";
-import { Modal } from "../../Util/Modal";
+import { Modal } from "../../Components/Modal";
 import { useSearchParams } from "react-router-dom";
 import { TextareaWithLabel } from "../../Components/TextareaWithLabel";
 import { Column } from "../../Util/Column";

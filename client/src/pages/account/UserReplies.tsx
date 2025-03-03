@@ -39,7 +39,7 @@ export const UserReplies = () => {
   const renderFn = ({ data }: { data: { replies: Reply[] } }) => {
     if (!data?.replies) return null;
 
-    return data.replies.map(({ _id, reply, createdAt }) => (
+    return data?.replies?.map(({ _id, reply, createdAt }) => (
       <ReviewReplyCard
         key={_id}
         content={reply}
@@ -55,7 +55,7 @@ export const UserReplies = () => {
       {...data}
       renderFn={renderFn}
       container={Grid}
-      isLoading={isLoading || data.isLoading}
+      isLoading={isLoading || data?.isLoading}
     />
   );
 };

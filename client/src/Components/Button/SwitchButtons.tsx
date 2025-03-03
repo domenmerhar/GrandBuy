@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { IOption } from "./types";
+import { IOption } from "../../Util/types";
 import styled from "styled-components";
 
 interface SwitchButtonOption extends IOption {

@@ -1,11 +1,11 @@
 import { t } from "i18next";
 import { toApiFilesPath } from "../../functions/toApiFilesPath";
-import { BadgeCard } from "../../Util/BadgeCard";
+import { BadgeCard } from "../../Components/Card/BadgeCard";
 import { toDate } from "../../functions/toDate";
 import { Row } from "../../Util/Row";
 import styled from "styled-components";
 import { HiOutlineArrowUturnLeft } from "react-icons/hi2";
-import { Modal } from "../../Util/Modal";
+import { Modal } from "../../Components/Modal";
 import { useSearchParams } from "react-router-dom";
 import { BadgeColor } from "../../Util/types";
 

@@ -37,7 +37,7 @@ export const UserReviews = () => {
   const renderFn = (page: { data?: { doc: Review[] } }) => {
     if (!page?.data) return;
 
-    return page.data.doc.map(({ _id, review, createdAt }) => (
+    return page?.data?.doc?.map(({ _id, review, createdAt }) => (
       <ReviewReplyCard
         key={_id}
         content={review}

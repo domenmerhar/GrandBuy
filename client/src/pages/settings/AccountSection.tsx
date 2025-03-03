@@ -3,7 +3,7 @@ import { useMe } from "../../hooks/useMe";
 import { Button } from "../../Util/Button";
 import { Column } from "../../Util/Column";
 import { HeaderUppercaseBold } from "../../Util/HeaderUppercaseBold";
-import { InputWithLabel } from "../../Util/InputWithLabel";
+import { InputWithLabel } from "../../Components/InputWithLabel";
 import { Row } from "../../Util/Row";
 import { UserSettings } from "../../Util/types";
 import { SettingsForm } from "./SettingsForm";

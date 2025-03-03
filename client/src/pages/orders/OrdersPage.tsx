@@ -1,11 +1,11 @@
 import { useTranslation } from "react-i18next";
 import { Content } from "../../Util/Content";
-import { ProductsCard } from "../../Util/ProductsCard";
+import { ProductsCard } from "../../Components/Card/ProductsCard";
 import { Stepper } from "../../Util/Stepper";
 import { useGetUserOrdersCount } from "../../hooks/order/useGetUserOrdersCount";
 import { Orders } from "./Orders";
 import styled from "styled-components";
-import { Modal } from "../../Util/Modal";
+import { Modal } from "../../Components/Modal";
 import { RefundModal } from "../refund/RefundModal";
 
 const itemsPerPage = import.meta.env.VITE_ORDERS_PER_PAGE;

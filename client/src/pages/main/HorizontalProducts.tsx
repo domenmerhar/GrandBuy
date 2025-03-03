@@ -8,7 +8,7 @@ import {
 } from "react-horizontal-scrolling-menu";
 
 import "react-horizontal-scrolling-menu/dist/styles.css";
-import { ProductCard } from "../../Util/ProductCard";
+import { ProductCard } from "../../Components/Card/ProductCard";
 import { HiChevronLeft, HiChevronRight } from "react-icons/hi";
 import { ArrowButton } from "../../Util/ArrowButton";
 import { IProductShort } from "../../Util/types";

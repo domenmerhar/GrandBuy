@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { BadgeCard } from "../../../Util/BadgeCard";
+import { BadgeCard } from "../../../Components/Card/BadgeCard";
 import { Column } from "../../../Util/Column";
 import React, { FC, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -8,7 +8,7 @@ import ExpandingList from "../../../Components/ExpandingList";
 import ExpandingThreeDotsButton from "../../../Components/ExpandingThreeDotsButton";
 import { Row } from "../../../Util/Row";
 import { CouponProps } from "../../../Util/types";
-import { Modal } from "../../../Util/Modal";
+import { Modal } from "../../../Components/Modal";
 import { useSearchParams } from "react-router-dom";
 import useExpireCoupon from "../../../hooks/coupon/useExpireCoupon";
 import { useJWT } from "../../../hooks/useJWT";

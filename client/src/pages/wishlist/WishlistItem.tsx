@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { AddButton } from "../../Util/AddButton";
+import { AddButton } from "../../Components/Button/AddButton";
 import { Row } from "../../Util/Row";
 import { FC } from "react";
 import { Link } from "react-router-dom";

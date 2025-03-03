@@ -1,5 +1,5 @@
 import { Button } from "../../Util/Button";
-import { Modal } from "../../Util/Modal";
+import { Modal } from "../../Components/Modal";
 import styled from "styled-components";
 import { AddReviewModal } from "./AddReviewModal";
 import { useTranslation } from "react-i18next";

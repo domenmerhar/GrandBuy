@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Modal } from "../../../Util/Modal";
+import { Modal } from "../../../Components/Modal";
 import CouponModal from "./CouponModal";
 import { CouponOverview } from "./CouponOverview";
 import { CouponPageHeader } from "./CouponPageHeader";

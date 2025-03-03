@@ -17,7 +17,7 @@ export const getUserReplies = async ({
 
   const data = await response.json();
 
-  const nextItem = data.data.replies.length === limit ? page + 1 : null;
+  const nextItem = data?.data?.replies?.length === limit ? page + 1 : null;
 
   return { ...data, nextItem };
 };

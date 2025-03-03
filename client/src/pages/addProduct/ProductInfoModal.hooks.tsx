@@ -1,5 +1,5 @@
 import { useSearchParams } from "react-router-dom";
-import { Modal } from "../../Util/Modal";
+import { Modal } from "../../Components/Modal";
 import { useEffect, useRef } from "react";
 
 export const useProductInfoModal = () => {

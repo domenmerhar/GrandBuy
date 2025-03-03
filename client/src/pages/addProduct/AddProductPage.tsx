@@ -1,6 +1,6 @@
 import { Content } from "../../Util/Content";
 import { Row } from "../../Util/Row";
-import { Modal } from "../../Util/Modal";
+import { Modal } from "../../Components/Modal";
 import { ProductInfoCard } from "./ProductInfoCard";
 import { useState } from "react";
 import { CarouselUpload } from "./CarouselUpload";

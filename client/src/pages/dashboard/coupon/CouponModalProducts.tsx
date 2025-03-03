@@ -43,7 +43,7 @@ export default function CouponModalProducts({
   });
 
   const renderFn = ({ data }: { data: { products: [ProductShort] } }) =>
-    data.products.map(({ _id, name }: ProductShort) => (
+    data?.products?.map(({ _id, name }: ProductShort) => (
       <CheckboxWithText
         key={_id}
         id={_id}

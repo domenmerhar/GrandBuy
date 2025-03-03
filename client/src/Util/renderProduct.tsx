@@ -1,5 +1,5 @@
 import { IProductShort } from "./types";
-import { ProductCard } from "./ProductCard";
+import { ProductCard } from "../Components/Card/ProductCard";
 import { toApiFilesPath } from "../functions/toApiFilesPath";
 
 export const renderProduct = (page: any) =>

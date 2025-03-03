@@ -3,7 +3,7 @@ import { StyledSidebar } from "../../Util/StyledSidebar";
 import { ProductInfo } from "../../Components/ProductInfo";
 import { ButtonWithNotifcations } from "../../Components/Button/ButtonWithNotifcations";
 import { HiPencil } from "react-icons/hi";
-import { Modal } from "../../Util/Modal";
+import { Modal } from "../../Components/Modal";
 import { useSearchParams } from "react-router-dom";
 import { ProductInfoModal } from "./ProductInfoModal";
 

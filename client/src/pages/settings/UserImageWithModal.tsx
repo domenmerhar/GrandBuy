@@ -2,7 +2,7 @@ import { useState } from "react";
 import { UserImageBig } from "../../Util/UserImageBig";
 import { useMe } from "../../hooks/useMe";
 import { toApiFilesPath } from "../../functions/toApiFilesPath";
-import { Modal } from "../../Util/Modal";
+import { Modal } from "../../Components/Modal";
 import { useTranslation } from "react-i18next";
 import { FilePickerDisplay } from "../../Components/Files/FilePickerDIsplay";
 import styled from "styled-components";

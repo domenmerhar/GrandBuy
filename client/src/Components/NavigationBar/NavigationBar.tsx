@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Logo } from "../../Util/Logo";
+import { Logo } from "../Logo";
 import { ButtonWithNotifcations } from "../Button/ButtonWithNotifcations";
 import { useState } from "react";
 import { SearchBar } from "../../Util/SearchBar";

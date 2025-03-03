@@ -1,4 +1,4 @@
-import { NavigationTextButton } from "../../Util/NavigationTextButton";
+import { NavigationTextButton } from "../Button/NavigationTextButton";
 import { HiArrowUturnLeft } from "react-icons/hi2";
 import { BiPackage } from "react-icons/bi";
 import { HiOutlineEye, HiOutlineMicrophone } from "react-icons/hi";
@@ -9,10 +9,10 @@ export const SellerNavigationButtons = () => {
 
   return (
     <>
-      <NavigationTextButton to="overview" variant="dark">
+      {/* <NavigationTextButton to="overview" variant="dark">
         <HiOutlineEye size={24} />
         {t("overview")}
-      </NavigationTextButton>
+      </NavigationTextButton> */}
 
       <NavigationTextButton to="reviews?sort=newest" variant="dark">
         <HiOutlineMicrophone size={24} />

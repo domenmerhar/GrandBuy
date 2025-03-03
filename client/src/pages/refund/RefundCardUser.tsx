@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { Badge } from "../../Util/Badge";
-import { BadgeCard } from "../../Util/BadgeCard";
+import { BadgeCard } from "../../Components/Card/BadgeCard";
 import { Row } from "../../Util/Row";
 import { FC } from "react";
 import { BadgeColor, RefundStatus } from "../../Util/types";

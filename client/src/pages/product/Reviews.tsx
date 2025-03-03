@@ -19,7 +19,7 @@ export const Reviews = () => {
 
   return (
     <StyledReviews $gap="3.2rem">
-      {data.data.reviews.map(
+      {data?.data?.reviews?.map(
         ({
           _id,
           user,

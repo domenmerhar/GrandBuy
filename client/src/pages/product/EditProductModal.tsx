@@ -2,7 +2,7 @@ import { useRef, useState } from "react";
 import EditAddProductInputs, {
   EditAddProductInputsHandle,
 } from "../../Components/Dashboard/EditAddProductInputs";
-import { Modal } from "../../Util/Modal";
+import { Modal } from "../../Components/Modal";
 import { useJWT } from "../../hooks/useJWT";
 import { useTranslation } from "react-i18next";
 import toast from "react-hot-toast";

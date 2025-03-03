@@ -6,7 +6,7 @@ import { UserIcon } from "../../../Util/ProfileIcon";
 import { RatingDisplay } from "../../../Components/RatingDisplay";
 import { HiArrowUturnLeft, HiOutlineHandThumbUp } from "react-icons/hi2";
 import { ReviewAction } from "../../../Util/ReviewAction";
-import { Modal } from "../../../Util/Modal";
+import { Modal } from "../../../Components/Modal";
 import { useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { FC } from "react";

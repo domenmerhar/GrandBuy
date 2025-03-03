@@ -1,11 +1,11 @@
 import { createContext, FC, useContext, useState, ReactNode } from "react";
 import styled from "styled-components";
-import { Row } from "./Row";
-import { Button } from "./Button";
-import { Column } from "./Column";
-import { Backdrop } from "./Backdrop";
+import { Row } from "../Util/Row";
+import { Button } from "../Util/Button";
+import { Column } from "../Util/Column";
+import { Backdrop } from "../Util/Backdrop";
 import { createPortal } from "react-dom";
-import { ButtonColor } from "./types";
+import { ButtonColor } from "../Util/types";
 
 interface ModalButtonProps {
   key: string;

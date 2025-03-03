@@ -19,7 +19,7 @@ import ExpandingList from "./ExpandingList";
 import ExpandingThreeDotsButton from "./ExpandingThreeDotsButton";
 import { HiOutlineTrash } from "react-icons/hi";
 import { HiOutlinePencilSquare } from "react-icons/hi2";
-import { Modal } from "../Util/Modal";
+import { Modal } from "./Modal";
 
 const StyledProductInfo = styled(Column)`
   min-width: 25rem;

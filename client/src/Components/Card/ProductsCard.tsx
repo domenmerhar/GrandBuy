@@ -1,8 +1,8 @@
 import { FC } from "react";
-import { BlankCard } from "./BlankCard";
-import { Column } from "./Column";
-import { HeaderUppercaseBold } from "./HeaderUppercaseBold";
-import { Row } from "./Row";
+import { BlankCard } from "../../Util/BlankCard";
+import { Column } from "../../Util/Column";
+import { HeaderUppercaseBold } from "../../Util/HeaderUppercaseBold";
+import { Row } from "../../Util/Row";
 import { useTranslation } from "react-i18next";
 
 interface ProductsCardProps {

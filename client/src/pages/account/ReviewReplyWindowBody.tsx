@@ -1,5 +1,5 @@
 import { useSearchParams } from "react-router-dom";
-import { CardWithHeader } from "../../Util/CardWithHeader";
+import { CardWithHeader } from "../../Components/Card/CardWithHeader";
 import { Column } from "../../Util/Column";
 import { ReviewReplyWindowSelect } from "./ReviewReplyWindowSelect";
 import { UserReviews } from "./UserReviews";

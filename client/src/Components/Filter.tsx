@@ -1,7 +1,7 @@
 import { FC } from "react";
 import styled from "styled-components";
-import { IOption } from "./types";
-import { Row } from "./Row";
+import { IOption } from "../Util/types";
+import { Row } from "../Util/Row";
 import { useSearchParams } from "react-router-dom";
 
 interface FilterProps {

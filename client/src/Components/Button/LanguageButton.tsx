@@ -1,5 +1,5 @@
 import { useLanguage } from "../../Util/LanguageContext";
-import { SwitchButtons } from "../../Util/SwitchButtons";
+import { SwitchButtons } from "./SwitchButtons";
 import { languages } from "../../Util/types";
 
 export const LanguageButton = () => {

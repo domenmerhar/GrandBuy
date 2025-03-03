@@ -1,11 +1,11 @@
 import { Outlet } from "react-router-dom";
-import { Sidebar } from "../../Util/Sidebar";
+import { Sidebar } from "../Sidebar";
 import { ContentWithSidebar } from "../../Util/ContentWithSidebar";
 import { SidebarLayout } from "../../Util/SidebarLayout";
 import { DashboardAdminList } from "./DashboardAdminList";
 import styled from "styled-components";
 import { DashboardSellerList } from "./DashboardSellerList";
-import { Modal } from "../../Util/Modal";
+import { Modal } from "../Modal";
 import { useMe } from "../../hooks/useMe";
 
 const DashboardLayout = styled(SidebarLayout)`

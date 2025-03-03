@@ -1,7 +1,7 @@
 import { FormEvent, useRef } from "react";
 import { Button } from "../../Util/Button";
 import { HeaderUppercaseBold } from "../../Util/HeaderUppercaseBold";
-import { InputWithLabel } from "../../Util/InputWithLabel";
+import { InputWithLabel } from "../../Components/InputWithLabel";
 import { SettingsForm } from "./SettingsForm";
 import toast from "react-hot-toast";
 import { useChangePassword } from "../../hooks/useChangePassword";

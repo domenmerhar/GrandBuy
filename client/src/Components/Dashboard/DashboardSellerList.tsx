@@ -2,7 +2,7 @@ import { Column } from "../../Util/Column";
 import styled from "styled-components";
 import { Button } from "../../Util/Button";
 import { SellerNavigationButtons } from "./SellerNavigationButtons";
-import { Modal } from "../../Util/Modal";
+import { Modal } from "../Modal";
 import { AddProductModal } from "./AddProductModal";
 import { useTranslation } from "react-i18next";
 

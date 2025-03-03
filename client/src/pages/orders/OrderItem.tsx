@@ -8,7 +8,7 @@ import { ItemStatus } from "../../Util/types";
 import { useTranslation } from "react-i18next";
 import { Badge } from "../../Util/Badge";
 import ExpandingThreeDotsButton from "../../Components/ExpandingThreeDotsButton";
-import { Modal } from "../../Util/Modal";
+import { Modal } from "../../Components/Modal";
 
 const StyledOrderItem = styled(Row)`
   & div:nth-child(3) {

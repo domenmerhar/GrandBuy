@@ -1,5 +1,5 @@
 import { Header } from "../../Util/Header";
-import { ProductCard } from "../../Util/ProductCard";
+import { ProductCard } from "../../Components/Card/ProductCard";
 import { useQuery } from "@tanstack/react-query";
 import { getProducts } from "../../api/product/getProducts";
 import { SpinnerInBox } from "../../Components/SpinnerInBox";

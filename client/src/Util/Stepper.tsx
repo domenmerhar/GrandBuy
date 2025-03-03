@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { useSearchParams } from "react-router-dom";
-import { StepperRaw } from "./StepperRaw";
+import { StepperRaw } from "../Components/Button/StepperRaw";
 interface StepperProps {
   searchParamName: string;
   color?: "orange" | "white";

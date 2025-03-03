@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { Row } from "../../Util/Row";
 import { HiArrowUturnLeft, HiOutlineHandThumbUp } from "react-icons/hi2";
 import { HiChevronDown, HiChevronUp } from "react-icons/hi";
-import { Modal } from "../../Util/Modal";
+import { Modal } from "../../Components/Modal";
 import { useSearchParams } from "react-router-dom";
 import { ReviewAction } from "../../Util/ReviewAction";
 import { useMe } from "../../hooks/useMe";

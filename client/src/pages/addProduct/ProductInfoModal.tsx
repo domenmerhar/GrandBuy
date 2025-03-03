@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { Column } from "../../Util/Column";
-import { Modal } from "../../Util/Modal";
-import { InputWithLabel } from "../../Util/InputWithLabel";
+import { Modal } from "../../Components/Modal";
+import { InputWithLabel } from "../../Components/InputWithLabel";
 import { useProductInfoModal } from "./ProductInfoModal.hooks";
 import { useTranslation } from "react-i18next";
 
