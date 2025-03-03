@@ -13,6 +13,17 @@ const DashboardGrid = styled.div`
   gap: 3.2rem;
 `;
 
+/**
+ * Komponenta za prikaz mnenj na nadzorni plošči.
+ *
+ * @component
+ * @returns {JSX.Element} JSX element, ki predstavlja mnenja na nadzorni plošči.
+ *
+ * @example
+ * // Uporaba komponente
+ * <DashboardReviews />
+ */
+
 export const DashboardReviews = () => {
   const { data, isLoading, error } = useGetSellerReviews();
 

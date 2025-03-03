@@ -33,6 +33,17 @@ interface IProductDetails {
   orders: number;
 }
 
+/**
+ * Komponenta za prikaz strani izdelka.
+ *
+ * @component
+ * @returns {JSX.Element} JSX element, ki predstavlja stran izdelka.
+ *
+ * @example
+ * // Uporaba komponente
+ * <ProductPage />
+ */
+
 export const ProductPage = () => {
   const { data, isLoading, error } = useProduct();
 

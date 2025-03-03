@@ -5,6 +5,19 @@ interface ReviewActionProps {
   $active?: boolean;
 }
 
+/**
+ * Komponenta za prikaz akcij za preglede.
+ *
+ * @component
+ * @param {Object} props - Lastnosti komponente.
+ * @param {boolean} [props.$active] - Ali je akcija aktivna.
+ * @returns {JSX.Element} JSX element, ki predstavlja akcijo za pregled.
+ *
+ * @example
+ * // Uporaba komponente
+ * <ReviewAction $active={true}>Pregled</ReviewAction>
+ */
+
 export const ReviewAction = styled(Row)<ReviewActionProps>`
   background: transparent;
   border: none;

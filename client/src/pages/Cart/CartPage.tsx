@@ -1,5 +1,5 @@
 import { Content } from "../../Util/Content";
-import { Stepper } from "../../Util/Stepper";
+import { Stepper } from "../../Components/Stepper";
 import { CardFilterGrid } from "../../Util/CardFilterGrid";
 import { ProductsCard } from "../../Components/Card/ProductsCard";
 import { useCartItemsCount } from "../../hooks/cart/useCartItemsCount";
@@ -15,6 +15,17 @@ import { useAuthContext } from "../../contexts/AuthContext";
 import { useTranslation } from "react-i18next";
 
 const itemsPerPage = import.meta.env.VITE_PRODUCTS_PER_STEPPER;
+
+/**
+ * Komponenta za prikaz strani z nakupovalno košarico.
+ *
+ * @component
+ * @returns {JSX.Element} JSX element, ki predstavlja stran z nakupovalno košarico.
+ *
+ * @example
+ * // Uporaba komponente
+ * <CartPage />
+ */
 
 export const CartPage = () => {
   const { t } = useTranslation();

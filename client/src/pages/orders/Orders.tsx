@@ -4,6 +4,17 @@ import { ErrorBox } from "../../Components/ErrorBox";
 import { IOrder } from "../../Util/types";
 import { Order } from "./Order";
 
+/**
+ * Komponenta za prikaz naročil uporabnika.
+ *
+ * @component
+ * @returns {JSX.Element} JSX element, ki predstavlja naročila uporabnika.
+ *
+ * @example
+ * // Uporaba komponente
+ * <Orders />
+ */
+
 export const Orders = () => {
   const { data, isLoading, error } = useGetUserOrders();
 

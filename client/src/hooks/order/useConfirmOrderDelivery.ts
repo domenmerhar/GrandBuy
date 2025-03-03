@@ -5,6 +5,17 @@ import { useSearchParams } from "react-router-dom";
 import { useMe } from "../useMe";
 import { useTranslation } from "react-i18next";
 
+/**
+ * useConfirmOrder hook za potrditev dostave naročila.
+ *
+ * @returns {object} - Vrne objekt z `mutate` funkcijo za potrditev dostave naročila.
+ *
+ * @example
+ * // Uporaba hook-a
+ * const { mutate: confirmDelivery } = useConfirmOrder();
+ * confirmDelivery({ JWT: "your_jwt_token", orderId: "order_id" });
+ */
+
 export const useConfirmOrder = () => {
   const { t } = useTranslation();
   const [searchParams] = useSearchParams();

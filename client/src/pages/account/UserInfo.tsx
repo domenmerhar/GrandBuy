@@ -8,6 +8,18 @@ import { useUser } from "../../hooks/useUser";
 import { useTranslation } from "react-i18next";
 import { toApiFilesPath } from "../../functions/toApiFilesPath";
 
+/**
+ * UserInfo komponenta za prikaz informacij o uporabniku.
+ *
+ * Ta komponenta prikazuje profilno sliko, uporabniško ime in status uporabnika (prepovedan ali ne).
+ *
+ * @returns {JSX.Element} - JSX element, ki prikazuje informacije o uporabniku.
+ *
+ * @example
+ * // Uporaba komponente
+ * <UserInfo />
+ */
+
 export const UserInfo = () => {
   const { t } = useTranslation();
   const { data, error, isLoading } = useUser();

@@ -9,8 +9,6 @@ interface NavigationTextButtonProps {
   iconColoring?: "fill" | "stroke";
 }
 
-//TODO: Dark variant
-
 interface StyledNavigationTextButtonProps {
   $iconColoring?: "fill" | "stroke";
   $variant: "light" | "dark";
@@ -57,6 +55,25 @@ const StyledNavigationTextButton = styled.a<StyledNavigationTextButtonProps>`
 const Li = styled.li`
   list-style-type: none;
 `;
+
+/**
+ * NavigationTextButton komponenta za prikaz navigacijskega gumba z besedilom.
+ *
+ * @component
+ * @param {object} props - Lastnosti komponente.
+ * @param {React.ReactNode[]} props.children - Vsebina gumba (besedilo in ikone).
+ * @param {string} props.to - Ciljni URL, na katerega vodi gumb.
+ * @param {"light" | "dark"} [props.variant="light"] - Varianta gumba (svetla ali temna).
+ * @param {"fill" | "stroke"} [props.iconColoring="stroke"] - Način barvanja ikone (polnilo ali obris).
+ * @returns {JSX.Element} - JSX element navigacijskega gumba z besedilom.
+ *
+ * @example
+ * // Uporaba komponente
+ * <NavigationTextButton to="/profile" variant="dark" iconColoring="fill">
+ * <span>Profil</span>
+ * <svg>...</svg>
+ * </NavigationTextButton>
+ */
 
 export const NavigationTextButton: FC<NavigationTextButtonProps> = ({
   children,

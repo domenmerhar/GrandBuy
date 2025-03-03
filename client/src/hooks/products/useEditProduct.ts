@@ -5,6 +5,17 @@ import { Modal } from "../../Components/Modal";
 import { useParams } from "react-router-dom";
 import { updateProduct } from "../../api/product/updateProduct";
 
+/**
+ * useEditProduct hook za urejanje obstoječega izdelka.
+ *
+ * @returns {object} - Vrne objekt z `mutate` funkcijo za urejanje izdelka.
+ *
+ * @example
+ * // Uporaba hook-a
+ * const { mutate: editProductMutation } = useEditProduct();
+ * editProductMutation({ JWT: "your_jwt_token", productId: "product_id", productData: { ... } });
+ */
+
 export const useEditProduct = () => {
   const { t } = useTranslation();
   const client = useQueryClient();

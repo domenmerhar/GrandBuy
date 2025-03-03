@@ -8,6 +8,17 @@ import { Column } from "../../Util/Column";
 import { Modal } from "../../Components/Modal";
 import { TextareaWithLabel } from "../../Components/TextareaWithLabel";
 
+/**
+ * Komponenta za prikaz modalnega okna za zahtevo za vračilo.
+ *
+ * @component
+ * @returns {JSX.Element} JSX element, ki predstavlja modalno okno za zahtevo za vračilo.
+ *
+ * @example
+ * // Uporaba komponente
+ * <RefundModal />
+ */
+
 export const RefundModal = () => {
   const { t } = useTranslation();
   const [searchParams, setSearchParams] = useSearchParams();

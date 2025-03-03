@@ -2,6 +2,16 @@ import { useSearchParams } from "react-router-dom";
 import { Modal } from "../../Components/Modal";
 import { useEffect, useRef } from "react";
 
+/**
+ * Hook za obdelavo modalnih informacij o izdelku.
+ *
+ * @returns {Object} Objekt, ki vsebuje reference na naslov, ceno in pošiljanje ter funkcijo za shranjevanje teh parametrov v URL iskalne parametre.
+ *
+ * @example
+ * // Uporaba hook
+ * const { titleRef, priceRef, shippingRef, saveToSearchParams } = useProductInfoModal();
+ */
+
 export const useProductInfoModal = () => {
   const { isOpen } = Modal.useModalContext();
   const [searchParams, setSearchParams] = useSearchParams();

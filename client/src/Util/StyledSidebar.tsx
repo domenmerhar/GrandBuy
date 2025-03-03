@@ -7,6 +7,24 @@ interface StyledSidebarProps {
   $height?: string;
 }
 
+/**
+ * Komponenta za prikaz stranskega stranskega stolpca.
+ *
+ * @component
+ * @param {Object} props - Lastnosti komponente.
+ * @param {string} props.$position - Pozicija stranskega stolpca.
+ * @param {boolean} [props.$rounded] - Ali je stranski stolpec z zaobljenimi robovi.
+ * @param {string} [props.$width] - Širina stranskega stolpca.
+ * @param {string} [props.$height] - Višina stranskega stolpca.
+ * @returns {JSX.Element} JSX element, ki predstavlja stranski stolpec.
+ *
+ * @example
+ * // Uporaba komponente
+ * <StyledSidebar $position="fixed" $rounded={true} $width="40rem" $height="100vh">
+ *   <YourComponent />
+ * </StyledSidebar>
+ */
+
 export const StyledSidebar = styled.aside<StyledSidebarProps>`
   position: ${({ $position }) => $position};
   display: inline-block;

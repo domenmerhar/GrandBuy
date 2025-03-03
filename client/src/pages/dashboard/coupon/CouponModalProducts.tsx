@@ -15,6 +15,20 @@ interface CouponModalProductsProps {
   setProductIds: Dispatch<SetStateAction<string[]>>;
 }
 
+/**
+ * Komponenta za upravljanje izdelkov v modalnem oknu za kupon.
+ *
+ * @component
+ * @param {Object} props - Lastnosti komponente.
+ * @param {string[]} props.productIds - Seznam ID-jev izdelkov, na katere kupon vpliva.
+ * @param {Function} props.setProductIds - Funkcija za nastavitev ID-jev izdelkov, na katere kupon vpliva.
+ * @returns {JSX.Element} JSX element, ki predstavlja modalno okno za upravljanje izdelkov kupona.
+ *
+ * @example
+ * // Uporaba komponente
+ * <CouponModalProducts productIds={["1", "2"]} setProductIds={() => {}} />
+ */
+
 export default function CouponModalProducts({
   productIds,
   setProductIds,

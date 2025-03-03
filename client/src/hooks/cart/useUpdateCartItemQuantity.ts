@@ -3,6 +3,17 @@ import toast from "react-hot-toast";
 import { updateCartItemQuantity } from "../../api/cart/updateCartItemQuantity";
 import { useTranslation } from "react-i18next";
 
+/**
+ * useUpdateCartItemQuantity hook za posodobitev količine izdelka v košarici.
+ *
+ * @returns {object} - Vrne objekt z `mutate` funkcijo za posodobitev količine izdelka.
+ *
+ * @example
+ * // Uporaba hook-a
+ * const { mutate: updateQuantity } = useUpdateCartItemQuantity();
+ * updateQuantity({ JWT: "your_jwt_token", productId: "product_id", quantity: 5 });
+ */
+
 export const useUpdateCartItemQuantity = () => {
   const { t } = useTranslation();
   const client = useQueryClient();
@@ -23,7 +34,7 @@ export const useUpdateCartItemQuantity = () => {
       toast.success(t("updatedQuantity"), { id: "update-cart-item" });
 
       client.invalidateQueries({
-        predicate: (query) => query.queryKey[0].includes("cartItems"),
+        predicate: (query) => String(query.queryKey[0]).includes("cartItems"),
       });
     },
   });

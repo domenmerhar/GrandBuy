@@ -49,6 +49,33 @@ interface CartItemProps {
   quantity: number;
 }
 
+/**
+ * Komponenta za prikazovanje posameznega artikla v košarici.
+ *
+ * @component
+ * @param {Object} props - Lastnosti komponente.
+ * @param {string} props.cartItemId - ID artikla v košarici.
+ * @param {string} props.productId - ID izdelka.
+ * @param {string} props.image - URL slike izdelka.
+ * @param {string} props.name - Ime izdelka.
+ * @param {string} props.description - Opis izdelka.
+ * @param {string} props.price - Cena izdelka.
+ * @param {number} props.quantity - Količina artikla v košarici.
+ * @returns {JSX.Element} JSX element, ki predstavlja posamezni artikel v košarici.
+ *
+ * @example
+ * // Uporaba komponente
+ * <CartItem
+ *   cartItemId="123"
+ *   productId="456"
+ *   image="https://example.com/image.jpg"
+ *   name="Izdelek"
+ *   description="Opis izdelka"
+ *   price="10.99"
+ *   quantity={1}
+ * />
+ */
+
 export const CartItem: FC<CartItemProps> = ({
   cartItemId,
   productId,

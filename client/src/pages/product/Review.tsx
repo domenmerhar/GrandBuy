@@ -26,6 +26,33 @@ interface ReviewProps {
   likeCount: number;
 }
 
+/**
+ * Komponenta za prikaz mnenja.
+ *
+ * @component
+ * @param {Object} props - Lastnosti komponente.
+ * @param {string} props.id - ID mnenja.
+ * @param {string} props.date - Datum objave mnenja.
+ * @param {string} props.userImage - URL slike uporabnika.
+ * @param {string} props.username - Uporabniško ime avtorja mnenja.
+ * @param {number} props.rating - Ocena mnenja.
+ * @param {string} props.content - Vsebina mnenja.
+ * @param {number} props.likeCount - Število všečkov mnenja.
+ * @returns {JSX.Element} JSX element, ki predstavlja mnenje.
+ *
+ * @example
+ * // Uporaba komponente
+ * <Review
+ *   id="1"
+ *   date="2025-03-03"
+ *   userImage="https://example.com/image.jpg"
+ *   username="JaneDoe"
+ *   rating={5}
+ *   content="Odličen izdelek!"
+ *   likeCount={10}
+ * />
+ */
+
 export const Review: FC<ReviewProps> = ({
   date,
   userImage,

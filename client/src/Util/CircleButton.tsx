@@ -4,6 +4,19 @@ interface CircleButtonProps {
   $active: boolean;
 }
 
+/**
+ * Komponenta za prikaz okroglega gumba.
+ *
+ * @component
+ * @param {Object} props - Lastnosti komponente.
+ * @param {boolean} props.$active - Ali je gumb aktiven.
+ * @returns {JSX.Element} JSX element, ki predstavlja okrogel gumb.
+ *
+ * @example
+ * // Uporaba komponente
+ * <CircleButton $active={true} />
+ */
+
 export const CircleButton = styled.button<CircleButtonProps>`
   width: 3.2rem;
   height: 3.2rem;

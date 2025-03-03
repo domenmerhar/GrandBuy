@@ -22,6 +22,27 @@ const Grid = styled.div`
   gap: 3.2rem;
 `;
 
+/**
+ * Komponenta za prikaz in upravljanje seznamov kuponov.
+ *
+ * @component
+ * @param {Object} props - Lastnosti komponente.
+ * @param {Function} props.setCode - Funkcija za nastavitev kode kupona.
+ * @param {Function} props.setDiscount - Funkcija za nastavitev popusta kupona.
+ * @param {Function} props.setExpireAt - Funkcija za nastavitev datuma veljavnosti kupona.
+ * @param {Function} props.setProductIds - Funkcija za nastavitev ID-jev izdelkov, na katere kupon vpliva.
+ * @returns {JSX.Element} JSX element, ki predstavlja seznam kuponov.
+ *
+ * @example
+ * // Uporaba komponente
+ * <Coupons
+ *   setCode={() => {}}
+ *   setDiscount={() => {}}
+ *   setExpireAt={() => {}}
+ *   setProductIds={() => {}}
+ * />
+ */
+
 export const Coupons = React.memo(
   ({ setCode, setDiscount, setExpireAt, setProductIds }: CouponProps) => {
     const { JWT } = useJWT();

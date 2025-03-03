@@ -62,6 +62,39 @@ interface StepperRawProps {
   placeholder?: string;
 }
 
+/**
+ * StepperRaw komponenta za prikaz številčnega stepperja.
+ *
+ * @component
+ * @param {object} props - Lastnosti komponente.
+ * @param {number} props.currentStep - Trenutna vrednost stepperja.
+ * @param {function} props.handlePreviousPage - Funkcija za obravnavo klika na gumb za prejšnjo stran.
+ * @param {function} props.handleNextPage - Funkcija za obravnavo klika na gumb za naslednjo stran.
+ * @param {function} props.handleChangePage - Funkcija za obravnavo spremembe vrednosti v vnosnem polju.
+ * @param {function} props.handleBlurPage - Funkcija za obravnavo izgube fokusa v vnosnem polju.
+ * @param {number} [props.max] - Največja dovoljena vrednost.
+ * @param {number} [props.min=1] - Najmanjša dovoljena vrednost.
+ * @param {boolean} [props.disabledLeft=false] - Ali je gumb za prejšnjo stran onemogočen.
+ * @param {boolean} [props.disabledInput=false] - Ali je vnosno polje onemogočeno.
+ * @param {boolean} [props.disabledRight=false] - Ali je gumb za naslednjo stran onemogočen.
+ * @param {"orange" | "white"} [props.color="white"] - Barva gumbov stepperja.
+ * @param {string} [props.placeholder=""] - Namig za vnosno polje.
+ * @returns {JSX.Element} - JSX element številčnega stepperja.
+ *
+ * @example
+ * // Uporaba komponente
+ * <StepperRaw
+ * currentStep={5}
+ * handlePreviousPage={() => console.log('Prejšnja stran')}
+ * handleNextPage={() => console.log('Naslednja stran')}
+ * handleChangePage={(e) => console.log('Sprememba', e.target.value)}
+ * handleBlurPage={(e) => console.log('Izguba fokusa', e.target.value)}
+ * max={10}
+ * min={1}
+ * color="orange"
+ * />
+ */
+
 export const StepperRaw: FC<StepperRawProps> = ({
   currentStep,
 

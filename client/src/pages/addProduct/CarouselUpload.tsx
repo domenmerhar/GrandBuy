@@ -13,6 +13,22 @@ interface CarouselUploadProps {
   setSelectedImages: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
+/**
+ * Properties za komponento CarouselUpload.
+ * @typedef {Object} CarouselUploadProps
+ * @property {string[]} selectedImages - Seznam izbranih slik.
+ * @property {React.Dispatch<React.SetStateAction<string[]>>} setSelectedImages - Funkcija za nastavljanje izbranih slik.
+ */
+
+/**
+ * Komponenta za nalaganje slik in prikazovanje vrtiljaka slik.
+ * @param {CarouselUploadProps} props - Lastnosti komponente.
+ * @returns {JSX.Element} JSX Element za nalaganje in prikazovanje slik.
+ *
+ * @example
+ * // Uporaba komponente
+ * <CarouselUpload selectedImages={[]} setSelectedImages={() => {}} />
+ */
 export const CarouselUpload: FC<CarouselUploadProps> = ({
   selectedImages,
   setSelectedImages,

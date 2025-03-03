@@ -1,5 +1,31 @@
 import { toApiPath } from "../../functions/toApiPath";
 
+/**
+ * Doda nov izdelek.
+ * @param {object} arguments - Argumenti za dodajanje izdelka.
+ * @param {string} arguments.JWT - JWT (JSON Web Token) prodajalca.
+ * @param {string} arguments.name - Ime izdelka.
+ * @param {number} arguments.price - Cena izdelka.
+ * @param {number} arguments.discount - Popust izdelka (npr. 10 za 10%).
+ * @param {number} arguments.shipping - Stroški pošiljanja izdelka.
+ * @param {File[]} arguments.images - Array slik izdelka (File objekti).
+ * @param {File} arguments.coverImage - Naslovna slika izdelka (File objekt).
+ * @param {File} arguments.description - Opis izdelka (File objekt).
+ * @returns {Promise<any>} - Odgovor strežnika.
+ * @async
+ * @example
+ * await addProduct({
+ *  JWT: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...',
+ *  name: 'Nov Izdelek',
+ *  price: 100,
+ *  discount: 10,
+ *  shipping: 5,
+ *  images: [file1, file2],
+ *  coverImage: file3,
+ *  description: file4
+ * });
+ */
+
 export const addProduct = async ({
   JWT,
   name,

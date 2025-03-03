@@ -3,9 +3,20 @@ import { requestSeller } from "../api/user/requestSeller";
 import toast from "react-hot-toast";
 import { useTranslation } from "react-i18next";
 
+/**
+ * useRequestSeller hook za pošiljanje zahteve za pridobitev statusa prodajalca.
+ *
+ * @returns {object} - Objekt, ki vsebuje `mutate` funkcijo za pošiljanje zahteve.
+ *
+ * @example
+ * // Uporaba hook-a
+ * const { mutate: request } = useRequestSeller();
+ * request({ JWT: "your_jwt_token" });
+ */
+
 export const useRequestSeller = () => {
   const { t } = useTranslation();
-  const { mutate } = useMutation({
+  return useMutation({
     mutationFn: requestSeller,
 
     onMutate: () => toast.loading(t("sendingRequest"), { id: "requestSeller" }),
@@ -21,6 +32,4 @@ export const useRequestSeller = () => {
       toast.success(t("requestSent"), { id: "requestSeller" });
     },
   });
-
-  return { mutate };
 };

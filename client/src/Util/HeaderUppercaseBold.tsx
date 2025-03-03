@@ -1,5 +1,16 @@
 import styled from "styled-components";
 
+/**
+ * Komponenta za prikaz naslova z velikimi črkami in krepko pisavo.
+ *
+ * @component
+ * @returns {JSX.Element} JSX element, ki predstavlja naslov z velikimi črkami in krepko pisavo.
+ *
+ * @example
+ * // Uporaba komponente
+ * <HeaderUppercaseBold>Naslov</HeaderUppercaseBold>
+ */
+
 export const HeaderUppercaseBold = styled.h2`
   font-size: 2rem;
   color: var(--gray-7);

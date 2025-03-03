@@ -1,9 +1,20 @@
 import { Row } from "../../Util/Row";
-import { Select } from "../../Util/Select";
+import { Select } from "../../Components/Select";
 import { Filter } from "../../Components/Filter";
 import { IOption } from "../../Util/types";
 import { Header } from "../../Util/Header";
 import { useTranslation } from "react-i18next";
+
+/**
+ * Komponenta za prikaz glave strani z zahtevami za vračilo.
+ *
+ * @component
+ * @returns {JSX.Element} JSX element, ki predstavlja glavo strani z zahtevami za vračilo.
+ *
+ * @example
+ * // Uporaba komponente
+ * <RefundPageHeader />
+ */
 
 export const RefundPageHeader = () => {
   const { t } = useTranslation();

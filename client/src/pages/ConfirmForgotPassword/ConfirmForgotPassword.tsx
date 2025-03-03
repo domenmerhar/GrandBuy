@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { Logo } from "../../Components/Logo";
 import { Button } from "../../Util/Button";
-import { AuthContainer } from "../../Util/AuthContainer";
+import { AuthContainer } from "../../Components/AuthContainer";
 import { NakedInput } from "../../Util/NakedInput";
 import { useState } from "react";
 import toast from "react-hot-toast";
@@ -38,6 +38,17 @@ const Form = styled.form`
 const P = styled.p`
   max-width: 50ch;
 `;
+
+/**
+ * Komponenta za potrjevanje pozabljenega gesla.
+ *
+ * @component
+ * @returns {JSX.Element} JSX element, ki omogoča uporabniku potrjevanje pozabljenega gesla.
+ *
+ * @example
+ * // Uporaba komponente
+ * <ConfirmForgotPasswordPage />
+ */
 
 export const ConfirmForgotPasswordPage = () => {
   const { t } = useTranslation();

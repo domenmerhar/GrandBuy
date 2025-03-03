@@ -1,5 +1,16 @@
 import { iTime } from "../Util/types";
 
+/**
+ * timeUntilMidnight funkcija za izračun preostalega časa do polnoči.
+ *
+ * @returns {iTime} - Objekt, ki vsebuje preostale ure, minute in sekunde do polnoči.
+ *
+ * @example
+ * // Uporaba funkcije
+ * const timeLeft = timeUntilMidnight();
+ * console.log(timeLeft); // Izpis objekta z preostalim časom
+ */
+
 export const timeUntilMidnight: () => iTime = () => {
   const midnight = new Date();
   midnight.setHours(24);

@@ -5,6 +5,18 @@ import { LatestProducts } from "./LatestProducts.tsx";
 import { ForYouSection } from "./ForYouSection.tsx";
 import { MainPageInfiniteProducts } from "./MainPageInfiniteProducts.tsx";
 
+/**
+ * Komponenta za prikaz glavne strani.
+ *
+ * @component
+ * @returns {JSX.Element} JSX element, ki predstavlja glavno stran.
+ *
+ * @example
+ * // Uporaba komponente
+ * <MainPage />
+ */
+
+
 export const MainPage = () => {
   return (
     <>

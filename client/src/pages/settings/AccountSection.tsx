@@ -12,6 +12,17 @@ import toast from "react-hot-toast";
 import { useAuthContext } from "../../contexts/AuthContext";
 import { useTranslation } from "react-i18next";
 
+/**
+ * Komponenta za prikaz sekcije za urejanje računa.
+ *
+ * @component
+ * @returns {JSX.Element} JSX element, ki predstavlja sekcijo za urejanje računa.
+ *
+ * @example
+ * // Uporaba komponente
+ * <AccountSection />
+ */
+
 export const AccountSection = () => {
   const { t } = useTranslation();
 

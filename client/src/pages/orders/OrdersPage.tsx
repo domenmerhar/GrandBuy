@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
 import { Content } from "../../Util/Content";
 import { ProductsCard } from "../../Components/Card/ProductsCard";
-import { Stepper } from "../../Util/Stepper";
+import { Stepper } from "../../Components/Stepper";
 import { useGetUserOrdersCount } from "../../hooks/order/useGetUserOrdersCount";
 import { Orders } from "./Orders";
 import styled from "styled-components";
@@ -21,6 +21,17 @@ const StyledOrdersPage = styled(Content)`
     margin-top: auto;
   }
 `;
+
+/**
+ * Komponenta za prikaz strani z naročili.
+ *
+ * @component
+ * @returns {JSX.Element} JSX element, ki predstavlja stran z naročili.
+ *
+ * @example
+ * // Uporaba komponente
+ * <OrdersPage />
+ */
 
 export const OrdersPage = () => {
   const { t } = useTranslation();

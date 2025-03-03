@@ -35,6 +35,28 @@ interface ContextType {
 
 const expandingListContext = createContext<ContextType>({} as ContextType);
 
+/**
+ * ExpandingList komponenta za ustvarjanje razširljivega seznama.
+ *
+ * @component
+ * @param {object} props - Lastnosti komponente.
+ * @param {React.ReactNode[] | React.ReactNode} props.children - Vsebina razširljivega seznama.
+ * @param {"left" | "right"} [props.start="left"] - Smer odpiranja seznama (levo ali desno).
+ * @returns {JSX.Element} - JSX element razširljivega seznama.
+ *
+ * @example
+ * // Uporaba komponente
+ * <ExpandingList start="right">
+ * <ExpandingList.Button><button>Odpri seznam</button></ExpandingList.Button>
+ * <ExpandingList.List>
+ * <ExpandingList.Ul>
+ * <ExpandingList.Li>Element 1</ExpandingList.Li>
+ * <ExpandingList.Li>Element 2</ExpandingList.Li>
+ * </ExpandingList.Ul>
+ * </ExpandingList.List>
+ * </ExpandingList>
+ */
+
 export const ExpandingList = ({
   children,
   start = "left",
@@ -98,6 +120,15 @@ const Button: React.FC<ButtonProps> = ({ children }) => {
 
 export type listClickType = () => void;
 
+/**
+ * ExpandingList.List komponenta za prikaz razširljivega seznama.
+ *
+ * @component
+ * @param {object} props - Lastnosti komponente.
+ * @param {React.ReactNode} props.children - Vsebina seznama.
+ * @returns {JSX.Element | null} - JSX element seznama ali null, če seznam ni odprt.
+ */
+
 const List: React.FC<ButtonProps> = ({ children }) => {
   const { isOpen, setIsOpen, close } = useContext(expandingListContext);
   const { position } = useContext(expandingListContext);
@@ -155,9 +186,44 @@ const Li = styled.li`
   }
 `;
 
+/**
+ * ExpandingList.Button komponenta za ustvarjanje gumba, ki odpira razširljiv seznam.
+ *
+ * @component
+ * @param {object} props - Lastnosti komponente.
+ * @param {React.ReactNode} props.children - Vsebina gumba.
+ * @returns {JSX.Element} - JSX element gumba za odpiranje seznama.
+ */
+
 ExpandingList.Button = Button;
+
+/**
+ * ExpandingList.List komponenta za prikaz razširljivega seznama.
+ *
+ * @component
+ * @param {object} props - Lastnosti komponente.
+ * @param {React.ReactNode} props.children - Vsebina seznama.
+ * @returns {JSX.Element | null} - JSX element seznama ali null, če seznam ni odprt.
+ */
+
 ExpandingList.List = List;
+
+/**
+ * ExpandingList.Ul komponenta za ustvarjanje neurejenega seznama znotraj razširljivega seznama.
+ *
+ * @component
+ * @returns {JSX.Element} - JSX element neurejenega seznama.
+ */
+
 ExpandingList.Ul = Ul;
+
+/**
+ * ExpandingList.Li komponenta za ustvarjanje elementa seznama znotraj razširljivega seznama.
+ *
+ * @component
+ * @returns {JSX.Element} - JSX element elementa seznama.
+ */
+
 ExpandingList.Li = Li;
 
 export default ExpandingList;

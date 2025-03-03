@@ -35,6 +35,23 @@ const Button = styled.button`
   }
 `;
 
+/**
+ * Filter komponenta za prikaz filtrov z gumbi.
+ *
+ * @component
+ * @param {object} props - Lastnosti komponente.
+ * @param {IOption[]} props.options - Niz možnosti za filtre.
+ * @returns {JSX.Element} - JSX element filtrov.
+ *
+ * @example
+ * // Uporaba komponente
+ * <Filter options={[
+ * { name: 'Vsi', value: 'all' },
+ * { name: 'Aktivni', value: 'active' },
+ * { name: 'Neaktivni', value: 'inactive' },
+ * ]} />
+ */
+
 export const Filter: FC<FilterProps> = ({ options }) => {
   const [searchParams, setSearchParams] = useSearchParams();
 

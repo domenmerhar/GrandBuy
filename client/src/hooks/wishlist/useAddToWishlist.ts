@@ -4,6 +4,18 @@ import toast from "react-hot-toast";
 import { useMe } from "../useMe";
 import { useTranslation } from "react-i18next";
 
+/**
+ * useAddToWishlist hook za dodajanje izdelka na seznam želja.
+ *
+ * @param {string} productId - ID izdelka, ki ga želimo dodati na seznam želja.
+ * @returns {object} - Vrne objekt z `mutate` funkcijo za dodajanje izdelka na seznam želja.
+ *
+ * @example
+ * // Uporaba hook-a
+ * const { mutate: addToWishlistMutation } = useAddToWishlist("product_id");
+ * addToWishlistMutation({ JWT: "your_jwt_token", productId: "product_id" });
+ */
+
 export const useAddToWishlist = (productId: string) => {
   const { t } = useTranslation();
   const { data } = useMe();

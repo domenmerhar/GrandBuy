@@ -17,6 +17,17 @@ const queryFn =
     });
   };
 
+/**
+ * Komponenta za prikaz neskončnih izdelkov na strani izdelka.
+ *
+ * @component
+ * @returns {JSX.Element} JSX element, ki predstavlja neskončne izdelke na strani izdelka.
+ *
+ * @example
+ * // Uporaba komponente
+ * <ProductPageInfiniteProducts />
+ */
+
 export const ProductPageInfiniteProducts = () => {
   const { data } = useProduct();
 

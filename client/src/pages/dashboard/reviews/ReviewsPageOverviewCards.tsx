@@ -10,6 +10,20 @@ interface ReviewsPageOverviewCardsProps {
   averageRating: number | "N/A";
 }
 
+/**
+ * Komponenta za prikaz preglednih kartic strani z ocenami.
+ *
+ * @component
+ * @param {Object} props - Lastnosti komponente.
+ * @param {number | "N/A"} props.reviewsCount - Število ocen.
+ * @param {number | "N/A"} props.averageRating - Povprečna ocena.
+ * @returns {JSX.Element} JSX element, ki predstavlja pregledne kartice strani z ocenami.
+ *
+ * @example
+ * // Uporaba komponente
+ * <ReviewsPageOverviewCards reviewsCount={10} averageRating={4.5} />
+ */
+
 export const ReviewsPageOverviewCards: FC<ReviewsPageOverviewCardsProps> = ({
   reviewsCount,
   averageRating,

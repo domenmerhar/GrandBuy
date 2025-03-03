@@ -14,6 +14,17 @@ const StyledThemeLanguageRow = styled(Row)`
   }
 `;
 
+/**
+ * ThemeLanguageRow komponenta za prikaz vrstice z gumbi za izbiro teme in jezika.
+ *
+ * @component
+ * @returns {JSX.Element} - JSX element vrstice z gumbi za temo in jezik.
+ *
+ * @example
+ * // Uporaba komponente
+ * <ThemeLanguageRow />
+ */
+
 export const ThemeLanguageRow = () => {
   return (
     <StyledThemeLanguageRow $gap="1.6rem" $alignItems="center">

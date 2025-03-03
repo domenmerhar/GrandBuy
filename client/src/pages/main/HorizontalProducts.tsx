@@ -18,6 +18,19 @@ interface HorizontalProductsProps {
   products: IProductShort[];
 }
 
+/**
+ * Komponenta za vodoravno prikazovanje izdelkov.
+ *
+ * @component
+ * @param {Object} props - Lastnosti komponente.
+ * @param {IProductShort[]} props.products - Seznam izdelkov za prikaz.
+ * @returns {JSX.Element} JSX element, ki predstavlja vodoravni prikaz izdelkov.
+ *
+ * @example
+ * // Uporaba komponente
+ * <HorizontalProducts products={[{ _id: "1", name: "Izdelek", coverImage: "url", discount: 10, totalPrice: 100 }]} />
+ */
+
 export const HorizontalProducts: FC<HorizontalProductsProps> = ({
   products,
 }) => {

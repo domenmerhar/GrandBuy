@@ -3,6 +3,17 @@ import toast from "react-hot-toast";
 import { useTranslation } from "react-i18next";
 import createReviewOnProduct from "../../api/repliesReviews/createReviewOnProduct";
 
+/**
+ * useCreateReviewOnProduct hook za ustvarjanje ocene izdelka.
+ *
+ * @returns {object} - Vrne objekt z `mutate` funkcijo za ustvarjanje ocene.
+ *
+ * @example
+ * // Uporaba hook-a
+ * const { mutate: createReview } = useCreateReviewOnProduct();
+ * createReview({ JWT: "your_jwt_token", productId: "product_id", rating: 5, text: "review_text" });
+ */
+
 export default () => {
   const { t } = useTranslation();
   const client = useQueryClient();

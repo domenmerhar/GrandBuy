@@ -1,5 +1,16 @@
 import styled from "styled-components";
 
+/**
+ * Komponenta za prikaz potrditvenega polja (checkbox).
+ *
+ * @component
+ * @returns {JSX.Element} JSX element, ki predstavlja potrditveno polje.
+ *
+ * @example
+ * // Uporaba komponente
+ * <Checkbox type="checkbox" />
+ */
+
 export const Checkbox = styled.input`
   &[type="checkbox"] {
     -webkit-appearance: none;

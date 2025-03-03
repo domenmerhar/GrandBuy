@@ -5,6 +5,22 @@ interface SquareButtonProps {
   $size: "large" | "medium" | "small";
 }
 
+/**
+ * Komponenta za prikaz kvadratnega gumba.
+ *
+ * @component
+ * @param {Object} props - Lastnosti komponente.
+ * @param {"orange" | "red" | "white"} props.$color - Barva gumba.
+ * @param {"large" | "medium" | "small"} props.$size - Velikost gumba.
+ * @returns {JSX.Element} JSX element, ki predstavlja kvadraten gumb.
+ *
+ * @example
+ * // Uporaba komponente
+ * <SquareButton $color="orange" $size="large">
+ *   <svg>...</svg>
+ * </SquareButton>
+ */
+
 export const SquareButton = styled.button<SquareButtonProps>`
   ${({ $color }) =>
     $color === "orange" &&

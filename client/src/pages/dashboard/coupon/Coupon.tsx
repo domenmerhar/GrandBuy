@@ -51,6 +51,37 @@ interface Coupon extends CouponProps {
   affectedItems: { _id: string; name: string }[];
 }
 
+/**
+ * Komponenta za prikaz kupona.
+ *
+ * @component
+ * @param {Object} props - Lastnosti komponente.
+ * @param {string} props.couponId - ID kupona.
+ * @param {string} props.code - Koda kupona.
+ * @param {number} props.discount - Popust kupona v odstotkih.
+ * @param {string} props.validUntil - Veljavnost kupona do datuma.
+ * @param {Array} props.affectedItems - Seznam predmetov, na katere kupon vpliva.
+ * @param {Function} props.setCode - Funkcija za nastavitev kode kupona.
+ * @param {Function} props.setDiscount - Funkcija za nastavitev popusta kupona.
+ * @param {Function} props.setExpireAt - Funkcija za nastavitev datuma veljavnosti kupona.
+ * @param {Function} props.setProductIds - Funkcija za nastavitev ID-jev izdelkov, na katere kupon vpliva.
+ * @returns {JSX.Element} JSX element, ki predstavlja kupon.
+ *
+ * @example
+ * // Uporaba komponente
+ * <Coupon
+ *   couponId="123"
+ *   code="SAVE20"
+ *   discount={20}
+ *   validUntil="2025-12-31"
+ *   affectedItems={[{ _id: "1", name: "Product 1" }, { _id: "2", name: "Product 2" }]}
+ *   setCode={() => {}}
+ *   setDiscount={() => {}}
+ *   setExpireAt={() => {}}
+ *   setProductIds={() => {}}
+ * />
+ */
+
 export const Coupon: FC<Coupon> = React.memo(
   ({
     couponId,

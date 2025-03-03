@@ -1,8 +1,19 @@
-import { Select } from "../../../Util/Select";
+import { Select } from "../../../Components/Select";
 import { Row } from "../../../Util/Row";
 import { Header } from "../../../Util/Header";
 import { IOption } from "../../../Util/types";
 import { useTranslation } from "react-i18next";
+
+/**
+ * Komponenta za prikaz glave strani z ocenami.
+ *
+ * @component
+ * @returns {JSX.Element} JSX element, ki predstavlja glavo strani z ocenami.
+ *
+ * @example
+ * // Uporaba komponente
+ * <ReviewsPageHeader />
+ */
 
 export const ReviewsPageHeader = () => {
   const { t } = useTranslation();

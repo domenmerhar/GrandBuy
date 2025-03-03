@@ -9,6 +9,17 @@ import useCreateReviewOnProduct from "../../hooks/repliesReviews/useCreateReview
 import toast from "react-hot-toast";
 import { useJWT } from "../../hooks/useJWT";
 
+/**
+ * Komponenta za dodajanje mnenja v modalnem oknu.
+ *
+ * @component
+ * @returns {JSX.Element} JSX element, ki predstavlja modalno okno za dodajanje mnenja.
+ *
+ * @example
+ * // Uporaba komponente
+ * <AddReviewModal />
+ */
+
 export const AddReviewModal = () => {
   const { t } = useTranslation();
 

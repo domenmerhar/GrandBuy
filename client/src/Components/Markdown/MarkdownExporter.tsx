@@ -1,23 +1,32 @@
 import React, { useState } from "react";
 
+/**
+ * MarkdownExporter komponenta za urejanje in izvoz Markdown vsebine.
+ *
+ * @component
+ * @returns {JSX.Element} - JSX element za urejanje in izvoz Markdown vsebine.
+ *
+ * @example
+ * // Uporaba komponente
+ * <MarkdownExporter />
+ */
+
 const MarkdownExporter = () => {
   const [content, setContent] = useState("");
 
-  const handleTextareaChange = (e) => {
+  const handleTextareaChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setContent(e.target.value);
   };
 
   const downloadMarkdownFile = () => {
-    // Create a Blob with the Markdown content
     const blob = new Blob([content], { type: "text/markdown" });
-    // Create a URL for the Blob
     const url = URL.createObjectURL(blob);
-    // Create a temporary <a> element to trigger the download
+
     const a = document.createElement("a");
     a.href = url;
     a.download = "document.md";
     a.click();
-    // Cleanup the URL object
+
     URL.revokeObjectURL(url);
   };
 

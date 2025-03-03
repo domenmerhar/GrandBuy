@@ -3,6 +3,17 @@ import toast from "react-hot-toast";
 import { addProduct } from "../../api/product/addProduct";
 import { useTranslation } from "react-i18next";
 
+/**
+ * useAddProduct hook za dodajanje novega izdelka.
+ *
+ * @returns {object} - Vrne objekt z `mutate` funkcijo za dodajanje izdelka.
+ *
+ * @example
+ * // Uporaba hook-a
+ * const { mutate: addProductMutation } = useAddProduct();
+ * addProductMutation({ JWT: "your_jwt_token", productData: { ... } });
+ */
+
 export const useAddProduct = () => {
   const { t } = useTranslation();
   const client = useQueryClient();

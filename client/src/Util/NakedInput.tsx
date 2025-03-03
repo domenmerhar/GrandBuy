@@ -7,6 +7,22 @@ interface NakedInputProps {
   $fontWeight?: string;
 }
 
+/**
+ * Komponenta za prikaz vhodnega polja brez obrobe.
+ *
+ * @component
+ * @param {Object} props - Lastnosti komponente.
+ * @param {string} [props.$width] - Širina vhodnega polja.
+ * @param {string} [props.$height] - Višina vhodnega polja.
+ * @param {string} [props.$fontSize] - Velikost pisave vhodnega polja.
+ * @param {string} [props.$fontWeight] - Debelina pisave vhodnega polja.
+ * @returns {JSX.Element} JSX element, ki predstavlja vhodno polje brez obrobe.
+ *
+ * @example
+ * // Uporaba komponente
+ * <NakedInput $width="5rem" $height="5rem" $fontSize="1.8rem" $fontWeight="700" />
+ */
+
 export const NakedInput = styled.input<NakedInputProps>`
   -webkit-appearance: none;
   -moz-appearance: textfield;

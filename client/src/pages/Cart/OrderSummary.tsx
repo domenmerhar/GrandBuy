@@ -17,6 +17,17 @@ const Hr = styled.hr`
   background-color: var(--gray-8);
 `;
 
+/**
+ * Komponenta za prikaz povzetka naročila.
+ *
+ * @component
+ * @returns {JSX.Element} JSX element, ki predstavlja povzetek naročila.
+ *
+ * @example
+ * // Uporaba komponente
+ * <OrderSummary />
+ */
+
 export const OrderSummary = () => {
   const { t } = useTranslation();
 

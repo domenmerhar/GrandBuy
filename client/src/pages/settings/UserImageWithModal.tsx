@@ -14,6 +14,17 @@ const UserImage = styled(UserImageBig)`
   cursor: pointer;
 `;
 
+/**
+ * Komponenta za prikaz uporabniške slike z modalnim oknom za posodobitev slike.
+ *
+ * @component
+ * @returns {JSX.Element} JSX element, ki predstavlja uporabniško sliko z modalnim oknom za posodobitev slike.
+ *
+ * @example
+ * // Uporaba komponente
+ * <UserImageWithModal />
+ */
+
 export default function UserImageWithModal() {
   const { t } = useTranslation();
 

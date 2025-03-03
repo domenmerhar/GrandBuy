@@ -1,7 +1,7 @@
 import React, { createContext, FC } from "react";
-import { languages } from "./types";
+import { languages } from "../Util/types";
 import { useLocalStorage } from "../hooks/useLocalStorage";
-import i18n from "./localization/i18n";
+import i18n from "../Util/localization/i18n";
 
 interface LanguageContextType {
   currentLanguage: languages;
@@ -31,6 +31,17 @@ export const LanguageProvider: FC<LanguageProviderProps> = ({ children }) => {
     </LanguageContext.Provider>
   );
 };
+
+/**
+ * Hook za dostop do jezikovnega konteksta.
+ *
+ * @returns {LanguageContextType} Jezikovni kontekst.
+ * @throws {Error} Če hook ni uporabljen znotraj ponudnika jezika.
+ *
+ * @example
+ * // Uporaba hooka
+ * const { currentLanguage, setCurrentLanguage } = useLanguage();
+ */
 
 export const useLanguage = () => {
   const context = React.useContext(LanguageContext);

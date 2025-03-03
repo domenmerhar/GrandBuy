@@ -59,6 +59,23 @@ interface RefundBadgeProps {
   date: string;
 }
 
+/**
+ * BadgeCard komponenta za prikaz kartice z značko in vsebino.
+ *
+ * @component
+ * @param {object} props - Lastnosti komponente.
+ * @param {React.ReactNode | React.ReactNode[]} props.children - Vsebina kartice.
+ * @returns {JSX.Element} - JSX element kartice z značko.
+ *
+ * @example
+ * // Uporaba komponente
+ * <BadgeCard>
+ * <BadgeCard.Header ... />
+ * <BadgeCard.ItemList>...</BadgeCard.ItemList>
+ * <BadgeCard.P>...</BadgeCard.P>
+ * </BadgeCard>
+ */
+
 export const BadgeCard: FC<RefundCardProps> & {
   ItemList: typeof ItemList;
   P: typeof P;
@@ -72,7 +89,21 @@ export const BadgeCard: FC<RefundCardProps> & {
   );
 };
 
+/**
+ * BadgeCard.ItemList komponenta za prikaz seznama elementov v kartici.
+ *
+ * @component
+ * @returns {JSX.Element} - JSX element seznama elementov.
+ */
+
 BadgeCard.ItemList = ItemList;
+
+/**
+ * BadgeCard.P komponenta za prikaz odstavka besedila v kartici.
+ *
+ * @component
+ * @returns {JSX.Element} - JSX element odstavka besedila.
+ */
 
 BadgeCard.P = P;
 
@@ -81,6 +112,20 @@ const UserLink = styled(Link)`
   text-decoration: none;
   color: inherit;
 `;
+
+/**
+ * BadgeCard.Header komponenta za prikaz glave kartice z uporabniškimi informacijami in značko.
+ *
+ * @component
+ * @param {object} props - Lastnosti komponente.
+ * @param {string} props.imageLink - Povezava do slike profila uporabnika.
+ * @param {string} props.username - Uporabniško ime.
+ * @param {string} props.badgeText - Besedilo značke.
+ * @param {string} props.date - Datum.
+ * @param {string} props.userId - ID uporabnika.
+ * @param {BadgeColor} props.color - Barva značke.
+ * @returns {JSX.Element} - JSX element glave kartice.
+ */
 
 BadgeCard.Header = ({
   imageLink,
@@ -107,6 +152,17 @@ BadgeCard.Header = ({
     </Column>
   );
 };
+
+/**
+ * BadgeCard.Badge komponenta za prikaz značke z datumom.
+ *
+ * @component
+ * @param {object} props - Lastnosti komponente.
+ * @param {string} props.children - Besedilo značke.
+ * @param {BadgeColor} props.$color - Barva značke.
+ * @param {string} props.date - Datum.
+ * @returns {JSX.Element} - JSX element značke z datumom.
+ */
 
 BadgeCard.Badge = ({ children, $color, date }) => {
   return (

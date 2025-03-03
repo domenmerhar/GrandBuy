@@ -7,7 +7,7 @@ import { AddReviewButton } from "./AddReviewButton";
 import { ReviewSectionHeader } from "./ReviewSectionHeader";
 import { ReplyModal } from "./ReplyModal";
 import { Reviews } from "./Reviews";
-import { Stepper } from "../../Util/Stepper";
+import { Stepper } from "../../Components/Stepper";
 import { useReviews } from "./useReviews";
 import { useSearchParams } from "react-router-dom";
 import { useMe } from "../../hooks/useMe";
@@ -31,6 +31,17 @@ const RatingReviewHolder = styled(Row)`
 const ButtonsHolder = styled(Row)`
   align-self: flex-end;
 `;
+
+/**
+ * Komponenta za prikaz sekcije mnenj.
+ *
+ * @component
+ * @returns {JSX.Element} JSX element, ki predstavlja sekcijo mnenj.
+ *
+ * @example
+ * // Uporaba komponente
+ * <ReviewSection />
+ */
 
 export const ReviewSection = () => {
   const [searchParams] = useSearchParams();

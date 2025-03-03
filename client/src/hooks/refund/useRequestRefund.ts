@@ -5,6 +5,17 @@ import { useSearchParams } from "react-router-dom";
 import { requestRefund } from "../../api/refund/requestRefund";
 import { useTranslation } from "react-i18next";
 
+/**
+ * useRequestRefund hook za zahtevo vračila.
+ *
+ * @returns {object} - Vrne objekt z `mutate` funkcijo za zahtevo vračila.
+ *
+ * @example
+ * // Uporaba hook-a
+ * const { mutate: requestRefundMutation } = useRequestRefund();
+ * requestRefundMutation({ JWT: "your_jwt_token", orderId: "order_id", reason: "reason_for_refund" });
+ */
+
 export const useRequestRefund = () => {
   const { t } = useTranslation();
   const [searchParams] = useSearchParams();

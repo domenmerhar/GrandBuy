@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { Column } from "../Util/Column";
 import { HeaderUppercaseBold } from "../Util/HeaderUppercaseBold";
 import { ProductInfoParagraph } from "../pages/product/ProductInfoParagraph";
-import { Stepper } from "../Util/Stepper";
+import { Stepper } from "./Stepper";
 import { Button } from "../Util/Button";
 import { FC } from "react";
 import { Discount } from "../Util/Discount";
@@ -54,6 +54,35 @@ interface ProductInfoProps {
   uploaded: string;
   discount: number;
 }
+
+/**
+ * ProductInfo komponenta za prikaz informacij o izdelku.
+ *
+ * @component
+ * @param {object} props - Lastnosti komponente.
+ * @param {string} props.title - Naslov izdelka.
+ * @param {string} props.price - Cena izdelka.
+ * @param {string} props.shipping - Stroški dostave izdelka.
+ * @param {string} props.averageRating - Povprečna ocena izdelka.
+ * @param {string} props.unitsSold - Število prodanih enot izdelka.
+ * @param {string} props.createdBy - Ustvarjalec izdelka.
+ * @param {string} props.uploaded - Datum nalaganja izdelka.
+ * @param {number} props.discount - Popust na izdelek.
+ * @returns {JSX.Element} - JSX element informacij o izdelku.
+ *
+ * @example
+ * // Uporaba komponente
+ * <ProductInfo
+ * title="Izdelek 1"
+ * price="$100"
+ * shipping="$10"
+ * averageRating="4.5"
+ * unitsSold="1000"
+ * createdBy="Uporabnik 1"
+ * uploaded="2024-01-01"
+ * discount={10}
+ * />
+ */
 
 export const ProductInfo: FC<ProductInfoProps> = ({
   title,

@@ -1,6 +1,20 @@
 import styled from "styled-components";
 import { BadgeProps } from "./types";
 
+/**
+ * Komponenta za prikaz značke.
+ *
+ * @component
+ * @param {Object} props - Lastnosti komponente.
+ * @param {"orange" | "red" | "green" | "yellow"} props.$color - Barva značke.
+ * @param {"medium" | "small"} [props.$size="medium"] - Velikost značke.
+ * @returns {JSX.Element} JSX element, ki predstavlja značko.
+ *
+ * @example
+ * // Uporaba komponente
+ * <Badge $color="orange" $size="small">Oznaka</Badge>
+ */
+
 export const Badge = styled.span<BadgeProps>`
   ${({ $color }) =>
     $color === "orange" &&

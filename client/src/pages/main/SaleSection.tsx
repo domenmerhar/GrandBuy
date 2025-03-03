@@ -9,6 +9,17 @@ import { toApiFilesPath } from "../../functions/toApiFilesPath";
 import { ProductGrid } from "../../Util/ProductGrid";
 import { useTranslation } from "react-i18next";
 
+/**
+ * Komponenta za prikaz sekcije z izdelki v akciji.
+ *
+ * @component
+ * @returns {JSX.Element} JSX element, ki predstavlja sekcijo z izdelki v akciji.
+ *
+ * @example
+ * // Uporaba komponente
+ * <SaleSection />
+ */
+
 export const SaleSection = () => {
   const { t } = useTranslation();
 

@@ -3,6 +3,17 @@ import toast from "react-hot-toast";
 import { useTranslation } from "react-i18next";
 import createReply from "../../api/repliesReviews/createReply";
 
+/**
+ * useCreateReply hook za ustvarjanje odgovora na oceno.
+ *
+ * @returns {object} - Vrne objekt z `mutate` funkcijo za ustvarjanje odgovora.
+ *
+ * @example
+ * // Uporaba hook-a
+ * const { mutate: createReplyMutation } = useCreateReply();
+ * createReplyMutation({ JWT: "your_jwt_token", reviewId: "review_id", text: "reply_text" });
+ */
+
 export default () => {
   const { t } = useTranslation();
   const client = useQueryClient();

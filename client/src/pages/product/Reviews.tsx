@@ -11,6 +11,17 @@ const StyledReviews = styled(Column)`
   flex: 1;
 `;
 
+/**
+ * Komponenta za prikaz mnenj.
+ *
+ * @component
+ * @returns {JSX.Element} JSX element, ki predstavlja mnenja.
+ *
+ * @example
+ * // Uporaba komponente
+ * <Reviews />
+ */
+
 export const Reviews = () => {
   const { data, isLoading, error } = useReviews();
 

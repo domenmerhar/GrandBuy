@@ -14,6 +14,17 @@ const ThemeExitHolder = styled.div`
   justify-content: space-between;
 `;
 
+/**
+ * BurgerMenuThemeExit komponenta za prikaz gumbov za temo in izhod v stranskem meniju.
+ *
+ * @component
+ * @returns {JSX.Element} - JSX element gumbov za temo in izhod.
+ *
+ * @example
+ * // Uporaba komponente
+ * <BurgerMenuThemeExit />
+ */
+
 export const BurgerMenuThemeExit = () => {
   const { mutate } = useLogout();
   const { JWT } = useAuthContext();

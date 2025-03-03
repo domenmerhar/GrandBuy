@@ -26,6 +26,19 @@ const SpanLarge = styled.span`
   font-size: 4.8rem;
 `;
 
+/**
+ * Logo komponenta za prikaz logotipa aplikacije.
+ *
+ * @component
+ * @param {object} props - Lastnosti komponente.
+ * @param {"white" | "orange"} [props.$color] - Barva logotipa (bela ali oranžna).
+ * @returns {JSX.Element} - JSX element logotipa.
+ *
+ * @example
+ * // Uporaba komponente
+ * <Logo $color="orange" />
+ */
+
 export const Logo: FC<LogoProps> = ({ $color }) => {
   return (
     <LogoHolder $color={$color}>

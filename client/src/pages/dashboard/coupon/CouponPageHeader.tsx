@@ -1,10 +1,21 @@
 import { HiOutlinePlus } from "react-icons/hi";
 import { Header } from "../../../Util/Header";
 import { Row } from "../../../Util/Row";
-import { Select } from "../../../Util/Select";
+import { Select } from "../../../Components/Select";
 import { SquareButton } from "../../../Util/SquareButton";
 import { useTranslation } from "react-i18next";
 import { Modal } from "../../../Components/Modal";
+
+/**
+ * Komponenta za prikaz glave strani s kuponi.
+ *
+ * @component
+ * @returns {JSX.Element} JSX element, ki predstavlja glavo strani s kuponi.
+ *
+ * @example
+ * // Uporaba komponente
+ * <CouponPageHeader />
+ */
 
 export const CouponPageHeader = () => {
   const { t } = useTranslation();

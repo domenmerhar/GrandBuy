@@ -34,8 +34,8 @@ export const getReviewReplies = catchAsync(
     const { reviewId } = req.params;
     const { page: pageStr, skip: skipStr, limit: limitStr } = req.query;
 
-    const page = parseInt((pageStr as string) ?? "1");
-    const limit = parseInt((skipStr as string) ?? `${pageSize}`);
+    const page = parseInt(String(pageStr) ?? "1");
+    const limit = parseInt(String(skipStr) ?? `${pageSize}`);
     const skip = (page - 1) * limit;
 
     const replies = await Reply.find({ review: reviewId })

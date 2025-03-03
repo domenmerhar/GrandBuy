@@ -18,6 +18,17 @@ const DashboardContent = styled(ContentWithSidebar)`
   gap: 3.2rem;
 `;
 
+/**
+ * Dashboard komponenta za prikaz nadzorne plošče.
+ *
+ * @component
+ * @returns {JSX.Element} - JSX element nadzorne plošče.
+ *
+ * @example
+ * // Uporaba komponente
+ * <Dashboard />
+ */
+
 export const Dashboard = () => {
   const { data } = useMe();
   const role = data?.data?.role;

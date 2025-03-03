@@ -1,9 +1,20 @@
 import { useTranslation } from "react-i18next";
 import { FilterSortHeader } from "../../../Components/FilterSortHeader";
 import { Modal } from "../../../Components/Modal";
-import { Stepper } from "../../../Util/Stepper";
+import { Stepper } from "../../../Components/Stepper";
 import { IOption } from "../../../Util/types";
 import { DashboardRefunds } from "./DashboardRefunds";
+
+/**
+ * Komponenta za prikaz nadzorne plošče za vračila.
+ *
+ * @component
+ * @returns {JSX.Element} JSX element, ki predstavlja nadzorno ploščo za vračila.
+ *
+ * @example
+ * // Uporaba komponente
+ * <RefundDashboardPage />
+ */
 
 export const RefundDashboardPage = () => {
   const { t } = useTranslation();

@@ -4,6 +4,18 @@ import { SpinnerInBox } from "../../Components/SpinnerInBox";
 import { ErrorBox } from "../../Components/ErrorBox";
 import HorizontalProducts from "./HorizontalProducts";
 
+/**
+ * Komponenta za prikaz zadnjih izdelkov.
+ *
+ * @component
+ * @returns {JSX.Element} JSX element, ki predstavlja zadnje izdelke.
+ *
+ * @example
+ * // Uporaba komponente
+ * <LatestProducts />
+ */
+
+
 export const LatestProducts = () => {
   const { data, error, isLoading } = useQuery({
     queryKey: ["products-latest"],
@@ -11,7 +23,6 @@ export const LatestProducts = () => {
       getProducts({
         query: "",
         page: 1,
-        limit: 20,
         sort: "-createdAt",
       }),
   });

@@ -1,6 +1,17 @@
-import { useLanguage } from "../../Util/LanguageContext";
+import { useLanguage } from "../../contexts/LanguageContext";
 import { SwitchButtons } from "./SwitchButtons";
 import { languages } from "../../Util/types";
+
+/**
+ * LanguageButton komponenta za izbiro jezika aplikacije.
+ *
+ * @component
+ * @returns {JSX.Element} - JSX element gumba za izbiro jezika.
+ *
+ * @example
+ * // Uporaba komponente
+ * <LanguageButton />
+ */
 
 export const LanguageButton = () => {
   const { currentLanguage, setCurrentLanguage } = useLanguage();

@@ -5,6 +5,16 @@ import { useAuthContext } from "../../contexts/AuthContext";
 import { useEffect } from "react";
 import { useMe } from "../../hooks/useMe";
 
+/**
+ * Hook za pridobivanje podatkov o izdelku.
+ *
+ * @returns {Object} Objekt, ki vsebuje podatke o izdelku, stanje nalaganja in morebitne napake.
+ *
+ * @example
+ * // Uporaba hook
+ * const { data, isLoading, error } = useProduct();
+ */
+
 export const useProduct = () => {
   const { productId } = useParams();
   const { JWT } = useAuthContext();
@@ -15,15 +25,15 @@ export const useProduct = () => {
 
   if (!productId) throw new Error("No productId found in URL");
 
-  const { data, isLoading, error } = useQuery({
+  const queryData = useQuery({
     queryKey: ["product", productId],
     queryFn: () => getProduct(productId!, JWT),
   });
 
   useEffect(() => {
-    if (data?.status === "success")
+    if (queryData?.data?.status === "success")
       client.invalidateQueries({ queryKey: ["history", userId] });
-  }, [data?.status, client, userId]);
+  }, [queryData?.data?.status, client, userId]);
 
-  return { data, isLoading, error };
+  return queryData;
 };

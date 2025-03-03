@@ -4,6 +4,25 @@ import { useAuthContext } from "../../contexts/AuthContext";
 import { useSearchParams } from "react-router-dom";
 import { useMe } from "../useMe";
 
+/**
+ * useCartItems hook za pridobivanje izdelkov v košarici.
+ *
+ * @returns {object} - Vrne rezultat `useQuery` hook-a, ki vsebuje podatke o izdelkih v košarici.
+ *
+ * @example
+ * // Uporaba hook-a
+ * const { data, isLoading, isError } = useCartItems();
+ * if (isLoading) return <p>Loading...</p>;
+ * if (isError) return <p>Error...</p>;
+ * return (
+ * <div>
+ * {data?.data.items.map(item => (
+ * <div key={item._id}>{item.product.name}</div>
+ * ))}
+ * </div>
+ * );
+ */
+
 export const useCartItems = () => {
   const [searchParams] = useSearchParams();
   const { JWT } = useAuthContext();

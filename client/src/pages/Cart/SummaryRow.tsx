@@ -11,6 +11,20 @@ interface SummaryRowProps {
   price: string;
 }
 
+/**
+ * Komponenta za prikaz vrstice povzetka naročila.
+ *
+ * @component
+ * @param {Object} props - Lastnosti komponente.
+ * @param {string} props.name - Ime vrstice povzetka.
+ * @param {string} props.price - Cena vrstice povzetka.
+ * @returns {JSX.Element} JSX element, ki predstavlja vrstico povzetka naročila.
+ *
+ * @example
+ * // Uporaba komponente
+ * <SummaryRow name="Items" price="$50.00" />
+ */
+
 export const SummaryRow: FC<SummaryRowProps> = ({ name, price }) => {
   return (
     <Row $justifyContent="space-between">

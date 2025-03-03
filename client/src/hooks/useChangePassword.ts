@@ -5,6 +5,17 @@ import { useNavigate } from "react-router-dom";
 import { useAuthContext } from "../contexts/AuthContext";
 import { useTranslation } from "react-i18next";
 
+/**
+ * useChangePassword hook za spreminjanje uporabniškega gesla.
+ *
+ * @returns {object} - Objekt, ki vsebuje `mutate` funkcijo za spreminjanje gesla.
+ *
+ * @example
+ * // Uporaba hook-a
+ * const { mutate: change } = useChangePassword();
+ * change({ JWT: "your_jwt_token", oldPassword: "oldPassword", newPassword: "newPassword" });
+ */
+
 export const useChangePassword = () => {
   const { t } = useTranslation();
   const { JWT, clearAuthInfo } = useAuthContext();

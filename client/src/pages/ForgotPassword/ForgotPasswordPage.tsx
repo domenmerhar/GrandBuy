@@ -1,4 +1,4 @@
-import { AuthContainer } from "../../Util/AuthContainer";
+import { AuthContainer } from "../../Components/AuthContainer";
 import { Logo } from "../../Components/Logo";
 import { useTranslation } from "react-i18next";
 import { Button } from "../../Util/Button";
@@ -23,6 +23,17 @@ const Form = styled(Column)`
 const P = styled.p`
   max-width: 50ch;
 `;
+
+/**
+ * Komponenta za stran z obrazcem za pozabljeno geslo.
+ *
+ * @component
+ * @returns {JSX.Element} JSX element, ki predstavlja stran z obrazcem za pozabljeno geslo.
+ *
+ * @example
+ * // Uporaba komponente
+ * <ForgotPasswordPage />
+ */
 
 export default function ForgotPasswordPage() {
   const { t } = useTranslation();

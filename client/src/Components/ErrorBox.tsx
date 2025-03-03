@@ -27,6 +27,19 @@ interface ErrorBoxProps {
   fullPage?: boolean;
 }
 
+/**
+ * ErrorBox komponenta za prikaz sporočila o napaki.
+ *
+ * @component
+ * @param {object} props - Lastnosti komponente.
+ * @param {boolean} [props.fullPage=true] - Ali naj se napaka prikaže na celotni strani.
+ * @returns {JSX.Element} - JSX element sporočila o napaki.
+ *
+ * @example
+ * // Uporaba komponente
+ * <ErrorBox fullPage={false} />
+ */
+
 export const ErrorBox: FC<ErrorBoxProps> = ({ fullPage = true }) => {
   const { t } = useTranslation();
 

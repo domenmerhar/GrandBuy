@@ -3,6 +3,17 @@ import toast from "react-hot-toast";
 import { useTranslation } from "react-i18next";
 import { shipOrder } from "../../api/order/shipOrder";
 
+/**
+ * useShipOrder hook za odpremo naročila.
+ *
+ * @returns {object} - Vrne objekt z `mutate` funkcijo za odpremo naročila.
+ *
+ * @example
+ * // Uporaba hook-a
+ * const { mutate: ship } = useShipOrder();
+ * ship({ JWT: "your_jwt_token", orderId: "order_id" });
+ */
+
 export const useShipOrder = () => {
   const { t } = useTranslation();
   const client = useQueryClient();
@@ -16,8 +27,7 @@ export const useShipOrder = () => {
 
       client.invalidateQueries({
         predicate: (query) =>
-          (query.queryKey[0] as string).includes("seller-orders") ||
-          query.queryKey[0] === "seller-orders",
+          String(query.queryKey[0]).includes("seller-orders"),
       });
 
       toast.success(t("orderShipped"), { id: "handle-order" });

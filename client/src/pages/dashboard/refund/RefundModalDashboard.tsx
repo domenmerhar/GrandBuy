@@ -8,6 +8,17 @@ import { useRef } from "react";
 import toast from "react-hot-toast";
 import { useRespondToRefund } from "../../../hooks/refund/useRespondToRefund";
 
+/**
+ * Komponenta za upravljanje povračil v modalnem oknu na nadzorni plošči.
+ *
+ * @component
+ * @returns {JSX.Element} JSX element, ki predstavlja modalno okno za upravljanje povračil.
+ *
+ * @example
+ * // Uporaba komponente
+ * <RefundModalDashboard />
+ */
+
 export const RefundModalDashboard = () => {
   const { t } = useTranslation();
   const [searchParams, setSearchParams] = useSearchParams();

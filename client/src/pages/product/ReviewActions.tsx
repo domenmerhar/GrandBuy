@@ -25,6 +25,27 @@ interface ReviewActionsProps {
   likeCount: number;
 }
 
+/**
+ * Komponenta za prikaz dejanj za mnenje.
+ *
+ * @component
+ * @param {Object} props - Lastnosti komponente.
+ * @param {string} props.reviewId - ID mnenja.
+ * @param {boolean} props.showReplies - Ali naj bodo odgovori prikazani.
+ * @param {function} props.setShowReplies - Funkcija za nastavljanje vidnosti odgovorov.
+ * @param {number} props.likeCount - Število všečkov mnenja.
+ * @returns {JSX.Element} JSX element, ki predstavlja dejanja za mnenje.
+ *
+ * @example
+ * // Uporaba komponente
+ * <ReviewActions
+ *   reviewId="1"
+ *   showReplies={true}
+ *   setShowReplies={() => {}}
+ *   likeCount={10}
+ * />
+ */
+
 export const ReviewActions: FC<ReviewActionsProps> = ({
   reviewId,
   showReplies,

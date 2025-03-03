@@ -6,6 +6,7 @@ import { HiPencil } from "react-icons/hi";
 import { Modal } from "../../Components/Modal";
 import { useSearchParams } from "react-router-dom";
 import { ProductInfoModal } from "./ProductInfoModal";
+import { useMe } from "../../hooks/useMe";
 
 const ProductInfoHolder = styled(StyledSidebar)`
   align-self: flex-start;
@@ -23,11 +24,23 @@ const ProductInfoHolder = styled(StyledSidebar)`
   }
 `;
 
-const createdBy = "test";
+/**
+ * Komponenta za prikaz informacij o izdelku.
+ *
+ * @component
+ * @returns {JSX.Element} JSX element, ki predstavlja kartico z informacijami o izdelku.
+ *
+ * @example
+ * // Uporaba komponente
+ * <ProductInfoCard />
+ */
 
 export const ProductInfoCard = () => {
   const [searchParams] = useSearchParams();
   const { setIsOpen } = Modal.useModalContext();
+  const { data } = useMe();
+
+  const createdBy = data?.data?.username;
 
   const handleClick = () => {
     setIsOpen(true);

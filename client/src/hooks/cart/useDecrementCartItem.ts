@@ -3,6 +3,17 @@ import toast from "react-hot-toast";
 import { decrementCartItem } from "../../api/cart/decrementCartItem";
 import { useTranslation } from "react-i18next";
 
+/**
+ * useDecrementCartItem hook za zmanjšanje števila izdelkov v košarici.
+ *
+ * @returns {object} - Vrne objekt z `mutate` funkcijo za zmanjšanje števila izdelkov.
+ *
+ * @example
+ * // Uporaba hook-a
+ * const { mutate: decrement } = useDecrementCartItem();
+ * decrement({ JWT: "your_jwt_token", productId: "product_id" });
+ */
+
 export const useDecrementCartItem = () => {
   const { t } = useTranslation();
   const client = useQueryClient();
@@ -17,7 +28,7 @@ export const useDecrementCartItem = () => {
         });
 
       client.invalidateQueries({
-        predicate: (query) => query.queryKey[0].includes("cartItems"),
+        predicate: (query) => String(query.queryKey[0]).includes("cartItems"),
       });
     },
   });

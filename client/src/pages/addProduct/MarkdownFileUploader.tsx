@@ -23,6 +23,17 @@ const Label = styled.label`
   margin-top: 5px;
 `;
 
+/**
+ * Komponenta za nalaganje in prikazovanje Markdown datotek.
+ *
+ * @component
+ * @returns {JSX.Element} JSX element, ki omogoča nalaganje Markdown datotek in prikaz njihove vsebine.
+ *
+ * @example
+ * // Uporaba komponente
+ * <MarkdownFileUploader />
+ */
+
 export const MarkdownFileUploader: FC = () => {
   const [markdownContent, setMarkdownContent] = useState<string>("");
 
@@ -32,7 +43,7 @@ export const MarkdownFileUploader: FC = () => {
       const reader = new FileReader();
       reader.onload = () => {
         if (reader.result) {
-          setMarkdownContent(reader.result as string);
+          setMarkdownContent(String(reader.result));
         }
       };
       reader.readAsText(file);

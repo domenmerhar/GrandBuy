@@ -67,6 +67,17 @@ const IconHolder = styled.button`
   }
 `;
 
+/**
+ * Komponenta za iskalno vrstico.
+ *
+ * @component
+ * @returns {JSX.Element} JSX element, ki predstavlja iskalno vrstico.
+ *
+ * @example
+ * // Uporaba komponente
+ * <SearchBar />
+ */
+
 export const SearchBar = () => {
   const { t } = useTranslation();
 

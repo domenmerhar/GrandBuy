@@ -14,9 +14,18 @@ const RefundGrid = styled.div`
   justify-content: space-between;
 `;
 
-export const DashboardRefunds = () => {
-  const { setIsOpen } = Modal.useModalContext();
+/**
+ * Komponenta za prikaz povračil na nadzorni plošči.
+ *
+ * @component
+ * @returns {JSX.Element} JSX element, ki predstavlja povračila na nadzorni plošči.
+ *
+ * @example
+ * // Uporaba komponente
+ * <DashboardRefunds />
+ */
 
+export const DashboardRefunds = () => {
   const { data, error, isLoading } = useGetSellerRefunds();
 
   if (isLoading) return <SpinnerInBox fullPage={false} />;

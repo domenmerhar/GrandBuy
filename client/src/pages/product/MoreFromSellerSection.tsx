@@ -8,6 +8,17 @@ import { useTranslation } from "react-i18next";
 import { useProduct } from "./useProduct";
 import { getSellerProducts } from "../../api/product/getSellerProducts";
 
+/**
+ * Komponenta za prikaz več izdelkov istega prodajalca.
+ *
+ * @component
+ * @returns {JSX.Element} JSX element, ki predstavlja sekcijo z več izdelki istega prodajalca.
+ *
+ * @example
+ * // Uporaba komponente
+ * <MoreFromSellerSection />
+ */
+
 export const MoreFromSellerSection = () => {
   const { t } = useTranslation();
 

@@ -24,6 +24,17 @@ const StyledAddToWishlistButton = styled.button<ButtonProps>`
   }
 `;
 
+/**
+ * Komponenta za dodajanje izdelka na seznam želja.
+ *
+ * @component
+ * @returns {JSX.Element} JSX element, ki predstavlja gumb za dodajanje izdelka na seznam želja.
+ *
+ * @example
+ * // Uporaba komponente
+ * <AddToWishlistButton />
+ */
+
 export const AddToWishlistButton = () => {
   const { JWT } = useAuthContext();
   const { productId } = useParams<{ productId: string }>();

@@ -47,6 +47,25 @@ interface OverviewCardProps {
   content: string;
 }
 
+/**
+ * OverviewCard komponenta za prikaz kartice s preglednimi informacijami.
+ *
+ * @component
+ * @param {object} props - Lastnosti komponente.
+ * @param {React.ReactNode} props.icon - Ikona, ki se prikaže v kartici.
+ * @param {string} props.title - Naslov kartice.
+ * @param {string} props.content - Vsebina kartice.
+ * @returns {JSX.Element} - JSX element kartice s preglednimi informacijami.
+ *
+ * @example
+ * // Uporaba komponente
+ * <OverviewCard
+ * icon={<HiOutlineUsers />}
+ * title="Uporabniki"
+ * content="Število registriranih uporabnikov."
+ * />
+ */
+
 export const OverviewCard: FC<OverviewCardProps> = ({
   icon,
   title,

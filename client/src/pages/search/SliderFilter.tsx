@@ -13,6 +13,17 @@ function valuetext(value: number) {
   return `$${value}`;
 }
 
+/**
+ * Komponenta za prikaz drsnega filtra.
+ *
+ * @component
+ * @returns {JSX.Element} JSX element, ki predstavlja drsni filter.
+ *
+ * @example
+ * // Uporaba komponente
+ * <SliderFilter />
+ */
+
 export const SliderFilter = () => {
   const {
     handleBlur,

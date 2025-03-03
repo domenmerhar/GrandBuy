@@ -6,6 +6,17 @@ import { useJWT } from "../../../hooks/useJWT";
 import toast from "react-hot-toast";
 import { useCancelOrder } from "../../../hooks/order/useCancelOrder";
 
+/**
+ * Komponenta za odziv na naročila v modalnem oknu.
+ *
+ * @component
+ * @returns {JSX.Element} JSX element, ki predstavlja modalno okno za odziv na naročila.
+ *
+ * @example
+ * // Uporaba komponente
+ * <OrderRespondModal />
+ */
+
 export const OrderRespondModal = () => {
   const { t } = useTranslation();
 

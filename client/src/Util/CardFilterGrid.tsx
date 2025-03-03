@@ -1,5 +1,19 @@
 import styled from "styled-components";
 
+/**
+ * Komponenta za prikaz mreže s filtri za kartice.
+ *
+ * @component
+ * @returns {JSX.Element} JSX element, ki predstavlja mrežo s filtri za kartice.
+ *
+ * @example
+ * // Uporaba komponente
+ * <CardFilterGrid>
+ *   <CardComponent />
+ *   <FilterComponent />
+ * </CardFilterGrid>
+ */
+
 export const CardFilterGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(

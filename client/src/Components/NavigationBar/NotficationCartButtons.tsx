@@ -16,6 +16,20 @@ const NavlinkHolder = styled(NavLink)`
   text-decoration: none;
 `;
 
+/**
+ * NotficationCartButtons komponenta za prikaz gumbov za obvestila, košarico in meni.
+ *
+ * @component
+ * @param {object} props - Lastnosti komponente.
+ * @param {boolean} props.isOpen - Ali je meni odprt.
+ * @param {function} props.menuHandler - Funkcija za obravnavo klika na gumb menija.
+ * @returns {JSX.Element} - JSX element gumbov za obvestila, košarico in meni.
+ *
+ * @example
+ * // Uporaba komponente
+ * <NotficationCartButtons isOpen={true} menuHandler={() => console.log('Menu clicked')} />
+ */
+
 export const NotficationCartButtons: FC<NotificatioCartButtonsProps> = ({
   isOpen,
   menuHandler,

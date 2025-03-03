@@ -31,6 +31,23 @@ const Notification = styled.div`
   align-items: center;
 `;
 
+/**
+ * ButtonWithNotifcations komponenta za prikaz gumba z obvestili.
+ *
+ * @component
+ * @param {object} props - Lastnosti komponente.
+ * @param {number} [props.notificationCount] - Število obvestil, ki jih želimo prikazati.
+ * @param {React.ReactNode} props.children - Vsebina gumba.
+ * @param {function} [props.onClick] - Funkcija, ki se izvede ob kliku na gumb.
+ * @returns {JSX.Element} - JSX element gumba z obvestili.
+ *
+ * @example
+ * // Uporaba komponente
+ * <ButtonWithNotifcations notificationCount={5} onClick={() => console.log('Klik')}>
+ * <svg>...</svg>
+ * </ButtonWithNotifcations>
+ */
+
 export const ButtonWithNotifcations: React.FC<ButtonWithNotifcationsProps> = ({
   notificationCount,
   children,

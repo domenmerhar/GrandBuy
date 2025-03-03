@@ -1,6 +1,17 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
+/**
+ * ScrollToTop komponenta za samodejno premikanje na vrh strani ob spremembi poti.
+ *
+ * @component
+ * @returns {null} - Komponenta ne prikazuje ničesar.
+ *
+ * @example
+ * // Uporaba komponente
+ * <ScrollToTop />
+ */
+
 export const ScrollToTop = () => {
   const { pathname } = useLocation();
 

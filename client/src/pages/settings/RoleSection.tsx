@@ -10,6 +10,17 @@ import { useRequestSeller } from "../../hooks/useRequestSeller";
 import { useAuthContext } from "../../contexts/AuthContext";
 import { useTranslation } from "react-i18next";
 
+/**
+ * Komponenta za prikaz sekcije za zahtevo za prodajalca.
+ *
+ * @component
+ * @returns {JSX.Element} JSX element, ki predstavlja sekcijo za zahtevo za prodajalca.
+ *
+ * @example
+ * // Uporaba komponente
+ * <RoleSection />
+ */
+
 export const RoleSection = () => {
   const { t } = useTranslation();
 

@@ -8,6 +8,17 @@ const PostReviewButton = styled(Button)`
   align-self: flex-end;
 `;
 
+/**
+ * Komponenta za dodajanje gumba za oceno.
+ *
+ * @component
+ * @returns {JSX.Element} JSX element, ki predstavlja gumb za dodajanje ocene.
+ *
+ * @example
+ * // Uporaba komponente
+ * <AddReviewButton />
+ */
+
 export const AddReviewButton = () => {
   const { t } = useTranslation();
   const { setIsOpen } = Modal.useModalContext();

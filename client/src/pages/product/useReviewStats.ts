@@ -8,6 +8,16 @@ interface IRatingBreakdown {
   percentage: number;
 }
 
+/**
+ * Hook za pridobivanje statističnih podatkov o mnenjih izdelkov.
+ *
+ * @returns {Object} Objekt, ki vsebuje podatke o mnenjih, stanje nalaganja, morebitne napake, povprečno oceno in razčlenitev ocen.
+ *
+ * @example
+ * // Uporaba hooka
+ * const { data, isLoading, error, averageRating, ratingBreakdowns } = useReviewStats();
+ */
+
 export const useReviewStats = () => {
   const { productId } = useParams();
 

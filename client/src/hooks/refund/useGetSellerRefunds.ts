@@ -5,6 +5,25 @@ import { getSellerRefunds } from "../../api/refund/getSellerRefunds";
 import { useSearchParams } from "react-router-dom";
 import { RefundStatus } from "../../Util/types";
 
+/**
+ * useGetSellerRefunds hook za pridobivanje zahtevkov za vračilo prodajalca.
+ *
+ * @returns {object} - Vrne rezultat `useQuery` hook-a, ki vsebuje zahtevke za vračilo prodajalca.
+ *
+ * @example
+ * // Uporaba hook-a
+ * const { data: refunds, isLoading, isError } = useGetSellerRefunds();
+ * if (isLoading) return <p>Loading...</p>;
+ * if (isError) return <p>Error...</p>;
+ * return (
+ * <div>
+ * {refunds?.data.items.map(refund => (
+ * <div key={refund._id}>{refund._id}</div>
+ * ))}
+ * </div>
+ * );
+ */
+
 export default function useGetSellerRefunds() {
   const [searchParams] = useSearchParams();
   const { JWT } = useAuthContext();

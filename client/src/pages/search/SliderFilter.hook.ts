@@ -3,6 +3,24 @@ import { useSearchParams } from "react-router-dom";
 
 const initialMaxValue = 100;
 
+/**
+ * Hook za upravljanje drsnega filtra.
+ *
+ * @returns {Object} Objekt, ki vsebuje vrednosti drsnika, največjo vrednost, reference na vhodna polja in funkcije za upravljanje drsnika.
+ *
+ * @example
+ * // Uporaba hooka
+ * const {
+ *   value,
+ *   maxValue,
+ *   minRef,
+ *   maxRef,
+ *   handleChangeSlider,
+ *   handleBlur,
+ *   handleChangeCommited,
+ * } = useSliderFilter();
+ */
+
 export const useSliderFilter = () => {
   const [value, setValue] = useState<number[]>([0, 0]);
   const [maxValue, setMaxValue] = useState<number>(initialMaxValue);

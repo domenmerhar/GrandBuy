@@ -14,6 +14,29 @@ interface ImagePickerProps {
   accept?: string;
 }
 
+/**
+ * FilePicker komponenta za izbiro datotek.
+ *
+ * @component
+ * @param {object} props - Lastnosti komponente.
+ * @param {React.Dispatch<React.SetStateAction<File[]>>} props.setSelectedFiles - Funkcija za nastavitev izbranih datotek.
+ * @param {string} props.label - Oznaka vnosnega polja.
+ * @param {string} props.id - ID vnosnega polja.
+ * @param {boolean} [props.multiple=false] - Ali je dovoljena izbira več datotek.
+ * @param {string} [props.accept="image/*"] - Sprejeti tipi datotek.
+ * @returns {JSX.Element} - JSX element vnosnega polja za izbiro datotek.
+ *
+ * @example
+ * // Uporaba komponente
+ * <FilePicker
+ * setSelectedFiles={setSelectedFiles}
+ * label="Izberi slike"
+ * id="imageUpload"
+ * multiple={true}
+ * accept="image/*, .pdf"
+ * />
+ */
+
 export const FilePicker: FC<ImagePickerProps> = ({
   setSelectedFiles,
   label,

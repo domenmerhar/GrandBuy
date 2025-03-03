@@ -12,6 +12,32 @@ interface InfiniteProductsProps {
   container?: React.ComponentType<{ children: ReactNode }>;
 }
 
+/**
+ * InfiniteProducts komponenta za prikaz neskončnega seznama izdelkov.
+ *
+ * @component
+ * @param {object} props - Lastnosti komponente.
+ * @param {unknown} props.data - Podatki za prikaz.
+ * @param {boolean} props.isLoading - Ali se podatki nalagajo.
+ * @param {unknown} props.error - Napaka, če je prišlo do nje.
+ * @param {boolean} props.isFetching - Ali se dodatni podatki nalagajo.
+ * @param {function} props.renderFn - Funkcija za prikaz posamezne strani podatkov.
+ * @param {React.ComponentType<{ children: ReactNode }>} [props.container] - Komponenta za ovijanje vsebine.
+ * @param {React.ForwardedRef<HTMLDivElement>} ref - Referenca za neskončni div.
+ * @returns {JSX.Element} - JSX element neskončnega seznama izdelkov.
+ *
+ * @example
+ * // Uporaba komponente
+ * <InfiniteProducts
+ * data={data}
+ * isLoading={isLoading}
+ * error={error}
+ * isFetching={isFetching}
+ * renderFn={(page) => page.items.map((item) => <ProductCard key={item.id} {...item} />)}
+ * container={Row}
+ * ref={ref}
+ * />
+ */
 export const InfiniteProducts = forwardRef<
   HTMLDivElement,
   InfiniteProductsProps

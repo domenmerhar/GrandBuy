@@ -11,7 +11,7 @@ export const useReviews = () => {
 
   const sort = (searchParams.get("sort") as ReviewSort) || "-likesCount";
 
-  const { data, isLoading, error } = useQuery({
+  return useQuery({
     queryKey: ["reviews", productId, page, sort],
     queryFn: () =>
       getReviews({
@@ -20,6 +20,4 @@ export const useReviews = () => {
         sort,
       }),
   });
-
-  return { data, isLoading, error };
 };

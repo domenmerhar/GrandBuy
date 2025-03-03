@@ -8,6 +8,17 @@ import { toPrice } from "../../functions/toPrice";
 import { IProductShort } from "../../Util/types";
 import { useTranslation } from "react-i18next";
 
+/**
+ * Komponenta za prikaz izdelkov z brezplačno dostavo.
+ *
+ * @component
+ * @returns {JSX.Element} JSX element, ki predstavlja izdelke z brezplačno dostavo.
+ *
+ * @example
+ * // Uporaba komponente
+ * <FreeShipping />
+ */
+
 export const FreeShipping = () => {
   const { t } = useTranslation();
 
@@ -18,7 +29,6 @@ export const FreeShipping = () => {
         query: "",
         page: 1,
         freeShipping: true,
-        limit: 4,
       }),
   });
 

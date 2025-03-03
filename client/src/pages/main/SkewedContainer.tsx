@@ -20,6 +20,15 @@ const Content = styled.div`
   transform: skewY(var(--skew-negative)) translateZ(0);
 `;
 
+/**
+ * Komponenta za prikaz vsebine z nagibom.
+ *
+ * @component
+ * @param {Object} props - Lastnosti komponente.
+ * @param {ReactNode | ReactNode[]} props.children - Otroški elementi.
+ * @returns {JSX.Element} JSX element, ki predstavlja vsebino z nagibom.
+ */
+
 export const SkewedContainer: FC<SkewedContainerProps> = ({ children }) => {
   return (
     <StyledSkewedContainer>

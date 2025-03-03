@@ -48,6 +48,19 @@ interface ImageCarouselProps {
   images: string[];
 }
 
+/**
+ * Komponenta za prikaz slik v karuselu.
+ *
+ * @component
+ * @param {Object} props - Lastnosti komponente.
+ * @param {string[]} props.images - Seznam URL-jev slik za prikaz.
+ * @returns {JSX.Element} JSX element, ki predstavlja karusel slik.
+ *
+ * @example
+ * // Uporaba komponente
+ * <ImageCarousel images={["https://example.com/image1.jpg", "https://example.com/image2.jpg"]} />
+ */
+
 export const ImageCarousel: FC<ImageCarouselProps> = ({ images }) => {
   const maxImages = images.length || 1;
   const [currImageNumber, setCurrImageNumber] = useState<number>(0);

@@ -1,6 +1,6 @@
 import { FC } from "react";
 import styled from "styled-components";
-import { IOption } from "./types";
+import { IOption } from "../Util/types";
 import { useSearchParams } from "react-router-dom";
 
 interface SelectProps {
@@ -18,6 +18,20 @@ const StyledSelect = styled.select`
 `;
 
 const Option = styled.option``;
+
+/**
+ * Komponenta za prikaz izbire.
+ *
+ * @component
+ * @param {Object} props - Lastnosti komponente.
+ * @param {IOption[]} props.options - Seznam možnosti za izbiro.
+ * @param {string} [props.searchParam] - Iskalni parameter (privzeto "sort").
+ * @returns {JSX.Element} JSX element, ki predstavlja izbiro.
+ *
+ * @example
+ * // Uporaba komponente
+ * <Select options={[{ name: 'Ime', value: 'value' }]} searchParam="filter" />
+ */
 
 export const Select: FC<SelectProps> = ({ options, searchParam = "sort" }) => {
   const [, setSearchParams] = useSearchParams();

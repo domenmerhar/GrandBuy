@@ -22,6 +22,22 @@ interface ProductFilterProps {
   price?: boolean;
 }
 
+/**
+ * ProductFilter komponenta za prikaz filtrov za produkte.
+ *
+ * @component
+ * @param {object} props - Lastnosti komponente.
+ * @param {boolean} [props.freeShipping=false] - Ali naj se prikaže filter za brezplačno dostavo.
+ * @param {boolean} [props.sale=false] - Ali naj se prikaže filter za popuste.
+ * @param {boolean} [props.rating=false] - Ali naj se prikaže filter za ocene.
+ * @param {boolean} [props.price=false] - Ali naj se prikaže filter za ceno.
+ * @returns {JSX.Element} - JSX element filtrov za produkte.
+ *
+ * @example
+ * // Uporaba komponente
+ * <ProductFilter freeShipping sale rating price />
+ */
+
 export const ProductFilter: FC<ProductFilterProps> = ({
   freeShipping,
   sale,

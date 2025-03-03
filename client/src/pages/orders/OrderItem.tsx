@@ -62,6 +62,35 @@ interface OrderItemProps {
   status: ItemStatus;
 }
 
+/**
+ * Komponenta za prikaz izdelka naročila.
+ *
+ * @component
+ * @param {Object} props - Lastnosti komponente.
+ * @param {string} props.orderId - ID naročila.
+ * @param {string} props.cartItemId - ID izdelka v košarici.
+ * @param {string} props.image - URL slike izdelka.
+ * @param {string} props.name - Ime izdelka.
+ * @param {string} props.price - Cena izdelka.
+ * @param {string} props.productId - ID izdelka.
+ * @param {number} props.quantity - Količina izdelka.
+ * @param {ItemStatus} props.status - Status izdelka.
+ * @returns {JSX.Element} JSX element, ki predstavlja izdelek naročila.
+ *
+ * @example
+ * // Uporaba komponente
+ * <OrderItem
+ *   orderId="1"
+ *   cartItemId="123"
+ *   image="https://example.com/image.jpg"
+ *   name="Izdelek"
+ *   price="$100"
+ *   productId="456"
+ *   quantity={2}
+ *   status="delivered"
+ * />
+ */
+
 export const OrderItem: FC<OrderItemProps> = ({
   cartItemId,
   image,

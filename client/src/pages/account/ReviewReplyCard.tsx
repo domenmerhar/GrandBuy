@@ -32,6 +32,24 @@ interface ReviewReplyCardProps {
   content: string;
 }
 
+/**
+ * ReviewReplyCard komponenta za prikaz kartice z oceno ali odgovorom.
+ *
+ * Ta komponenta prikazuje profilno sliko, uporabniško ime, datum in vsebino ocene ali odgovora.
+ *
+ * @param {ReviewReplyCardProps} props - Lastnosti komponente.
+ * @returns {JSX.Element} - JSX element, ki predstavlja kartico z oceno ali odgovorom.
+ *
+ * @example
+ * // Uporaba komponente
+ * <ReviewReplyCard
+ * profileImage="profile.jpg"
+ * username="JohnDoe"
+ * date="2023-10-27"
+ * content="Odlično!"
+ * />
+ */
+
 export const ReviewReplyCard: FC<ReviewReplyCardProps> = ({
   profileImage,
   username,

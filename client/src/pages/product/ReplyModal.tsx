@@ -8,6 +8,17 @@ import toast from "react-hot-toast";
 import useCreateReply from "../../hooks/repliesReviews/useCreateReply";
 import { useJWT } from "../../hooks/useJWT";
 
+/**
+ * Komponenta za odgovor v modalnem oknu.
+ *
+ * @component
+ * @returns {JSX.Element} JSX element, ki predstavlja modalno okno za odgovor.
+ *
+ * @example
+ * // Uporaba komponente
+ * <ReplyModal />
+ */
+
 export const ReplyModal = () => {
   const { t } = useTranslation();
   const [searchParams, setSearchParams] = useSearchParams();

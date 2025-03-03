@@ -82,6 +82,29 @@ const PriceButtonHolder = styled.div`
   align-self: stretch;
 `;
 
+/**
+ * ProductCard komponenta za prikaz kartice izdelka.
+ *
+ * @component
+ * @param {object} props - Lastnosti komponente.
+ * @param {string} props.id - ID izdelka.
+ * @param {string} props.title - Naslov izdelka.
+ * @param {number} props.price - Cena izdelka.
+ * @param {string} props.image - URL slike izdelka.
+ * @param {number} [props.discount] - Popust izdelka (neobvezno).
+ * @returns {JSX.Element} - JSX element kartice izdelka.
+ *
+ * @example
+ * // Uporaba komponente
+ * <ProductCard
+ * id="123456"
+ * title="Izdelek 1"
+ * price={100}
+ * image="izdelek1.jpg"
+ * discount={10}
+ * />
+ */
+
 export const ProductCard: FC<ProductCardProps> = ({
   id,
   title,

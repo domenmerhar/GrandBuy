@@ -11,6 +11,21 @@ interface AuthProviderProps {
   children: React.ReactNode | React.ReactNode[];
 }
 
+/**
+ * AuthProvider komponenta za zagotavljanje konteksta avtentikacije.
+ *
+ * @component
+ * @param {object} props - Lastnosti komponente.
+ * @param {React.ReactNode | React.ReactNode[]} props.children - Vsebina, ki jo ovija AuthProvider.
+ * @returns {JSX.Element} - JSX element AuthProvider.
+ *
+ * @example
+ * // Uporaba komponente
+ * <AuthProvider>
+ * <App />
+ * </AuthProvider>
+ */
+
 export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
   const client = useQueryClient();
   const [JWT, setJWT] = useState<string>(
@@ -34,6 +49,17 @@ export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
     </AuthContext.Provider>
   );
 };
+
+/**
+ * useAuthContext hook za dostop do konteksta avtentikacije.
+ *
+ * @returns {object} - Kontekst avtentikacije.
+ * @throws {Error} - Če se hook uporablja izven komponente AuthProvider.
+ *
+ * @example
+ * // Uporaba hook-a
+ * const { JWT, setJWT, clearAuthInfo } = useAuthContext();
+ */
 
 export const useAuthContext = () => {
   const context = useContext(AuthContext);

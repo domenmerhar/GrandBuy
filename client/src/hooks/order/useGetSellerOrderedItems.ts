@@ -4,6 +4,25 @@ import { useMe } from "../useMe";
 import { useJWT } from "../useJWT";
 import { getSellerOrderedItems } from "../../api/order/getSellerOrderedItems";
 
+/**
+ * useGetSellerOrderedItems hook za pridobivanje naročenih izdelkov prodajalca.
+ *
+ * @returns {object} - Vrne rezultat `useQuery` hook-a, ki vsebuje naročene izdelke prodajalca.
+ *
+ * @example
+ * // Uporaba hook-a
+ * const { data: orders, isLoading, isError } = useGetSellerOrderedItems();
+ * if (isLoading) return <p>Loading...</p>;
+ * if (isError) return <p>Error...</p>;
+ * return (
+ * <div>
+ * {orders?.data.items.map(order => (
+ * <div key={order._id}>{order.product.name}</div>
+ * ))}
+ * </div>
+ * );
+ */
+
 export const useGetSellerOrderedItems = () => {
   const [searchParams] = useSearchParams();
   const { JWT } = useJWT();

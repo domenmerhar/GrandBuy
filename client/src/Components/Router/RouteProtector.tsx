@@ -8,6 +8,22 @@ interface RouteProtectorProps {
   children?: ReactNode | ReactNode[];
 }
 
+/**
+ * RouteProtector komponenta za zaščito poti na podlagi uporabniške vloge.
+ *
+ * @component
+ * @param {object} props - Lastnosti komponente.
+ * @param {UserRole[]} props.allowedRoles - Niz dovoljenih uporabniških vlog.
+ * @param {ReactNode | ReactNode[]} [props.children] - Vsebina, ki se prikaže, če je uporabnik dovoljen.
+ * @returns {JSX.Element} - JSX element zaščitene poti.
+ *
+ * @example
+ * // Uporaba komponente
+ * <RouteProtector allowedRoles={["admin", "user"]}>
+ * <Dashboard />
+ * </RouteProtector>
+ */
+
 export const RouteProtector: FC<RouteProtectorProps> = ({
   allowedRoles,
   children,

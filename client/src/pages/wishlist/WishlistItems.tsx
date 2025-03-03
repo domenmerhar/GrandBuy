@@ -6,6 +6,17 @@ import { toPrice } from "../../functions/toPrice";
 import { WishlistItem } from "./WishlistItem";
 import { WishlistItemInterface } from "../../Util/types";
 
+/**
+ * Komponenta za prikaz elementov na seznamu želja.
+ *
+ * @component
+ * @returns {JSX.Element} JSX element, ki predstavlja elemente na seznamu želja.
+ *
+ * @example
+ * // Uporaba komponente
+ * <WishlistItems />
+ */
+
 export const WishlistItems = () => {
   const { data, isLoading, error } = useWishlistItems();
 

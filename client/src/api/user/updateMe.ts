@@ -12,6 +12,29 @@ interface UpdateMeArguments {
   image?: File;
 }
 
+/**
+ * Posodobi podatke trenutno prijavljenega uporabnika.
+ * @param {object} arguments - Argumenti za posodobitev uporabnika.
+ * @param {string} arguments.JWT - JWT (JSON Web Token) uporabnika.
+ * @param {string} [arguments.firstName] - Novo ime uporabnika (neobvezno).
+ * @param {string} [arguments.lastName] - Nov priimek uporabnika (neobvezno).
+ * @param {string} [arguments.street] - Nova ulica uporabnika (neobvezno).
+ * @param {string} [arguments.city] - Novo mesto uporabnika (neobvezno).
+ * @param {string} [arguments.zipCode] - Nova poštna številka uporabnika (neobvezno).
+ * @param {string} [arguments.country] - Nova država uporabnika (neobvezno).
+ * @param {string} [arguments.phoneNumber] - Nova telefonska številka uporabnika (neobvezno).
+ * @param {File} [arguments.image] - Nova slika profila uporabnika (File objekt, neobvezno).
+ * @returns {Promise<any>} - Odgovor strežnika.
+ * @async
+ * @example
+ * await updateMe({
+ *  JWT: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...',
+ *  firstName: 'Janez',
+ *  lastName: 'Novak',
+ *  city: 'Ljubljana'
+ * });
+ */
+
 export const updateMe = async ({
   JWT,
   firstName,

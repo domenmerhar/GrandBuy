@@ -4,6 +4,19 @@ interface InputProps {
   $error?: boolean;
 }
 
+/**
+ * Komponenta za prikaz vnosa z možnostjo napake.
+ *
+ * @component
+ * @param {Object} props - Lastnosti komponente.
+ * @param {boolean} [props.$error] - Ali ima vnos napako.
+ * @returns {JSX.Element} JSX element, ki predstavlja vnos z možnostjo napake.
+ *
+ * @example
+ * // Uporaba komponente
+ * <Input $error={true} placeholder="Vnesite geslo" type="password" />
+ */
+
 export const Input = styled.input<InputProps>`
   border: none;
   min-height: 3.2rem;

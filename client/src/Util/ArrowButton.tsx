@@ -4,6 +4,21 @@ interface ArrowButtonProps {
   $size: "medium" | "large";
 }
 
+/**
+ * Komponenta za prikaz gumba s puščico.
+ *
+ * @component
+ * @param {Object} props - Lastnosti komponente.
+ * @param {"medium" | "large"} props.$size - Velikost gumba (srednja ali velika).
+ * @returns {JSX.Element} JSX element, ki predstavlja gumb s puščico.
+ *
+ * @example
+ * // Uporaba komponente
+ * <ArrowButton $size="medium">
+ *   <svg>...</svg>
+ * </ArrowButton>
+ */
+
 export const ArrowButton = styled.button<ArrowButtonProps>`
   cursor: pointer;
 

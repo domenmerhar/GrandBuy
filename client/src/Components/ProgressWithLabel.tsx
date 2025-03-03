@@ -41,6 +41,21 @@ interface PogressWithLabelProps {
   children: string;
 }
 
+/**
+ * ProgressWithLabel komponenta za prikaz vrstice napredka z oznako.
+ *
+ * @component
+ * @param {object} props - Lastnosti komponente.
+ * @param {number} props.value - Trenutna vrednost napredka.
+ * @param {number} props.max - Največja vrednost napredka.
+ * @param {string} props.children - Besedilo oznake.
+ * @returns {JSX.Element} - JSX element vrstice napredka z oznako.
+ *
+ * @example
+ * // Uporaba komponente
+ * <ProgressWithLabel value={50} max={100} children="Napredek: 50%" />
+ */
+
 export const ProgressWithLabel: FC<PogressWithLabelProps> = ({
   value,
   max,

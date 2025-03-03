@@ -64,6 +64,20 @@ interface BurgerMenuProps {
   handleClose: (e: React.MouseEvent<HTMLDivElement>) => void;
 }
 
+/**
+ * BurgerMenu komponenta za prikaz stranskega menija.
+ *
+ * @component
+ * @param {object} props - Lastnosti komponente.
+ * @param {boolean} props.isOpen - Ali je meni odprt.
+ * @param {function} props.handleClose - Funkcija za zapiranje menija.
+ * @returns {JSX.Element | null} - JSX element ali null, če meni ni odprt.
+ *
+ * @example
+ * // Uporaba komponente
+ * <BurgerMenu isOpen={true} handleClose={() => {}} />
+ */
+
 export const BurgerMenu: FC<BurgerMenuProps> = ({ isOpen, handleClose }) => {
   const { t } = useTranslation();
 
@@ -76,25 +90,23 @@ export const BurgerMenu: FC<BurgerMenuProps> = ({ isOpen, handleClose }) => {
 
   const userProfileUrl = `/account/${role === "seller" ? "seller" : "user"}/${id}`;
 
-  return (
-    isOpen && (
-      <>
-        <Backdrop onClick={handleClose} />
-        <StyledBurgerMenu>
-          <UserHolder>
-            <Link to={userProfileUrl}>
-              <UserImage src={toApiFilesPath(image)} alt="profile icon" />
-            </Link>
-            <UserText>
-              {t("hello")} {username}
-            </UserText>
-          </UserHolder>
+  return isOpen ? (
+    <>
+      <Backdrop onClick={handleClose} />
+      <StyledBurgerMenu>
+        <UserHolder>
+          <Link to={userProfileUrl}>
+            <UserImage src={toApiFilesPath(image)} alt="profile icon" />
+          </Link>
+          <UserText>
+            {t("hello")} {username}
+          </UserText>
+        </UserHolder>
 
-          <BurgerMenuNavigationList />
+        <BurgerMenuNavigationList />
 
-          <BurgerMenuThemeExit />
-        </StyledBurgerMenu>
-      </>
-    )
-  );
+        <BurgerMenuThemeExit />
+      </StyledBurgerMenu>
+    </>
+  ) : null;
 };

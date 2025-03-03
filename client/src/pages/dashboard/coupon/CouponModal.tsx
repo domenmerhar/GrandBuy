@@ -44,6 +44,35 @@ interface CouponModalProps {
   setProductIds: Dispatch<SetStateAction<string[]>>;
 }
 
+/**
+ * Komponenta za upravljanje kuponov v modalnem oknu.
+ *
+ * @component
+ * @param {Object} props - Lastnosti komponente.
+ * @param {string} props.code - Koda kupona.
+ * @param {Function} props.setCode - Funkcija za nastavitev kode kupona.
+ * @param {number | "" | undefined} props.discount - Popust kupona v odstotkih.
+ * @param {Function} props.setDiscount - Funkcija za nastavitev popusta kupona.
+ * @param {number} props.expireAt - Datum veljavnosti kupona.
+ * @param {Function} props.setExpireAt - Funkcija za nastavitev datuma veljavnosti kupona.
+ * @param {string[]} props.productIds - Seznam ID-jev izdelkov, na katere kupon vpliva.
+ * @param {Function} props.setProductIds - Funkcija za nastavitev ID-jev izdelkov, na katere kupon vpliva.
+ * @returns {JSX.Element} JSX element, ki predstavlja modalno okno za upravljanje kuponov.
+ *
+ * @example
+ * // Uporaba komponente
+ * <CouponModal
+ *   code="SAVE20"
+ *   setCode={() => {}}
+ *   discount={20}
+ *   setDiscount={() => {}}
+ *   expireAt={Date.now()}
+ *   setExpireAt={() => {}}
+ *   productIds={["1", "2"]}
+ *   setProductIds={() => {}}
+ * />
+ */
+
 export default function CouponModal({
   code,
   setCode,

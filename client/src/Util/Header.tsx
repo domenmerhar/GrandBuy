@@ -5,6 +5,20 @@ interface HeaderProps {
   $size: "large" | "medium" | "small";
 }
 
+/**
+ * Komponenta za prikaz glave.
+ *
+ * @component
+ * @param {Object} props - Lastnosti komponente.
+ * @param {"orange" | "white"} props.$color - Barva glave.
+ * @param {"large" | "medium" | "small"} props.$size - Velikost glave.
+ * @returns {JSX.Element} JSX element, ki predstavlja glavo.
+ *
+ * @example
+ * // Uporaba komponente
+ * <Header $color="orange" $size="large">Naslov</Header>
+ */
+
 export const Header = styled.h1<HeaderProps>`
   ${({ $color }) =>
     $color === "orange" &&

@@ -3,6 +3,17 @@ import toast from "react-hot-toast";
 import { addOrder } from "../../api/order/addOrder";
 import { useTranslation } from "react-i18next";
 
+/**
+ * useAddOrder hook za dodajanje naročila.
+ *
+ * @returns {object} - Vrne objekt z `mutate` funkcijo za dodajanje naročila.
+ *
+ * @example
+ * // Uporaba hook-a
+ * const { mutate: addOrderMutation } = useAddOrder();
+ * addOrderMutation({ JWT: "your_jwt_token", cartItems: ["product_id_1", "product_id_2"] });
+ */
+
 export const useAddOrder = () => {
   const { t } = useTranslation();
   const client = useQueryClient();
@@ -15,9 +26,7 @@ export const useAddOrder = () => {
         return toast.error(t("failedToAddToCart"), { id: "add-order" });
 
       client.invalidateQueries({
-        predicate: (query) =>
-          (query.queryKey[0] as string).includes("cartItems") ||
-          query.queryKey[0] === "cartItemsCount",
+        predicate: (query) => String(query.queryKey[0]).includes("cartItems"),
       });
 
       window.location.href = data?.session;

@@ -15,6 +15,19 @@ interface AverageRatingProps {
   rating: number;
 }
 
+/**
+ * Komponenta za prikaz povprečne ocene.
+ *
+ * @component
+ * @param {Object} props - Lastnosti komponente.
+ * @param {number} props.rating - Povprečna ocena.
+ * @returns {JSX.Element} JSX element, ki predstavlja povprečno oceno.
+ *
+ * @example
+ * // Uporaba komponente
+ * <AverageRating rating={4.5} />
+ */
+
 export const AverageRating: FC<AverageRatingProps> = ({ rating }) => {
   const { t } = useTranslation();
   return (

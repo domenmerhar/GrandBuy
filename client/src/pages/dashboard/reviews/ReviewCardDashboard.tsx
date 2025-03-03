@@ -53,6 +53,41 @@ interface ReviewCardDashboardProps {
   likes: number;
 }
 
+/**
+ * Komponenta za prikaz mnenj na nadzorni plošči.
+ *
+ * @component
+ * @param {Object} props - Lastnosti komponente.
+ * @param {string} props.reviewId - ID mnenja.
+ * @param {string} props.productId - ID izdelka.
+ * @param {string} props.productImage - URL slike izdelka.
+ * @param {string} props.productName - Ime izdelka.
+ * @param {string} props.userId - ID uporabnika.
+ * @param {string} props.userImage - URL slike uporabnika.
+ * @param {string} props.username - Uporabniško ime.
+ * @param {number} props.rating - Ocena.
+ * @param {string} props.date - Datum.
+ * @param {string} props.review - Mnenje.
+ * @param {number} props.likes - Število všečkov.
+ * @returns {JSX.Element} JSX element, ki predstavlja mnenje na nadzorni plošči.
+ *
+ * @example
+ * // Uporaba komponente
+ * <ReviewCardDashboard
+ *   reviewId="123"
+ *   productId="456"
+ *   productImage="https://example.com/image.jpg"
+ *   productName="Izdelek"
+ *   userId="789"
+ *   userImage="https://example.com/user.jpg"
+ *   username="Janez Novak"
+ *   rating={5}
+ *   date="2025-03-03"
+ *   review="Odličen izdelek!"
+ *   likes={10}
+ * />
+ */
+
 export const ReviewCardDashboard: FC<ReviewCardDashboardProps> = ({
   reviewId,
   productId,

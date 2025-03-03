@@ -6,6 +6,17 @@ import { CouponPageHeader } from "./CouponPageHeader";
 import { Coupons } from "./Coupons";
 import oneWeekInFuture from "../../../functions/oneWeekInFuture";
 
+/**
+ * Komponenta za prikaz strani s kuponi.
+ *
+ * @component
+ * @returns {JSX.Element} JSX element, ki predstavlja stran s kuponi.
+ *
+ * @example
+ * // Uporaba komponente
+ * <CouponPage />
+ */
+
 export const CouponPage = () => {
   const [code, setCode] = useState<string>("");
   const [discount, setDiscount] = useState<number | "">("");

@@ -11,6 +11,17 @@ import { Column } from "../../Util/Column";
 import { useMe } from "../../hooks/useMe";
 import { useTranslation } from "react-i18next";
 
+/**
+ * BurgerMenuNavigationList komponenta za prikaz navigacijskega seznama v stranskem meniju.
+ *
+ * @component
+ * @returns {JSX.Element} - JSX element navigacijskega seznama.
+ *
+ * @example
+ * // Uporaba komponente
+ * <BurgerMenuNavigationList />
+ */
+
 export const BurgerMenuNavigationList = () => {
   const { t } = useTranslation();
 

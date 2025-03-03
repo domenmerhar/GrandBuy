@@ -5,6 +5,17 @@ import { getProducts } from "../../api/product/getProducts";
 import { ProductGrid } from "../../Util/ProductGrid";
 import { renderProduct } from "../../Util/renderProduct";
 
+/**
+ * Komponenta za prikaz rezultatov iskanja izdelkov.
+ *
+ * @component
+ * @returns {JSX.Element} JSX element, ki predstavlja rezultate iskanja izdelkov.
+ *
+ * @example
+ * // Uporaba komponente
+ * <SearchResults />
+ */
+
 export const SearchResults = () => {
   const { query } = useParams();
   const [searchParams] = useSearchParams();
@@ -26,7 +37,6 @@ export const SearchResults = () => {
       from,
       to,
       freeShipping,
-      limit: 8,
       page: pageParam,
       rating,
       sale,

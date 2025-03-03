@@ -10,6 +10,17 @@ import { ErrorBox } from "../../../Components/ErrorBox";
 import { useTranslation } from "react-i18next";
 import { toPrice } from "../../../functions/toPrice";
 
+/**
+ * Komponenta za prikaz tabele naročil.
+ *
+ * @component
+ * @returns {JSX.Element} JSX element, ki predstavlja tabelo naročil.
+ *
+ * @example
+ * // Uporaba komponente
+ * <OrdersTable />
+ */
+
 export const OrdersTable = () => {
   const { t } = useTranslation();
   const headers = [t("product"), t("quantity"), t("total"), t("status"), ""];

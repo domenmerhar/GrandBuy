@@ -5,6 +5,18 @@ import { renderProduct } from "../../Util/renderProduct";
 import { ProductGrid } from "../../Util/ProductGrid";
 import { getSellerProducts } from "../../api/product/getSellerProducts";
 
+/**
+ * SellerProducts komponenta za prikaz izdelkov prodajalca na strani prodajalca.
+ *
+ * Ta komponenta uporablja neskončno pridobivanje podatkov (useInfinite) za prikaz izdelkov prodajalca v mreži (ProductGrid).
+ *
+ * @returns {JSX.Element} - JSX element, ki prikazuje izdelke prodajalca.
+ *
+ * @example
+ * // Uporaba komponente
+ * <SellerProducts />
+ */
+
 export const SellerProducts = () => {
   const { userId } = useParams();
 

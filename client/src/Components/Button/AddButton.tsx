@@ -8,6 +8,19 @@ interface AddButtonProps {
   productId: string;
 }
 
+/**
+ * AddButton komponenta za dodajanje izdelka v košarico.
+ *
+ * @component
+ * @param {object} props - Lastnosti komponente.
+ * @param {string} props.productId - ID izdelka, ki ga želimo dodati v košarico.
+ * @returns {JSX.Element} - JSX element gumba za dodajanje izdelka v košarico.
+ *
+ * @example
+ * // Uporaba komponente
+ * <AddButton productId="123456" />
+ */
+
 export const AddButton: FC<AddButtonProps> = ({ productId }) => {
   const { JWT } = useAuthContext();
   const { mutate } = useAddProductToCard();

@@ -1,8 +1,19 @@
-import { Select } from "../../Util/Select";
+import { Select } from "../../Components/Select";
 import { HeaderUppercaseBold } from "../../Util/HeaderUppercaseBold";
 import { Row } from "../../Util/Row";
 import { IOption } from "../../Util/types";
 import { useTranslation } from "react-i18next";
+
+/**
+ * Komponenta za prikaz glave sekcije mnenj.
+ *
+ * @component
+ * @returns {JSX.Element} JSX element, ki predstavlja glavo sekcije mnenj.
+ *
+ * @example
+ * // Uporaba komponente
+ * <ReviewSectionHeader />
+ */
 
 export const ReviewSectionHeader = () => {
   const { t } = useTranslation();

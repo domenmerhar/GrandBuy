@@ -8,6 +8,17 @@ const NavlinkHolder = styled(NavLink)`
   text-decoration: none;
 `;
 
+/**
+ * NavigationCartButton komponenta za prikaz gumba za košarico v navigaciji.
+ *
+ * @component
+ * @returns {JSX.Element} - JSX element gumba za košarico.
+ *
+ * @example
+ * // Uporaba komponente
+ * <NavigationCartButton />
+ */
+
 export const NavigationCartButton = () => {
   const { data: dataItemsCount, isLoading: isLoadingCartItems } =
     useCartItemsCount();

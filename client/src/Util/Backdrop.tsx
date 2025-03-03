@@ -1,5 +1,16 @@
 import styled from "styled-components";
 
+/**
+ * Komponenta za prikaz ozadja.
+ *
+ * @component
+ * @returns {JSX.Element} JSX element, ki predstavlja ozadje.
+ *
+ * @example
+ * // Uporaba komponente
+ * <Backdrop />
+ */
+
 export const Backdrop = styled.div`
   background-color: rgba(0, 0, 0, 0.3);
   position: fixed;

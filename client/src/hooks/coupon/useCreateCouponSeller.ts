@@ -3,6 +3,17 @@ import toast from "react-hot-toast";
 import { useTranslation } from "react-i18next";
 import createCouponSeller from "../../api/coupon/createCouponSeller";
 
+/**
+ * useCreateCouponSeller hook za ustvarjanje kupona za prodajalca.
+ *
+ * @returns {object} - Vrne objekt z `mutate` funkcijo za ustvarjanje kupona.
+ *
+ * @example
+ * // Uporaba hook-a
+ * const { mutate: createCoupon } = useCreateCouponSeller();
+ * createCoupon({ JWT: "your_jwt_token", couponData: { ... } });
+ */
+
 export default function useCreateCouponSeller() {
   const { t } = useTranslation();
   const client = useQueryClient();

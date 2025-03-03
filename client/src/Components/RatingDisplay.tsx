@@ -21,6 +21,22 @@ interface RatingDisplayProps {
   showTooltip?: boolean;
 }
 
+/**
+ * RatingDisplay komponenta za prikaz ocen z zvezdicami.
+ *
+ * @component
+ * @param {object} props - Lastnosti komponente.
+ * @param {number} props.rating - Ocena, ki se prikaže.
+ * @param {number} [props.size=28] - Velikost zvezdic.
+ * @param {string} [props.fontSize="1.8rem"] - Velikost pisave orodnega namiga.
+ * @param {boolean} [props.showTooltip=true] - Ali naj se prikaže orodni namig z oceno.
+ * @returns {JSX.Element} - JSX element ocen z zvezdicami.
+ *
+ * @example
+ * // Uporaba komponente
+ * <RatingDisplay rating={4.5} />
+ */
+
 export const RatingDisplay: FC<RatingDisplayProps> = ({
   rating,
   size = 28,

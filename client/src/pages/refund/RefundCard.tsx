@@ -23,6 +23,37 @@ interface RefundCardProps {
   status: string;
 }
 
+/**
+ * Komponenta za prikaz kartice vračila.
+ *
+ * @component
+ * @param {Object} props - Lastnosti komponente.
+ * @param {string} props.reviewId - ID mnenja.
+ * @param {string} props.userId - ID uporabnika.
+ * @param {string} props.userImage - URL slike uporabnika.
+ * @param {string} props.username - Uporabniško ime uporabnika.
+ * @param {string} props.date - Datum zahteve za vračilo.
+ * @param {string} props.productName - Ime izdelka.
+ * @param {number} props.productQuantity - Količina izdelka.
+ * @param {string} props.reason - Razlog za vračilo.
+ * @param {string} props.status - Stanje vračila.
+ * @returns {JSX.Element} JSX element, ki predstavlja kartico vračila.
+ *
+ * @example
+ * // Uporaba komponente
+ * <RefundCard
+ *   reviewId="1"
+ *   userId="user123"
+ *   userImage="https://example.com/user.jpg"
+ *   username="JaneDoe"
+ *   date="2025-03-03"
+ *   productName="Izdelek A"
+ *   productQuantity={2}
+ *   reason="Poškodovan izdelek"
+ *   status="pending"
+ * />
+ */
+
 const ReplyHolder = styled(Row)`
   cursor: pointer;
   font-weight: 500;

@@ -3,7 +3,7 @@ import { Logo } from "../../Components/Logo";
 import { Button } from "../../Util/Button";
 import { StyledLink } from "../../Util/Link";
 import { InputWithLabel } from "../../Components/InputWithLabel";
-import { AuthContainer } from "../../Util/AuthContainer";
+import { AuthContainer } from "../../Components/AuthContainer";
 import { useNavigate } from "react-router-dom";
 import { useRef, useState } from "react";
 import { login } from "../../api/auth/login";
@@ -41,6 +41,17 @@ const P = styled.p`
 const toastOptions = {
   id: "login-toast",
 };
+
+/**
+ * Komponenta za prijavno stran.
+ *
+ * @component
+ * @returns {JSX.Element} JSX element, ki predstavlja prijavno stran.
+ *
+ * @example
+ * // Uporaba komponente
+ * <LoginPage />
+ */
 
 export const LoginPage = () => {
   const { t } = useTranslation();

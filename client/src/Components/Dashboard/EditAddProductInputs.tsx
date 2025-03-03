@@ -28,6 +28,31 @@ export interface EditAddProductInputsHandle {
   discountRef: React.RefObject<HTMLInputElement>;
 }
 
+/**
+ * EditAddProductInputs komponenta za urejanje in dodajanje vnosnih polj za izdelek.
+ *
+ * @component
+ * @param {object} props - Lastnosti komponente.
+ * @param {File[]} props.selectedCover - Izbrane naslovne slike izdelka.
+ * @param {Dispatch<SetStateAction<File[]>>} props.setSelectedCover - Funkcija za nastavitev izbranih naslovnih slik.
+ * @param {File[]} props.selectedImages - Izbrane slike izdelka.
+ * @param {Dispatch<SetStateAction<File[]>>} props.setSelectedImages - Funkcija za nastavitev izbranih slik.
+ * @param {Dispatch<SetStateAction<File[]>>} props.setSelectedDescription - Funkcija za nastavitev izbranega opisa izdelka.
+ * @param {ForwardedRef<EditAddProductInputsHandle>} ref - Referenca za dostop do notranjih referenc vnosnih polj.
+ * @returns {JSX.Element} - JSX element vnosnih polj za urejanje in dodajanje izdelka.
+ *
+ * @example
+ * // Uporaba komponente
+ * <EditAddProductInputs
+ * selectedCover={selectedCoverFiles}
+ * setSelectedCover={setSelectedCoverFiles}
+ * selectedImages={selectedImagesFiles}
+ * setSelectedImages={setSelectedImagesFiles}
+ * setSelectedDescription={setSelectedDescriptionFiles}
+ * ref={ref}
+ * />
+ */
+
 const EditAddProductInputs = forwardRef(
   (
     {

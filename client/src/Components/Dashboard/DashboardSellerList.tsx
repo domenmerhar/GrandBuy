@@ -11,6 +11,17 @@ const AddProductButton = styled(Button)`
   margin-top: 2.4rem;
 `;
 
+/**
+ * DashboardAdminList komponenta za prikaz navigacijskega seznama za administratorsko nadzorno ploščo.
+ *
+ * @component
+ * @returns {JSX.Element} - JSX element navigacijskega seznama za administratorsko nadzorno ploščo.
+ *
+ * @example
+ * // Uporaba komponente
+ * <DashboardAdminList />
+ */
+
 export const DashboardSellerList = () => {
   const { t } = useTranslation();
   const { setIsOpen } = Modal.useModalContext();

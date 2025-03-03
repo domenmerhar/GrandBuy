@@ -49,6 +49,43 @@ const PreviousPrice = styled.span`
   text-decoration: line-through var(--gray-8);
 `;
 
+/**
+ * Komponenta za prikaz več izdelkov na kartici.
+ *
+ * @component
+ * @param {Object} props - Lastnosti komponente.
+ * @param {ReactNode[]} props.children - Otroški elementi (komponente izdelkov).
+ * @param {string} props.title - Naslov kartice.
+ * @returns {JSX.Element} JSX element, ki predstavlja kartico z več izdelki.
+ *
+ * @example
+ * // Uporaba komponente
+ * <CardMultipleItems title="Priporočeni izdelki">
+ *   <CardMultipleItems.Product
+ *     id="123"
+ *     productName="Izdelek 1"
+ *     imageSrc="https://example.com/image1.jpg"
+ *     priceBeforeDiscount="€100"
+ *     priceAfterDiscount="€80"
+ *   />
+ *   <CardMultipleItems.Product
+ *     id="456"
+ *     productName="Izdelek 2"
+ *     imageSrc="https://example.com/image2.jpg"
+ *     priceBeforeDiscount="€150"
+ *     priceAfterDiscount="€120"
+ *   />
+ * </CardMultipleItems>
+ */
+
+interface ProductProps {
+  id: string;
+  productName: string;
+  imageSrc: string;
+  priceBeforeDiscount: string;
+  priceAfterDiscount: string;
+}
+
 export const CardMultipleItems: FC<{
   children: ReactNode[];
   title: string;

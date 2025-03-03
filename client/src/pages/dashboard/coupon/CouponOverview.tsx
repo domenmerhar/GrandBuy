@@ -4,6 +4,17 @@ import { useTranslation } from "react-i18next";
 import useGetSellerCouponHighestDiscount from "../../../hooks/coupon/useGetSellerCouponHighestDiscount";
 import useGetSellerCouponsCount from "../../../hooks/coupon/useGetSellerCouponsCount";
 
+/**
+ * Komponenta za prikaz pregleda kuponov.
+ *
+ * @component
+ * @returns {JSX.Element} JSX element, ki predstavlja pregled kuponov.
+ *
+ * @example
+ * // Uporaba komponente
+ * <CouponOverview />
+ */
+
 export const CouponOverview = () => {
   const { t } = useTranslation();
 

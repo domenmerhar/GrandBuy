@@ -1,5 +1,23 @@
 import { toApiPath } from "../../functions/toApiPath";
 
+/**
+ * Doda novo oceno za izdelek.
+ * @param {object} arguments - Argumenti za dodajanje ocene.
+ * @param {string} arguments.JWT - JWT (JSON Web Token) uporabnika.
+ * @param {string} arguments.productId - ID izdelka, ki ga ocenjujemo.
+ * @param {number} arguments.rating - Ocena izdelka (številka).
+ * @param {string} arguments.review - Besedilo ocene.
+ * @returns {Promise<any>} - Odgovor strežnika.
+ * @async
+ * @example
+ * await addProductReview({
+ *  JWT: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...',
+ *  productId: '123456',
+ *  rating: 5,
+ *  review: 'Odličen izdelek!'
+ * });
+ */
+
 export default async ({
   JWT,
   productId,

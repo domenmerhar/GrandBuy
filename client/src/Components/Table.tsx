@@ -36,6 +36,31 @@ interface TableProps {
   children: React.ReactNode | React.ReactNode[];
 }
 
+/**
+ * Table komponenta za prikaz tabele s podatki.
+ *
+ * @component
+ * @param {object} props - Lastnosti komponente.
+ * @param {string[]} props.headers - Niz naslovov stolpcev tabele.
+ * @param {React.ReactNode | React.ReactNode[]} props.children - Vsebina vrstic tabele.
+ * @returns {JSX.Element} - JSX element tabele.
+ *
+ * @example
+ * // Uporaba komponente
+ * <Table headers={["Ime", "Priimek", "Starost"]}>
+ * <Table.Row>
+ * <td>Janez</td>
+ * <td>Novak</td>
+ * <td>30</td>
+ * </Table.Row>
+ * <Table.Row>
+ * <td>Ana</td>
+ * <td>Kovač</td>
+ * <td>25</td>
+ * </Table.Row>
+ * </Table>
+ */
+
 export const Table: FC<TableProps> & {
   Row: typeof Tr;
 } = ({ headers, children }) => {
@@ -53,5 +78,12 @@ export const Table: FC<TableProps> & {
     </StyledTable>
   );
 };
+
+/**
+ * Table.Row komponenta za prikaz vrstice v tabeli.
+ *
+ * @component
+ * @returns {JSX.Element} - JSX element vrstice tabele.
+ */
 
 Table.Row = Tr;

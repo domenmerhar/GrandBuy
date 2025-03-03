@@ -1,10 +1,21 @@
 import { IOption } from "../../Util/types";
-import { Select } from "../../Util/Select";
+import { Select } from "../../Components/Select";
 import { SearchSidebar } from "./SearchSidebar";
 import { ContentWithSidebar } from "../../Util/ContentWithSidebar";
 import { SidebarLayout } from "../../Util/SidebarLayout";
 import { SearchResults } from "./SearchResults";
 import { useTranslation } from "react-i18next";
+
+/**
+ * Komponenta za prikaz strani iskanja.
+ *
+ * @component
+ * @returns {JSX.Element} JSX element, ki predstavlja stran iskanja.
+ *
+ * @example
+ * // Uporaba komponente
+ * <SearchPage />
+ */
 
 export const SearchPage = () => {
   const { t } = useTranslation();

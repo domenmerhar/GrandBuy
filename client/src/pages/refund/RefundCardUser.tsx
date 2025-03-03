@@ -19,6 +19,29 @@ interface RefundCardUserProps {
   reason: string;
 }
 
+/**
+ * Komponenta za prikaz kartice vračila za uporabnika.
+ *
+ * @component
+ * @param {Object} props - Lastnosti komponente.
+ * @param {string} props.date - Datum zahteve za vračilo.
+ * @param {string} props.status - Stanje vračila.
+ * @param {number} props.quantity - Količina izdelka.
+ * @param {string} props.productName - Ime izdelka.
+ * @param {string} props.reason - Razlog za vračilo.
+ * @returns {JSX.Element} JSX element, ki predstavlja kartico vračila za uporabnika.
+ *
+ * @example
+ * // Uporaba komponente
+ * <RefundCardUser
+ *   date="2025-03-03"
+ *   status="pending"
+ *   quantity={2}
+ *   productName="Izdelek A"
+ *   reason="Poškodovan izdelek"
+ * />
+ */
+
 export const RefundCardUser: FC<RefundCardUserProps> = ({
   date,
   status,

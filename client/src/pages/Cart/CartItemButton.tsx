@@ -11,6 +11,19 @@ interface CartItemButtonProps {
   cartItemId: string;
 }
 
+/**
+ * Komponenta za prikazovanje gumba za izdelek v košarici.
+ *
+ * @component
+ * @param {Object} props - Lastnosti komponente.
+ * @param {string} props.cartItemId - ID artikla v košarici.
+ * @returns {JSX.Element} JSX element, ki predstavlja gumb za izdelek v košarici.
+ *
+ * @example
+ * // Uporaba komponente
+ * <CartItemButton cartItemId="123" />
+ */
+
 export const CartItemButton: FC<CartItemButtonProps> = ({ cartItemId }) => {
   const [searchParams, setSearchParams] = useSearchParams();
 

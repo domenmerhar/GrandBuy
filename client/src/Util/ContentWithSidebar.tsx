@@ -1,5 +1,18 @@
 import styled from "styled-components";
 
+/**
+ * Komponenta za prikaz vsebine s stransko vrstico.
+ *
+ * @component
+ * @returns {JSX.Element} JSX element, ki predstavlja vsebino s stransko vrstico.
+ *
+ * @example
+ * // Uporaba komponente
+ * <ContentWithSidebar>
+ *   <YourComponent />
+ * </ContentWithSidebar>
+ */
+
 export const ContentWithSidebar = styled.div`
   max-width: 126rem;
   display: flex;

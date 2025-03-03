@@ -8,6 +8,17 @@ import { toPrice } from "../../functions/toPrice";
 import { toApiFilesPath } from "../../functions/toApiFilesPath";
 import { useTranslation } from "react-i18next";
 
+/**
+ * Komponenta za prikaz izdelkov pod 50€.
+ *
+ * @component
+ * @returns {JSX.Element} JSX element, ki predstavlja izdelke pod 50€.
+ *
+ * @example
+ * // Uporaba komponente
+ * <Under50 />
+ */
+
 export const Under50 = () => {
   const { t } = useTranslation();
 

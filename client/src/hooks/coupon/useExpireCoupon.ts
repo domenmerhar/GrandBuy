@@ -3,6 +3,17 @@ import toast from "react-hot-toast";
 import { useTranslation } from "react-i18next";
 import expireCoupon from "../../api/coupon/expireCoupon";
 
+/**
+ * useExpireCoupon hook za iztekanje kupona.
+ *
+ * @returns {object} - Vrne objekt z `mutate` funkcijo za iztekanje kupona.
+ *
+ * @example
+ * // Uporaba hook-a
+ * const { mutate: expire } = useExpireCoupon();
+ * expire({ JWT: "your_jwt_token", couponId: "coupon_id" });
+ */
+
 export default function useExpireCoupon() {
   const { t } = useTranslation();
   const client = useQueryClient();

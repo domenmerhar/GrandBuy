@@ -9,6 +9,17 @@ import toast from "react-hot-toast";
 import { useEditProduct } from "../../hooks/products/useEditProduct";
 import { useParams } from "react-router-dom";
 
+/**
+ * Komponenta za urejanje izdelka v modalnem oknu.
+ *
+ * @component
+ * @returns {JSX.Element} JSX element, ki predstavlja modalno okno za urejanje izdelka.
+ *
+ * @example
+ * // Uporaba komponente
+ * <EditProductModal />
+ */
+
 export default function EditProductModal() {
   const { t } = useTranslation();
 

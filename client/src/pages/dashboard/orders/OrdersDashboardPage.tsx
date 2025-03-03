@@ -1,5 +1,5 @@
 import { FilterSortHeader } from "../../../Components/FilterSortHeader";
-import { Stepper } from "../../../Util/Stepper";
+import { Stepper } from "../../../Components/Stepper";
 import { OverviewCard } from "../../../Components/OverviewCard";
 import { Row } from "../../../Util/Row";
 import { BiPackage } from "react-icons/bi";
@@ -11,6 +11,17 @@ import { usePendingOrders } from "../../../hooks/order/usePendingOrders";
 import { useTranslation } from "react-i18next";
 
 const itemsPerPage = import.meta.env.VITE_SELLER_ORDERS_PER_PAGE;
+
+/**
+ * Komponenta za prikaz nadzorne plošče naročil.
+ *
+ * @component
+ * @returns {JSX.Element} JSX element, ki predstavlja nadzorno ploščo naročil.
+ *
+ * @example
+ * // Uporaba komponente
+ * <OrdersDashboardPage />
+ */
 
 export const OrdersDashboardPage = () => {
   const { t } = useTranslation();

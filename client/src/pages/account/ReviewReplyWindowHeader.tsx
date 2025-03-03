@@ -1,5 +1,3 @@
-import { HiDotsVertical } from "react-icons/hi";
-import { ButtonWithNotifcations } from "../../Components/Button/ButtonWithNotifcations";
 import { CardWithHeader } from "../../Components/Card/CardWithHeader";
 import { Row } from "../../Util/Row";
 import styled from "styled-components";
@@ -19,9 +17,21 @@ const StyledNavLink = styled.button`
   }
 `;
 
-const ButtonHolder = styled.div`
-  margin-left: auto;
-`;
+// const ButtonHolder = styled.div`
+//   margin-left: auto;
+// `;
+
+/**
+ * ReviewReplyWindowHeader komponenta za prikaz glave okna za odgovarjanje na ocene.
+ *
+ * Ta komponenta prikazuje navigacijske gumbe za preklop med ocenami in odgovori.
+ *
+ * @returns {JSX.Element} - JSX element, ki predstavlja glavo okna za odgovarjanje na ocene.
+ *
+ * @example
+ * // Uporaba komponente
+ * <ReviewReplyWindowHeader />
+ */
 
 export const ReviewReplyWindowHeader = () => {
   const { t } = useTranslation();

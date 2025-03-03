@@ -11,6 +11,20 @@ interface ProductInfoParagraphProps {
   value: string;
 }
 
+/**
+ * Komponenta za prikaz informacij o izdelku.
+ *
+ * @component
+ * @param {Object} props - Lastnosti komponente.
+ * @param {string} props.title - Naslov informacije.
+ * @param {string} props.value - Vrednost informacije.
+ * @returns {JSX.Element} JSX element, ki predstavlja informacije o izdelku.
+ *
+ * @example
+ * // Uporaba komponente
+ * <ProductInfoParagraph title="Cena" value="$100" />
+ */
+
 export const ProductInfoParagraph: FC<ProductInfoParagraphProps> = ({
   title,
   value,

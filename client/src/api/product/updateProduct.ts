@@ -1,5 +1,30 @@
 import { toApiPath } from "../../functions/toApiPath";
 
+/**
+ * Posodobi izdelek s podanim ID-jem.
+ * @param {object} arguments - Argumenti za posodobitev izdelka.
+ * @param {string} arguments.JWT - JWT (JSON Web Token) prodajalca.
+ * @param {string} arguments.productId - ID izdelka, ki ga želimo posodobiti.
+ * @param {string} [arguments.name] - Novo ime izdelka (neobvezno).
+ * @param {number} [arguments.price] - Nova cena izdelka (neobvezno).
+ * @param {number} [arguments.discount] - Nov popust izdelka (neobvezno).
+ * @param {number} [arguments.shipping] - Novi stroški pošiljanja izdelka (neobvezno).
+ * @param {File[]} [arguments.images] - Array novih slik izdelka (File objekti, neobvezno).
+ * @param {File} [arguments.coverImage] - Nova naslovna slika izdelka (File objekt, neobvezno).
+ * @param {File} [arguments.description] - Nov opis izdelka (File objekt, neobvezno).
+ * @returns {Promise<any>} - Odgovor strežnika.
+ * @async
+ * @throws {Error} - V primeru, da niso podani nobeni podatki za posodobitev.
+ * @example
+ * await updateProduct({
+ *  JWT: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...',
+ *  productId: '123456',
+ *  name: 'Posodobljen Izdelek',
+ *  price: 120,
+ *  images: [file1]
+ * });
+ */
+
 export const updateProduct = async ({
   JWT,
   productId,

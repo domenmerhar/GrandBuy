@@ -1,5 +1,21 @@
 import { toApiPath } from "../../functions/toApiPath";
 
+/**
+ * Posodobi količino izdelka v košarici.
+ * @param {object} arguments - Argumenti za posodobitev količine izdelka v košarici.
+ * @param {string} arguments.JWT - JWT (JSON Web Token) uporabnika.
+ * @param {string} arguments.cartItemId - ID elementa košarice, ki ga želimo posodobiti.
+ * @param {number} arguments.quantity - Nova količina izdelka.
+ * @returns {Promise<any>} - Odgovor strežnika.
+ * @async
+ * @example
+ * await updateCartItemQuantity({
+ *  JWT: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...',
+ *  cartItemId: '123456',
+ *  quantity: 3
+ * });
+ */
+
 export const updateCartItemQuantity = async ({
   JWT,
   cartItemId,

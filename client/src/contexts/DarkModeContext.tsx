@@ -8,6 +8,21 @@ interface DarkModeContextProps {
 
 const DarkModeContext = createContext<DarkModeContextProps | null>(null);
 
+/**
+ * DarkModeProvider komponenta za zagotavljanje konteksta temnega načina.
+ *
+ * @component
+ * @param {object} props - Lastnosti komponente.
+ * @param {ReactNode | ReactNode[]} props.children - Vsebina, ki jo ovija DarkModeProvider.
+ * @returns {JSX.Element} - JSX element DarkModeProvider.
+ *
+ * @example
+ * // Uporaba komponente
+ * <DarkModeProvider>
+ * <App />
+ * </DarkModeProvider>
+ */
+
 export const DarkModeProvider = ({
   children,
 }: {
@@ -29,6 +44,17 @@ export const DarkModeProvider = ({
     </DarkModeContext.Provider>
   );
 };
+
+/**
+ * useDarkMode hook za dostop do konteksta temnega načina.
+ *
+ * @returns {object} - Kontekst temnega načina.
+ * @throws {Error} - Če se hook uporablja izven komponente DarkModeProvider.
+ *
+ * @example
+ * // Uporaba hook-a
+ * const { darkMode, toggleDarkMode } = useDarkMode();
+ */
 
 export const useDarkMode = () => {
   const context = useContext(DarkModeContext);

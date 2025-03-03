@@ -93,6 +93,24 @@ interface ModalComponent extends FC<{ children: ReactNode }> {
   Window: FC<ModalProps>;
 }
 
+/**
+ * Modal komponenta za prikaz modalnega okna.
+ *
+ * @component
+ * @param {object} props - Lastnosti komponente.
+ * @param {ReactNode} props.children - Vsebina modalnega okna.
+ * @returns {JSX.Element} - JSX element modalnega okna.
+ *
+ * @example
+ * // Uporaba komponente
+ * <Modal>
+ * <Modal.Window title="Naslov modalnega okna">
+ * <p>Vsebina modalnega okna.</p>
+ * <Button onClick={() => console.log('Klik')}>Zapri</Button>
+ * </Modal.Window>
+ * </Modal>
+ */
+
 const Modal: ModalComponent = ({ children }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const closeModal = () => setIsOpen(false);
@@ -188,7 +206,34 @@ const Window: FC<ModalProps> = ({
   );
 };
 
-Modal.Window = Window;
+/**
+ * useModalContext hook za dostop do konteksta modalnega okna.
+ *
+ * @returns {object} - Kontekst modalnega okna.
+ * @throws {Error} - Če se hook uporablja izven komponente Modal.
+ */
+
 Modal.useModalContext = useModalContext;
+
+/**
+ * Modal.Window komponenta za prikaz vsebine modalnega okna.
+ *
+ * @component
+ * @param {object} props - Lastnosti komponente.
+ * @param {string} [props.title] - Naslov modalnega okna.
+ * @param {string | ReactNode | ReactNode[]} [props.children] - Vsebina modalnega okna.
+ * @param {ModalButtonProps[]} [props.buttons] - Niz gumbov v modalnem oknu.
+ * @param {function} [props.onClose] - Funkcija, ki se izvede ob zapiranju modalnega okna.
+ * @returns {JSX.Element | null} - JSX element vsebine modalnega okna ali null, če okno ni odprto.
+ *
+ * @example
+ * // Uporaba komponente
+ * <Modal.Window title="Naslov modalnega okna">
+ * <p>Vsebina modalnega okna.</p>
+ * <Button onClick={() => console.log('Klik')}>Zapri</Button>
+ * </Modal.Window>
+ */
+
+Modal.Window = Window;
 
 export { Modal };

@@ -15,6 +15,18 @@ const Grid = styled.div`
   gap: 3.2rem;
 `;
 
+/**
+ * UserReplies komponenta za prikaz odgovorov uporabnika.
+ *
+ * Ta komponenta uporablja neskončno pridobivanje podatkov (useInfinite) za prikaz odgovorov uporabnika v mreži (Grid).
+ *
+ * @returns {JSX.Element} - JSX element, ki prikazuje odgovore uporabnika.
+ *
+ * @example
+ * // Uporaba komponente
+ * <UserReplies />
+ */
+
 export const UserReplies = () => {
   const { userId } = useParams();
   const [searchParams] = useSearchParams();

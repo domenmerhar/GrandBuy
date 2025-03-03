@@ -1,5 +1,18 @@
 import styled from "styled-components";
 
+/**
+ * Komponenta za prikaz stranske postavitve.
+ *
+ * @component
+ * @returns {JSX.Element} JSX element, ki predstavlja stransko postavitev.
+ *
+ * @example
+ * // Uporaba komponente
+ * <SidebarLayout>
+ *   <YourComponent />
+ * </SidebarLayout>
+ */
+
 export const SidebarLayout = styled.div`
   display: flex;
   gap: 6.4rem;

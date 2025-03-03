@@ -23,6 +23,17 @@ const Grid = styled.div`
   margin-top: 3.2rem;
 `;
 
+/**
+ * Komponenta za prikaz strani z obvestili.
+ *
+ * @component
+ * @returns {JSX.Element} JSX element, ki predstavlja stran z obvestili.
+ *
+ * @example
+ * // Uporaba komponente
+ * <NotificationPage />
+ */
+
 export const NotificationPage = () => {
   const { t } = useTranslation();
 

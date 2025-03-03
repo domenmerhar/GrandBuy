@@ -8,6 +8,17 @@ const StyledLanguageSection = styled(SettingsForm)`
   align-items: flex-start;
 `;
 
+/**
+ * Komponenta za prikaz sekcije za izbiro jezika.
+ *
+ * @component
+ * @returns {JSX.Element} JSX element, ki predstavlja sekcijo za izbiro jezika.
+ *
+ * @example
+ * // Uporaba komponente
+ * <LanguageSection />
+ */
+
 export const LanguageSection = () => {
   const { t } = useTranslation();
 

@@ -4,6 +4,17 @@ import { useInfinite } from "../../hooks/useInfinite";
 import { ProductGrid } from "../../Util/ProductGrid";
 import { renderProduct } from "../../Util/renderProduct";
 
+/**
+ * Komponenta za prikaz neskončnih izdelkov na glavni strani.
+ *
+ * @component
+ * @returns {JSX.Element} JSX element, ki predstavlja neskončne izdelke na glavni strani.
+ *
+ * @example
+ * // Uporaba komponente
+ * <MainPageInfiniteProducts />
+ */
+
 const queryFn = ({ pageParam }: unknown) => {
   if (pageParam === null) return;
 

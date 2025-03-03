@@ -45,6 +45,26 @@ const Button = styled.button`
   }
 `;
 
+/**
+ * SwitchButtons komponenta za prikaz preklopnih gumbov.
+ *
+ * @component
+ * @param {object} props - Lastnosti komponente.
+ * @param {SwitchButtonOption[]} props.options - Niz možnosti za preklopne gumbe.
+ * @param {function} [props.onClick] - Funkcija, ki se izvede ob kliku na gumb.
+ * @returns {JSX.Element} - JSX element preklopnih gumbov.
+ *
+ * @example
+ * // Uporaba komponente
+ * <SwitchButtons
+ * options={[
+ * { name: 'Option 1', value: 'option1', disabled: false },
+ * { name: 'Option 2', value: 'option2', disabled: true },
+ * ]}
+ * onClick={(e, value) => console.log('Klik', value)}
+ * />
+ */
+
 export const SwitchButtons: FC<SwitchButtonsProps> = ({ options, onClick }) => {
   return (
     <StyledSwitchButtons>

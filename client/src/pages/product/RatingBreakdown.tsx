@@ -6,6 +6,17 @@ import { ErrorBox } from "../../Components/ErrorBox";
 import { useReviewStats } from "./useReviewStats";
 import { useTranslation } from "react-i18next";
 
+/**
+ * Komponenta za prikaz razčlenitve ocen.
+ *
+ * @component
+ * @returns {JSX.Element} JSX element, ki predstavlja razčlenitev ocen.
+ *
+ * @example
+ * // Uporaba komponente
+ * <RatingBreakdown />
+ */
+
 export const RatingBreakdown = () => {
   const { t } = useTranslation();
   const { isLoading, error, averageRating, ratingBreakdowns } =

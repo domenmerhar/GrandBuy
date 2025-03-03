@@ -4,6 +4,21 @@ interface IconNavProps {
   $iconColoring?: "fill" | "stroke";
 }
 
+/**
+ * Komponenta za prikaz navigacijskega gumba z ikono.
+ *
+ * @component
+ * @param {Object} props - Lastnosti komponente.
+ * @param {"fill" | "stroke"} [props.$iconColoring] - Način barvanja ikone.
+ * @returns {JSX.Element} JSX element, ki predstavlja navigacijski gumb z ikono.
+ *
+ * @example
+ * // Uporaba komponente
+ * <IconNav $iconColoring="fill">
+ *   <svg>...</svg>
+ * </IconNav>
+ */
+
 export const IconNav = styled.button<IconNavProps>`
   background-color: transparent;
   border: none;

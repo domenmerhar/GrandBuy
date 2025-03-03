@@ -26,6 +26,17 @@ const Grid = styled.div`
   margin-top: 3.2rem;
 `;
 
+/**
+ * Komponenta za prikaz strani z zahtevami za vračilo.
+ *
+ * @component
+ * @returns {JSX.Element} JSX element, ki predstavlja stran z zahtevami za vračilo.
+ *
+ * @example
+ * // Uporaba komponente
+ * <RefundPage />
+ */
+
 export const RefundPage = () => {
   const { t } = useTranslation();
 

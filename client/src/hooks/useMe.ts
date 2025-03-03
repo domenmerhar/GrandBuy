@@ -5,12 +5,12 @@ import { useAuthContext } from "../contexts/AuthContext";
 export const useMe = () => {
   const { JWT, clearAuthInfo } = useAuthContext();
 
-  const { data, error, isLoading } = useQuery({
+  const queryData = useQuery({
     queryKey: ["user-settings", JWT],
     queryFn: () => getMe(JWT),
   });
 
-  if (data?.status === "error") clearAuthInfo();
+  if (queryData?.data?.status === "error") clearAuthInfo();
 
-  return { data, error, isLoading };
+  return queryData;
 };

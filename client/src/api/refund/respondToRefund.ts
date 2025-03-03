@@ -1,5 +1,23 @@
 import { toApiPath } from "../../functions/toApiPath";
 
+/**
+ * Odgovori na zahtevo za vračilo.
+ * @param {object} arguments - Argumenti za odgovor na zahtevo za vračilo.
+ * @param {string} arguments.refundId - ID zahteve za vračilo.
+ * @param {string} arguments.JWT - JWT (JSON Web Token) prodajalca.
+ * @param {"approved" | "rejected"} arguments.status - Status odgovora (odobreno ali zavrnjeno).
+ * @param {string} arguments.resolvedMessage - Sporočilo prodajalca glede odgovora.
+ * @returns {Promise<any>} - Odgovor strežnika.
+ * @async
+ * @example
+ * await respondToRefund({
+ *  refundId: '123456',
+ *  JWT: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...',
+ *  status: 'approved',
+ *  resolvedMessage: 'Vračilo je odobreno.'
+ * });
+ */
+
 export default async function respondToRefund({
   refundId,
   JWT,

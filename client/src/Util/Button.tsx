@@ -7,6 +7,20 @@ interface ButtonProps {
   $size: "large" | "medium" | "small";
 }
 
+/**
+ * Komponenta za prikaz gumba.
+ *
+ * @component
+ * @param {Object} props - Lastnosti komponente.
+ * @param {"rectangle" | "oval"} props.$shape - Oblika gumba (pravokotna ali ovalna).
+ * @param {"orange" | "red" | "green"} props.$color - Barva gumba.
+ * @param {"large" | "medium" | "small"} props.$size - Velikost gumba.
+ * @returns {JSX.Element} JSX element, ki predstavlja gumb.
+ *
+ * @example
+ * // Uporaba komponente
+ * <Button $shape="rectangle" $color="orange" $size="large">Gumb</Button>
+ */
 export const Button = styled.button<ButtonProps>`
   ${({ $color }) =>
     $color === "orange" &&

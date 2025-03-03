@@ -16,6 +16,17 @@ const queryFn =
     return getHistory({ JWT, page: pageParam });
   };
 
+/**
+ * Komponenta za prikaz izdelkov na strani zgodovine.
+ *
+ * @component
+ * @returns {JSX.Element} JSX element, ki predstavlja izdelke na strani zgodovine.
+ *
+ * @example
+ * // Uporaba komponente
+ * <HistoryPageInfiniteProducts />
+ */
+
 export const HistoryPageInfiniteProducts = () => {
   const { JWT } = useAuthContext();
   const { data: dataUser } = useMe();

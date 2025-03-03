@@ -1,6 +1,6 @@
 import { FC } from "react";
 import styled from "styled-components";
-import { ThemeLanguageRow } from "../Components/ThemeLanguageRow";
+import { ThemeLanguageRow } from "./ThemeLanguageRow";
 
 interface AuthContainerProps {
   children: React.ReactNode | React.ReactNode[];
@@ -73,6 +73,21 @@ const ContentHolder = styled.div`
     width: 100vw;
   }
 `;
+
+/**
+ * Komponenta za prikaz avtentikacijskega vsebnika.
+ *
+ * @component
+ * @param {Object} props - Lastnosti komponente.
+ * @param {React.ReactNode | React.ReactNode[]} props.children - Otroški elementi.
+ * @returns {JSX.Element} JSX element, ki predstavlja avtentikacijski vsebnik.
+ *
+ * @example
+ * // Uporaba komponente
+ * <AuthContainer>
+ *   <YourComponent />
+ * </AuthContainer>
+ */
 
 export const AuthContainer: FC<AuthContainerProps> = ({ children }) => {
   return (

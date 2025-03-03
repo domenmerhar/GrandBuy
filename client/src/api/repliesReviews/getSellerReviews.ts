@@ -1,6 +1,22 @@
 import { toApiPath } from "../../functions/toApiPath";
 import { SortCreatedAt } from "../../Util/types";
 
+/**
+ * Pridobi ocene prodajalca s podporo za paginacijo in sortiranje.
+ * @param {object} arguments - Argumenti za pridobivanje ocen prodajalca.
+ * @param {string} arguments.JWT - JWT (JSON Web Token) prodajalca.
+ * @param {number} arguments.page - Številka strani za paginacijo.
+ * @param {SortCreatedAt} arguments.sort - Način sortiranja ocen (po datumu ustvarjanja).
+ * @returns {Promise<any>} - Odgovor strežnika.
+ * @async
+ * @example
+ * await getSellerReviews({
+ *  JWT: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...',
+ *  page: 1,
+ *  sort: '-createdAt'
+ * });
+ */
+
 export const getSellerReviews = async ({
   JWT,
   page,

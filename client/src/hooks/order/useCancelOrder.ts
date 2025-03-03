@@ -16,8 +16,7 @@ export const useCancelOrder = () => {
 
       client.invalidateQueries({
         predicate: (query) =>
-          (query.queryKey[0] as string).includes("seller-orders") ||
-          query.queryKey[0] === "seller-orders",
+          String(query.queryKey[0]).includes("seller-orders"),
       });
 
       toast.success(t("orderCancelled"), { id: "handle-order" });

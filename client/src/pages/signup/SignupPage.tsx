@@ -3,7 +3,7 @@ import { Logo } from "../../Components/Logo";
 import { Button } from "../../Util/Button";
 import { StyledLink } from "../../Util/Link";
 import { InputWithLabel } from "../../Components/InputWithLabel";
-import { AuthContainer } from "../../Util/AuthContainer";
+import { AuthContainer } from "../../Components/AuthContainer";
 import { useSignup } from "../../hooks/useSignup";
 import toast from "react-hot-toast";
 import { useTranslation } from "react-i18next";
@@ -37,6 +37,17 @@ const P = styled.p`
   align-self: center;
   font-size: 1.4rem;
 `;
+
+/**
+ * Komponenta za prikaz strani za prijavo.
+ *
+ * @component
+ * @returns {JSX.Element} JSX element, ki predstavlja stran za prijavo.
+ *
+ * @example
+ * // Uporaba komponente
+ * <SignupPage />
+ */
 
 export const SignupPage = () => {
   const { t } = useTranslation();

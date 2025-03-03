@@ -37,6 +37,37 @@ interface SliderInfoRowProps {
   discount: number;
 }
 
+/**
+ * Komponenta za prikaz informacij o izdelku v kombinaciji z drsnikom slik.
+ *
+ * @component
+ * @param {Object} props - Lastnosti komponente.
+ * @param {string[]} props.images - Seznam URL-jev slik za prikaz.
+ * @param {string} props.title - Naslov izdelka.
+ * @param {string} props.price - Cena izdelka.
+ * @param {string} props.shipping - Stroški pošiljanja izdelka.
+ * @param {string} props.averageRating - Povprečna ocena izdelka.
+ * @param {string} props.unitsSold - Število prodanih enot izdelka.
+ * @param {string} props.createdBy - Avtor ali ustvarjalec izdelka.
+ * @param {string} props.uploaded - Datum nalaganja izdelka.
+ * @param {number} props.discount - Popust na izdelek.
+ * @returns {JSX.Element} JSX element, ki predstavlja informacije o izdelku v kombinaciji z drsnikom slik.
+ *
+ * @example
+ * // Uporaba komponente
+ * <SliderInfoRow
+ *   images={["https://example.com/image1.jpg", "https://example.com/image2.jpg"]}
+ *   title="Odličen izdelek"
+ *   price="$100"
+ *   shipping="$10"
+ *   averageRating="4.5"
+ *   unitsSold="200"
+ *   createdBy="JaneDoe"
+ *   uploaded="2025-03-01"
+ *   discount={10}
+ * />
+ */
+
 export const SliderInfoRow: FC<SliderInfoRowProps> = ({
   images,
   title,

@@ -27,6 +27,22 @@ interface ChildrenProps {
   children: React.ReactNode[] | React.ReactNode;
 }
 
+/**
+ * CardWithHeader komponenta za prikaz kartice z glavo in telesom.
+ *
+ * @component
+ * @param {object} props - Lastnosti komponente.
+ * @param {React.ReactNode[] | React.ReactNode} props.children - Vsebina kartice.
+ * @returns {JSX.Element} - JSX element kartice z glavo.
+ *
+ * @example
+ * // Uporaba komponente
+ * <CardWithHeader>
+ * <CardWithHeader.Header>Naslov kartice</CardWithHeader.Header>
+ * <CardWithHeader.Body>Vsebina kartice</CardWithHeader.Body>
+ * </CardWithHeader>
+ */
+
 export const CardWithHeader: FC<ChildrenProps> & {
   Header: FC<ChildrenProps>;
   Body: FC<ChildrenProps>;
@@ -34,9 +50,27 @@ export const CardWithHeader: FC<ChildrenProps> & {
   return <StyledCardWithHeader>{children}</StyledCardWithHeader>;
 };
 
+/**
+ * CardWithHeader.Header komponenta za prikaz glave kartice.
+ *
+ * @component
+ * @param {object} props - Lastnosti komponente.
+ * @param {React.ReactNode[] | React.ReactNode} props.children - Vsebina glave kartice.
+ * @returns {JSX.Element} - JSX element glave kartice.
+ */
+
 CardWithHeader.Header = ({ children }: ChildrenProps) => {
   return <CardHeader>{children}</CardHeader>;
 };
+
+/**
+ * CardWithHeader.Body komponenta za prikaz telesa kartice.
+ *
+ * @component
+ * @param {object} props - Lastnosti komponente.
+ * @param {React.ReactNode[] | React.ReactNode} props.children - Vsebina telesa kartice.
+ * @returns {JSX.Element} - JSX element telesa kartice.
+ */
 
 CardWithHeader.Body = ({ children }: ChildrenProps) => {
   return <CardBody>{children}</CardBody>;

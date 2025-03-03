@@ -8,6 +8,17 @@ import { useChangePassword } from "../../hooks/useChangePassword";
 import { useAuthContext } from "../../contexts/AuthContext";
 import { useTranslation } from "react-i18next";
 
+/**
+ * Komponenta za prikaz sekcije za spremembo gesla.
+ *
+ * @component
+ * @returns {JSX.Element} JSX element, ki predstavlja sekcijo za spremembo gesla.
+ *
+ * @example
+ * // Uporaba komponente
+ * <PasswordSection />
+ */
+
 export const PasswordSection = () => {
   const { t } = useTranslation();
 

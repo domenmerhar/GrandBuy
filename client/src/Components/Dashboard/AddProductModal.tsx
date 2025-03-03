@@ -16,6 +16,17 @@ const Content = styled(Column)`
   }
 `;
 
+/**
+ * AddProductModal komponenta za prikaz modalnega okna za dodajanje izdelka.
+ *
+ * @component
+ * @returns {JSX.Element} - JSX element modalnega okna za dodajanje izdelka.
+ *
+ * @example
+ * // Uporaba komponente
+ * <AddProductModal />
+ */
+
 export const AddProductModal = () => {
   const { t } = useTranslation();
 

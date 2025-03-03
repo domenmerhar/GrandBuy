@@ -1,6 +1,17 @@
 import { ProductFilter } from "../../Components/ProductFilter";
 import { Sidebar } from "../../Components/Sidebar";
 
+/**
+ * Komponenta za prikaz stranske vrstice iskanja izdelkov.
+ *
+ * @component
+ * @returns {JSX.Element} JSX element, ki predstavlja stransko vrstico iskanja izdelkov.
+ *
+ * @example
+ * // Uporaba komponente
+ * <SearchSidebar />
+ */
+
 export const SearchSidebar = () => {
   return (
     <Sidebar>

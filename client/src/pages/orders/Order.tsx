@@ -26,6 +26,33 @@ const RowInfo = styled(Row)`
   margin: 0.4rem 0;
 `;
 
+/**
+ * Komponenta za prikaz naročila.
+ *
+ * @component
+ * @param {Object} props - Lastnosti komponente.
+ * @param {string} props._id - ID naročila.
+ * @param {string} props.estimatedDelivery - Ocenjeni datum dostave.
+ * @param {string} props.deliveredAt - Datum dostave.
+ * @param {string} props.status - Status naročila.
+ * @param {Array} props.products - Seznam izdelkov v naročilu.
+ * @param {number} props.totalPrice - Skupna cena naročila.
+ * @param {string} props.createdAt - Datum ustvaritve naročila.
+ * @returns {JSX.Element} JSX element, ki predstavlja naročilo.
+ *
+ * @example
+ * // Uporaba komponente
+ * <Order
+ *   _id="1"
+ *   estimatedDelivery="2025-04-10"
+ *   deliveredAt="2025-04-12"
+ *   status="delivered"
+ *   products={[{ _id: "123", product: "456", image: "url", name: "Izdelek", quantity: 1, totalPrice: 100, status: "delivered" }]}
+ *   totalPrice={100}
+ *   createdAt="2025-03-30"
+ * />
+ */
+
 export const Order: FC<IOrder> = ({
   _id,
   estimatedDelivery,

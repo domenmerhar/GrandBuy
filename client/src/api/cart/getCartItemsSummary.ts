@@ -1,5 +1,19 @@
 import { toApiPath } from "../../functions/toApiPath";
 
+/**
+ * Pridobi povzetek košarice glede na podane ID-je elementov košarice.
+ * @param {object} arguments - Argumenti za pridobivanje povzetka košarice.
+ * @param {string} arguments.JWT - JWT (JSON Web Token) uporabnika.
+ * @param {string[]} arguments.cartItems - Array ID-jev elementov košarice.
+ * @returns {Promise<any>} - Odgovor strežnika.
+ * @async
+ * @example
+ * await getCartItemsSummary({
+ *  JWT: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...',
+ *  cartItems: ['123456', '789012']
+ * });
+ */
+
 export const getCartItemsSummary = async ({
   JWT,
   cartItems,

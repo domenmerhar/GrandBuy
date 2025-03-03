@@ -7,11 +7,19 @@ interface ChangePasswordArguments {
 }
 
 /**
- * dsahji
- * @param {string} JWT - JWT of the user
- * @param {string} password - New password
- * @param {string} confirmPassword - Confirm new password
- * @returns {Promise} - Promise object represents the response
+ * Spremeni uporabniško geslo.
+ * @param {object} arguments - Argumenti za spremembo gesla.
+ * @param {string} arguments.JWT - JWT (JSON Web Token) uporabnika.
+ * @param {string} arguments.password - Novo geslo.
+ * @param {string} arguments.confirmPassword - Potrditev novega gesla.
+ * @returns {Promise<any>} - Odgovor na zahtevo.
+ * @async
+ * @example
+ * await changePassword({
+ * JWT: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...',
+ * password: 'NovoGeslo123',
+ * confirmPassword: 'NovoGeslo123'
+ * });
  */
 
 export const changePassword = async ({

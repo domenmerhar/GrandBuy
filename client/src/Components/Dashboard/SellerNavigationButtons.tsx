@@ -1,8 +1,19 @@
 import { NavigationTextButton } from "../Button/NavigationTextButton";
 import { HiArrowUturnLeft } from "react-icons/hi2";
 import { BiPackage } from "react-icons/bi";
-import { HiOutlineEye, HiOutlineMicrophone } from "react-icons/hi";
+import { HiOutlineMicrophone } from "react-icons/hi";
 import { useTranslation } from "react-i18next";
+
+/**
+ * SellerNavigationButtons komponenta za prikaz navigacijskih gumbov za prodajalca.
+ *
+ * @component
+ * @returns {JSX.Element} - JSX element navigacijskih gumbov za prodajalca.
+ *
+ * @example
+ * // Uporaba komponente
+ * <SellerNavigationButtons />
+ */
 
 export const SellerNavigationButtons = () => {
   const { t } = useTranslation();

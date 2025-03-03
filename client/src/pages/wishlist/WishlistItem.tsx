@@ -46,6 +46,29 @@ interface CartItemProps {
   productId: string;
 }
 
+/**
+ * Komponenta za prikaz elementa na seznamu želja.
+ *
+ * @component
+ * @param {Object} props - Lastnosti komponente.
+ * @param {string} props.image - URL slike izdelka.
+ * @param {string} props.name - Ime izdelka.
+ * @param {string} props.description - Opis izdelka.
+ * @param {string} props.price - Cena izdelka.
+ * @param {string} props.productId - ID izdelka.
+ * @returns {JSX.Element} JSX element, ki predstavlja element na seznamu želja.
+ *
+ * @example
+ * // Uporaba komponente
+ * <WishlistItem
+ *   image="https://example.com/image.jpg"
+ *   name="Izdelek A"
+ *   description="Kratek opis izdelka"
+ *   price="$100"
+ *   productId="12345"
+ * />
+ */
+
 export const WishlistItem: FC<CartItemProps> = ({
   image,
   name,

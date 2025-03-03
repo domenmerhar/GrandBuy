@@ -10,6 +10,17 @@ const InputHolder = styled(BlankCard)`
   flex-direction: column;
 `;
 
+/**
+ * Komponenta za vnos kupona.
+ *
+ * @component
+ * @returns {JSX.Element} JSX element, ki omogoča uporabniku vnos kupona.
+ *
+ * @example
+ * // Uporaba komponente
+ * <CouponInput />
+ */
+
 export const CouponInput = () => {
   const { t } = useTranslation();
 

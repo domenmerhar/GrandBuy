@@ -8,6 +8,17 @@ import { AccountSection } from "./AccountSection";
 import { useMe } from "../../hooks/useMe";
 import UserImageWithModal from "./UserImageWithModal";
 
+/**
+ * Komponenta za prikaz strani z nastavitvami.
+ *
+ * @component
+ * @returns {JSX.Element} JSX element, ki predstavlja stran z nastavitvami.
+ *
+ * @example
+ * // Uporaba komponente
+ * <SettingsPage />
+ */
+
 export const SettingsPage = () => {
   const { data } = useMe();
 

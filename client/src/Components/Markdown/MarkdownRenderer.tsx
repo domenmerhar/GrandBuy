@@ -12,6 +12,19 @@ const MarkdownCard = styled(BlankCard)`
   padding: 1.8rem 2.4rem;
 `;
 
+/**
+ * MarkdownRenderer komponenta za prikaz Markdown vsebine.
+ *
+ * @component
+ * @param {object} props - Lastnosti komponente.
+ * @param {string} props.children - Markdown vsebina za prikaz.
+ * @returns {JSX.Element} - JSX element za prikaz Markdown vsebine.
+ *
+ * @example
+ * // Uporaba komponente
+ * <MarkdownRenderer># Naslov</MarkdownRenderer>
+ */
+
 export const MarkdownRenderer: FC<MarkdownRendererProps> = ({ children }) => {
   return (
     <MarkdownCard>

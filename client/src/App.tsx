@@ -3,7 +3,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { AppRouter } from "./AppRouter";
 import { AuthProvider } from "./contexts/AuthContext";
-import { LanguageProvider } from "./Util/LanguageContext";
+import { LanguageProvider } from "./contexts/LanguageContext";
 import { Toaster } from "react-hot-toast";
 import { DarkModeProvider } from "./contexts/DarkModeContext";
 

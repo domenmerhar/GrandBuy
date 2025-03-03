@@ -6,6 +6,17 @@ import { toPrice } from "../../functions/toPrice";
 import { toApiFilesPath } from "../../functions/toApiFilesPath";
 import { CartItem } from "./CartItem";
 
+/**
+ * Komponenta za prikazovanje artiklov v košarici.
+ *
+ * @component
+ * @returns {JSX.Element} JSX element, ki predstavlja seznam artiklov v košarici.
+ *
+ * @example
+ * // Uporaba komponente
+ * <CartItems />
+ */
+
 export const CartItems = () => {
   const { data, isLoading, error } = useCartItems();
 

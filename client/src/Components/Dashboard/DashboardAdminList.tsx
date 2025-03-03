@@ -13,6 +13,17 @@ import {
 } from "react-icons/hi2";
 import { useTranslation } from "react-i18next";
 
+/**
+ * DashboardAdminList komponenta za prikaz navigacijskega seznama za administratorsko nadzorno ploščo.
+ *
+ * @component
+ * @returns {JSX.Element} - JSX element navigacijskega seznama za administratorsko nadzorno ploščo.
+ *
+ * @example
+ * // Uporaba komponente
+ * <DashboardAdminList />
+ */
+
 export const DashboardAdminList = () => {
   const { t } = useTranslation();
   return (

@@ -1,5 +1,18 @@
 import { toApiPath } from "../../functions/toApiPath";
 
+/**
+ * Prijavi uporabnika s podanim e-poštnim naslovom in geslom.
+ * @param {object} arguments - Argumenti za prijavo.
+ * @param {string} arguments.email - E-poštni naslov uporabnika.
+ * @param {string} arguments.password - Geslo uporabnika.
+ * @returns {Promise<any>} - Odgovor strežnika.
+ * @async
+ * @example
+ * await login({
+ *  email: 'uporabnik@primer.com',
+ *  password: 'Geslo123'
+ * });
+ */
 export const login = async ({
   email,
   password,

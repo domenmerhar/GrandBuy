@@ -1,5 +1,18 @@
 import styled from "styled-components";
 
+/**
+ * Komponenta za prikaz popusta.
+ *
+ * @component
+ * @returns {JSX.Element} JSX element, ki predstavlja popust.
+ *
+ * @example
+ * // Uporaba komponente
+ * <Discount>
+ *   -50%
+ * </Discount>
+ */
+
 export const Discount = styled.p`
   display: flex;
   justify-content: center;

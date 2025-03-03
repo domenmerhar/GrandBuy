@@ -5,6 +5,25 @@ import { useMe } from "../useMe";
 import { SortCreatedAt } from "../../Util/types";
 import { getSellerReviews } from "../../api/repliesReviews/getSellerReviews";
 
+/**
+ * useGetSellerReviews hook za pridobivanje ocen prodajalca s strani uporabnika.
+ *
+ * @returns {object} - Vrne rezultat `useQuery` hook-a, ki vsebuje ocene prodajalca.
+ *
+ * @example
+ * // Uporaba hook-a
+ * const { data: reviews, isLoading, isError } = useGetSellerReviews();
+ * if (isLoading) return <p>Loading...</p>;
+ * if (isError) return <p>Error...</p>;
+ * return (
+ * <div>
+ * {reviews?.data.items.map(review => (
+ * <div key={review._id}>{review.text}</div>
+ * ))}
+ * </div>
+ * );
+ */
+
 export const useGetSellerReviews = () => {
   const [searchParams] = useSearchParams();
   const { JWT } = useAuthContext();

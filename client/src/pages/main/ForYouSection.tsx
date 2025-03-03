@@ -6,6 +6,17 @@ import { FreeShipping } from "./FreeShipping";
 import styled from "styled-components";
 import { useTranslation } from "react-i18next";
 
+/**
+ * Komponenta za prikaz sekcije "Za vas".
+ *
+ * @component
+ * @returns {JSX.Element} JSX element, ki predstavlja sekcijo "Za vas".
+ *
+ * @example
+ * // Uporaba komponente
+ * <ForYouSection />
+ */
+
 const StyledForYouSection = styled(Column)`
   margin-bottom: 3.2rem;
 `;

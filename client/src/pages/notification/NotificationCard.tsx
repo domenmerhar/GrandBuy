@@ -9,6 +9,23 @@ interface NotificationCardProps {
   children: string;
 }
 
+/**
+ * Komponenta za prikaz obvestil.
+ *
+ * @component
+ * @param {Object} props - Lastnosti komponente.
+ * @param {string} props.date - Datum obvestila.
+ * @param {NotificationType} props.type - Vrsta obvestila (message ali alert).
+ * @param {string} props.children - Vsebina obvestila.
+ * @returns {JSX.Element} JSX element, ki predstavlja obvestilo.
+ *
+ * @example
+ * // Uporaba komponente
+ * <NotificationCard date="2025-03-03" type="message">
+ *   Novo sporočilo
+ * </NotificationCard>
+ */
+
 export const NotificationCard: FC<NotificationCardProps> = ({
   date,
   type,

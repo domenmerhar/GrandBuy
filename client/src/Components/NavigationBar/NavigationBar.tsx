@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { Logo } from "../Logo";
 import { ButtonWithNotifcations } from "../Button/ButtonWithNotifcations";
 import { useState } from "react";
-import { SearchBar } from "../../Util/SearchBar";
+import { SearchBar } from "./SearchBar";
 import { BurgerMenu } from "../BurgerMenu/BurgerMenu";
 import { createPortal } from "react-dom";
 import { NavLink, Outlet } from "react-router-dom";
@@ -55,6 +55,17 @@ const ButtonHolder = styled.div`
 const NavLinkHolder = styled(NavLink)`
   text-decoration: none;
 `;
+
+/**
+ * NavigationBar komponenta za prikaz navigacijske vrstice.
+ *
+ * @component
+ * @returns {JSX.Element} - JSX element navigacijske vrstice.
+ *
+ * @example
+ * // Uporaba komponente
+ * <NavigationBar />
+ */
 
 export const NavigationBar = () => {
   const { clearAuthInfo } = useAuthContext();
