@@ -121,7 +121,11 @@ export const getUserReplies = catchAsync(
     const replies = await new APIFeatures(
       Reply.find({ user: userId }),
       req.query
-    ).paginate().query;
+    )
+      .paginate()
+      .filter()
+      .limitFields()
+      .sort().query;
 
     if (!(replies as unknown as unknown[]).length)
       return next(new AppError("No replies found", 404));
