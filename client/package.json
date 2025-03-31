@@ -20,6 +20,7 @@
     "i18next": "^24.2.2",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "react-error-boundary": "^5.0.0",
     "react-horizontal-scrolling-menu": "^8.2.0",
     "react-hot-toast": "^2.5.1",
     "react-i18next": "^15.4.0",
