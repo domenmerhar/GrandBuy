@@ -94,7 +94,8 @@ export const addOrder = catchAsync(
       payment_method_types: ["card"],
       client_reference_id: String(order._id),
       mode: "payment",
-      locale: "auto",
+      //locale: "auto",
+      locale: "sl",
       //TODO: SUCCESS URL
       //TODO: CANCEL URL
       success_url: "http://localhost:5173",
@@ -104,7 +105,7 @@ export const addOrder = catchAsync(
       line_items: products.map((product) => {
         return {
           price_data: {
-            currency: "usd",
+            currency: "eur",
             unit_amount: (product.totalPrice * 100).toFixed(0),
             product_data: {
               name: product.name,
