@@ -21,6 +21,7 @@ const createToken = (id: Types.ObjectId) =>
   jwt.sign({ id, iat: Date.now() + 10000 }, process.env.JWT_SECRET!, {
     expiresIn: process.env.JWT_EXPIRES_IN,
   });
+
 export const getUser = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const { userId } = req.params;
@@ -53,18 +54,19 @@ export const signup = catchAsync(
   ) => {
     const { username, email, password, confirmPassword } = req.body;
 
-    const [verificationCode, hashedVerificationCode] =
-      await createVerificationCode();
-
     const newUser = await User.create({
       username,
       email,
       password,
       confirmPassword,
-      verificationCode: hashedVerificationCode,
     });
 
+    const [verificationCode, hashedVerificationCode] =
+      await createVerificationCode();
+
     newUser.password = newUser.__v = newUser.jwtChangedAt = undefined!;
+    newUser.verificationCode = hashedVerificationCode;
+    await newUser.save({ validateBeforeSave: false });
 
     await new Email(email).sendConfirmEmail(verificationCode);
 
