@@ -68,16 +68,17 @@ export const addOrder = catchAsync(
           image: 1,
           quantity: 1,
           shipping: 1,
+          price: 1,
           product: 1,
           totalPrice: {
             $add: [
-              { $subtract: ["$totalPrice", "$shipping"] },
               {
                 $multiply: [
-                  { $subtract: ["$totalPrice", "$shipping"] },
+                  { $multiply: ["$price", "$quantity"] },
                   { $subtract: [1, { $divide: ["$discount", 100] }] },
                 ],
               },
+              "$shipping",
             ],
           },
         },
@@ -95,6 +96,8 @@ export const addOrder = catchAsync(
         0
       ),
     });
+
+    console.log(products);
 
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ["card"],
