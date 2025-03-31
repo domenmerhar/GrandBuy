@@ -42,9 +42,12 @@ const UserHolder = styled.div`
 `;
 
 const UserImage = styled.img`
-  width: 9.2rem;
   height: 9.2rem;
+  width: 9.2rem;
+
   border-radius: 50%;
+  color: transparent;
+  text-decoration: none;
 
   background-color: var(--gray-6);
 `;
