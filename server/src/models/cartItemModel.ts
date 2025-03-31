@@ -62,7 +62,6 @@ const CartItemSchema = new Schema<ICartItem>({
     default: 0,
   },
 
-  //TODO: Implement pending refund
   status: {
     type: String,
     enum: {
