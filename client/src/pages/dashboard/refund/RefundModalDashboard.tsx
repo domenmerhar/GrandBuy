@@ -77,8 +77,8 @@ export const RefundModalDashboard = () => {
       onClose={handleClose}
       buttons={[
         {
-          key: "cancel",
-          text: t("cancel"),
+          key: "reject",
+          text: t("reject"),
           color: "red",
           onClick: handleCancelRefund,
         },
