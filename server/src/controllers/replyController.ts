@@ -15,7 +15,7 @@ export const getReply = catchAsync(
     const reply = await Reply.findById(id)
       .populate({
         path: "user",
-        select: "username _id ",
+        select: "username _id",
       })
       .populate({ path: "review" });
     if (!reply) return next(new AppError("Reply not found", 404));
@@ -41,7 +41,7 @@ export const getReviewReplies = catchAsync(
     const replies = await Reply.find({ review: reviewId })
       .populate({
         path: "user",
-        select: "username _id ",
+        select: "username _id image",
       })
       .sort("createdAt")
       .skip(skip)
