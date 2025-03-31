@@ -3,35 +3,10 @@ import { useSearchParams } from "react-router-dom";
 import { Rating } from "react-simple-star-rating";
 import styled from "styled-components";
 
-const tooltipArray = [
-  "0.5+",
-  "1.0+",
-  "1.5+",
-  "2.0+",
-  "2.5+",
-  "3.0+",
-  "3.5+",
-  "4.0+",
-  "4.5+",
-  "5.0",
-];
-
-const fillColorArray = [
-  "#f17a45",
-  "#f17a45",
-  "#f19745",
-  "#f19745",
-  "#f1a545",
-  "#f1a545",
-  "#f1b345",
-  "#f1b345",
-  "#f1d045",
-  "#f1d045",
-];
-
 interface RatingInteractiveProps {
   size?: number;
   fontSize?: string;
+  allowFraction?: boolean;
 }
 
 const StyledRatingInteractive = styled.div`
@@ -58,8 +33,28 @@ const StyledRatingInteractive = styled.div`
 export const RatingInteractive: FC<RatingInteractiveProps> = ({
   size = 32,
   fontSize = "1.8rem",
+  allowFraction = true,
 }) => {
   const [searchParams, setSearchParams] = useSearchParams();
+
+  const tooltipArray = allowFraction
+    ? ["0.5", "1.0", "1.5+", "2.0", "2.5", "3.0", "3.5", "4.0", "4.5", "5.0"]
+    : ["1.0", "2.0", "3.0", "4.0", "5.0"];
+
+  const fillColorArray = allowFraction
+    ? [
+        "#f17a45",
+        "#f17a45",
+        "#f19745",
+        "#f19745",
+        "#f1a545",
+        "#f1a545",
+        "#f1b345",
+        "#f1b345",
+        "#f1d045",
+        "#f1d045",
+      ]
+    : ["#f17a45", "#f19745", "#f1a545", "#f1b345", "#f1d045"];
 
   const handleRating = (rating: number) => {
     setSearchParams((searchParams) => {
@@ -74,10 +69,10 @@ export const RatingInteractive: FC<RatingInteractiveProps> = ({
         onClick={handleRating}
         size={size}
         transition
-        allowFraction
+        allowFraction={allowFraction}
         showTooltip
         tooltipArray={tooltipArray}
-        tooltipDefaultText="0+"
+        tooltipDefaultText="0"
         fillColorArray={fillColorArray}
         tooltipStyle={{
           backgroundColor: "transparent",
