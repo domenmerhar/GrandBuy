@@ -73,7 +73,7 @@ export const ReplyModal = () => {
       <Column $gap=".8rem">
         <TextareaWithLabel
           id="review"
-          label={t("review")}
+          label={t("replyText")}
           ref={reviewRef}
           maxLength={500}
         />
