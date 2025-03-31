@@ -18,7 +18,11 @@ export class Email {
       from: process.env.EMAIL,
       to: this.to,
       subject: "Potrdite vaš email naslov",
-      text: `Vaša koda je ${verificationCode}`,
+      text: `Spoštovani!
+Hvala za registracijo, vaša koda je ${verificationCode}.
+      
+Lep pozdrav
+Ekipa GrandBuy`,
     });
   }
 
@@ -29,7 +33,11 @@ export class Email {
       from: process.env.EMAIL,
       to: this.to,
       subject: "Resetirajte vaše geslo",
-      text: `Vaša koda za resetiranje je ${resetPasswordToken}`,
+      text: `Spoštovani!
+Vaša koda za resetiranje je ${resetPasswordToken}
+      
+Lep pozdrav
+Ekipa GrandBuy`,
     });
   }
 
@@ -38,7 +46,11 @@ export class Email {
       from: process.env.EMAIL,
       to: this.to,
       subject: "Bili ste suspendirani",
-      text: `Vaša suspenzija traja do ${validUntil.toDateString()}`,
+      text: `Spoštovani!
+Vaša suspenzija traja do ${validUntil.toDateString()}
+
+Lep pozdrav
+Ekipa GrandBuy`,
     });
   }
 
@@ -47,7 +59,11 @@ export class Email {
       from: process.env.EMAIL,
       to: this.to,
       subject: "Bili ste odsuspendirani",
-      text: `Vaša suspenzija je bila odstranjena`,
+      text: `Spoštovani!
+Vaša suspenzija je bila odstranjena
+      
+Lep pozdrav
+Ekipa GrandBuy`,
     });
   }
 }
