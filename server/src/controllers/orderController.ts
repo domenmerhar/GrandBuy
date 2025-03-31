@@ -67,11 +67,17 @@ export const addOrder = catchAsync(
           name: 1,
           image: 1,
           quantity: 1,
+          shipping: 1,
           product: 1,
           totalPrice: {
-            $multiply: [
-              "$totalPrice",
-              { $subtract: [1, { $divide: ["$discount", 100] }] },
+            $add: [
+              { $subtract: ["$totalPrice", "$shipping"] },
+              {
+                $multiply: [
+                  { $subtract: ["$totalPrice", "$shipping"] },
+                  { $subtract: [1, { $divide: ["$discount", 100] }] },
+                ],
+              },
             ],
           },
         },
