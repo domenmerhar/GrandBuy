@@ -128,7 +128,7 @@ export const ProductCard: FC<ProductCardProps> = ({
       <Title>{title}</Title>
 
       <PriceButtonHolder>
-        <Price>{toPrice(price, "USD")}</Price>
+        <Price>{toPrice(price, "EUR")}</Price>
         {role === "user" ? <AddButton productId={id} /> : null}
       </PriceButtonHolder>
     </StyledProductCard>

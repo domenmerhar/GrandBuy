@@ -40,7 +40,7 @@ export const CartItems = () => {
         name={name}
         price={toPrice(
           price * ((100 - discount) / 100) * quantity + shipping,
-          "USD"
+          "EUR"
         )}
         quantity={quantity}
         key={_id}

@@ -46,10 +46,10 @@ export const Under50 = () => {
             id={_id}
             productName={name}
             imageSrc={toApiFilesPath(coverImage)}
-            priceAfterDiscount={toPrice(totalPrice, "USD")}
+            priceAfterDiscount={toPrice(totalPrice, "EUR")}
             priceBeforeDiscount={toPrice(
               totalPrice / ((100 - discount) / 100),
-              "USD"
+              "EUR"
             )}
           />
         )

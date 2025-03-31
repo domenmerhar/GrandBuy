@@ -49,11 +49,11 @@ export const OrderSummary = () => {
     <StyledOrderSummary>
       <HeaderUppercaseBold>{t("summary")}</HeaderUppercaseBold>
 
-      <SummaryRow name={t("items")} price={toPrice(items, "USD")} />
-      <SummaryRow name={t("shipping")} price={toPrice(shipping, "USD")} />
-      <SummaryRow name={t("coupons")} price={toPrice(discount, "USD")} />
+      <SummaryRow name={t("items")} price={toPrice(items, "EUR")} />
+      <SummaryRow name={t("shipping")} price={toPrice(shipping, "EUR")} />
+      <SummaryRow name={t("coupons")} price={toPrice(discount, "EUR")} />
       <Hr />
-      <SummaryRow name={t("total")} price={toPrice(total, "USD")} />
+      <SummaryRow name={t("total")} price={toPrice(total, "EUR")} />
     </StyledOrderSummary>
   );
 };

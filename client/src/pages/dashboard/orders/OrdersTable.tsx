@@ -92,7 +92,7 @@ export const OrdersTable = () => {
             <td>{name}</td>
             <td>{quantity}</td>
             <td>
-              {toPrice((quantity * price * (100 - discount)) / 100, "USD")}
+              {toPrice((quantity * price * (100 - discount)) / 100, "EUR")}
             </td>
             <td>{renderBadge(status)}</td>
 

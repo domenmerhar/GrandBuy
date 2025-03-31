@@ -31,6 +31,7 @@ interface IProductDetails {
   lastChanged: string;
   totalPrice: number;
   orders: number;
+  averageRating: number;
 }
 
 /**
@@ -66,6 +67,7 @@ export const ProductPage = () => {
     shipping,
     user: { username },
     discount,
+    averageRating,
   } = data?.data?.product as IProductDetails;
 
   const markdownPath = toApiFilesPath(description);
@@ -78,11 +80,11 @@ export const ProductPage = () => {
           <SliderInfoRow
             images={imagesPath}
             title={name}
-            averageRating="N/A"
+            averageRating={String(averageRating)}
             createdBy={username}
             uploaded={toDate(lastChanged)}
-            price={toPrice(price, "USD")}
-            shipping={toPrice(shipping, "USD")}
+            price={toPrice(price, "EUR")}
+            shipping={toPrice(shipping, "EUR")}
             unitsSold={String(orders)}
             discount={discount}
           />

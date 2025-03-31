@@ -143,7 +143,7 @@ export const Order: FC<IOrder> = ({
             image={toApiFilesPath(image)}
             name={name}
             quantity={quantity}
-            price={toPrice(totalPrice, "USD")}
+            price={toPrice(totalPrice, "EUR")}
             status={status}
           />
         )
@@ -157,7 +157,7 @@ export const Order: FC<IOrder> = ({
 
         <Column>
           <UppercaseBold>{t("total")}</UppercaseBold>
-          {toPrice(totalPrice, "USD")}
+          {toPrice(totalPrice, "EUR")}
         </Column>
       </RowInfo>
     </>

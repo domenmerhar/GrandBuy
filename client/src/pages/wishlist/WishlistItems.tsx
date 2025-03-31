@@ -38,7 +38,7 @@ export const WishlistItems = () => {
             key={_id}
             image={toApiFilesPath(coverImage)}
             name={name}
-            price={toPrice(totalPrice, "USD")}
+            price={toPrice(totalPrice, "EUR")}
             productId={productId}
           />
         )
