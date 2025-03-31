@@ -80,7 +80,7 @@ export const AddReviewModal = () => {
       ]}
     >
       <Column $gap="8px" as="form">
-        <RatingInteractive size={28} fontSize="1.6rem" />
+        <RatingInteractive size={28} fontSize="1.6rem" allowFraction={false} />
 
         <TextareaWithLabel id="content" label={t("review")} ref={textAreaRef} />
       </Column>
