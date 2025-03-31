@@ -26,7 +26,7 @@ export const toPrice = (number: number, currency: currency) => {
     case "USD":
       return `$${numberStr}`;
     case "EUR":
-      return `€${numberStr}`;
+      return `${numberStr}€`;
     case "GBP":
       return `£${numberStr}`;
   }
