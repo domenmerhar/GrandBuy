@@ -69,7 +69,7 @@ export const FilePickerDisplay: FC<ImagePickerProps> = ({
         id={id}
         setSelectedFiles={setSelectedImages}
         multiple={multiple}
-        accept="image/png, image/jpeg, .png, .jpg, .jpeg"
+        accept="image/png, image/jpeg, .png, .jpg, .jpeg .gifm .webp"
       />
 
       {selectedImages.length > 0 && (
