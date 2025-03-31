@@ -113,6 +113,7 @@ const resources = {
       addToCart: "Add to Cart",
       addReview: "Add Review",
       reply: "Reply",
+      replyText: "Reply",
       update: "Update",
 
       // Orders page
@@ -379,7 +380,7 @@ const resources = {
 
       // Account user page
       reviews: "Ocene",
-      review: "Odgovor",
+      review: "Ocena",
       replies: "Odgovori",
 
       // Search page
@@ -402,6 +403,7 @@ const resources = {
       addToCart: "V košarico",
       addReview: "Dodaj oceno",
       reply: "Odgovori",
+      replyText: "Odgovor",
       update: "Posodobi",
 
       // Orders page
