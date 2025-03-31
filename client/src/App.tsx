@@ -6,6 +6,8 @@ import { AuthProvider } from "./contexts/AuthContext";
 import { LanguageProvider } from "./contexts/LanguageContext";
 import { Toaster } from "react-hot-toast";
 import { DarkModeProvider } from "./contexts/DarkModeContext";
+import { ErrorBoundary } from "react-error-boundary";
+import { ErrorBox } from "./Components/ErrorBox";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -19,18 +21,20 @@ function App() {
   return (
     <>
       <GlobalStyles />
-      <QueryClientProvider client={queryClient}>
-        <ReactQueryDevtools initialIsOpen={false} />
-        <Toaster />
 
-        <AuthProvider>
-          <LanguageProvider>
-            <DarkModeProvider>
-              <AppRouter />
-            </DarkModeProvider>
-          </LanguageProvider>
-        </AuthProvider>
-      </QueryClientProvider>
+      <ErrorBoundary fallback={<ErrorBox fullPage={true} />}>
+        <QueryClientProvider client={queryClient}>
+          <ReactQueryDevtools initialIsOpen={false} />
+          <Toaster />
+          <AuthProvider>
+            <LanguageProvider>
+              <DarkModeProvider>
+                <AppRouter />
+              </DarkModeProvider>
+            </LanguageProvider>
+          </AuthProvider>
+        </QueryClientProvider>
+      </ErrorBoundary>
     </>
   );
 }
