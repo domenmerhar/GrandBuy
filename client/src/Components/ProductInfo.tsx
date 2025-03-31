@@ -120,7 +120,11 @@ export const ProductInfo: FC<ProductInfoProps> = ({
   return (
     <StyledProductInfo $gap="2.4rem" $justifyContent="space-around">
       <Info $gap=".8rem">
-        <HeaderHolder $justifyContent="space-between" $alignItems="center">
+        <HeaderHolder
+          $justifyContent="space-between"
+          $alignItems="center"
+          $flexWrap="wrap"
+        >
           <HeaderUppercaseBold>{title}</HeaderUppercaseBold>
 
           {role === "user" ? <AddToWishlistButton /> : null}
@@ -170,9 +174,9 @@ export const ProductInfo: FC<ProductInfoProps> = ({
               {t("addToCart")}
             </Button>
 
-            <Button $color="gray" $shape="oval" $size="medium">
+            {/* <Button $color="gray" $shape="oval" $size="medium">
               {t("buyNow")}
-            </Button>
+            </Button> */}
           </Column>
         </>
       ) : null}
