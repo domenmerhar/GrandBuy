@@ -8,7 +8,23 @@ interface MarkdownRendererProps {
 }
 
 const MarkdownCard = styled(BlankCard)`
-  line-height: 1.5;
+  & * {
+    line-height: 1.5;
+  }
+
+  & h1,
+  h2,
+  h3,
+  ul,
+  ol {
+    margin-top: 0.8rem;
+  }
+
+  & ul,
+  ol {
+    margin-left: 20px;
+  }
+
   padding: 1.8rem 2.4rem;
 `;
 
