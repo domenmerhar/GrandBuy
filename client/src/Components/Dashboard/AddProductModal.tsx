@@ -54,7 +54,6 @@ export const AddProductModal = () => {
 
     if (
       !name ||
-      !discount ||
       !price ||
       !shipping ||
       !selectedImages.length ||
@@ -68,10 +67,10 @@ export const AddProductModal = () => {
 
     addProduct({
       JWT,
-      name: name,
-      discount: discount,
-      price: price,
-      shipping: shipping,
+      name,
+      discount,
+      price,
+      shipping,
       images: selectedImages,
       description: selectedDescription[0],
       coverImage: selectedCover[0],
@@ -82,7 +81,7 @@ export const AddProductModal = () => {
 
   return (
     <Modal.Window
-      title="Add Product"
+      title={t("addProduct")}
       buttons={[
         {
           key: "submit",
