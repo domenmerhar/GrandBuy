@@ -42,7 +42,7 @@ export const ReplyModal = () => {
 
   const handleReply = () => {
     removeParam();
-    if (!reviewRef.current?.value)
+    if (!reviewRef.current?.value?.trim())
       return toast.error(t("pleaseEnterAllFields"), { id: "reply" });
 
     createReply({ JWT, reviewId, reply: reviewRef.current.value });

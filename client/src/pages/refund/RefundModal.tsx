@@ -41,14 +41,14 @@ export const RefundModal = () => {
 
   const handleRequestRefund = () => {
     if (
-      !messageRef.current?.value ||
+      !messageRef.current?.value.trim() ||
       messageRef.current?.value.length < 1 ||
       messageRef.current?.value.length > 255 ||
       !cartItemId
     )
       return toast.error(t("invalidData"), { id: "request-refund" });
 
-    requestRefund({ JWT, cartItemId, reason: messageRef.current.value });
+    requestRefund({ JWT, cartItemId, reason: messageRef.current.value.trim() });
 
     handleClose();
   };

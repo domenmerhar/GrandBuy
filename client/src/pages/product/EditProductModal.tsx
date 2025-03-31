@@ -50,7 +50,7 @@ export default function EditProductModal() {
       !selectedImages.length &&
       !selectedDescription.length &&
       !selectedCover.length &&
-      !discount &&
+      (Number(discount) < 0 || Number(discount) > 100) &&
       !price &&
       !productName &&
       !shipping

@@ -47,7 +47,7 @@ export const AddReviewModal = () => {
   const handleSubmit = () => {
     removeRatingParam();
 
-    if (!textAreaRef.current?.value || !rating)
+    if (!textAreaRef.current?.value.trim().length || !rating)
       toast.error(t("fillAllFields"), { id: "review" });
 
     createReview({

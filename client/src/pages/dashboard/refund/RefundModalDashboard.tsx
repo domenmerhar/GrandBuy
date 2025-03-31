@@ -42,9 +42,9 @@ export const RefundModalDashboard = () => {
   const handleAction = (callback: () => unknown) =>
     function () {
       if (
-        !messageRef.current?.value.length ||
-        messageRef.current?.value.length < 1 ||
-        messageRef.current?.value.length > 255 ||
+        !messageRef.current?.value.trim().length ||
+        messageRef.current?.value.trim().length < 1 ||
+        messageRef.current?.value.trim().length > 255 ||
         !refundId
       )
         return toast.error(t("invalidData"), { id: "request-refund" });

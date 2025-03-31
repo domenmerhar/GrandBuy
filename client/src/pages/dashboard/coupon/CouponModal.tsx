@@ -133,10 +133,10 @@ export default function CouponModal({
 
   const validateData = (callback: () => unknown) => () => {
     if (
-      !code?.length ||
+      !code?.trim()?.length ||
       code.length > 20 ||
-      discount === 0 ||
-      !discount ||
+      Number(discount) < 0 ||
+      Number(discount) > 100 ||
       !expireAt ||
       expireAt < Date.now() ||
       !productIds.length

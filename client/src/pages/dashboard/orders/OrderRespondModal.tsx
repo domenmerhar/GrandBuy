@@ -36,7 +36,7 @@ export const OrderRespondModal = () => {
   const { closeModal } = Modal.useModalContext();
 
   const handleOrderAction = (callback: () => unknown) => () => {
-    if (!orderId || !JWT)
+    if (!orderId?.trim() || !JWT)
       return toast.error(t("somethingWentWrong"), { id: "handle-order" });
 
     callback();
