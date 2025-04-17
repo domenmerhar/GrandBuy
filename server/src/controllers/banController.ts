@@ -41,7 +41,7 @@ export const createBan = catchAsync(
       user: userId,
       createdBy: res.locals.user._id,
       type: "warning",
-      message: `You have been banned until ${validUntil.toDateString()}`,
+      message: `Suspendirani ste do ${validUntil.toDateString()}`,
     });
 
     await User.findByIdAndUpdate(userId, {
@@ -81,7 +81,7 @@ export const deleteBan = catchAsync(
       user: ban.user,
       createdBy: res.locals.user._id,
       type: "message",
-      message: `Your ban valid until ${ban.validUntil.toDateString()} has been lifted.`,
+      message: `Vaša suspenzija, veljavna do ${ban.validUntil.toDateString()}, je bila preklicana.`,
     });
 
     res.status(204).json({

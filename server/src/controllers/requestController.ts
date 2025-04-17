@@ -27,7 +27,7 @@ const changeRequestStatus = async (
     user: request.user,
     createdBy: adminId,
     type: "message",
-    message: `Your become a seller request has been ${status}`,
+    message: `Zahteva za pridobitev vloge prodajalca je bila ${status === "accepted" ? "odobrena" : "zavrnjen"}`,
   });
 
   return request;

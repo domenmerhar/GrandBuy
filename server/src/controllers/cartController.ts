@@ -8,7 +8,7 @@ import couponModel from "../models/couponModel";
 import { mapProductIds } from "../utils/mapProductIds";
 import mongoose from "mongoose";
 import orderModel from "../models/orderModel";
-import notificationModel from "../models/notificationModel";
+import Notification from "../models/notificationModel";
 
 const sellerChangeOrderStatus = async (
   orderId: string,
@@ -327,10 +327,10 @@ export const shipOrder = catchAsync(
     );
     if (allShipped) {
       order.status = "shipped";
-      await notificationModel.create({
+      await Notification.create({
         type: "message",
         user: order.user,
-        message: `${order.id} order has been shipped.`,
+        message: `${order.id} pošiljka je bila poslana.`,
         createdBy: sellerId,
       });
     }
@@ -346,10 +346,10 @@ export const shipOrder = catchAsync(
       }
     );
 
-    await notificationModel.create({
+    await Notification.create({
       type: "message",
       user: order.user,
-      message: `${itemToShip.name} has been shipped.`,
+      message: `${itemToShip.name} izdelek je bil poslan.`,
       createdBy: sellerId,
     });
 
@@ -392,10 +392,10 @@ export const cancelOrder = catchAsync(
     );
     if (allShipped) {
       order.status = "shipped";
-      await notificationModel.create({
+      await Notification.create({
         type: "message",
         user: order.user,
-        message: `${order.id} order has been shipped.`,
+        message: `${order.id} pošiljka je bila poslana.`,
         createdBy: sellerId,
       });
     }
@@ -411,10 +411,10 @@ export const cancelOrder = catchAsync(
       }
     );
 
-    await notificationModel.create({
+    await Notification.create({
       type: "warning",
       user: order.user,
-      message: `${itemToCancel.name} has been cancelled.`,
+      message: `${itemToCancel.name} izdelek je bil preklican.`,
       createdBy: sellerId,
     });
 

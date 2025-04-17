@@ -176,7 +176,7 @@ export const respondToRefund = catchAsync(
       user: refund.user,
       createdBy: userId,
       type: status === "approved" ? "message" : "warning",
-      message: `Your refund request has been ${status} on product ${cartItem.name}. Reason: ${resolvedMessage}`,
+      message: `Vaša zahteva za vrnitev ${status === "approved" ? " odobrena" : "zavrnjena"} na izdelku ${cartItem.name}. Razlog: ${resolvedMessage}`,
     });
 
     await refund.save();

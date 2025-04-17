@@ -423,7 +423,7 @@ export const deleteReview = catchAsync(
       user: review.user,
       createdBy: userId,
       type: "warning",
-      message: `Your review on product ${(review.product as unknown as { name: string }).name || "unknown"} has been deleted. ${warningMessage || ""}`,
+      message: `Vaša ocena na izdelku ${(review.product as unknown as { name: string }).name || "unknown"} je bila odstranjena. ${warningMessage || ""}`,
     });
 
     res.status(204).json({ status: "success" });

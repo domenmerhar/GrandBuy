@@ -58,7 +58,7 @@ const handleCheckoutSessionCompleted = async (event: any) => {
   await Notification.create({
     user: order.user,
     type: "message",
-    message: "Order has been paid",
+    message: "Naročilo je bilo uspešno plačano",
   });
 
   return { success: true };
