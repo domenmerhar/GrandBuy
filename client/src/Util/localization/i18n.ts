@@ -56,7 +56,7 @@ const resources = {
 
       // Hero
       saveUpTo: "Save up to",
-      grandFallSale: "Grand Fall Sale",
+      grandFallSale: "Grand Spring Sale",
       thePromotionEndsIn: "The promotion ends in:",
       days: "days",
       hours: "hours",
@@ -65,7 +65,7 @@ const resources = {
       shopNow: "Shop Now",
 
       // Main page
-      summerSale: "Summer Sale",
+      summerSale: "Spring Sale",
       designedForYou: "Designed for you",
       under50: "Under $50",
       freeShipping: "Free Shipping",
@@ -128,6 +128,9 @@ const resources = {
       confirmItemDelivery: "Confirm Item Delivery",
       refundItem: "Refund Item",
       pendingRefund: "Pending Refund",
+      pricePerProduct: "Price per product",
+      unpaid: "Unpaid",
+      pay: "Pay",
 
       // History page
       recentHistory: "Recent History",
@@ -346,7 +349,7 @@ const resources = {
 
       // Hero
       saveUpTo: "Prihranite do",
-      grandFallSale: "Velika jesenska razprodaja",
+      grandFallSale: "Velika spomladanska razprodaja",
       thePromotionEndsIn: "Promocija se konča čez:",
       days: "dni",
       hours: "ur",
@@ -355,7 +358,7 @@ const resources = {
       shopNow: "Kupujte zdaj",
 
       // Main page
-      summerSale: "Poletna razprodaja",
+      summerSale: "Spomladanska razprodaja",
       designedForYou: "Oblikovano za vas",
       under50: "Pod 50$",
       freeShipping: "Brezplačna dostava",
@@ -418,6 +421,9 @@ const resources = {
       confirmItemDelivery: "Potrdi dostavo izdelka",
       refundItem: "Vračilo izdelka",
       pendingRefund: "Nedoločeno vračilo",
+      pricePerProduct: "Cena na izdelek",
+      unpaid: "Ni plačano",
+      pay: "Plačaj",
 
       // History page
       recentHistory: "Nedavna zgodovina",
