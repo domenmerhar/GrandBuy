@@ -254,6 +254,7 @@ export interface IRefundPage {
 
 export type SortCreatedAt = "+createdAt" | "-createdAt";
 export type SortDiscount = "+discount" | "-discount";
+export type SortExpireAt = "+expireAt" | "-expireAt";
 
 export interface ICoupon {
   _id: string;

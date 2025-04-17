@@ -7,8 +7,8 @@ import { useSearchParams } from "react-router-dom";
 import {
   CouponProps,
   ICoupon,
-  SortCreatedAt,
   SortDiscount,
+  SortExpireAt,
 } from "../../../Util/types";
 import { Coupon } from "./Coupon";
 import { toDate } from "../../../functions/toDate";
@@ -52,10 +52,10 @@ export const Coupons = React.memo(
     const userId = dataMe?.data?._id;
 
     const sortStr = searchParams.get("sort")!;
-    let sort: SortCreatedAt | SortDiscount;
+    let sort: SortExpireAt | SortDiscount;
     switch (sortStr) {
       case "oldest":
-        sort = "+createdAt";
+        sort = "+expireAt";
         break;
 
       case "discount-highest":
@@ -67,7 +67,7 @@ export const Coupons = React.memo(
         break;
 
       default:
-        sort = "-createdAt";
+        sort = "-expireAt";
         break;
     }
 
