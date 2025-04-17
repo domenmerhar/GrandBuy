@@ -6,6 +6,7 @@ import {
   getSellerOrders,
   getUserOrders,
   getUserOrdersCount,
+  payOrder,
 } from "../controllers/orderController";
 import { cancelOrder, shipOrder } from "../controllers/cartController";
 import { validate } from "../utils/validate";
@@ -29,6 +30,19 @@ orderRouter
 
 orderRouter.route("/user").get(restrictTo("user"), getUserOrders);
 orderRouter.route("/user/count").get(restrictTo("user"), getUserOrdersCount);
+
+orderRouter.route("/user/:id/payOrder").patch(
+  validate([
+    param("id")
+      .isMongoId()
+      .withMessage("Please provide a valid ID.")
+      .notEmpty()
+      .withMessage("Please provide an ID."),
+  ]),
+
+  restrictTo("user"),
+  payOrder
+);
 
 orderRouter.route("/user/:id/confirmDelivery").patch(
   validate([
