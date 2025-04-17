@@ -10,6 +10,8 @@ import { HiArrowRightEndOnRectangle } from "react-icons/hi2";
 import { NotficationCartButtons } from "./NotficationCartButtons";
 import { useMe } from "../../hooks/useMe";
 import { useAuthContext } from "../../contexts/AuthContext";
+import { ErrorBoundary } from "react-error-boundary";
+import { ErrorBox } from "../ErrorBox";
 
 const Placeholder = styled.div`
   height: 7.5rem;
@@ -128,7 +130,10 @@ export const NavigationBar = () => {
         )}
       </BackgroundDiv>
       <Placeholder />
-      <Outlet />
+
+      <ErrorBoundary fallback={<ErrorBox fullPage={true} />}>
+        <Outlet />
+      </ErrorBoundary>
     </>
   );
 };
