@@ -65,17 +65,19 @@ export const getProducts = catchAsync(
       "averageRating",
     ]);
 
-    let products = features.paginate().filter();
+    let products = features.paginate().filter().sort();
+    console.log(sort);
 
-    products = sort && sort?.includes("orders") ? products : products.sort();
+    // products = sort && sort?.includes("orders") ? products : products.sort();
+    if (sort === "+totalPrice") products.query.sort({ totalPrice: +1 });
 
     products = await products.query.select(
       "_id name coverImage totalPrice discount"
     );
 
-    await Promise.all(
-      products.map((product) => product.getOrdersAndAverageRating())
-    );
+    // await Promise.all(
+    //   products.map((product) => product.getOrdersAndAverageRating())
+    // );
 
     if (averageRating)
       products = products.filter(
@@ -86,8 +88,21 @@ export const getProducts = catchAsync(
       return next(new AppError("No products found.", 404));
     }
 
-    if (sort === "-orders") products.sort((a, b) => b.orders - a.orders);
-    else if (sort === "+orders") products.sort((a, b) => a.orders - b.orders);
+    // if (sort === "-orders") products.sort((a, b) => a.order - b.orders < 0);
+    // else if (sort === "orders") {
+    //   console.log("sorting asc");
+    //   products.sort((a, b) => {
+    //     console.log(
+    //       b.name,
+    //       b.orders,
+    //       a.name,
+    //       a.orders,
+    //       b.orders - a.orders > 0
+    //     );
+    //     return b.orders - a.orders > 0;
+    //   });
+    // }
+    //console.log({ products });
 
     res.status(200).json({
       status: "success",
