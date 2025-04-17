@@ -27,6 +27,9 @@ export const useUpdateMe = () => {
     },
 
     onSuccess: (data) => {
+      console.log({ data });
+      if (data.status === "error")
+        return toast.error(t("somethingWentWrong"), { id: "updateMe" });
       if (data.errors)
         return toast.error(data.errors[0].msg, { id: "updateMe" });
 

@@ -60,7 +60,7 @@ export const AddProductModal = () => {
       !selectedDescription.length ||
       !selectedCover.length
     ) {
-      return toast.error("Please enter all fields.", {
+      return toast.error(t("pleaseEnterAllFields"), {
         id: "add-product",
       });
     }
