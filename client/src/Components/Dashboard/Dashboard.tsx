@@ -7,6 +7,8 @@ import styled from "styled-components";
 import { DashboardSellerList } from "./DashboardSellerList";
 import { Modal } from "../Modal";
 import { useMe } from "../../hooks/useMe";
+import { ErrorBoundary } from "react-error-boundary";
+import { ErrorBox } from "../ErrorBox";
 
 const DashboardLayout = styled(SidebarLayout)`
   font-weight: 500;
@@ -46,7 +48,9 @@ export const Dashboard = () => {
       </Sidebar>
 
       <DashboardContent>
-        <Outlet />
+        <ErrorBoundary fallback={<ErrorBox fullPage={true} />}>
+          <Outlet />
+        </ErrorBoundary>
       </DashboardContent>
     </DashboardLayout>
   );
