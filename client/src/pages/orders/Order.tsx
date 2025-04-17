@@ -14,6 +14,8 @@ import ExpandingList from "../../Components/ExpandingList";
 import { HiOutlineCheck } from "react-icons/hi";
 import { useJWT } from "../../hooks/useJWT";
 import ExpandingThreeDotsButton from "../../Components/ExpandingThreeDotsButton";
+import { HiOutlineBanknotes } from "react-icons/hi2";
+import { usePayOrder } from "../../hooks/order/usePayOrder";
 
 const UppercaseBold = styled.span`
   text-transform: uppercase;
@@ -61,13 +63,17 @@ export const Order: FC<IOrder> = ({
   products,
   totalPrice,
   createdAt,
+  paid,
 }) => {
   const { t } = useTranslation();
 
   const { JWT } = useJWT();
 
   const { mutate: confirmOrder } = useConfirmOrder();
+  const { mutate: payOrder } = usePayOrder();
+
   const handleConfirmOrder = () => confirmOrder({ JWT, orderId: _id });
+  const handlePayOrder = () => payOrder({ JWT, orderId: _id });
 
   let color: BadgeColor;
 
@@ -102,25 +108,40 @@ export const Order: FC<IOrder> = ({
             </Column>
           ) : null}
 
-          {status === "shipped" ? (
-            <ExpandingList start="right">
-              <ExpandingThreeDotsButton />
-
-              <ExpandingList.List>
-                <ExpandingList.Ul>
-                  <ExpandingList.Li onClick={handleConfirmOrder}>
-                    <HiOutlineCheck />
-                    {t("confirmOrderDelivery")}
-                  </ExpandingList.Li>
-                </ExpandingList.Ul>
-              </ExpandingList.List>
-            </ExpandingList>
+          {paid === false ? (
+            <Badge $color="red" $size="medium">
+              {t("unpaid")}
+            </Badge>
           ) : null}
 
           {status !== "delivered" ? (
             <Badge $color={color} $size="medium">
               {t(status)}
             </Badge>
+          ) : null}
+
+          {status === "shipped" || !paid ? (
+            <ExpandingList start="right">
+              <ExpandingThreeDotsButton />
+
+              <ExpandingList.List>
+                <ExpandingList.Ul>
+                  {status === "shipped" ? (
+                    <ExpandingList.Li onClick={handleConfirmOrder}>
+                      <HiOutlineCheck />
+                      {t("confirmOrderDelivery")}
+                    </ExpandingList.Li>
+                  ) : null}
+
+                  {!paid ? (
+                    <ExpandingList.Li onClick={handlePayOrder}>
+                      <HiOutlineBanknotes />
+                      {t("pay")}
+                    </ExpandingList.Li>
+                  ) : null}
+                </ExpandingList.Ul>
+              </ExpandingList.List>
+            </ExpandingList>
           ) : null}
         </Row>
       </RowInfo>
