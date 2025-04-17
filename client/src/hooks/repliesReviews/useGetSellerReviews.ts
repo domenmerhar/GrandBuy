@@ -34,7 +34,7 @@ export const useGetSellerReviews = () => {
 
   const page = Number(searchParams.get("page")) || 1;
   const sort: SortCreatedAt =
-    sortStr === "oldest" ? "-createdAt" : "+createdAt";
+    sortStr === "oldest" ? "+createdAt" : "-createdAt";
 
   return useQuery({
     queryKey: ["seller-reviews", userId, page, sort],

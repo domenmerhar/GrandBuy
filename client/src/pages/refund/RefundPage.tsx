@@ -50,8 +50,7 @@ export const RefundPage = () => {
     searchParams.get("filter") !== "all"
       ? (searchParams.get("filter") as RefundStatus)
       : undefined;
-  const sort =
-    searchParams.get("sort") === "youngest" ? "+createdAt" : "-createdAt";
+  const sort = searchParams.get("sort") || "-createdAt";
 
   const data = useInfinite({
     queryKey: ["userRefunds", userId, filter, sort],
@@ -61,15 +60,15 @@ export const RefundPage = () => {
       return getUserRefunds({
         JWT,
         page: Number(pageParam),
-        sort,
+        sort: sort as "-createdAt" | "+createdAt",
         status: filter,
       });
     },
   });
 
   const selectOptions: IOption[] = [
-    { value: "oldest", name: t("sortByDateOldest") },
-    { value: "newest", name: t("sortByDateNewest") },
+    { value: "+createdAt", name: t("sortByDateOldest") },
+    { value: "-createdAt", name: t("sortByDateNewest") },
   ];
 
   const filterOptions: IOption[] = [

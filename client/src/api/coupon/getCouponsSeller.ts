@@ -1,5 +1,5 @@
 import { toApiPath } from "../../functions/toApiPath";
-import { SortCreatedAt, SortDiscount } from "../../Util/types";
+import { SortDiscount, SortExpireAt } from "../../Util/types";
 
 /**
  * Pridobi kupone prodajalca s podporo za sortiranje in paginacijo.
@@ -22,7 +22,7 @@ export const getCouponsSeller = async ({
   page,
   JWT,
 }: {
-  sort: SortCreatedAt | SortDiscount;
+  sort: SortExpireAt | SortDiscount;
   page: number;
   JWT: string;
 }) => {
