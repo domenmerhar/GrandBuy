@@ -20,6 +20,7 @@ import ExpandingThreeDotsButton from "./ExpandingThreeDotsButton";
 import { HiOutlineTrash } from "react-icons/hi";
 import { HiOutlinePencilSquare } from "react-icons/hi2";
 import { Modal } from "./Modal";
+import { toPrice } from "../functions/toPrice";
 
 const StyledProductInfo = styled(Column)`
   min-width: 25rem;
@@ -46,7 +47,7 @@ const HeaderHolder = styled(Row)`
 
 interface ProductInfoProps {
   title: string;
-  price: string;
+  price: number;
   shipping: string;
   averageRating: string;
   unitsSold: string;
@@ -148,7 +149,10 @@ export const ProductInfo: FC<ProductInfoProps> = ({
           ) : null}
         </HeaderHolder>
 
-        <ProductInfoParagraph title={t("price")} value={price} />
+        <ProductInfoParagraph
+          title={t("price")}
+          value={toPrice((price * (100 - discount)) / 100, "EUR")}
+        />
         <ProductInfoParagraph title={t("shipping")} value={shipping} />
         <ProductInfoParagraph
           title={t("averageRating")}
