@@ -21,12 +21,12 @@ export const SearchPage = () => {
   const { t } = useTranslation();
 
   const selectOptions: IOption[] = [
-    { name: t("sortByOrdersMost"), value: "-orders" },
-    { name: t("sortByOrdersLeast"), value: "orders" },
+    // { name: t("sortByOrdersMost"), value: "-orders" },
+    // { name: t("sortByOrdersLeast"), value: "orders" },
     { name: t("sortByPriceHighest"), value: "-totalPrice" },
     { name: t("sortByPriceLowest"), value: "+totalPrice" },
-    { name: t("sortByDateNewest"), value: "-createdAt" },
-    { name: t("sortByDateOldest"), value: "+createdAt" },
+    { name: t("sortByDateNewest"), value: "-lastChanged" },
+    { name: t("sortByDateOldest"), value: "+lastChanged" },
   ];
 
   return (
