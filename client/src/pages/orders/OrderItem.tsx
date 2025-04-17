@@ -122,7 +122,7 @@ export const OrderItem: FC<OrderItemProps> = ({
         <Product>{name}</Product>
 
         <Price>
-          {t("totalPrice")}: {price}
+          {t("pricePerProduct")}: {price}
         </Price>
         <Quantity>
           {t("quantity")}: {quantity}

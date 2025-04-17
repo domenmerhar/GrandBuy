@@ -55,7 +55,7 @@ export const ProductInfoCard = () => {
 
         <ProductInfo
           title={searchParams.get("title") || ""}
-          price={searchParams.get("price") || ""}
+          price={Number(searchParams.get("price") || "")}
           shipping={searchParams.get("shipping") || ""}
           averageRating="0"
           unitsSold="0"

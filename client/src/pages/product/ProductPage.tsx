@@ -83,7 +83,7 @@ export const ProductPage = () => {
             averageRating={String(averageRating)}
             createdBy={username}
             uploaded={toDate(lastChanged)}
-            price={toPrice(price, "EUR")}
+            price={price}
             shipping={toPrice(shipping, "EUR")}
             unitsSold={String(orders)}
             discount={discount}

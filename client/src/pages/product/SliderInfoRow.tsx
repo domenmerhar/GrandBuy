@@ -28,7 +28,7 @@ const NoImage = styled.div`
 interface SliderInfoRowProps {
   images: string[];
   title: string;
-  price: string;
+  price: number;
   shipping: string;
   averageRating: string;
   unitsSold: string;
@@ -89,7 +89,7 @@ export const SliderInfoRow: FC<SliderInfoRowProps> = ({
       <ProductInfoHolder $position="sticky" $height="auto" $rounded>
         <ProductInfo
           title={title}
-          price={price}
+          price={Number(price)}
           shipping={shipping}
           averageRating={averageRating}
           unitsSold={unitsSold}
