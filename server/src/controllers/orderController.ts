@@ -6,7 +6,7 @@ import Order from "../models/orderModel";
 import CartItem from "../models/cartItemModel";
 import cartItemModel from "../models/cartItemModel";
 import { stripe } from "../utils/stripe";
-import mongoose from "mongoose";
+import mongoose, { ObjectId } from "mongoose";
 
 const ordersPerRequest = 10;
 
@@ -43,6 +43,111 @@ export const getUserOrdersCount = catchAsync(
 
 //TODO: ADMIN CANT ORDER
 
+const getOrderReadyProducts = async ({
+  cartItems,
+  userId,
+}: {
+  cartItems: [];
+  userId: mongoose.Types.ObjectId;
+}) => {
+  const products = await CartItem.aggregate([
+    {
+      $match: {
+        _id: {
+          $in: cartItems,
+        },
+        user: userId,
+        ordered: { $ne: true },
+      },
+    },
+    {
+      $project: {
+        _id: 1,
+        name: 1,
+        image: 1,
+        quantity: 1,
+        shipping: 1,
+        price: 1,
+        product: 1,
+        totalPrice: {
+          $add: [
+            {
+              $multiply: [
+                { $multiply: ["$price", "$quantity"] },
+                { $subtract: [1, { $divide: ["$discount", 100] }] },
+              ],
+            },
+            "$shipping",
+          ],
+        },
+      },
+    },
+  ]);
+
+  return products;
+};
+
+const createStripeSession = ({
+  order,
+  email,
+  products,
+}: {
+  order: { _id: ObjectId };
+  email: string;
+  products: { totalPrice: number; name: string; quantity: number }[];
+}) => {
+  return stripe.checkout.sessions.create({
+    payment_method_types: ["card"],
+    client_reference_id: String(order._id),
+    mode: "payment",
+    //locale: "auto",
+    locale: "sl",
+    success_url: process.env.STRIPE_REDIRECT_URL!,
+    cancel_url: process.env.STRIPE_REDIRECT_URL!,
+    customer_email: email,
+
+    line_items: products.map((product) => {
+      return {
+        price_data: {
+          currency: "eur",
+          unit_amount: (product.totalPrice * 100).toFixed(0),
+          product_data: {
+            name: product.name,
+          },
+        },
+        quantity: product.quantity,
+      };
+    }),
+  });
+};
+
+export const payOrder = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const { id } = req.params;
+    const userId = new mongoose.Types.ObjectId(res.locals.user._id);
+    const { email } = res.locals.user;
+
+    const order = await Order.findOne({
+      _id: id,
+      user: userId,
+      paid: { $ne: true },
+    });
+    if (!order) return next(new AppError("Order not found.", 404));
+
+    const session = await createStripeSession({
+      order,
+      email,
+      products: order.products,
+    });
+
+    res.status(201).json({
+      status: "success",
+      data: { order },
+      session: session.url,
+    });
+  }
+);
+
 export const addOrder = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const cartItems = req.body.cartItems.map(
@@ -51,39 +156,7 @@ export const addOrder = catchAsync(
     const userId = new mongoose.Types.ObjectId(res.locals.user._id);
     const { email } = res.locals.user;
 
-    const products = await CartItem.aggregate([
-      {
-        $match: {
-          _id: {
-            $in: cartItems,
-          },
-          user: new mongoose.Types.ObjectId(userId),
-          ordered: { $ne: true },
-        },
-      },
-      {
-        $project: {
-          _id: 1,
-          name: 1,
-          image: 1,
-          quantity: 1,
-          shipping: 1,
-          price: 1,
-          product: 1,
-          totalPrice: {
-            $add: [
-              {
-                $multiply: [
-                  { $multiply: ["$price", "$quantity"] },
-                  { $subtract: [1, { $divide: ["$discount", 100] }] },
-                ],
-              },
-              "$shipping",
-            ],
-          },
-        },
-      },
-    ]);
+    const products = await getOrderReadyProducts({ cartItems, userId });
 
     if (products.length !== cartItems.length)
       return next(new AppError("Please provide valid cart items.", 400));
@@ -97,33 +170,7 @@ export const addOrder = catchAsync(
       ),
     });
 
-    console.log(products);
-
-    const session = await stripe.checkout.sessions.create({
-      payment_method_types: ["card"],
-      client_reference_id: String(order._id),
-      mode: "payment",
-      //locale: "auto",
-      locale: "sl",
-      //TODO: SUCCESS URL
-      //TODO: CANCEL URL
-      success_url: "http://localhost:5173",
-      cancel_url: "https://www.google.com",
-      customer_email: email,
-
-      line_items: products.map((product) => {
-        return {
-          price_data: {
-            currency: "eur",
-            unit_amount: (product.totalPrice * 100).toFixed(0),
-            product_data: {
-              name: product.name,
-            },
-          },
-          quantity: product.quantity,
-        };
-      }),
-    });
+    const session = await createStripeSession({ email, order, products });
 
     await CartItem.updateMany({ _id: { $in: cartItems } }, { ordered: true });
 
