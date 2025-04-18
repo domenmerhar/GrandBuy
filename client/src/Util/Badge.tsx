@@ -47,4 +47,5 @@ export const Badge = styled.span<BadgeProps>`
   }}
 
   border-radius: 2rem;
+  display: inline-block;
 `;
