@@ -51,7 +51,7 @@ export const OrderSummary = () => {
 
       <SummaryRow name={t("items")} price={toPrice(items, "EUR")} />
       <SummaryRow name={t("shipping")} price={toPrice(shipping, "EUR")} />
-      <SummaryRow name={t("coupons")} price={toPrice(discount, "EUR")} />
+      <SummaryRow name={t("discount")} price={toPrice(discount, "EUR")} />
       <Hr />
       <SummaryRow name={t("total")} price={toPrice(total, "EUR")} />
     </StyledOrderSummary>
