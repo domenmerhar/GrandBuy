@@ -33,6 +33,9 @@ export const ProductDescription: FC<MarkdownTestProps> = ({ markdownSrc }) => {
     fetchMarkdown();
   }, [markdownSrc]);
 
+  if (markdownContent.includes(`{"status":"fail","message":"Can't find`))
+    return null;
+
   return (
     <MarkdownRenderer>
       {markdownContent || t("descriptionIsLoading")}
