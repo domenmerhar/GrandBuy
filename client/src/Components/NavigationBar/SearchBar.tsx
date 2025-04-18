@@ -1,7 +1,7 @@
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { HiOutlineSearch } from "react-icons/hi";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 
 const StyledSearchBar = styled.form`
@@ -80,6 +80,7 @@ const IconHolder = styled.button`
 
 export const SearchBar = () => {
   const { t } = useTranslation();
+  const { query } = useParams();
 
   const navigate = useNavigate();
   const inputRef = useRef<HTMLInputElement>(null);
@@ -92,6 +93,11 @@ export const SearchBar = () => {
 
     navigate(`/search/${inputRef.current.value}${search}`);
   };
+
+  useEffect(() => {
+    if (!inputRef.current || inputRef.current?.value) return;
+    inputRef.current.value = query || "";
+  }, [query]);
 
   return (
     <StyledSearchBar onSubmit={handleSubmit}>
