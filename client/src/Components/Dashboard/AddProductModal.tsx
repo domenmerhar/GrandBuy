@@ -55,7 +55,7 @@ export const AddProductModal = () => {
     if (
       !name ||
       !price ||
-      !shipping ||
+      shipping < 0 ||
       !selectedImages.length ||
       !selectedDescription.length ||
       !selectedCover.length
