@@ -3,6 +3,8 @@ config.env
 client/docs
 server/public
 server/dist
+.vite
+.stripe
 
 # Logs
 logs
